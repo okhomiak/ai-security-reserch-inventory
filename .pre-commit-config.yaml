@@ -1,0 +1,31 @@
+# Catch a credential before it is committed, not after it is pushed.
+#   pip install pre-commit && pre-commit install
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.0
+    hooks:
+      - id: gitleaks
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: detect-private-key
+      - id: detect-aws-credentials
+        args: [--allow-missing-credentials]
+      - id: check-added-large-files
+        args: [--maxkb=2048]
+      - id: check-json
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: no-commit-to-branch
+        args: [--branch, main]   # main changes by reviewed PR only
+
+  - repo: local
+    hooks:
+      - id: inventory-integrity
+        name: inventory referential integrity
+        entry: python3 agent/check.py
+        language: system
+        pass_filenames: false
+        files: '^docs/data/.*\.json$'

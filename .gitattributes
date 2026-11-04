@@ -1,0 +1,6 @@
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.ico binary
+docs/data/*.json linguist-generated=true
+agent/requirements.txt linguist-generated=true

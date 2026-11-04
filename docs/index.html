@@ -3,6 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- GitHub Pages cannot set response headers, so the policy is declared here.
+     The page loads no third-party anything: no CDN, no fonts, no analytics, no
+     frames. default-src 'none' and widen only where this page actually needs
+     it, which makes any future external dependency a deliberate edit.
+
+     style-src deliberately omits 'unsafe-inline'. Data-driven colour is applied
+     through the CSSOM instead (see applySty in app.js) - verified in a browser
+     rather than assumed, because a strict CSP that silently breaks the page is
+     worse than an honest one.
+
+     frame-ancestors is absent on purpose: it is ignored in a meta element and
+     only works as a response header, which GitHub Pages does not let us set.
+     Clickjacking protection therefore is not available here; the page is
+     read-only and has no actions to hijack. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>AI Security Research Inventory</title>
 <meta name="description" content="Overlaps, taxonomy and company-demand map across AI security research, refreshed weekly by an agent.">
 <meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)">
@@ -56,7 +72,7 @@
           <button data-m="tree" aria-pressed="true">Tree</button>
           <button data-m="graph" aria-pressed="false">Graph</button>
         </div>
-        <div class="legend" id="ov-legend" style="margin:0"></div>
+        <div class="legend flush" id="ov-legend"></div>
       </div>
       <div class="scroll-x" id="ov-tree-wrap"><svg id="overlap-tree" role="img" aria-label="Overlapping papers grouped into clusters"></svg></div>
       <div class="scroll-x" id="ov-graph-wrap" hidden><svg id="graph" role="img" aria-label="Force-directed graph of overlapping papers"></svg></div>
@@ -78,7 +94,7 @@
           <button data-level="branch" aria-pressed="true">Branches</button>
           <button data-level="leaf" aria-pressed="false">Leaf detail</button>
         </div>
-        <span class="legend" id="mx-legend" style="margin:0"></span>
+        <span class="legend flush" id="mx-legend"></span>
       </div>
       <div class="scroll-x scroll-y" id="ov-matrix"></div>
     </div>
@@ -108,7 +124,7 @@
           <button data-f="covered" aria-pressed="false">With papers</button>
           <button data-f="empty" aria-pressed="false">Empty leaves</button>
         </div>
-        <span class="legend" id="tree-legend" style="margin:0"></span>
+        <span class="legend flush" id="tree-legend"></span>
       </div>
       <div class="scroll-x"><svg id="tree" role="img" aria-label="Research taxonomy tree with paper counts"></svg></div>
     </div>
@@ -129,7 +145,7 @@
           <button data-s="type" aria-pressed="false">Group by type</button>
           <button data-s="name" aria-pressed="false">A–Z</button>
         </div>
-        <span class="legend" id="hm-legend" style="margin:0"></span>
+        <span class="legend flush" id="hm-legend"></span>
       </div>
       <div class="scroll-x" id="heatmap"></div>
     </div>

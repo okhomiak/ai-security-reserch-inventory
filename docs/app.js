@@ -53,7 +53,7 @@ const rampInk = (value, max) =>
          : (Math.sqrt(Math.min(1, value / (max || 1))) > 0.52 ? 'var(--on-ramp-hi)' : 'var(--on-ramp-lo)');
 
 function rampLegend(label, max) {
-  const cells = [0, 2, 4, 6, 8, 10, 12].map((s) => `<i style="background:var(--q${s})"></i>`).join('');
+  const cells = [0, 2, 4, 6, 8, 10, 12].map((s) => `<i data-sty="background:var(--q${s})"></i>`).join('');
   return `<span class="li">${esc(label)} <span class="ramp" aria-hidden="true">${cells}</span>
     <span class="sub">0&nbsp;→&nbsp;${max}</span></span>`;
 }
@@ -82,6 +82,37 @@ function bindTip(node, html) {
 
 /* The richer popover. #tip is for one-liners; #card is for where the hover is
    the point of the interaction, which on the research tree it is. */
+/* ---------------------------------------------------------------------------
+   Content-Security-Policy and data-driven colour.
+
+   The page ships `style-src 'self'` with no 'unsafe-inline'. That blocks inline
+   style attributes, which is exactly what a template emitting
+   `style="background:${colour}"` produces - verified in a browser, not assumed.
+
+   Weakening the policy to 'unsafe-inline' would have been the easy fix. Instead
+   templates emit `data-sty` and this observer applies it through the CSSOM,
+   which CSP does not govern. One hook, applied to anything added to the DOM,
+   so the rule cannot be forgotten in new code.
+
+   `cssText` only ever receives strings this file builds from palette tokens and
+   computed numbers; every interpolated datum goes through esc() first.
+--------------------------------------------------------------------------- */
+function applySty(root) {
+  const nodes = root.querySelectorAll ? root.querySelectorAll('[data-sty]') : [];
+  for (const n of nodes) {
+    n.style.cssText = n.getAttribute('data-sty');
+    n.removeAttribute('data-sty');
+  }
+  if (root.hasAttribute && root.hasAttribute('data-sty')) {
+    root.style.cssText = root.getAttribute('data-sty');
+    root.removeAttribute('data-sty');
+  }
+}
+new MutationObserver((records) => {
+  for (const r of records) for (const n of r.addedNodes) if (n.nodeType === 1) applySty(n);
+}).observe(document.documentElement, { childList: true, subtree: true });
+addEventListener('DOMContentLoaded', () => applySty(document.documentElement));
+
 const card = $('#card');
 function showCard(e, html) { card.innerHTML = html; card.classList.add('on'); moveCard(e); }
 function moveCard(e) {
@@ -110,7 +141,7 @@ const newBadge = (p) => (isNew(p) ? '<span class="badge is-new">new</span>' : ''
 const kindBadge = (p) => (p.kind && p.kind !== 'paper'
   ? `<span class="badge kind-${esc(p.kind)}">${esc(p.kind)}</span>` : '');
 const contribBadge = (t) =>
-  `<span class="badge contrib" style="color:${contribVar(t)}">${esc(t)}</span>`;
+  `<span class="badge contrib" data-sty="color:${contribVar(t)}">${esc(t)}</span>`;
 
 /* Stacked contribution mix for a set of papers, drawn in slot order. */
 function mixBar(papers, width = 86) {
@@ -118,8 +149,8 @@ function mixBar(papers, width = 86) {
   const counts = CONTRIB.map((t) => [t, papers.filter((p) => p.contribution_type === t).length]);
   const total = counts.reduce((a, [, n]) => a + n, 0) || 1;
   const segs = counts.filter(([, n]) => n).map(([t, n]) =>
-    `<i style="width:${Math.max(3, (n / total) * width)}px;background:${contribVar(t)}" title="${n} ${t}"></i>`).join('');
-  return `<span class="mix" style="width:${width}px">${segs}</span>`;
+    `<i data-sty="width:${Math.max(3, (n / total) * width)}px;background:${contribVar(t)}" title="${n} ${t}"></i>`).join('');
+  return `<span class="mix" data-sty="width:${width}px">${segs}</span>`;
 }
 const paperLink = (id) => {
   const p = PAPER[id];
@@ -222,7 +253,7 @@ function renderHead() {
 
   $('#contrib-legend').innerHTML = CONTRIB.map((t) => {
     const n = D.papers.papers.filter((p) => p.contribution_type === t).length;
-    return n ? `<span class="li"><span class="swatch" style="background:${contribVar(t)}"></span>${esc(t)} <span class="sub">${n}</span></span>` : '';
+    return n ? `<span class="li"><span class="swatch" data-sty="background:${contribVar(t)}"></span>${esc(t)} <span class="sub">${n}</span></span>` : '';
   }).join('');
 }
 
@@ -241,16 +272,16 @@ function renderOverlaps() {
   ].map(([v, k]) => `<div class="stat"><div class="v">${esc(v)}</div><div class="k">${esc(k)}</div></div>`).join('');
 
   $('#ov-legend').innerHTML = clusters.map((c, i) =>
-    `<span class="li"><span class="swatch" style="background:var(--s${(i % 3) + 1})"></span>${esc(c.label)} <span class="sub">(${c.size})</span></span>`
-  ).join('') + '<span class="li"><span class="swatch" style="background:var(--axis)"></span>unclustered</span>';
+    `<span class="li"><span class="swatch" data-sty="background:var(--s${(i % 3) + 1})"></span>${esc(c.label)} <span class="sub">(${c.size})</span></span>`
+  ).join('') + '<span class="li"><span class="swatch" data-sty="background:var(--axis)"></span>unclustered</span>';
 
   /* clusters */
   $('#ov-clusters').innerHTML = clusters.map((c, i) => `
-    <div class="cl" style="border-left-color:var(--s${(i % 3) + 1})">
+    <div class="cl" data-sty="border-left-color:var(--s${(i % 3) + 1})">
       <h3>${esc(c.label)}</h3>
       <div class="meta">${c.size} papers · mean overlap ${c.mean_score} · shares
         ${c.shared.slice(0, 4).map((s) => esc(TAX[s]?.label || s)).join(', ')}
-        <div style="margin-top:6px">${mixBar(c.papers.map((id) => PAPER[id]).filter(Boolean), 150)}</div></div>
+        <div data-sty="margin-top:6px">${mixBar(c.papers.map((id) => PAPER[id]).filter(Boolean), 150)}</div></div>
       <ol>${c.papers.map((id) => `<li>${paperLink(id)} <span class="sub">${esc(PAPER[id]?.date?.slice(0, 4) || '')}</span>${PAPER[id] && isNew(PAPER[id]) ? ' <span class="badge is-new">new</span>' : ''}</li>`).join('')}</ol>
     </div>`).join('') || '<p class="empty">No clusters yet.</p>';
 
@@ -279,7 +310,7 @@ function renderOverlaps() {
     });
     $('#ov-pairs').innerHTML = rows.slice(0, 160).map((p) => `
       <li>
-        <div class="score">${p.score.toFixed(2)}<i style="width:${Math.round(p.score * 100)}%"></i></div>
+        <div class="score">${p.score.toFixed(2)}<i data-sty="width:${Math.round(p.score * 100)}%"></i></div>
         <div>
           <div class="pair-t">${paperLink(p.a)}<span class="j">↔</span>${paperLink(p.b)}
             ${p.declared ? '<span class="badge">stated</span>' : ''}</div>
@@ -646,7 +677,7 @@ function drawTree() {
   const roots = Object.keys(BRANCH);
   const maxN = Math.max(1, ...Object.values(total));
   $('#tree-legend').innerHTML = rampLegend('papers at or under a node', maxN) +
-    '<span class="li"><span class="swatch" style="background:transparent;box-shadow:0 0 0 1.5px var(--axis) inset"></span>empty leaf</span>';
+    '<span class="li"><span class="swatch" data-sty="background:transparent;box-shadow:0 0 0 1.5px var(--axis) inset"></span>empty leaf</span>';
 
   /* which leaves to draw */
   const visible = (id) => {
@@ -775,7 +806,7 @@ function nodeCard(id, isLeaf) {
       <div class="nums">
         <div><b>${papers.length}</b><span>papers${isLeaf ? '' : ' in branch'}</span></div>
         <div><b>${demand ? demand.toFixed(1) : '—'}</b><span>peak demand /5</span></div>
-        ${fresh.length ? `<div><b style="color:var(--good)">${fresh.length}</b><span>new</span></div>` : ''}
+        ${fresh.length ? `<div><b data-sty="color:var(--good)">${fresh.length}</b><span>new</span></div>` : ''}
       </div>
       ${papers.length
         ? `<div>${mixBar(papers, 180)}</div>
@@ -786,7 +817,7 @@ function nodeCard(id, isLeaf) {
       ${gaps.length ? `<ul>${gaps.map((g) =>
         `<li><b>Named in a gap:</b> ${esc(g.title)}</li>`).join('')}</ul>` : ''}
       ${recent.length ? `<ul>${recent.map((p) =>
-        `<li>${esc(shortTitle(p.short || p.title, 44))} <span style="color:var(--ink-3)">${esc(p.date.slice(0, 4))}</span>${isNew(p) ? ' <b style="color:var(--good)">NEW</b>' : ''}</li>`).join('')}</ul>` : ''}
+        `<li>${esc(shortTitle(p.short || p.title, 44))} <span data-sty="color:var(--ink-3)">${esc(p.date.slice(0, 4))}</span>${isNew(p) ? ' <b data-sty="color:var(--good)">NEW</b>' : ''}</li>`).join('')}</ul>` : ''}
       <div class="hint">Click to list everything here.</div>
     </div>`;
 }
@@ -803,11 +834,11 @@ function treePanel(id) {
   $('#tree-panel').innerHTML = `<p class="note">${esc(n.blurb || '')}</p>` + ids.map((pid) => {
     const p = PAPER[pid];
     if (!p) return '';
-    return `<div style="border-top:1px solid var(--grid);padding:10px 0">
+    return `<div data-sty="border-top:1px solid var(--grid);padding:10px 0">
       <div><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a></div>
-      <div class="sub" style="margin:3px 0 5px">${esc(p.organisations.slice(0, 3).join(', '))} · ${esc(p.venue)} · ${esc(p.date)}
+      <div class="sub" data-sty="margin:3px 0 5px">${esc(p.organisations.slice(0, 3).join(', '))} · ${esc(p.venue)} · ${esc(p.date)}
         ${tierBadge(p.trust.tier)} ${contribBadge(p.contribution_type)} ${kindBadge(p)} ${newBadge(p)}</div>
-      <div style="font-size:12.5px">${esc(p.what_its_about)}</div></div>`;
+      <div data-sty="font-size:12.5px">${esc(p.what_its_about)}</div></div>`;
   }).join('');
   $('#tree-panel-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
@@ -836,7 +867,7 @@ function drawHeatmap(sort) {
 
   $('#hm-legend').innerHTML = rampLegend('demand', 5) +
     '<span class="li"><span class="swatch sourced-key"></span>anchored to a published source — click to open it</span>' +
-    '<span class="li"><span class="swatch" style="background:var(--q4)"></span>seed estimate</span>';
+    '<span class="li"><span class="swatch" data-sty="background:var(--q4)"></span>seed estimate</span>';
 
   const t = el('table', { class: 'grid' });
   const head = el('tr');
@@ -851,7 +882,7 @@ function drawHeatmap(sort) {
     const showType = sort === 'type' && c.type !== lastType;
     lastType = c.type;
     tr.append(el('th', { class: 'rowh' },
-      `${esc(c.label)}<div class="sub" style="font-size:10.5px;font-weight:400">${showType || sort !== 'type' ? esc(c.region) : esc(c.type)}</div>`));
+      `${esc(c.label)}<div class="sub" data-sty="font-size:10.5px;font-weight:400">${showType || sort !== 'type' ? esc(c.region) : esc(c.type)}</div>`));
     cols.forEach((n) => {
       const cell = c.cells[n.id] || { score: 0, evidence: [] };
       const ev = cell.evidence || [];
@@ -864,8 +895,8 @@ function drawHeatmap(sort) {
         <span class="r">${cell.score}/5 — ${esc(scale?.label || '')}</span>
         ${ev.length
           ? `<ul>${ev.map((e) => `<li>${esc(e.q)}<br><span class="r">${esc(new URL(e.url).hostname)}</span></li>`).join('')}</ul>
-             <span class="r" style="display:block;margin-top:5px">click to open the source</span>`
-          : '<span class="r" style="display:block;margin-top:5px">seed estimate — no source attached yet</span>'}`);
+             <span class="r" data-sty="display:block;margin-top:5px">click to open the source</span>`
+          : '<span class="r" data-sty="display:block;margin-top:5px">seed estimate — no source attached yet</span>'}`);
       if (ev.length) {
         td.style.cursor = 'pointer';
         td.addEventListener('click', () => window.open(ev[0].url, '_blank', 'noopener'));
@@ -873,7 +904,7 @@ function drawHeatmap(sort) {
       tr.append(td);
     });
     const tot = total(c);
-    tr.append(el('td', { class: 'cell hm' }, `<span style="color:var(--ink-2)">${tot}</span>`));
+    tr.append(el('td', { class: 'cell hm' }, `<span data-sty="color:var(--ink-2)">${tot}</span>`));
     t.append(tr);
   });
 
@@ -907,17 +938,17 @@ function drawPressure() {
   rows.forEach((r) => {
     const tr = el('tr');
     tr.innerHTML = `
-      <td><b>${esc(r.n.label)}</b><div class="sub" style="font-size:11px">${esc(r.n.blurb)}</div></td>
-      <td class="num"><span style="display:inline-flex;align-items:center;gap:7px">
+      <td><b>${esc(r.n.label)}</b><div class="sub" data-sty="font-size:11px">${esc(r.n.blurb)}</div></td>
+      <td class="num"><span data-sty="display:inline-flex;align-items:center;gap:7px">
         ${r.mean_demand.toFixed(2)}
-        <i style="display:block;width:${Math.round((r.mean_demand / 5) * 76)}px;height:7px;border-radius:0 3px 3px 0;background:${ramp(r.mean_demand, 5)}"></i></span></td>
+        <i data-sty="display:block;width:${Math.round((r.mean_demand / 5) * 76)}px;height:7px;border-radius:0 3px 3px 0;background:${ramp(r.mean_demand, 5)}"></i></span></td>
       <td class="num">${r.companies_at_4plus}</td>
       <td class="num">${r.papers}</td>
       <td class="num">${r.defensive}</td>
       <td class="num">${r.offensive}</td>
-      <td class="num"><span style="display:inline-flex;align-items:center;gap:7px">
+      <td class="num"><span data-sty="display:inline-flex;align-items:center;gap:7px">
         ${r.pressure.toFixed(2)}
-        <i style="display:block;width:${Math.round((r.pressure / maxP) * 76)}px;height:7px;border-radius:0 3px 3px 0;background:${ramp(r.pressure, maxP)}"></i></span></td>`;
+        <i data-sty="display:block;width:${Math.round((r.pressure / maxP) * 76)}px;height:7px;border-radius:0 3px 3px 0;background:${ramp(r.pressure, maxP)}"></i></span></td>`;
     tb.append(tr);
   });
   t.append(tb);
@@ -990,7 +1021,7 @@ function gapCard(g, auto) {
       ${g.status ? `<span class="badge">${esc(g.status)}</span>` : ''}
       ${auto ? '<span class="badge">computed</span>' : ''}
       ${g.needs?.length ? g.needs.map((n) => `<span class="badge">${esc(NEED[n]?.label || n)}</span>`).join('') : ''}
-      ${g.refreshed ? `<span class="sub" style="margin-left:auto">figures as of ${esc(g.refreshed)}</span>` : ''}
+      ${g.refreshed ? `<span class="sub" data-sty="margin-left:auto">figures as of ${esc(g.refreshed)}</span>` : ''}
     </div>
     <ol class="chain">${chain}</ol>
     ${crit}
@@ -1011,10 +1042,10 @@ function drawGapTree() {
   const total = D.derived.tree.total || {};
   const maxN = Math.max(1, ...Object.values(total));
   $('#gap-tree-legend').innerHTML =
-    '<span class="li"><span class="swatch" style="background:var(--critical)"></span>high severity</span>' +
-    '<span class="li"><span class="swatch" style="background:var(--serious)"></span>medium</span>' +
+    '<span class="li"><span class="swatch" data-sty="background:var(--critical)"></span>high severity</span>' +
+    '<span class="li"><span class="swatch" data-sty="background:var(--serious)"></span>medium</span>' +
     rampLegend('papers under a node', maxN) +
-    '<span class="li"><span class="swatch" style="background:transparent;box-shadow:0 0 0 1.5px var(--axis) inset"></span>empty — missing literature</span>';
+    '<span class="li"><span class="swatch" data-sty="background:transparent;box-shadow:0 0 0 1.5px var(--axis) inset"></span>empty — missing literature</span>';
 
   const ROW = 21, X0 = 18, X1 = 330, X2 = 392, TOP = 24;
   const rows = [];
@@ -1190,7 +1221,7 @@ function drawPapers() {
       <td class="num">${contribBadge(p.contribution_type)}</td>`;
     const det = el('tr', { class: 'detail', hidden: '' });
     det.innerHTML = `<td colspan="6"><div class="detail-in">
-      <div style="font-size:13px">${esc(p.what_its_about)}</div>
+      <div data-sty="font-size:13px">${esc(p.what_its_about)}</div>
       <dl>
         <dt>Threat model</dt><dd>${esc(p.threat_model)}</dd>
         <dt>Methods</dt><dd>${p.methods.map((m) => `<span class="badge">${esc(m)}</span>`).join(' ')}</dd>
@@ -1198,7 +1229,7 @@ function drawPapers() {
         <dt>Company needs</dt><dd>${p.addresses_needs.map((n) => `<span class="badge">${esc(NEED[n]?.label || n)}</span>`).join(' ') || '<span class="sub">none recorded</span>'}</dd>
         <dt>Leaves open</dt><dd>${esc(p.gap_signal || '—')}</dd>
         <dt>Overlaps</dt><dd>${(p.overlaps_with || []).map((o) =>
-          `<div style="margin-bottom:4px">${paperLink(o.id)}<div class="sub" style="font-size:11.5px">${esc(o.shared)}</div></div>`).join('') || '<span class="sub">none recorded</span>'}</dd>
+          `<div data-sty="margin-bottom:4px">${paperLink(o.id)}<div class="sub" data-sty="font-size:11.5px">${esc(o.shared)}</div></div>`).join('') || '<span class="sub">none recorded</span>'}</dd>
         <dt>Provenance</dt><dd>${tierBadge(p.trust.tier)} ${esc(p.trust.justification)}
           ${p.venue_source === 'curator' ? '<span class="sub">(venue stated by the curator, not read off arXiv)</span>' : ''}</dd>
         <dt>Authors</dt><dd class="sub">${esc(p.authors.join(', '))}</dd>
@@ -1250,12 +1281,12 @@ function renderPipeline() {
   }
 
   $('#pl-queue').innerHTML = q.length ? q.slice().reverse().map((p) => `
-    <div style="border-top:1px solid var(--grid);padding:10px 0">
+    <div data-sty="border-top:1px solid var(--grid);padding:10px 0">
       <div><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a></div>
-      <div class="sub" style="margin:3px 0">${esc(p.date)} · ${esc((p.organisations || []).join(', ') || 'organisations unknown')}
+      <div class="sub" data-sty="margin:3px 0">${esc(p.date)} · ${esc((p.organisations || []).join(', ') || 'organisations unknown')}
         ${p.agent_verdict ? `<span class="badge">tier ${esc(p.agent_verdict.tier)}</span>
         <span class="badge">confidence ${esc(p.agent_verdict.confidence)}</span>` : ''}</div>
-      <div style="font-size:12.5px">${esc(p.queued_because || '')}</div>
+      <div data-sty="font-size:12.5px">${esc(p.queued_because || '')}</div>
     </div>`).join('')
     : '<p class="empty">Queue is empty.</p>';
 }

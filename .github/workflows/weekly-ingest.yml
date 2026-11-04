@@ -20,9 +20,9 @@ on:
         type: boolean
         default: false
 
-permissions:
-  contents: write
-  pull-requests: write
+# Nothing by default. The single job below widens to exactly what it needs:
+# a branch push and a pull request. It never needs write access to main.
+permissions: {}
 
 concurrency:
   group: ingest
@@ -32,18 +32,32 @@ jobs:
   ingest:
     runs-on: ubuntu-24.04
     timeout-minutes: 45
+    permissions:
+      contents: write        # push the ingest branch (not main - see branch protection)
+      pull-requests: write   # open the PR
     outputs:
       changed: ${{ steps.commit.outputs.changed }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+        with:
+          # The agent fetches from the open internet by design, so egress cannot
+          # be blocked outright. Audit records every destination, which is how a
+          # feed quietly redirecting elsewhere would be noticed.
+          egress-policy: audit
 
-      - uses: actions/setup-python@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.12'
           cache: pip
           cache-dependency-path: agent/requirements.txt
 
-      - run: pip install -r agent/requirements.txt
+      - name: Install dependencies (hash-verified)
+        # --require-hashes makes a substituted artifact fail the build rather
+        # than execute. It also forces the full transitive closure to be pinned,
+        # which is the point.
+        run: pip install --require-hashes -r agent/requirements.txt
 
       - name: Run the pipeline
         env:
@@ -147,7 +161,7 @@ jobs:
             --label automated 2>&1 | tail -2 \
             || gh pr edit "$branch" --body-file /tmp/body.md
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
           name: run-log

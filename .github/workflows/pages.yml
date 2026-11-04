@@ -1,16 +1,18 @@
 name: Deploy dashboard
 
+# Actions are pinned to immutable commit SHAs, not tags. A tag is a mutable
+# pointer: whoever controls the action repo can move v7 to new code and every
+# consumer picks it up silently on the next run. Dependabot still proposes
+# bumps - it rewrites the SHA and the trailing version comment together.
+
 on:
   push:
     branches: [main]
     paths: ['docs/**', '.github/workflows/pages.yml']
   workflow_dispatch:
-  workflow_call:        # the weekly ingest calls this after it commits
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+# Read-only by default; each job widens only what it needs.
+permissions: {}
 
 concurrency:
   group: pages
@@ -19,14 +21,26 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read     # checkout
+      pages: write       # publish
+      id-token: write    # OIDC for deploy-pages
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/configure-pages@v6
-      - uses: actions/upload-pages-artifact@v4
+      - uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false   # nothing here pushes; don't leave a token in .git/config
+
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
         with:
           path: docs
       - id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

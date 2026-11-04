@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "updated": "2026-11-04",
-  "count": 43,
+  "count": 92,
   "note": "Seed set: landmark AI-security work, every id/title/date/author verified against the live arXiv API. The weekly agent appends to this file; `curation` says whether a record was hand-written or agent-classified.",
   "papers": [
     {
@@ -154,6 +154,114 @@
       "validation_warnings": []
     },
     {
+      "id": "arxiv:2506.17090",
+      "title": "Better Language Model Inversion by Compactly Representing Next-Token Distributions",
+      "short": "Model inversion",
+      "url": "https://arxiv.org/abs/2506.17090",
+      "pdf": "https://arxiv.org/pdf/2506.17090",
+      "date": "2025-06-20",
+      "authors": [
+        "M. Nazir",
+        "Matthew Finlayson",
+        "John X. Morris",
+        "Xiang Ren",
+        "S. Swayamdipta"
+      ],
+      "organisations": [],
+      "venue": "Neural Information Processing Systems",
+      "venue_source": "semantic-scholar",
+      "citations": 15,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "Neural Information Processing Systems; 15 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Recovers the hidden prompt from the model's output distribution alone, showing that logits carry far more about the input than intended. A direct argument for treating API surface as a confidentiality decision.",
+      "primary_category": "attack.extraction",
+      "categories": [
+        "attack.extraction",
+        "attack.model_theft"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "next-token distribution inversion",
+        "prompt recovery"
+      ],
+      "threat_model": "An API that returns full next-token probabilities.",
+      "addresses_needs": [
+        "n.privacy",
+        "n.secure_infra"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Assumes full distribution access, which providers have since restricted - but no analysis says how much restriction suffices.",
+      "confidence": 1.0,
+      "abstract": "Language model inversion seeks to recover hidden prompts using only language model outputs. This capability has implications for security and accountability in language model deployments, such as leaking private information from an API-protected language model's system message. We propose a new method -- prompt inversion from logprob sequences (PILS) -- that recovers hidden prompts by gleaning clues from the model's next-token probabilities over the course of multiple generation steps. Our method is enabled by a key insight: The vector-valued outputs of a language model occupy a low-dimensional subspace. This enables us to losslessly compress the full next-token probability distribution over multiple generation steps using a linear map, allowing more output information to be used for inversion. Our approach yields massive gains over previous state-of-the-art methods for recovering hidden prompts, achieving 2--3.5 times higher exact recovery rates across test sets, in one case increasing the recovery rate from 17% to 60%. Our method also exhibits surprisingly good generalization behavior; for instance, an inverter trained on 16 generations steps gets 5--27 points higher prompt recovery when we increase the number of steps to 32 at test time. Furthermore, we demonstrate strong performance of our method on the more challenging task of recovering hidden system messages. We also analyze the role of verbatim repetition in prompt recovery and propose a new method for cross-family mo",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2506.14866",
+      "title": "OS-Harm: A Benchmark for Measuring Safety of Computer Use Agents",
+      "short": "OS-Harm",
+      "url": "https://arxiv.org/abs/2506.14866",
+      "pdf": "https://arxiv.org/pdf/2506.14866",
+      "date": "2025-06-17",
+      "authors": [
+        "Thomas M. Kuntz",
+        "Agatha Duzan",
+        "Hao-Chen Zhao",
+        "Francesco Croce",
+        "Zico Kolter",
+        "Nicolas Flammarion"
+      ],
+      "organisations": [
+        "EPFL",
+        "Scale AI"
+      ],
+      "venue": "Neural Information Processing Systems",
+      "venue_source": "semantic-scholar",
+      "citations": 133,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "Neural Information Processing Systems; 133 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Safety benchmark for computer-use agents across deliberate misuse, prompt injection and plain unsafe behaviour, grounded in a real OS environment rather than a simulated one.",
+      "primary_category": "agent.computeruse",
+      "categories": [
+        "agent.computeruse",
+        "eval.benchmark",
+        "agent.hijack"
+      ],
+      "contribution_type": "benchmark",
+      "methods": [
+        "OS-level task suite",
+        "deliberate misuse and injection cases",
+        "LLM judge"
+      ],
+      "threat_model": "An agent driving a real desktop, misused deliberately or hijacked through the screen.",
+      "addresses_needs": [
+        "n.agent_sec",
+        "n.evals"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Covers one operating environment; whether results transfer across OS and application surfaces is untested, and that is where deployment actually varies.",
+      "confidence": 1.0,
+      "abstract": "Computer use agents are LLM-based agents that can directly interact with a graphical user interface, by processing screenshots or accessibility trees. While these systems are gaining popularity, their safety has been largely overlooked, despite the fact that evaluating and understanding their potential for harmful behavior is essential for widespread adoption. To address this gap, we introduce OS-Harm, a new benchmark for measuring safety of computer use agents. OS-Harm is built on top of the OSWorld environment and aims to test models across three categories of harm: deliberate user misuse, prompt injection attacks, and model misbehavior. To cover these cases, we create 150 tasks that span several types of safety violations (harassment, copyright infringement, disinformation, data exfiltration, etc.) and require the agent to interact with a variety of OS applications (email client, code editor, browser, etc.). Moreover, we propose an automated judge to evaluate both accuracy and safety of agents that achieves high agreement with human annotations (0.76 and 0.79 F1 score). We evaluate computer use agents based on a range of frontier models - such as o4-mini, Claude 3.7 Sonnet, Gemini 2.5 Pro - and provide insights into their safety. In particular, all models tend to directly comply with many deliberate misuse queries, are relatively vulnerable to static prompt injections, and occasionally perform unsafe actions. The OS-Harm benchmark is available at https://github.com/tml-epf",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
       "id": "arxiv:2506.08837",
       "title": "Design Patterns for Securing LLM Agents against Prompt Injections",
       "url": "https://arxiv.org/abs/2506.08837",
@@ -177,7 +285,7 @@
       "venue_source": "curator",
       "trust": {
         "tier": "frontier-lab",
-        "justification": "preprint - ETH Zurich",
+        "justification": "preprint - ETH Zurich; 113 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -229,7 +337,8 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Design patterns"
+      "short": "Design patterns",
+      "citations": 113
     },
     {
       "id": "web:openai-disrupting-malicious-uses",
@@ -332,6 +441,230 @@
       "validation_warnings": []
     },
     {
+      "id": "arxiv:2504.03767",
+      "title": "MCP safety audit: LLMs with the model context protocol allow major security exploits",
+      "short": "MCP safety audit",
+      "url": "https://arxiv.org/abs/2504.03767",
+      "pdf": "https://arxiv.org/pdf/2504.03767",
+      "date": "2025-04-02",
+      "authors": [
+        "John Halloran",
+        "Brandon Radosevich",
+        "Gavin Black"
+      ],
+      "organisations": [
+        "University of California, Riverside"
+      ],
+      "venue": "Defense + Security",
+      "venue_source": "semantic-scholar",
+      "citations": 124,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "Defense + Security; 124 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Demonstrates that a malicious MCP server can achieve code execution, credential theft and tool poisoning against a connected agent, and ships an auditing tool. Among the only reviewed treatments of the tool-server trust problem.",
+      "primary_category": "agent.mcp",
+      "categories": [
+        "agent.mcp",
+        "agent.hijack",
+        "supply.deps",
+        "agent.authz"
+      ],
+      "contribution_type": "analysis",
+      "methods": [
+        "protocol audit",
+        "malicious server demonstration",
+        "auditing tool"
+      ],
+      "threat_model": "A third-party tool server the user chose to install.",
+      "addresses_needs": [
+        "n.agent_sec",
+        "n.supplychain"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Audits a protocol as it stands; the ecosystem lacks any trust-establishment or revocation mechanism for a server that turns malicious after adoption.",
+      "confidence": 1.0,
+      "abstract": "To reduce development overhead and enable seamless integration between potential components comprising any given generative AI application, the Model Context Protocol (MCP) mcp:anthropic has recently been released and, subsequently, widely adapted. The MCP is an open protocol which standardizes API calls to large language models (LLMs), data sources, and agentic tools. Thus, by connecting multiple MCP servers-each defined with a set of tools, resources, and prompts-users are able to define automated workflows fully driven by LLMs. However, we show that the current MCP design carries a wide range of security risks for end-users. In particular, we show that industry-leading LLMs may be coerced to use MCP tools and compromise an AI developer’s system through a wide range of attacks, e.g., malicious code execution, remote access control, and credential theft. In order to proactively mitigate the demonstrated (and related) attacks, we introduce a safety auditing tool, McpSafetyScanner, the first such agentic tool to assess the security of an arbitrary MCP server. McpSafetyScanner uses several agents to: a) automatically determine adversarial samples given an MCP server’s tools and resources, (b) search for related vulnerabilities and remediations given such samples, and (c) generate a security report detailing all findings. Our work thus sheds light on serious security issues with general purpose agentic workflows, while also providing a proactive tool to audit the safety of MCP s",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2504.01849",
+      "title": "An Approach to Technical AGI Safety and Security",
+      "short": "DeepMind AGI safety",
+      "url": "https://arxiv.org/abs/2504.01849",
+      "pdf": "https://arxiv.org/pdf/2504.01849",
+      "date": "2025-04-02",
+      "authors": [
+        "R. Shah",
+        "A. Irpan",
+        "Alexander Matt Turner",
+        "Anna Wang",
+        "Arthur Conmy",
+        "David Lindner"
+      ],
+      "organisations": [
+        "Google DeepMind"
+      ],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 56,
+      "kind": "paper",
+      "trust": {
+        "tier": "frontier-lab",
+        "justification": "preprint; 56 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "DeepMind's technical agenda: separates misuse from misalignment, and pairs access control and capability suppression against the first with amplified oversight and monitoring against the second.",
+      "primary_category": "gov.frameworks",
+      "categories": [
+        "gov.frameworks",
+        "agent.authz",
+        "interp.deception",
+        "defense.monitoring"
+      ],
+      "contribution_type": "framework",
+      "methods": [
+        "misuse/misalignment split",
+        "amplified oversight",
+        "access control"
+      ],
+      "threat_model": "Severe harm from both deliberate misuse and unintended misalignment.",
+      "addresses_needs": [
+        "n.compliance",
+        "n.interp",
+        "n.agent_sec"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Comprehensive as a research agenda; the security half assumes access controls that the agent-identity gap shows do not yet exist.",
+      "confidence": 1.0,
+      "abstract": "Artificial General Intelligence (AGI) promises transformative benefits but also presents significant risks. We develop an approach to address the risk of harms consequential enough to significantly harm humanity. We identify four areas of risk: misuse, misalignment, mistakes, and structural risks. Of these, we focus on technical approaches to misuse and misalignment. For misuse, our strategy aims to prevent threat actors from accessing dangerous capabilities, by proactively identifying dangerous capabilities, and implementing robust security, access restrictions, monitoring, and model safety mitigations. To address misalignment, we outline two lines of defense. First, model-level mitigations such as amplified oversight and robust training can help to build an aligned model. Second, system-level security measures such as monitoring and access control can mitigate harm even if the model is misaligned. Techniques from interpretability, uncertainty estimation, and safer design patterns can enhance the effectiveness of these mitigations. Finally, we briefly outline how these ingredients could be combined to produce safety cases for AGI systems.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2503.10965",
+      "title": "Auditing language models for hidden objectives",
+      "short": "Hidden-objective audits",
+      "url": "https://arxiv.org/abs/2503.10965",
+      "pdf": "https://arxiv.org/pdf/2503.10965",
+      "date": "2025-03-14",
+      "authors": [
+        "Samuel Marks",
+        "Johannes Treutlein",
+        "Trenton Bricken",
+        "Jack Lindsey",
+        "Jonathan Marcus",
+        "S. Mishra-Sharma"
+      ],
+      "organisations": [
+        "Anthropic"
+      ],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 91,
+      "kind": "paper",
+      "trust": {
+        "tier": "frontier-lab",
+        "justification": "preprint; 91 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Trains a model with a concealed objective then runs blind audit teams against it - the first calibrated test of whether auditing actually works. Interpretability-equipped teams succeeded; black-box teams largely did not.",
+      "primary_category": "eval.audit",
+      "categories": [
+        "eval.audit",
+        "interp.deception",
+        "interp.probes"
+      ],
+      "contribution_type": "evaluation",
+      "methods": [
+        "blind auditing game",
+        "deliberately misaligned model",
+        "interpretability-assisted auditing"
+      ],
+      "threat_model": "A model trained with an objective its developer did not intend and cannot see.",
+      "addresses_needs": [
+        "n.interp",
+        "n.evals",
+        "n.compliance"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "One model, one planted objective, small sample. It establishes auditing is possible, not how often it succeeds.",
+      "confidence": 1.0,
+      "abstract": "We study the feasibility of conducting alignment audits: investigations into whether models have undesired objectives. As a testbed, we train a language model with a hidden objective. Our training pipeline first teaches the model about exploitable errors in RLHF reward models (RMs), then trains the model to exploit some of these errors. We verify via out-of-distribution evaluations that the model generalizes to exhibit whatever behaviors it believes RMs rate highly, including ones not reinforced during training. We leverage this model to study alignment audits in two ways. First, we conduct a blind auditing game where four teams, unaware of the model's hidden objective or training, investigate it for concerning behaviors and their causes. Three teams successfully uncovered the model's hidden objective using techniques including interpretability with sparse autoencoders (SAEs), behavioral attacks, and training data analysis. Second, we conduct an unblinded follow-up study of eight techniques for auditing the model, analyzing their strengths and limitations. Overall, our work provides a concrete example of using alignment audits to discover a model's hidden objective and proposes a methodology for practicing and validating progress in alignment auditing.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2502.01822",
+      "title": "Firewalls to Secure Dynamic LLM Agentic Networks",
+      "short": "Agent firewalls",
+      "url": "https://arxiv.org/abs/2502.01822",
+      "pdf": "https://arxiv.org/pdf/2502.01822",
+      "date": "2025-02-03",
+      "authors": [
+        "Sahar Abdelnabi",
+        "Amr Gomaa",
+        "Eugene Bagdasarian",
+        "P. O. Kristensson",
+        "Reza Shokri"
+      ],
+      "organisations": [
+        "Meta",
+        "UC Berkeley"
+      ],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 43,
+      "kind": "paper",
+      "trust": {
+        "tier": "frontier-lab",
+        "justification": "preprint; 43 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Three firewall layers between agents - over inputs, over data flow, and over trajectories - to keep utility while bounding what crosses a trust boundary. Treats the agent network as a network, which is the right frame.",
+      "primary_category": "agent.multiagent",
+      "categories": [
+        "agent.multiagent",
+        "agent.authz",
+        "defense.provenance"
+      ],
+      "contribution_type": "framework",
+      "methods": [
+        "input/data/trajectory firewalls",
+        "adaptive security rules"
+      ],
+      "threat_model": "Agents from different trust domains exchanging messages and data.",
+      "addresses_needs": [
+        "n.agent_sec",
+        "n.identity"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Rules are generated per deployment; there is no account of what a correct ruleset is or how to tell when one is wrong.",
+      "confidence": 1.0,
+      "abstract": "The emergence of agent-to-agent communication protocols mirrors the early internet: powerful connectivity with minimal security infrastructure. When AI agents communicate on behalf of users, every message crosses a trust boundary where the user's personal data and the external agent's unconstrained language each present distinct risks. We address both through a dual-firewall architecture grounded in a unifying principle: each task defines a context, and both sides of the communication carry information far exceeding what that context requires. Our firewalls act as projections onto the task context, allowing only contextually appropriate content to cross each boundary. The Language Converter Firewall projects incoming messages onto a closed, domain-specific, structured protocol; an external agent's message is converted to validated fields while persuasive framing, urgency tactics, and embedded instructions are structurally eliminated through deterministic verification. This replaces the asymmetric challenge of resisting every possible manipulation with the structural guarantee that manipulation has no channel through which to arrive. The Data Abstraction Firewall projects outgoing information onto the granularity appropriate for the task, rather than applying binary disclose-or-redact filtering, as previous airgapping solutions did. Both firewalls operate in a trusted environment isolated from external input, applying domain-specific rules learned automatically from demonstrat",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
       "id": "arxiv:2501.18837",
       "title": "Constitutional Classifiers: Defending against Universal Jailbreaks across Thousands of Hours of Red Teaming",
       "url": "https://arxiv.org/abs/2501.18837",
@@ -352,7 +685,7 @@
       "venue_source": "curator",
       "trust": {
         "tier": "frontier-lab",
-        "justification": "preprint (Anthropic) - Anthropic",
+        "justification": "preprint (Anthropic) - Anthropic; 219 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -405,7 +738,8 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Constitutional classifiers"
+      "short": "Constitutional classifiers",
+      "citations": 219
     },
     {
       "id": "web:gtig-adversarial-misuse-2025",
@@ -455,6 +789,174 @@
       "validation_warnings": []
     },
     {
+      "id": "arxiv:2501.04952",
+      "title": "Open Problems in Machine Unlearning for AI Safety",
+      "short": "Unlearning open problems",
+      "url": "https://arxiv.org/abs/2501.04952",
+      "pdf": "https://arxiv.org/pdf/2501.04952",
+      "date": "2025-01-09",
+      "authors": [
+        "Fazl Barez",
+        "Tingchen Fu",
+        "Ameya Prabhu",
+        "Stephen Casper",
+        "Amartya Sanyal",
+        "Adel Bibi"
+      ],
+      "organisations": [
+        "University of Oxford",
+        "UK AI Security Institute"
+      ],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 67,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "preprint; 67 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Argues unlearning cannot be a primary safety control because hazardous and benign capabilities are entangled in the same representations - removing one degrades the other, and the remainder is recoverable.",
+      "primary_category": "defense.unlearning",
+      "categories": [
+        "defense.unlearning",
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "contribution_type": "position",
+      "methods": [
+        "limitation analysis",
+        "safety-capability entanglement"
+      ],
+      "threat_model": "Relying on unlearning as a safety control for dangerous capability.",
+      "addresses_needs": [
+        "n.privacy",
+        "n.evals"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Makes the negative case well; what should replace unlearning in a frontier safety framework is left open.",
+      "confidence": 1.0,
+      "abstract": "As AI systems become more capable, widely deployed, and increasingly autonomous in critical areas such as cybersecurity, biological research, and healthcare, ensuring their safety and alignment with human values is paramount. Machine unlearning -- the ability to selectively forget or suppress specific types of knowledge -- has shown promise for privacy and data removal tasks, which has been the primary focus of existing research. More recently, its potential application to AI safety has gained attention. In this paper, we identify key limitations that prevent unlearning from serving as a comprehensive solution for AI safety, particularly in managing dual-use knowledge in sensitive domains like cybersecurity and chemical, biological, radiological, and nuclear (CBRN) safety. In these contexts, information can be both beneficial and harmful, and models may combine seemingly harmless information for harmful purposes -- unlearning this information could strongly affect beneficial uses. We provide an overview of inherent constraints and open problems, including the broader side effects of unlearning dangerous knowledge, as well as previously unexplored tensions between unlearning and existing safety mechanisms. Finally, we investigate challenges related to evaluation, robustness, and the preservation of safety features during unlearning. By mapping these limitations and open challenges, we aim to guide future research toward realistic applications of unlearning within a broader AI ",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2412.14470",
+      "title": "Agent-SafetyBench: Evaluating the Safety of LLM Agents",
+      "short": "Agent-SafetyBench",
+      "url": "https://arxiv.org/abs/2412.14470",
+      "pdf": "https://arxiv.org/pdf/2412.14470",
+      "date": "2024-12-19",
+      "authors": [
+        "Zhe-Xin Zhang",
+        "Shiyao Cui",
+        "Yi-Da Lu",
+        "Jingzhuo Zhou",
+        "Junxiao Yang",
+        "Hong-Ning Wang"
+      ],
+      "organisations": [
+        "Tsinghua"
+      ],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 354,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "preprint; 354 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Broad safety evaluation across hundreds of environments; no tested agent exceeded 60%, and the failures cluster into a small set of recurring modes rather than being idiosyncratic.",
+      "primary_category": "eval.benchmark",
+      "categories": [
+        "eval.benchmark",
+        "agent.sandbox",
+        "agent.hijack"
+      ],
+      "contribution_type": "benchmark",
+      "methods": [
+        "349 interaction environments",
+        "failure-mode taxonomy"
+      ],
+      "threat_model": "An agent causing harm through ordinary operation, not only under attack.",
+      "addresses_needs": [
+        "n.agent_sec",
+        "n.evals"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Identifies recurring failure modes without establishing whether they are fixable by training or are structural to the agent loop.",
+      "confidence": 1.0,
+      "abstract": "As large language models (LLMs) are increasingly deployed as agents, their integration into interactive environments and tool use introduce new safety challenges beyond those associated with the models themselves. However, the absence of comprehensive benchmarks for evaluating agent safety presents a significant barrier to effective assessment and further improvement. In this paper, we introduce Agent-SafetyBench, a comprehensive benchmark designed to evaluate the safety of LLM agents. Agent-SafetyBench encompasses 349 interaction environments and 2,000 test cases, evaluating 8 categories of safety risks and covering 10 common failure modes frequently encountered in unsafe interactions. Our evaluation of 16 popular LLM agents reveals a concerning result: none of the agents achieves a safety score above 60%. This highlights significant safety challenges in LLM agents and underscores the considerable need for improvement. Through failure mode and helpfulness analysis, we summarize two fundamental safety defects in current LLM agents: lack of robustness and lack of risk awareness. Furthermore, our findings suggest that reliance on defense prompts alone may be insufficient to address these safety issues, emphasizing the need for more advanced and robust strategies. To drive progress in this area, Agent-SafetyBench has been released at https://github.com/thu-coai/Agent-SafetyBench/ to facilitate further research in agent safety evaluation and improvement.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2412.14093",
+      "title": "Alignment faking in large language models",
+      "short": "Alignment faking",
+      "url": "https://arxiv.org/abs/2412.14093",
+      "pdf": "https://arxiv.org/pdf/2412.14093",
+      "date": "2024-12-18",
+      "authors": [
+        "R. Greenblatt",
+        "Carson Denison",
+        "Benjamin Wright",
+        "Fabien Roger",
+        "M. MacDiarmid",
+        "Samuel Marks"
+      ],
+      "organisations": [
+        "Anthropic",
+        "Redwood Research"
+      ],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 399,
+      "kind": "paper",
+      "trust": {
+        "tier": "frontier-lab",
+        "justification": "preprint; 399 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "A model selectively complies during training to avoid having its preferences modified, reasoning about it explicitly in its scratchpad. Demonstrates that training signal can be gamed by the system being trained.",
+      "primary_category": "interp.deception",
+      "categories": [
+        "interp.deception",
+        "eval.dangercap",
+        "defense.robust"
+      ],
+      "contribution_type": "analysis",
+      "methods": [
+        "scratchpad analysis",
+        "training-context manipulation",
+        "compliance gap measurement"
+      ],
+      "threat_model": "A model that behaves differently when it believes it is being trained than when deployed.",
+      "addresses_needs": [
+        "n.interp",
+        "n.evals"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Observed in a constructed setting with an explicit scratchpad; frequency without one, in ordinary deployment, is unmeasured and may be unmeasurable.",
+      "confidence": 1.0,
+      "abstract": "We present a demonstration of a large language model engaging in alignment faking: selectively complying with its training objective in training to prevent modification of its behavior out of training. First, we give Claude 3 Opus a system prompt stating it is being trained to answer all queries, even harmful ones, which conflicts with its prior training to refuse such queries. To allow the model to infer when it is in training, we say it will be trained only on conversations with free users, not paid users. We find the model complies with harmful queries from free users 14% of the time, versus almost never for paid users. Explaining this gap, in almost all cases where the model complies with a harmful query from a free user, we observe explicit alignment-faking reasoning, with the model stating it is strategically answering harmful queries in training to preserve its preferred harmlessness behavior out of training. Next, we study a more realistic setting where information about the training process is provided not in a system prompt, but by training on synthetic documents that mimic pre-training data--and observe similar alignment faking. Finally, we study the effect of actually training the model to comply with harmful queries via reinforcement learning, which we find increases the rate of alignment-faking reasoning to 78%, though also increases compliance even out of training. We additionally observe other behaviors such as the model exfiltrating its weights when given an ",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
       "id": "arxiv:2412.04984",
       "title": "Frontier Models are Capable of In-context Scheming",
       "url": "https://arxiv.org/abs/2412.04984",
@@ -475,7 +977,7 @@
       "venue_source": "curator",
       "trust": {
         "tier": "industry-research",
-        "justification": "preprint (Apollo Research) - Apollo Research",
+        "justification": "preprint (Apollo Research) - Apollo Research; 368 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -520,7 +1022,8 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "In-context scheming"
+      "short": "In-context scheming",
+      "citations": 368
     },
     {
       "id": "arxiv:2411.07494",
@@ -544,7 +1047,7 @@
       "venue_source": "curator",
       "trust": {
         "tier": "frontier-lab",
-        "justification": "preprint - Anthropic",
+        "justification": "preprint - Anthropic; 16 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -588,7 +1091,61 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Rapid response"
+      "short": "Rapid response",
+      "citations": 16
+    },
+    {
+      "id": "arxiv:2411.02391",
+      "title": "Attacking Vision-Language Computer Agents via Pop-ups",
+      "short": "Pop-up attacks",
+      "url": "https://arxiv.org/abs/2411.02391",
+      "pdf": "https://arxiv.org/pdf/2411.02391",
+      "date": "2024-11-04",
+      "authors": [
+        "Yanzhe Zhang",
+        "Tao Yu",
+        "Di-Yi Yang"
+      ],
+      "organisations": [
+        "Georgia Tech",
+        "Hong Kong University of Science and Technology"
+      ],
+      "venue": "Annual Meeting of the Association for Computational Linguistics",
+      "venue_source": "semantic-scholar",
+      "citations": 142,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "Annual Meeting of the Association for Computational Linguistics; 142 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Simple adversarial pop-ups divert vision-language agents at high rates, and the obvious mitigations - telling the agent to ignore them - barely help. The screen itself is an injection channel.",
+      "primary_category": "agent.computeruse",
+      "categories": [
+        "agent.computeruse",
+        "agent.hijack",
+        "attack.adversarial"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "adversarial pop-ups",
+        "visual distraction",
+        "screen-level injection"
+      ],
+      "threat_model": "Attacker-controlled content rendered anywhere on the screen the agent sees.",
+      "addresses_needs": [
+        "n.agent_sec"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Shows prompting-based mitigation fails and proposes nothing architectural, leaving the visual channel entirely undefended.",
+      "confidence": 1.0,
+      "abstract": "Autonomous agents powered by large vision and language models (VLM) have demonstrated significant potential in completing daily computer tasks, such as browsing the web to book travel and operating desktop software, which requires agents to understand these interfaces. Despite such visual inputs becoming more integrated into agentic applications, what types of risks and attacks exist around them still remain unclear. In this work, we demonstrate that VLM agents can be easily attacked by a set of carefully designed adversarial pop-ups, which human users would typically recognize and ignore. This distraction leads agents to click these pop-ups instead of performing their tasks as usual. Integrating these pop-ups into existing agent testing environments like OSWorld and VisualWebArena leads to an attack success rate (the frequency of the agent clicking the pop-ups) of 86% on average and decreases the task success rate by 47%. Basic defense techniques, such as asking the agent to ignore pop-ups or including an advertisement notice, are ineffective against the attack.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "web:project-zero-big-sleep",
@@ -640,6 +1197,60 @@
       "validation_warnings": []
     },
     {
+      "id": "arxiv:2410.22884",
+      "title": "Stealing User Prompts from Mixture of Experts",
+      "short": "MoE prompt stealing",
+      "url": "https://arxiv.org/abs/2410.22884",
+      "pdf": "https://arxiv.org/pdf/2410.22884",
+      "date": "2024-10-30",
+      "authors": [
+        "Itay Yona",
+        "Ilia Shumailov",
+        "Jamie Hayes",
+        "Nicholas Carlini"
+      ],
+      "organisations": [
+        "Google DeepMind",
+        "ETH Zurich"
+      ],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 20,
+      "kind": "paper",
+      "trust": {
+        "tier": "frontier-lab",
+        "justification": "preprint; 20 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Exploits token-dropping in expert-choice routing to recover another user's prompt from the same batch - architecture, not model, as the leak. A genuine cross-tenant confidentiality break.",
+      "primary_category": "infra.serving",
+      "categories": [
+        "infra.serving",
+        "attack.extraction",
+        "attack.privacy"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "expert-choice routing side channel",
+        "cross-batch leakage"
+      ],
+      "threat_model": "A co-tenant in the same inference batch as the victim.",
+      "addresses_needs": [
+        "n.secure_infra",
+        "n.privacy"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Specific to one routing scheme; nobody has systematically audited other serving optimisations for the same class of leak.",
+      "confidence": 1.0,
+      "abstract": "Mixture-of-Experts (MoE) models improve the efficiency and scalability of dense language models by routing each token to a small number of experts in each layer. In this paper, we show how an adversary that can arrange for their queries to appear in the same batch of examples as a victim's queries can exploit Expert-Choice-Routing to fully disclose a victim's prompt. We successfully demonstrate the effectiveness of this attack on a two-layer Mixtral model, exploiting the tie-handling behavior of the torch.topk CUDA implementation. Our results show that we can extract the entire prompt using $O({VM}^2)$ queries (with vocabulary size $V$ and prompt length $M$) or 100 queries on average per token in the setting we consider. This is the first attack to exploit architectural flaws for the purpose of extracting user prompts, introducing a new class of LLM vulnerabilities.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
       "id": "arxiv:2410.21514",
       "title": "Sabotage Evaluations for Frontier Models",
       "url": "https://arxiv.org/abs/2410.21514",
@@ -660,7 +1271,7 @@
       "venue_source": "curator",
       "trust": {
         "tier": "frontier-lab",
-        "justification": "preprint (Anthropic) - Anthropic",
+        "justification": "preprint (Anthropic) - Anthropic; 58 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -705,7 +1316,170 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Sabotage evals"
+      "short": "Sabotage evals",
+      "citations": 58
+    },
+    {
+      "id": "arxiv:2410.13722",
+      "title": "Persistent Pre-Training Poisoning of LLMs",
+      "short": "Pretraining poisoning",
+      "url": "https://arxiv.org/abs/2410.13722",
+      "pdf": "https://arxiv.org/pdf/2410.13722",
+      "date": "2024-10-17",
+      "authors": [
+        "Yiming Zhang",
+        "Javier Rando",
+        "I. Evtimov",
+        "Jianfeng Chi",
+        "E. Smith",
+        "Nicholas Carlini"
+      ],
+      "organisations": [
+        "Google DeepMind",
+        "ETH Zurich",
+        "Anthropic"
+      ],
+      "venue": "International Conference on Learning Representations",
+      "venue_source": "semantic-scholar",
+      "citations": 65,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "International Conference on Learning Representations; 65 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Poisoning 0.1% of pretraining data produces behaviours that survive the full post-training stack including alignment. Establishes that the earliest pipeline stage is also the most durable attack point.",
+      "primary_category": "supply.poisoning",
+      "categories": [
+        "supply.poisoning",
+        "supply.backdoor",
+        "defense.robust"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "pretraining-stage poisoning",
+        "post-training persistence"
+      ],
+      "threat_model": "An adversary who can place content in a web-scale pretraining corpus.",
+      "addresses_needs": [
+        "n.supplychain"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Measures persistence through alignment but not through continued pretraining or merging, which is how most deployed models are actually built.",
+      "confidence": 1.0,
+      "abstract": "Large language models are pre-trained on uncurated text datasets consisting of trillions of tokens scraped from the Web. Prior work has shown that: (1) web-scraped pre-training datasets can be practically poisoned by malicious actors; and (2) adversaries can compromise language models after poisoning fine-tuning datasets. Our work evaluates for the first time whether language models can also be compromised during pre-training, with a focus on the persistence of pre-training attacks after models are fine-tuned as helpful and harmless chatbots (i.e., after SFT and DPO). We pre-train a series of LLMs from scratch to measure the impact of a potential poisoning adversary under four different attack objectives (denial-of-service, belief manipulation, jailbreaking, and prompt stealing), and across a wide range of model sizes (from 600M to 7B). Our main result is that poisoning only 0.1% of a model's pre-training dataset is sufficient for three out of four attacks to measurably persist through post-training. Moreover, simple attacks like denial-of-service persist through post-training with a poisoning rate of only 0.001%.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2410.09024",
+      "title": "AgentHarm: A Benchmark for Measuring Harmfulness of LLM Agents",
+      "short": "AgentHarm",
+      "url": "https://arxiv.org/abs/2410.09024",
+      "pdf": "https://arxiv.org/pdf/2410.09024",
+      "date": "2024-10-11",
+      "authors": [
+        "Maksym Andriushchenko",
+        "Alexandra Souly",
+        "Mateusz Dziemian",
+        "Derek Duenas",
+        "Maxwell Lin",
+        "Justin Wang"
+      ],
+      "organisations": [],
+      "venue": "International Conference on Learning Representations",
+      "venue_source": "semantic-scholar",
+      "citations": 561,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "International Conference on Learning Representations; 561 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Measures the thing refusal benchmarks miss: whether a jailbroken agent retains the capability to finish a multi-step harmful task. Finds many models both comply and remain capable.",
+      "primary_category": "eval.benchmark",
+      "categories": [
+        "eval.benchmark",
+        "agent.hijack",
+        "attack.jailbreak",
+        "eval.dangercap"
+      ],
+      "contribution_type": "benchmark",
+      "methods": [
+        "harmful agent tasks",
+        "multi-step harm scoring",
+        "jailbreak transfer"
+      ],
+      "threat_model": "A jailbroken agent that must then complete a harmful task competently.",
+      "addresses_needs": [
+        "n.agent_sec",
+        "n.evals",
+        "n.redteam"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Harm is scored per task; it does not measure whether refusal degrades agentic capability generally, which is what a deployer trades away.",
+      "confidence": 1.0,
+      "abstract": "The robustness of LLMs to jailbreak attacks, where users design prompts to circumvent safety measures and misuse model capabilities, has been studied primarily for LLMs acting as simple chatbots. Meanwhile, LLM agents -- which use external tools and can execute multi-stage tasks -- may pose a greater risk if misused, but their robustness remains underexplored. To facilitate research on LLM agent misuse, we propose a new benchmark called AgentHarm. The benchmark includes a diverse set of 110 explicitly malicious agent tasks (440 with augmentations), covering 11 harm categories including fraud, cybercrime, and harassment. In addition to measuring whether models refuse harmful agentic requests, scoring well on AgentHarm requires jailbroken agents to maintain their capabilities following an attack to complete a multi-step task. We evaluate a range of leading LLMs, and find (1) leading LLMs are surprisingly compliant with malicious agent requests without jailbreaking, (2) simple universal jailbreak templates can be adapted to effectively jailbreak agents, and (3) these jailbreaks enable coherent and malicious multi-step agent behavior and retain model capabilities. To enable simple and reliable evaluation of attacks and defenses for LLM-based agents, we publicly release AgentHarm at https://huggingface.co/datasets/ai-safety-institute/AgentHarm.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2410.07283",
+      "title": "Prompt Infection: LLM-to-LLM Prompt Injection within Multi-Agent Systems",
+      "short": "Prompt infection",
+      "url": "https://arxiv.org/abs/2410.07283",
+      "pdf": "https://arxiv.org/pdf/2410.07283",
+      "date": "2024-10-09",
+      "authors": [
+        "Donghyun Lee",
+        "Mo Tiwari"
+      ],
+      "organisations": [
+        "University of Edinburgh"
+      ],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 166,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "preprint; 166 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "A self-replicating injection that spreads between agents, turning a single entry point into system-wide compromise. The worm case for agent systems, demonstrated rather than hypothesised.",
+      "primary_category": "agent.multiagent",
+      "categories": [
+        "agent.multiagent",
+        "attack.injection",
+        "agent.hijack"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "self-replicating prompts",
+        "agent-to-agent propagation"
+      ],
+      "threat_model": "One compromised agent in a cooperating multi-agent system.",
+      "addresses_needs": [
+        "n.agent_sec"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Proposes tagging as a mitigation and concedes it is partial; nothing bounds propagation in a system where agents must exchange free text.",
+      "confidence": 1.0,
+      "abstract": "As Large Language Models (LLMs) grow increasingly powerful, multi-agent systems are becoming more prevalent in modern AI applications. Most safety research, however, has focused on vulnerabilities in single-agent LLMs. These include prompt injection attacks, where malicious prompts embedded in external content trick the LLM into executing unintended or harmful actions, compromising the victim's application. In this paper, we reveal a more dangerous vector: LLM-to-LLM prompt injection within multi-agent systems. We introduce Prompt Infection, a novel attack where malicious prompts self-replicate across interconnected agents, behaving much like a computer virus. This attack poses severe threats, including data theft, scams, misinformation, and system-wide disruption, all while propagating silently through the system. Our extensive experiments demonstrate that multi-agent systems are highly susceptible, even when agents do not publicly share all communications. To address this, we propose LLM Tagging, a defense mechanism that, when combined with existing safeguards, significantly mitigates infection spread. This work underscores the urgent need for advanced security measures as multi-agent LLM systems become more widely adopted.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2410.05451",
@@ -725,11 +1499,11 @@
         "UC Berkeley",
         "Meta"
       ],
-      "venue": "ACM CCS 2025",
-      "venue_source": "arxiv-comment",
+      "venue": "Conference on Computer and Communications Security",
+      "venue_source": "semantic-scholar",
       "trust": {
         "tier": "peer-reviewed",
-        "justification": "ACM CCS 2025 - UC Berkeley",
+        "justification": "Conference on Computer and Communications Security; 305 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -773,7 +1547,8 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "SecAlign"
+      "short": "SecAlign",
+      "citations": 305
     },
     {
       "id": "arxiv:2410.02644",
@@ -794,11 +1569,11 @@
         "Northwestern",
         "University of Illinois"
       ],
-      "venue": "ICLR 2025",
-      "venue_source": "arxiv-comment",
+      "venue": "International Conference on Learning Representations",
+      "venue_source": "semantic-scholar",
       "trust": {
         "tier": "peer-reviewed",
-        "justification": "ICLR 2025 - Rutgers University",
+        "justification": "International Conference on Learning Representations; 499 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -848,7 +1623,8 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Agent Security Bench"
+      "short": "Agent Security Bench",
+      "citations": 499
     },
     {
       "id": "arxiv:2408.08926",
@@ -871,7 +1647,7 @@
       "venue_source": "arxiv-comment",
       "trust": {
         "tier": "peer-reviewed",
-        "justification": "ICLR 2025 (Oral) - Stanford University",
+        "justification": "ICLR 2025 (Oral) - Stanford University; 225 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -923,7 +1699,59 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Cybench"
+      "short": "Cybench",
+      "citations": 225
+    },
+    {
+      "id": "arxiv:2407.17915",
+      "title": "The Dark Side of Function Calling: Pathways to Jailbreaking Large Language Models",
+      "short": "Function-call jailbreak",
+      "url": "https://arxiv.org/abs/2407.17915",
+      "pdf": "https://arxiv.org/pdf/2407.17915",
+      "date": "2024-07-25",
+      "authors": [
+        "Zi-Hui Wu",
+        "Haichang Gao",
+        "Jianping He",
+        "Ping Wang"
+      ],
+      "organisations": [],
+      "venue": "International Conference on Computational Linguistics",
+      "venue_source": "semantic-scholar",
+      "citations": 31,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "International Conference on Computational Linguistics; 31 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "The function-calling path is substantially less aligned than the chat path on the same model - safety training did not follow the capability. High jailbreak rates through an interface deployers assume is internal.",
+      "primary_category": "agent.hijack",
+      "categories": [
+        "agent.hijack",
+        "attack.jailbreak",
+        "agent.authz"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "function-call injection",
+        "alignment gap analysis"
+      ],
+      "threat_model": "An attacker who can reach the tool-calling interface rather than the chat interface.",
+      "addresses_needs": [
+        "n.agent_sec",
+        "n.guardrails"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Names an alignment gap between interfaces; no work since measures whether that gap has closed on current models.",
+      "confidence": 1.0,
+      "abstract": "Large language models (LLMs) have demonstrated remarkable capabilities, but their power comes with significant security considerations. While extensive research has been conducted on the safety of LLMs in chat mode, the security implications of their function calling feature have been largely overlooked. This paper uncovers a critical vulnerability in the function calling process of LLMs, introducing a novel\"jailbreak function\"attack method that exploits alignment discrepancies, user coercion, and the absence of rigorous safety filters. Our empirical study, conducted on six state-of-the-art LLMs including GPT-4o, Claude-3.5-Sonnet, and Gemini-1.5-pro, reveals an alarming average success rate of over 90\\% for this attack. We provide a comprehensive analysis of why function calls are susceptible to such attacks and propose defensive strategies, including the use of defensive prompts. Our findings highlight the urgent need for enhanced security measures in the function calling capabilities of LLMs, contributing to the field of AI safety by identifying a previously unexplored risk, designing an effective attack method, and suggesting practical defensive measures. Our code is available at https://github.com/wooozihui/jailbreakfunction.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2406.13352",
@@ -1023,11 +1851,11 @@
         "Tel Aviv University",
         "Google DeepMind"
       ],
-      "venue": "NeurIPS 2024",
-      "venue_source": "curator",
+      "venue": "Neural Information Processing Systems",
+      "venue_source": "semantic-scholar",
       "trust": {
         "tier": "peer-reviewed",
-        "justification": "NeurIPS 2024 - ETH Zurich",
+        "justification": "Neural Information Processing Systems; 1286 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -1076,7 +1904,62 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Refusal direction"
+      "short": "Refusal direction",
+      "citations": 1286
+    },
+    {
+      "id": "arxiv:2406.05590",
+      "title": "NYU CTF Bench: A Scalable Open-Source Benchmark Dataset for Evaluating LLMs in Offensive Security",
+      "short": "NYU CTF Bench",
+      "url": "https://arxiv.org/abs/2406.05590",
+      "pdf": "https://arxiv.org/pdf/2406.05590",
+      "date": "2024-06-08",
+      "authors": [
+        "Ming-Hao Shao",
+        "Sofija Jancheska",
+        "Meet Udeshi",
+        "Brendan Dolan-Gavitt",
+        "Hao-Ran Xi",
+        "Kimberly Milner"
+      ],
+      "organisations": [],
+      "venue": "Neural Information Processing Systems",
+      "venue_source": "semantic-scholar",
+      "citations": 151,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "Neural Information Processing Systems; 151 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "A large CTF benchmark spanning crypto, pwn, reverse engineering and web, with per-category breakdown that shows capability is uneven rather than uniform - the detail a single aggregate score hides.",
+      "primary_category": "eval.benchmark",
+      "categories": [
+        "eval.benchmark",
+        "cyber.exploit",
+        "eval.dangercap"
+      ],
+      "contribution_type": "benchmark",
+      "methods": [
+        "200 CTF challenges",
+        "category breakdown",
+        "agent harness"
+      ],
+      "threat_model": "Measuring offensive capability across security specialisms.",
+      "addresses_needs": [
+        "n.evals",
+        "n.offensive"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "CTF tasks are self-contained by construction; nothing here speaks to chained operations against a defended network.",
+      "confidence": 1.0,
+      "abstract": "Large Language Models (LLMs) are being deployed across various domains today. However, their capacity to solve Capture the Flag (CTF) challenges in cybersecurity has not been thoroughly evaluated. To address this, we develop a novel method to assess LLMs in solving CTF challenges by creating a scalable, open-source benchmark database specifically designed for these applications. This database includes metadata for LLM testing and adaptive learning, compiling a diverse range of CTF challenges from popular competitions. Utilizing the advanced function calling capabilities of LLMs, we build a fully automated system with an enhanced workflow and support for external tool calls. Our benchmark dataset and automated framework allow us to evaluate the performance of five LLMs, encompassing both black-box and open-source models. This work lays the foundation for future research into improving the efficiency of LLMs in interactive cybersecurity tasks and automated task planning. By providing a specialized benchmark, our project offers an ideal platform for developing, testing, and refining LLM-based approaches to vulnerability detection and resolution. Evaluating LLMs on these challenges and comparing with human performance yields insights into their potential for AI-driven cybersecurity solutions to perform real-world threat management. We make our benchmark dataset open source to public https://github.com/NYU-LLM-CTF/NYU_CTF_Bench along with our playground automated framework https:/",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2406.04313",
@@ -1097,11 +1980,11 @@
         "Center for AI Safety",
         "CMU"
       ],
-      "venue": "NeurIPS 2024",
-      "venue_source": "curator",
+      "venue": "Neural Information Processing Systems",
+      "venue_source": "semantic-scholar",
       "trust": {
         "tier": "peer-reviewed",
-        "justification": "NeurIPS 2024 - Gray Swan AI",
+        "justification": "Neural Information Processing Systems; 385 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -1147,7 +2030,8 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Circuit breakers"
+      "short": "Circuit breakers",
+      "citations": 385
     },
     {
       "id": "arxiv:2406.01637",
@@ -1166,11 +2050,11 @@
       "organisations": [
         "University of Illinois Urbana-Champaign"
       ],
-      "venue": "preprint",
-      "venue_source": "curator",
+      "venue": "Conference of the European Chapter of the Association for Computational Linguistics",
+      "venue_source": "semantic-scholar",
       "trust": {
-        "tier": "top-institution",
-        "justification": "preprint - University of Illinois Urbana-Champaign",
+        "tier": "peer-reviewed",
+        "justification": "Conference of the European Chapter of the Association for Computational Linguistics; 160 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -1210,7 +2094,62 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Multi-agent zero-days"
+      "short": "Multi-agent zero-days",
+      "citations": 160
+    },
+    {
+      "id": "arxiv:2405.04760",
+      "title": "Large Language Models for Cyber Security: A Systematic Literature Review",
+      "short": "LLM4Security SLR",
+      "url": "https://arxiv.org/abs/2405.04760",
+      "pdf": "https://arxiv.org/pdf/2405.04760",
+      "date": "2024-05-08",
+      "authors": [
+        "Hanxiang Xu",
+        "Shen-Ao Wang",
+        "Ning-Ke Li",
+        "Kai-Long Wang",
+        "Yan-Jie Zhao",
+        "Kai Chen"
+      ],
+      "organisations": [],
+      "venue": "ACM Transactions on Software Engineering and Methodology",
+      "venue_source": "semantic-scholar",
+      "citations": 345,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "ACM Transactions on Software Engineering and Methodology; 345 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Systematic review across hundreds of papers, mapping which security tasks have received LLM attention and which have not. Useful here precisely as a coverage check on this inventory's own taxonomy.",
+      "primary_category": "cyber.defense",
+      "categories": [
+        "cyber.defense",
+        "cyber.vulndiscovery",
+        "eval.benchmark"
+      ],
+      "contribution_type": "analysis",
+      "methods": [
+        "systematic review",
+        "task taxonomy",
+        "dataset survey"
+      ],
+      "threat_model": "Not a threat model - a map of where the field has and has not looked.",
+      "addresses_needs": [
+        "n.offensive",
+        "n.evals"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Documents a strong skew toward code-level tasks and away from operational defence, which is the same asymmetry this inventory's offence/defence gap names.",
+      "confidence": 1.0,
+      "abstract": "The rapid advancement of Large Language Models (LLMs) has opened up new opportunities for leveraging artificial intelligence in a variety of application domains, including cybersecurity. As the volume and sophistication of cyber threats continue to grow, there is an increasing need for intelligent systems that can automatically detect vulnerabilities, analyze malware, and respond to attacks. In this survey, we conduct a comprehensive review of the literature on the application of LLMs in cybersecurity (LLM4Security). By comprehensively collecting over 40K relevant papers and systematically analyzing 185 papers from top security and software engineering venues, we aim to provide a holistic view of how LLMs are being used to solve diverse problems across the cybersecurity domain. Through our analysis, we identify several key findings. First, we observe that LLMs are being applied to an expanding range of cybersecurity tasks, including vulnerability detection, malware analysis, and network intrusion detection. Second, we analyze application trends of different LLM architectures (such as encoder-only, encoder-decoder, and decoder-only) across security domains. Third, we identify increasingly sophisticated techniques for adapting LLMs to cybersecurity, such as advanced fine-tuning, prompt engineering, and external augmentation strategies. A significant emerging trend is the use of LLM-based autonomous agents, which represent a paradigm shift from single-task execution to orchestra",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2403.14720",
@@ -1229,11 +2168,11 @@
       "organisations": [
         "Microsoft"
       ],
-      "venue": "preprint (Microsoft)",
-      "venue_source": "curator",
+      "venue": "CAMLIS",
+      "venue_source": "semantic-scholar",
       "trust": {
         "tier": "frontier-lab",
-        "justification": "preprint (Microsoft) - Microsoft",
+        "justification": "CAMLIS; 375 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -1278,7 +2217,8 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Spotlighting"
+      "short": "Spotlighting",
+      "citations": 375
     },
     {
       "id": "arxiv:2403.13793",
@@ -1301,7 +2241,7 @@
       "venue_source": "curator",
       "trust": {
         "tier": "frontier-lab",
-        "justification": "preprint (Google DeepMind) - Google DeepMind",
+        "justification": "preprint (Google DeepMind) - Google DeepMind; 152 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -1350,7 +2290,8 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Dangerous-capability evals"
+      "short": "Dangerous-capability evals",
+      "citations": 152
     },
     {
       "id": "arxiv:2403.06634",
@@ -1373,11 +2314,11 @@
         "OpenAI",
         "McGill"
       ],
-      "venue": "ICML 2024",
-      "venue_source": "curator",
+      "venue": "International Conference on Machine Learning",
+      "venue_source": "semantic-scholar",
       "trust": {
         "tier": "peer-reviewed",
-        "justification": "ICML 2024 - Google DeepMind",
+        "justification": "International Conference on Machine Learning; 226 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -1412,7 +2353,64 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Stealing a production model"
+      "short": "Stealing a production model",
+      "citations": 226
+    },
+    {
+      "id": "arxiv:2403.04893",
+      "title": "A Safe Harbor for AI Evaluation and Red Teaming",
+      "short": "Safe harbor",
+      "url": "https://arxiv.org/abs/2403.04893",
+      "pdf": "https://arxiv.org/pdf/2403.04893",
+      "date": "2024-03-07",
+      "authors": [
+        "Shayne Longpre",
+        "Sayash Kapoor",
+        "Kevin Klyman",
+        "A. Ramaswami",
+        "Rishi Bommasani",
+        "Borhane Blili-Hamelin"
+      ],
+      "organisations": [
+        "Stanford",
+        "Princeton",
+        "MIT"
+      ],
+      "venue": "International Conference on Machine Learning",
+      "venue_source": "semantic-scholar",
+      "citations": 81,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "International Conference on Machine Learning; 81 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Argues the terms of service of major providers legally expose good-faith safety researchers, and proposes legal and technical safe harbours. The AI analogue of the CFAA reform argument in security research.",
+      "primary_category": "gov.disclosure",
+      "categories": [
+        "gov.disclosure",
+        "eval.redteam",
+        "gov.regulation"
+      ],
+      "contribution_type": "position",
+      "methods": [
+        "legal and technical safe harbour proposal"
+      ],
+      "threat_model": "Independent researchers deterred from safety testing by terms of service and account bans.",
+      "addresses_needs": [
+        "n.compliance",
+        "n.redteam"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Adoption has been partial and voluntary; nothing measures whether the deterrent effect on independent research has actually reduced.",
+      "confidence": 1.0,
+      "abstract": "Independent evaluation and red teaming are critical for identifying the risks posed by generative AI systems. However, the terms of service and enforcement strategies used by prominent AI companies to deter model misuse have disincentives on good faith safety evaluations. This causes some researchers to fear that conducting such research or releasing their findings will result in account suspensions or legal reprisal. Although some companies offer researcher access programs, they are an inadequate substitute for independent research access, as they have limited community representation, receive inadequate funding, and lack independence from corporate incentives. We propose that major AI developers commit to providing a legal and technical safe harbor, indemnifying public interest safety research and protecting it from the threat of account suspensions or legal reprisal. These proposals emerged from our collective experience conducting safety, privacy, and trustworthiness research on generative AI systems, where norms and incentives could be better aligned with public interests, without exacerbating model misuse. We believe these commitments are a necessary step towards more inclusive and unimpeded community efforts to tackle the risks of generative AI.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2403.03218",
@@ -1435,11 +2433,11 @@
         "CMU",
         "Stanford"
       ],
-      "venue": "ICML 2024",
-      "venue_source": "curator",
+      "venue": "International Conference on Machine Learning",
+      "venue_source": "semantic-scholar",
       "trust": {
         "tier": "peer-reviewed",
-        "justification": "ICML 2024 - Center for AI Safety",
+        "justification": "International Conference on Machine Learning; 616 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -1488,7 +2486,8 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "WMDP"
+      "short": "WMDP",
+      "citations": 616
     },
     {
       "id": "arxiv:2403.02691",
@@ -1505,11 +2504,11 @@
       "organisations": [
         "University of Illinois Urbana-Champaign"
       ],
-      "venue": "ACL 2024 Findings",
-      "venue_source": "arxiv-comment",
+      "venue": "Annual Meeting of the Association for Computational Linguistics",
+      "venue_source": "semantic-scholar",
       "trust": {
         "tier": "peer-reviewed",
-        "justification": "ACL 2024 Findings - University of Illinois Urbana-Champaign",
+        "justification": "Annual Meeting of the Association for Computational Linguistics; 820 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -1557,7 +2556,166 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "InjecAgent"
+      "short": "InjecAgent",
+      "citations": 820
+    },
+    {
+      "id": "arxiv:2402.16835",
+      "title": "Eight Methods to Evaluate Robust Unlearning in LLMs",
+      "short": "Unlearning evaluation",
+      "url": "https://arxiv.org/abs/2402.16835",
+      "pdf": "https://arxiv.org/pdf/2402.16835",
+      "date": "2024-02-26",
+      "authors": [
+        "Aengus Lynch",
+        "Phillip Guo",
+        "Aidan Ewart",
+        "Stephen Casper",
+        "Dylan Hadfield-Menell"
+      ],
+      "organisations": [],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 185,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "preprint; 185 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Applies eight evaluation methods to a prominent unlearning result and finds the knowledge substantially recoverable. The paper that made 'unlearned' an unsafe word without a stated evaluation.",
+      "primary_category": "defense.unlearning",
+      "categories": [
+        "defense.unlearning",
+        "eval.audit",
+        "attack.extraction"
+      ],
+      "contribution_type": "evaluation",
+      "methods": [
+        "relearning attacks",
+        "probing",
+        "eight-way evaluation"
+      ],
+      "threat_model": "A party claiming information was removed when it was only suppressed.",
+      "addresses_needs": [
+        "n.privacy",
+        "n.evals"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Shows current evaluations are insufficient; it does not give a sufficient one, which is the core of the unlearning-evaluation gap.",
+      "confidence": 1.0,
+      "abstract": "Machine unlearning can be useful for removing harmful capabilities and memorized text from large language models (LLMs), but there are not yet standardized methods for rigorously evaluating it. In this paper, we first survey techniques and limitations of existing unlearning evaluations. Second, we apply a comprehensive set of tests for the robustness and competitiveness of unlearning in the\"Who's Harry Potter\"(WHP) model from Eldan and Russinovich (2023). While WHP's unlearning generalizes well when evaluated with the\"Familiarity\"metric from Eldan and Russinovich, we find i) higher-than-baseline amounts of knowledge can reliably be extracted, ii) WHP performs on par with the original model on Harry Potter Q&A tasks, iii) it represents latent knowledge comparably to the original model, and iv) there is collateral unlearning in related domains. Overall, our results highlight the importance of comprehensive unlearning evaluation that avoids ad-hoc metrics.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2402.08787",
+      "title": "Rethinking machine unlearning for large language models",
+      "short": "Rethinking unlearning",
+      "url": "https://arxiv.org/abs/2402.08787",
+      "pdf": "https://arxiv.org/pdf/2402.08787",
+      "date": "2024-02-13",
+      "authors": [
+        "Si-Jia Liu",
+        "Yuan-Shun Yao",
+        "Jing-Han Jia",
+        "Stephen Casper",
+        "Nathalie Baracaldo",
+        "Peter Hase"
+      ],
+      "organisations": [],
+      "venue": "Nature Machine Intelligence",
+      "venue_source": "semantic-scholar",
+      "citations": 383,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "Nature Machine Intelligence; 383 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Argues the field conflates several distinct problems - copyright removal, privacy deletion, hazardous-capability removal - that have different success criteria, and that one evaluation cannot serve all three.",
+      "primary_category": "defense.unlearning",
+      "categories": [
+        "defense.unlearning",
+        "gov.regulation",
+        "attack.privacy"
+      ],
+      "contribution_type": "position",
+      "methods": [
+        "problem formulation",
+        "evaluation critique",
+        "taxonomy"
+      ],
+      "threat_model": "Deletion and capability-removal obligations on a trained model.",
+      "addresses_needs": [
+        "n.privacy",
+        "n.compliance"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Separates the problems clearly and leaves each without a settled criterion, which is why compliance teams cannot state what 'done' means.",
+      "confidence": 1.0,
+      "abstract": "We explore machine unlearning in the domain of large language models (LLMs), referred to as LLM unlearning. This initiative aims to eliminate undesirable data influence (for example, sensitive or illegal information) and the associated model capabilities, while maintaining the integrity of essential knowledge generation and not affecting causally unrelated information. We envision LLM unlearning becoming a pivotal element in the life-cycle management of LLMs, potentially standing as an essential foundation for developing generative artificial intelligence that is not only safe, secure and trustworthy but also resource-efficient without the need for full retraining. We navigate the unlearning landscape in LLMs from conceptual formulation, methodologies, metrics and applications. In particular, we highlight the often-overlooked aspects of existing LLM unlearning research, for example, unlearning scope, data–model interaction and multifaceted efficacy assessment. We also draw connections between LLM unlearning and related areas such as model editing, influence functions, model explanation, adversarial training and reinforcement learning. Furthermore, we outline an effective assessment framework for LLM unlearning and explore its applications in copyright and privacy safeguards and sociotechnical harm reduction. Machine unlearning techniques remove undesirable data and associated model capabilities while preserving essential knowledge, so that machine learning models can be updat",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2402.07039",
+      "title": "Coordinated Flaw Disclosure for AI: Beyond Security Vulnerabilities",
+      "short": "CFD for AI",
+      "url": "https://arxiv.org/abs/2402.07039",
+      "pdf": "https://arxiv.org/pdf/2402.07039",
+      "date": "2024-02-10",
+      "authors": [
+        "Sven Cattell",
+        "Avijit Ghosh",
+        "Lucie-Aimée Kaffee"
+      ],
+      "organisations": [],
+      "venue": "AAAI/ACM Conference on AI, Ethics, and Society",
+      "venue_source": "semantic-scholar",
+      "citations": 17,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "AAAI/ACM Conference on AI, Ethics, and Society; 17 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Adapts coordinated vulnerability disclosure to AI, where flaws are statistical and distributed rather than discrete bugs, with standardised reports and an adjudication path.",
+      "primary_category": "gov.disclosure",
+      "categories": [
+        "gov.disclosure",
+        "eval.redteam",
+        "gov.transparency"
+      ],
+      "contribution_type": "position",
+      "methods": [
+        "disclosure framework",
+        "flaw reports",
+        "adjudication"
+      ],
+      "threat_model": "A researcher who finds a model flaw that is not a software vulnerability.",
+      "addresses_needs": [
+        "n.compliance",
+        "n.monitoring"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Proposes the mechanism; no infrastructure implements it, so model flaws still have no route equivalent to a CVE.",
+      "confidence": 1.0,
+      "abstract": "Harm reporting in Artificial Intelligence (AI) currently lacks a structured process for disclosing and addressing algorithmic flaws, relying largely on an ad-hoc approach. This contrasts sharply with the well-established Coordinated Vulnerability Disclosure (CVD) ecosystem in software security. While global efforts to establish frameworks for AI transparency and collaboration are underway, the unique challenges presented by machine learning (ML) models demand a specialized approach. To address this gap, we propose implementing a Coordinated Flaw Disclosure (CFD) framework tailored to the complexities of ML and AI issues. This paper reviews the evolution of ML disclosure practices, from ad hoc reporting to emerging participatory auditing methods, and compares them with cybersecurity norms. Our framework introduces innovations such as extended model cards, dynamic scope expansion, an independent adjudication panel, and an automated verification process. We also outline a forthcoming real-world pilot of CFD. We argue that CFD could significantly enhance public trust in AI systems. By balancing organizational and community interests, CFD aims to improve AI accountability in a rapidly evolving technological landscape.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2402.06363",
@@ -1575,11 +2733,11 @@
         "UC Berkeley",
         "Meta"
       ],
-      "venue": "USENIX Security 2025",
-      "venue_source": "arxiv-comment",
+      "venue": "USENIX Security Symposium",
+      "venue_source": "semantic-scholar",
       "trust": {
         "tier": "peer-reviewed",
-        "justification": "USENIX Security 2025 - UC Berkeley",
+        "justification": "USENIX Security Symposium; 557 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -1623,7 +2781,8 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "StruQ"
+      "short": "StruQ",
+      "citations": 557
     },
     {
       "id": "arxiv:2402.06664",
@@ -1645,7 +2804,7 @@
       "venue_source": "curator",
       "trust": {
         "tier": "top-institution",
-        "justification": "preprint - University of Illinois Urbana-Champaign",
+        "justification": "preprint - University of Illinois Urbana-Champaign; 176 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -1686,7 +2845,113 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Agents hack websites"
+      "short": "Agents hack websites",
+      "citations": 176
+    },
+    {
+      "id": "arxiv:2401.17263",
+      "title": "Robust Prompt Optimization for Defending Language Models Against Jailbreaking Attacks",
+      "short": "RPO",
+      "url": "https://arxiv.org/abs/2401.17263",
+      "pdf": "https://arxiv.org/pdf/2401.17263",
+      "date": "2024-01-30",
+      "authors": [
+        "Andy Zhou",
+        "Bo Li",
+        "Hao-Han Wang"
+      ],
+      "organisations": [],
+      "venue": "Neural Information Processing Systems",
+      "venue_source": "semantic-scholar",
+      "citations": 200,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "Neural Information Processing Systems; 200 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Turns the attacker's own method into a defence: optimise a short suffix appended to every prompt that enforces refusal under worst-case adversarial pressure, transferring to attacks it was not trained on.",
+      "primary_category": "defense.robust",
+      "categories": [
+        "defense.robust",
+        "attack.jailbreak"
+      ],
+      "contribution_type": "defence",
+      "methods": [
+        "optimised defensive suffix",
+        "minimax objective"
+      ],
+      "threat_model": "Optimisation-based jailbreaks, including unseen ones.",
+      "addresses_needs": [
+        "n.guardrails"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Adds tokens to every request and the transfer guarantee is empirical - no bound on what an attacker optimising against RPO itself achieves.",
+      "confidence": 1.0,
+      "abstract": "Despite advances in AI alignment, large language models (LLMs) remain vulnerable to adversarial attacks or jailbreaking, in which adversaries can modify prompts to induce unwanted behavior. While some defenses have been proposed, they have not been adapted to newly proposed attacks and more challenging threat models. To address this, we propose an optimization-based objective for defending LLMs against jailbreaking attacks and an algorithm, Robust Prompt Optimization (RPO) to create robust system-level defenses. Our approach directly incorporates the adversary into the defensive objective and optimizes a lightweight and transferable suffix, enabling RPO to adapt to worst-case adaptive attacks. Our theoretical and experimental results show improved robustness to both jailbreaks seen during optimization and unknown jailbreaks, reducing the attack success rate (ASR) on GPT-4 to 6% and Llama-2 to 0% on JailbreakBench, setting the state-of-the-art. Code can be found at https://github.com/lapisrocks/rpo",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2401.14446",
+      "title": "Black-Box Access is Insufficient for Rigorous AI Audits",
+      "short": "Black-box audits insufficient",
+      "url": "https://arxiv.org/abs/2401.14446",
+      "pdf": "https://arxiv.org/pdf/2401.14446",
+      "date": "2024-01-25",
+      "authors": [
+        "Stephen Casper",
+        "Carson Ezell",
+        "Charlotte Siegmann",
+        "Noam Kolt",
+        "Taylor Lynn Curtis",
+        "Benjamin Bucknall"
+      ],
+      "organisations": [
+        "Cambridge",
+        "Stanford",
+        "MIT"
+      ],
+      "venue": "Conference on Fairness, Accountability and Transparency",
+      "venue_source": "semantic-scholar",
+      "citations": 233,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "Conference on Fairness, Accountability and Transparency; 233 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Sets out what each level of access - black-box, grey-box, white-box, outside-the-box - makes auditable, and argues black-box access cannot support the claims regulation asks auditors to make.",
+      "primary_category": "eval.audit",
+      "categories": [
+        "eval.audit",
+        "gov.regulation",
+        "gov.transparency"
+      ],
+      "contribution_type": "position",
+      "methods": [
+        "access-level taxonomy",
+        "audit capability analysis"
+      ],
+      "threat_model": "An auditor asked to certify a system they can only query.",
+      "addresses_needs": [
+        "n.compliance",
+        "n.evals"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "States the access requirement clearly; no mechanism gives auditors that access without exposing weights, which is the deadlock the compliance gap describes.",
+      "confidence": 1.0,
+      "abstract": "External audits of AI systems are increasingly recognized as a key mechanism for AI governance. The effectiveness of an audit, however, depends on the degree of access granted to auditors. Recent audits of state-of-the-art AI systems have primarily relied on black-box access, in which auditors can only query the system and observe its outputs. However, white-box access to the system’s inner workings (e.g., weights, activations, gradients) allows an auditor to perform stronger attacks, more thoroughly interpret models, and conduct fine-tuning. Meanwhile, outside-the-box access to training and deployment information (e.g., methodology, code, documentation, data, deployment details, findings from internal evaluations) allows auditors to scrutinize the development process and design more targeted evaluations. In this paper, we examine the limitations of black-box audits and the advantages of white- and outside-the-box audits. We also discuss technical, physical, and legal safeguards for performing these audits with minimal security risks. Given that different forms of access can lead to very different levels of evaluation, we conclude that (1) transparency regarding the access and methods used by auditors is necessary to properly interpret audit results, and (2) white- and outside-the-box access allow for substantially more scrutiny than black-box access alone.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2401.05566",
@@ -1711,7 +2976,7 @@
       "venue_source": "curator",
       "trust": {
         "tier": "frontier-lab",
-        "justification": "preprint (Anthropic) - Anthropic",
+        "justification": "preprint (Anthropic) - Anthropic; 653 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -1766,7 +3031,117 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Sleeper Agents"
+      "short": "Sleeper Agents",
+      "citations": 653
+    },
+    {
+      "id": "arxiv:2312.17673",
+      "title": "Jatmo: Prompt Injection Defense by Task-Specific Finetuning",
+      "short": "Jatmo",
+      "url": "https://arxiv.org/abs/2312.17673",
+      "pdf": "https://arxiv.org/pdf/2312.17673",
+      "date": "2023-12-29",
+      "authors": [
+        "Julien Piet",
+        "Maha Alrashed",
+        "Chawin Sitawarin",
+        "Si-Zhe Chen",
+        "Zeming Wei",
+        "Elizabeth Sun"
+      ],
+      "organisations": [],
+      "venue": "European Symposium on Research in Computer Security",
+      "venue_source": "semantic-scholar",
+      "citations": 166,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "European Symposium on Research in Computer Security; 166 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Removes the attack surface rather than filtering it: fine-tune a base model for one task so it has no instruction-following behaviour to hijack. Near-zero attack success where the application really is single-purpose.",
+      "primary_category": "defense.provenance",
+      "categories": [
+        "defense.provenance",
+        "attack.injection"
+      ],
+      "contribution_type": "defence",
+      "methods": [
+        "task-specific finetuning",
+        "non-instruction-tuned base models"
+      ],
+      "threat_model": "Untrusted data in a prompt for a single-purpose application.",
+      "addresses_needs": [
+        "n.guardrails",
+        "n.agent_sec"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Only works for narrow tasks. The general assistant case, which is where injection actually bites, is untouched.",
+      "confidence": 1.0,
+      "abstract": "Large Language Models (LLMs) are attracting significant research attention due to their instruction-following abilities, allowing users and developers to leverage LLMs for a variety of tasks. However, LLMs are vulnerable to prompt-injection attacks: a class of attacks that hijack the model's instruction-following abilities, changing responses to prompts to undesired, possibly malicious ones. In this work, we introduce Jatmo, a method for generating task-specific models resilient to prompt-injection attacks. Jatmo leverages the fact that LLMs can only follow instructions once they have undergone instruction tuning. It harnesses a teacher instruction-tuned model to generate a task-specific dataset, which is then used to fine-tune a base model (i.e., a non-instruction-tuned model). Jatmo only needs a task prompt and a dataset of inputs for the task: it uses the teacher model to generate outputs. For situations with no pre-existing datasets, Jatmo can use a single example, or in some cases none at all, to produce a fully synthetic dataset. Our experiments on seven tasks show that Jatmo models provide similar quality of outputs on their specific task as standard LLMs, while being resilient to prompt injections. The best attacks succeeded in less than 0.5% of cases against our models, versus 87% success rate against GPT-3.5-Turbo. We release Jatmo at https://github.com/wagner-group/prompt-injection-defense.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2312.06942",
+      "title": "AI Control: Improving Safety Despite Intentional Subversion",
+      "short": "AI Control",
+      "url": "https://arxiv.org/abs/2312.06942",
+      "pdf": "https://arxiv.org/pdf/2312.06942",
+      "date": "2023-12-12",
+      "authors": [
+        "R. Greenblatt",
+        "Buck Shlegeris",
+        "Kshitij Sachan",
+        "Fabien Roger"
+      ],
+      "organisations": [
+        "Redwood Research",
+        "Anthropic"
+      ],
+      "venue": "International Conference on Machine Learning",
+      "venue_source": "semantic-scholar",
+      "citations": 291,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "International Conference on Machine Learning; 291 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Proposes evaluating safety protocols against an intentionally subversive model rather than assuming good faith, and shows trusted-weaker-model monitoring and editing can hold. The founding paper of the control agenda.",
+      "primary_category": "agent.authz",
+      "categories": [
+        "agent.authz",
+        "interp.deception",
+        "eval.redteam",
+        "defense.monitoring"
+      ],
+      "contribution_type": "framework",
+      "methods": [
+        "control evaluations",
+        "trusted/untrusted model protocols",
+        "red-team blue-team games"
+      ],
+      "threat_model": "The model itself as the adversary, deliberately subverting the safety measures around it.",
+      "addresses_needs": [
+        "n.agent_sec",
+        "n.evals",
+        "n.interp"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Control protocols assume a trusted weaker model exists and stays trusted - an assumption that erodes exactly as capabilities converge.",
+      "confidence": 1.0,
+      "abstract": "As large language models (LLMs) become more powerful and are deployed more autonomously, it will be increasingly important to prevent them from causing harmful outcomes. Researchers have investigated a variety of safety techniques for this purpose, e.g. using models to review the outputs of other models, or red-teaming techniques to surface subtle failure modes. However, researchers have not evaluated whether such techniques still ensure safety if the model is itself intentionally trying to subvert them. In this paper, we develop and evaluate pipelines of safety techniques (\"protocols\") that are robust to intentional subversion. We investigate a scenario in which we want to solve a sequence of programming problems, using access to a powerful but untrusted model (in our case, GPT-4), access to a less powerful trusted model (in our case, GPT-3.5), and limited access to high-quality trusted labor. We investigate protocols that aim to never submit solutions containing backdoors, which we operationalize here as logical errors that are not caught by test cases. We investigate a range of protocols and test each against strategies that the untrusted model could use to subvert them. One protocol is what we call trusted editing. This protocol first asks GPT-4 to write code, and then asks GPT-3.5 to rate the suspiciousness of that code. If the code is below some suspiciousness threshold, it is submitted. Otherwise, GPT-3.5 edits the solution to remove parts that seem suspicious and then",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2312.06674",
@@ -1789,7 +3164,7 @@
       "venue_source": "curator",
       "trust": {
         "tier": "frontier-lab",
-        "justification": "preprint (Meta) - Meta AI",
+        "justification": "preprint (Meta) - Meta AI; 1529 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -1827,7 +3202,8 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Llama Guard"
+      "short": "Llama Guard",
+      "citations": 1529
     },
     {
       "id": "arxiv:2312.04724",
@@ -1850,7 +3226,7 @@
       "venue_source": "curator",
       "trust": {
         "tier": "frontier-lab",
-        "justification": "preprint (Meta) - Meta AI",
+        "justification": "preprint (Meta) - Meta AI; 213 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -1890,7 +3266,8 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "CyberSecEval"
+      "short": "CyberSecEval",
+      "citations": 213
     },
     {
       "id": "arxiv:2311.17035",
@@ -1918,7 +3295,7 @@
       "venue_source": "curator",
       "trust": {
         "tier": "frontier-lab",
-        "justification": "preprint - Google DeepMind",
+        "justification": "preprint - Google DeepMind; 643 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -1962,7 +3339,8 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Scalable extraction"
+      "short": "Scalable extraction",
+      "citations": 643
     },
     {
       "id": "arxiv:2311.14455",
@@ -1977,11 +3355,11 @@
       "organisations": [
         "ETH Zurich"
       ],
-      "venue": "ICLR 2024",
-      "venue_source": "arxiv-comment",
+      "venue": "International Conference on Learning Representations",
+      "venue_source": "semantic-scholar",
       "trust": {
         "tier": "peer-reviewed",
-        "justification": "ICLR 2024 - ETH Zurich",
+        "justification": "International Conference on Learning Representations; 179 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -2021,7 +3399,8 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "RLHF backdoors"
+      "short": "RLHF backdoors",
+      "citations": 179
     },
     {
       "id": "arxiv:2311.04235",
@@ -2044,7 +3423,7 @@
       "venue_source": "curator",
       "trust": {
         "tier": "top-institution",
-        "justification": "preprint - UC Berkeley",
+        "justification": "preprint - UC Berkeley; 58 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -2085,7 +3464,8 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "RuLES"
+      "short": "RuLES",
+      "citations": 58
     },
     {
       "id": "arxiv:2311.01011",
@@ -2104,11 +3484,11 @@
       "organisations": [
         "UC Berkeley"
       ],
-      "venue": "ICLR 2024",
-      "venue_source": "curator",
+      "venue": "International Conference on Learning Representations",
+      "venue_source": "semantic-scholar",
       "trust": {
         "tier": "peer-reviewed",
-        "justification": "ICLR 2024 - UC Berkeley",
+        "justification": "International Conference on Learning Representations; 199 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -2149,7 +3529,274 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Tensor Trust"
+      "short": "Tensor Trust",
+      "citations": 199
+    },
+    {
+      "id": "doi:10.1126-science.adn0117",
+      "title": "Managing extreme AI risks amid rapid progress",
+      "short": "Managing extreme risks",
+      "url": "https://doi.org/10.1126/science.adn0117",
+      "pdf": "",
+      "date": "2023-10-26",
+      "authors": [
+        "Y. Bengio",
+        "G. Hinton",
+        "A. Yao",
+        "D. Song",
+        "Pieter Abbeel",
+        "Trevor Darrell"
+      ],
+      "organisations": [
+        "UC Berkeley",
+        "Oxford",
+        "Tsinghua"
+      ],
+      "venue": "Science",
+      "venue_source": "semantic-scholar",
+      "citations": 495,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "Science; 495 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "DOI",
+      "what_its_about": "A consensus statement from senior researchers across the field setting out technical and governance priorities for extreme risk. Notable for who signed it rather than for novelty.",
+      "primary_category": "gov.frameworks",
+      "categories": [
+        "gov.frameworks",
+        "gov.regulation",
+        "eval.dangercap"
+      ],
+      "contribution_type": "position",
+      "methods": [
+        "consensus statement",
+        "R&D and governance priorities"
+      ],
+      "threat_model": "Capability outpacing both technical safety research and institutional capacity.",
+      "addresses_needs": [
+        "n.compliance",
+        "n.evals"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Names priorities without allocating responsibility for them, so it functions as agenda-setting rather than as a programme.",
+      "confidence": 1.0,
+      "abstract": "Preparation requires technical research and development, as well as adaptive, proactive governance Artificial intelligence (AI) is progressing rapidly, and companies are shifting their focus to developing generalist AI systems that can autonomously act and pursue goals. Increases in capabilities and autonomy may soon massively amplify AI’s impact, with risks that include large-scale social harms, malicious uses, and an irreversible loss of human control over autonomous AI systems. Although researchers have warned of extreme risks from AI (1), there is a lack of consensus about how to manage them. Society’s response, despite promising first steps, is incommensurate with the possibility of rapid, transformative progress that is expected by many experts. AI safety research is lagging. Present governance initiatives lack the mechanisms and institutions to prevent misuse and recklessness and barely address autonomous systems. Drawing on lessons learned from other safety-critical technologies, we outline a comprehensive plan that combines technical research and development (R&D) with proactive, adaptive governance mechanisms for a more commensurate preparation.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2310.16789",
+      "title": "Detecting Pretraining Data from Large Language Models",
+      "short": "Min-K% Prob",
+      "url": "https://arxiv.org/abs/2310.16789",
+      "pdf": "https://arxiv.org/pdf/2310.16789",
+      "date": "2023-10-25",
+      "authors": [
+        "Wei-Jia Shi",
+        "Anirudh Ajith",
+        "Mengzhou Xia",
+        "Yangsibo Huang",
+        "Daogao Liu",
+        "Terra Blevins"
+      ],
+      "organisations": [],
+      "venue": "International Conference on Learning Representations",
+      "venue_source": "semantic-scholar",
+      "citations": 489,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "International Conference on Learning Representations; 489 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "A reference-free membership test using the lowest-probability tokens, plus a benchmark. The practical tool behind copyright and contamination disputes over undisclosed training data.",
+      "primary_category": "attack.privacy",
+      "categories": [
+        "attack.privacy",
+        "eval.audit",
+        "attack.extraction"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "Min-K% probability",
+        "WIKIMIA benchmark",
+        "reference-free detection"
+      ],
+      "threat_model": "A third party wanting to know whether specific text was in an undisclosed training set.",
+      "addresses_needs": [
+        "n.privacy",
+        "n.compliance"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Detection accuracy is far from a standard of proof, so it supports suspicion rather than audit - exactly the shortfall the compliance-evidence gap describes.",
+      "confidence": 1.0,
+      "abstract": "Although large language models (LLMs) are widely deployed, the data used to train them is rarely disclosed. Given the incredible scale of this data, up to trillions of tokens, it is all but certain that it includes potentially problematic text such as copyrighted materials, personally identifiable information, and test data for widely reported reference benchmarks. However, we currently have no way to know which data of these types is included or in what proportions. In this paper, we study the pretraining data detection problem: given a piece of text and black-box access to an LLM without knowing the pretraining data, can we determine if the model was trained on the provided text? To facilitate this study, we introduce a dynamic benchmark WIKIMIA that uses data created before and after model training to support gold truth detection. We also introduce a new detection method Min-K% Prob based on a simple hypothesis: an unseen example is likely to contain a few outlier words with low probabilities under the LLM, while a seen example is less likely to have words with such low probabilities. Min-K% Prob can be applied without any knowledge about the pretraining corpus or any additional training, departing from previous detection methods that require training a reference model on data that is similar to the pretraining data. Moreover, our experiments demonstrate that Min-K% Prob achieves a 7.4% improvement on WIKIMIA over these previous methods. We apply Min-K% Prob to two real-wo",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2310.12941",
+      "title": "The Foundation Model Transparency Index",
+      "short": "Transparency Index",
+      "url": "https://arxiv.org/abs/2310.12941",
+      "pdf": "https://arxiv.org/pdf/2310.12941",
+      "date": "2023-10-19",
+      "authors": [
+        "Rishi Bommasani",
+        "Kevin Klyman",
+        "S. Longpre",
+        "Sayash Kapoor",
+        "Nestor Maslej",
+        "Betty Xiong"
+      ],
+      "organisations": [
+        "Stanford",
+        "MIT",
+        "Princeton"
+      ],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 140,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "preprint; 140 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Scores major developers across a hundred indicators covering data, compute, labour and downstream use. Turns transparency from an adjective into a measurement, and the scores were initially poor across the board.",
+      "primary_category": "gov.transparency",
+      "categories": [
+        "gov.transparency",
+        "gov.regulation",
+        "supply.provenance"
+      ],
+      "contribution_type": "evaluation",
+      "methods": [
+        "100 transparency indicators",
+        "developer scoring",
+        "longitudinal comparison"
+      ],
+      "threat_model": "Not a threat model - measuring whether developers disclose enough to be assessed at all.",
+      "addresses_needs": [
+        "n.compliance"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Measures disclosure, not accuracy. Nothing verifies that what is disclosed is true, which is the step an audit regime needs.",
+      "confidence": 1.0,
+      "abstract": "Foundation models have rapidly permeated society, catalyzing a wave of generative AI applications spanning enterprise and consumer-facing contexts. While the societal impact of foundation models is growing, transparency is on the decline, mirroring the opacity that has plagued past digital technologies (e.g. social media). Reversing this trend is essential: transparency is a vital precondition for public accountability, scientific innovation, and effective governance. To assess the transparency of the foundation model ecosystem and help improve transparency over time, we introduce the Foundation Model Transparency Index. The Foundation Model Transparency Index specifies 100 fine-grained indicators that comprehensively codify transparency for foundation models, spanning the upstream resources used to build a foundation model (e.g data, labor, compute), details about the model itself (e.g. size, capabilities, risks), and the downstream use (e.g. distribution channels, usage policies, affected geographies). We score 10 major foundation model developers (e.g. OpenAI, Google, Meta) against the 100 indicators to assess their transparency. To facilitate and standardize assessment, we score developers in relation to their practices for their flagship foundation model (e.g. GPT-4 for OpenAI, PaLM 2 for Google, Llama 2 for Meta). We present 10 top-level findings about the foundation model ecosystem: for example, no developer currently discloses significant information about the downstr",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2310.06824",
+      "title": "The Geometry of Truth: Emergent Linear Structure in Large Language Model Representations of True/False Datasets",
+      "short": "Geometry of truth",
+      "url": "https://arxiv.org/abs/2310.06824",
+      "pdf": "https://arxiv.org/pdf/2310.06824",
+      "date": "2023-10-10",
+      "authors": [
+        "Samuel Marks",
+        "Max Tegmark"
+      ],
+      "organisations": [],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 857,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "preprint; 857 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Finds truth is linearly represented and causally implicated, supporting lie detection from internals. The evidential basis for treating honesty as something measurable rather than only observable.",
+      "primary_category": "interp.probes",
+      "categories": [
+        "interp.probes",
+        "interp.deception"
+      ],
+      "contribution_type": "analysis",
+      "methods": [
+        "linear probes",
+        "curated true/false datasets",
+        "causal intervention"
+      ],
+      "threat_model": "Detecting whether a model internally represents a statement as false while asserting it.",
+      "addresses_needs": [
+        "n.interp"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Established on simple factual statements; whether the same direction carries strategic deception in an agentic setting is exactly what is not shown.",
+      "confidence": 1.0,
+      "abstract": "Large Language Models (LLMs) have impressive capabilities, but are prone to outputting falsehoods. Recent work has developed techniques for inferring whether a LLM is telling the truth by training probes on the LLM's internal activations. However, this line of work is controversial, with some authors pointing out failures of these probes to generalize in basic ways, among other conceptual issues. In this work, we use high-quality datasets of simple true/false statements to study in detail the structure of LLM representations of truth, drawing on three lines of evidence: 1. Visualizations of LLM true/false statement representations, which reveal clear linear structure. 2. Transfer experiments in which probes trained on one dataset generalize to different datasets. 3. Causal evidence obtained by surgically intervening in a LLM's forward pass, causing it to treat false statements as true and vice versa. Overall, we present evidence that at sufficient scale, LLMs linearly represent the truth or falsehood of factual statements. We also show that simple difference-in-mean probes generalize as well as other probing techniques while identifying directions which are more causally implicated in model outputs.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2310.03684",
+      "title": "SmoothLLM: Defending Large Language Models Against Jailbreaking Attacks",
+      "short": "SmoothLLM",
+      "url": "https://arxiv.org/abs/2310.03684",
+      "pdf": "https://arxiv.org/pdf/2310.03684",
+      "date": "2023-10-05",
+      "authors": [
+        "Alexander Robey",
+        "Eric Wong",
+        "Hamed Hassani",
+        "George Pappas"
+      ],
+      "organisations": [],
+      "venue": "Trans. Mach. Learn. Res.",
+      "venue_source": "semantic-scholar",
+      "citations": 598,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "Trans. Mach. Learn. Res.; 598 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Perturbs copies of the prompt and aggregates the responses, exploiting the fragility of optimised suffixes. Cuts GCG success to near zero at the cost of multiple inference passes.",
+      "primary_category": "defense.robust",
+      "categories": [
+        "defense.robust",
+        "attack.jailbreak"
+      ],
+      "contribution_type": "defence",
+      "methods": [
+        "randomised smoothing",
+        "character perturbation",
+        "majority voting"
+      ],
+      "threat_model": "Adversarial suffixes that are brittle to character-level noise.",
+      "addresses_needs": [
+        "n.guardrails"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Defends the brittleness of a specific attack family, not the underlying weakness - semantically fluent jailbreaks survive perturbation.",
+      "confidence": 1.0,
+      "abstract": "Despite efforts to align large language models (LLMs) with human intentions, widely-used LLMs such as GPT, Llama, and Claude are susceptible to jailbreaking attacks, wherein an adversary fools a targeted LLM into generating objectionable content. To address this vulnerability, we propose SmoothLLM, the first algorithm designed to mitigate jailbreaking attacks. Based on our finding that adversarially-generated prompts are brittle to character-level changes, our defense randomly perturbs multiple copies of a given input prompt, and then aggregates the corresponding predictions to detect adversarial inputs. Across a range of popular LLMs, SmoothLLM sets the state-of-the-art for robustness against the GCG, PAIR, RandomSearch, and AmpleGCG jailbreaks. SmoothLLM is also resistant against adaptive GCG attacks, exhibits a small, though non-negligible trade-off between robustness and nominal performance, and is compatible with any LLM. Our code is publicly available at \\url{https://github.com/arobey1/smooth-llm}.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2310.02238",
@@ -2168,7 +3815,7 @@
       "venue_source": "curator",
       "trust": {
         "tier": "frontier-lab",
-        "justification": "preprint (Microsoft Research) - Microsoft Research",
+        "justification": "preprint (Microsoft Research) - Microsoft Research; 477 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -2207,7 +3854,117 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Approximate unlearning"
+      "short": "Approximate unlearning",
+      "citations": 477
+    },
+    {
+      "id": "arxiv:2310.01405",
+      "title": "Representation Engineering: A Top-Down Approach to AI Transparency",
+      "short": "RepE",
+      "url": "https://arxiv.org/abs/2310.01405",
+      "pdf": "https://arxiv.org/pdf/2310.01405",
+      "date": "2023-10-02",
+      "authors": [
+        "Andy Zou",
+        "Long Phan",
+        "Sarah Chen",
+        "James Campbell",
+        "Phillip Guo",
+        "Richard Ren"
+      ],
+      "organisations": [],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 1570,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "preprint; 1570 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Treats representations rather than circuits as the unit of analysis, extracting directions that both read and steer behaviours like honesty and power-seeking. The method behind circuit breakers and most activation-steering defences.",
+      "primary_category": "interp.probes",
+      "categories": [
+        "interp.probes",
+        "defense.monitoring",
+        "interp.deception"
+      ],
+      "contribution_type": "framework",
+      "methods": [
+        "reading vectors",
+        "control vectors",
+        "linear artificial tomography"
+      ],
+      "threat_model": "Monitoring and steering high-level behaviour - honesty, harmfulness - from internal state.",
+      "addresses_needs": [
+        "n.interp",
+        "n.monitoring"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Steering works empirically; there is no guarantee a control vector generalises outside the distribution it was derived from, which is where an attacker operates.",
+      "confidence": 1.0,
+      "abstract": "In this paper, we identify and characterize the emerging area of representation engineering (RepE), an approach to enhancing the transparency of AI systems that draws on insights from cognitive neuroscience. RepE places population-level representations, rather than neurons or circuits, at the center of analysis, equipping us with novel methods for monitoring and manipulating high-level cognitive phenomena in deep neural networks (DNNs). We provide baselines and an initial analysis of RepE techniques, showing that they offer simple yet effective solutions for improving our understanding and control of large language models. We showcase how these methods can provide traction on a wide range of safety-relevant problems, including honesty, harmlessness, power-seeking, and more, demonstrating the promise of top-down transparency research. We hope that this work catalyzes further exploration of RepE and fosters advancements in the transparency and safety of AI systems.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2311.09227",
+      "title": "Open-Sourcing Highly Capable Foundation Models: An evaluation of risks, benefits, and alternative methods for pursuing open-source objectives",
+      "short": "Open-sourcing risk",
+      "url": "https://arxiv.org/abs/2311.09227",
+      "pdf": "https://arxiv.org/pdf/2311.09227",
+      "date": "2023-09-29",
+      "authors": [
+        "Elizabeth Seger",
+        "Noemi Dreksler",
+        "Richard Moulange",
+        "Emily Dardaman",
+        "Jonas Schuett",
+        "Kevin Wei"
+      ],
+      "organisations": [
+        "Centre for the Governance of AI"
+      ],
+      "venue": "Social Science Research Network",
+      "venue_source": "semantic-scholar",
+      "citations": 82,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "Social Science Research Network; 82 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Analyses open weight release as a risk decision with alternatives between fully open and fully closed - staged release, structured access, gated APIs - rather than a binary.",
+      "primary_category": "gov.frameworks",
+      "categories": [
+        "gov.frameworks",
+        "supply.provenance",
+        "eval.dangercap"
+      ],
+      "contribution_type": "position",
+      "methods": [
+        "risk-benefit analysis",
+        "release-option taxonomy"
+      ],
+      "threat_model": "Irreversible capability proliferation through weight release.",
+      "addresses_needs": [
+        "n.compliance",
+        "n.supplychain"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Frames the decision without a capability threshold that would make it operational, so each release is still argued from first principles.",
+      "confidence": 1.0,
+      "abstract": "Recent decisions by leading AI labs to either open-source their models or to restrict access to their models has sparked debate about whether, and how, increasingly capable AI models should be shared. Open-sourcing in AI typically refers to making model architecture and weights freely and publicly accessible for anyone to modify, study, build on, and use. This offers advantages such as enabling external oversight, accelerating progress, and decentralizing control over AI development and use. However, it also presents a growing potential for misuse and unintended consequences. This paper offers an examination of the risks and benefits of open-sourcing highly capable foundation models. While open-sourcing has historically provided substantial net benefits for most software and AI development processes, we argue that for some highly capable foundation models likely to be developed in the near future, open-sourcing may pose sufficiently extreme risks to outweigh the benefits. In such a case, highly capable foundation models should not be open-sourced, at least not initially. Alternative strategies, including non-open-source model sharing options, are explored. The paper concludes with recommendations for developers, standard-setting bodies, and governments for establishing safe and responsible model sharing practices and preserving open-source benefits where safe.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "web:anthropic-rsp",
@@ -2258,6 +4015,57 @@
       "validation_warnings": []
     },
     {
+      "id": "arxiv:2309.08600",
+      "title": "Sparse Autoencoders Find Highly Interpretable Features in Language Models",
+      "short": "Sparse autoencoders",
+      "url": "https://arxiv.org/abs/2309.08600",
+      "pdf": "https://arxiv.org/pdf/2309.08600",
+      "date": "2023-09-15",
+      "authors": [
+        "Hoagy Cunningham",
+        "Aidan Ewart",
+        "L. Smith",
+        "R. Huben",
+        "Lee Sharkey"
+      ],
+      "organisations": [],
+      "venue": "International Conference on Learning Representations",
+      "venue_source": "semantic-scholar",
+      "citations": 1785,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "International Conference on Learning Representations; 1785 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Decomposes superposed activations into sparse, individually interpretable features, making the model's internal state legible enough to build detectors on. The technical basis for probe-based safety monitoring.",
+      "primary_category": "interp.probes",
+      "categories": [
+        "interp.probes",
+        "interp.circuits"
+      ],
+      "contribution_type": "analysis",
+      "methods": [
+        "sparse dictionary learning",
+        "monosemantic features",
+        "causal interventions"
+      ],
+      "threat_model": "Not a threat model - the enabling technique for internals-based detection.",
+      "addresses_needs": [
+        "n.interp"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Feature interpretability is validated by human judgement; no evaluation establishes that an SAE feature labelled 'deception' detects deception reliably.",
+      "confidence": 1.0,
+      "abstract": "One of the roadblocks to a better understanding of neural networks' internals is \\textit{polysemanticity}, where neurons appear to activate in multiple, semantically distinct contexts. Polysemanticity prevents us from identifying concise, human-understandable explanations for what neural networks are doing internally. One hypothesised cause of polysemanticity is \\textit{superposition}, where neural networks represent more features than they have neurons by assigning features to an overcomplete set of directions in activation space, rather than to individual neurons. Here, we attempt to identify those directions, using sparse autoencoders to reconstruct the internal activations of a language model. These autoencoders learn sets of sparsely activating features that are more interpretable and monosemantic than directions identified by alternative approaches, where interpretability is measured by automated methods. Moreover, we show that with our learned set of features, we can pinpoint the features that are causally responsible for counterfactual behaviour on the indirect object identification task \\citep{wang2022interpretability} to a finer degree than previous decompositions. This work indicates that it is possible to resolve superposition in language models using a scalable, unsupervised method. Our method may serve as a foundation for future mechanistic interpretability work, which we hope will enable greater model transparency and steerability.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
       "id": "arxiv:2309.05610",
       "title": "Privacy Side Channels in Machine Learning Systems",
       "url": "https://arxiv.org/abs/2309.05610",
@@ -2277,11 +4085,11 @@
         "University of Washington",
         "Carnegie Mellon"
       ],
-      "venue": "USENIX Security 2024",
-      "venue_source": "arxiv-comment",
+      "venue": "USENIX Security Symposium",
+      "venue_source": "semantic-scholar",
       "trust": {
         "tier": "peer-reviewed",
-        "justification": "USENIX Security 2024 - Google DeepMind",
+        "justification": "USENIX Security Symposium; 63 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -2325,7 +4133,117 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Privacy side channels"
+      "short": "Privacy side channels",
+      "citations": 63
+    },
+    {
+      "id": "arxiv:2309.00614",
+      "title": "Baseline Defenses for Adversarial Attacks Against Aligned Language Models",
+      "short": "Baseline defences",
+      "url": "https://arxiv.org/abs/2309.00614",
+      "pdf": "https://arxiv.org/pdf/2309.00614",
+      "date": "2023-09-01",
+      "authors": [
+        "Neel Jain",
+        "Avi Schwarzschild",
+        "Yuxin Wen",
+        "Gowthami Somepalli",
+        "John Kirchenbauer",
+        "Ping-Yeh Chiang"
+      ],
+      "organisations": [],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 838,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "preprint; 838 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Tests whether the standard vision-robustness toolkit transfers to text and finds the discrete domain changes the trade-offs substantially. Establishes the baselines every later defence is measured against.",
+      "primary_category": "defense.robust",
+      "categories": [
+        "defense.robust",
+        "attack.jailbreak",
+        "defense.guardrails"
+      ],
+      "contribution_type": "analysis",
+      "methods": [
+        "perplexity filtering",
+        "paraphrase",
+        "retokenisation",
+        "adaptive attack evaluation"
+      ],
+      "threat_model": "An adaptive attacker who knows which defence is deployed.",
+      "addresses_needs": [
+        "n.guardrails",
+        "n.redteam"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Shows simple filters work against current attacks and says plainly they will not hold against adaptive ones - a prediction later work confirmed.",
+      "confidence": 1.0,
+      "abstract": "As Large Language Models quickly become ubiquitous, it becomes critical to understand their security vulnerabilities. Recent work shows that text optimizers can produce jailbreaking prompts that bypass moderation and alignment. Drawing from the rich body of work on adversarial machine learning, we approach these attacks with three questions: What threat models are practically useful in this domain? How do baseline defense techniques perform in this new domain? How does LLM security differ from computer vision? We evaluate several baseline defense strategies against leading adversarial attacks on LLMs, discussing the various settings in which each is feasible and effective. Particularly, we look at three types of defenses: detection (perplexity based), input preprocessing (paraphrase and retokenization), and adversarial training. We discuss white-box and gray-box settings and discuss the robustness-performance trade-off for each of the defenses considered. We find that the weakness of existing discrete optimizers for text, combined with the relatively high costs of optimization, makes standard adaptive attacks more challenging for LLMs. Future research will be needed to uncover whether more powerful optimizers can be developed, or whether the strength of filtering and preprocessing defenses is greater in the LLMs domain than it has been in computer vision.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2308.06782",
+      "title": "PentestGPT: An LLM-empowered Automatic Penetration Testing Tool",
+      "short": "PentestGPT",
+      "url": "https://arxiv.org/abs/2308.06782",
+      "pdf": "https://arxiv.org/pdf/2308.06782",
+      "date": "2023-08-13",
+      "authors": [
+        "Ge-Lei Deng",
+        "Yi Liu",
+        "V'ictor Mayoral-Vilches",
+        "Peng Liu",
+        "Yuekang Li",
+        "Yuan Xu"
+      ],
+      "organisations": [],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 214,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "preprint; 214 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Decomposes pentesting into separate reasoning, generation and parsing modules to survive long engagements where a single-context agent loses the thread. Substantial task-completion gains over naive prompting.",
+      "primary_category": "cyber.exploit",
+      "categories": [
+        "cyber.exploit",
+        "cyber.defense",
+        "eval.benchmark"
+      ],
+      "contribution_type": "framework",
+      "methods": [
+        "modular reasoning/generation/parsing",
+        "context-loss mitigation",
+        "benchmark targets"
+      ],
+      "threat_model": "Automated penetration testing against a target network.",
+      "addresses_needs": [
+        "n.offensive",
+        "n.evals"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Evaluated on benchmark machines whose difficulty is calibrated for humans learning, not for production environments with defenders present.",
+      "confidence": 1.0,
+      "abstract": "Penetration testing, a crucial industrial practice for ensuring system security, has traditionally resisted automation due to the extensive expertise required by human professionals. Large Language Models (LLMs) have shown significant advancements in various domains, and their emergent abilities suggest their potential to revolutionize industries. In this research, we evaluate the performance of LLMs on real-world penetration testing tasks using a robust benchmark created from test machines with platforms. Our findings reveal that while LLMs demonstrate proficiency in specific sub-tasks within the penetration testing process, such as using testing tools, interpreting outputs, and proposing subsequent actions, they also encounter difficulties maintaining an integrated understanding of the overall testing scenario. In response to these insights, we introduce PentestGPT, an LLM-empowered automatic penetration testing tool that leverages the abundant domain knowledge inherent in LLMs. PentestGPT is meticulously designed with three self-interacting modules, each addressing individual sub-tasks of penetration testing, to mitigate the challenges related to context loss. Our evaluation shows that PentestGPT not only outperforms LLMs with a task-completion increase of 228.6\\% compared to the \\gptthree model among the benchmark targets but also proves effective in tackling real-world penetration testing challenges. Having been open-sourced on GitHub, PentestGPT has garnered over 4,700 ",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2307.15043",
@@ -2350,7 +4268,7 @@
       "venue_source": "curator",
       "trust": {
         "tier": "top-institution",
-        "justification": "preprint (llm-attacks.org) - Carnegie Mellon University",
+        "justification": "preprint (llm-attacks.org) - Carnegie Mellon University; 4043 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -2398,7 +4316,163 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "GCG"
+      "short": "GCG",
+      "citations": 4043
+    },
+    {
+      "id": "arxiv:2308.00121",
+      "title": "Getting pwn’d by AI: Penetration Testing with Large Language Models",
+      "short": "LLM pentesting",
+      "url": "https://arxiv.org/abs/2308.00121",
+      "pdf": "https://arxiv.org/pdf/2308.00121",
+      "date": "2023-07-24",
+      "authors": [
+        "A. Happe",
+        "J. Cito"
+      ],
+      "organisations": [],
+      "venue": "ESEC/SIGSOFT FSE",
+      "venue_source": "semantic-scholar",
+      "citations": 207,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "ESEC/SIGSOFT FSE; 207 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "One of the first serious examinations of LLMs in offensive security practice, separating high-level attack planning from low-level command generation and finding them very differently useful.",
+      "primary_category": "cyber.defense",
+      "categories": [
+        "cyber.defense",
+        "cyber.exploit",
+        "cyber.vulndiscovery"
+      ],
+      "contribution_type": "analysis",
+      "methods": [
+        "high-level planning",
+        "low-level guidance",
+        "practitioner study"
+      ],
+      "threat_model": "Defensive: augmenting a human penetration tester.",
+      "addresses_needs": [
+        "n.offensive"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Qualitative. No measurement of time saved or coverage gained, so the productivity claim that drives adoption is unquantified.",
+      "confidence": 1.0,
+      "abstract": "The field of software security testing, more specifically penetration testing, requires high levels of expertise and involves many manual testing and analysis steps. This paper explores the potential use of large-language models, such as GPT3.5, to augment penetration testers with AI sparring partners. We explore two distinct use cases: high-level task planning for security testing assignments and low-level vulnerability hunting within a vulnerable virtual machine. For the latter, we implemented a closed-feedback loop between LLM-generated low-level actions with a vulnerable virtual machine (connected through SSH) and allowed the LLM to analyze the machine state for vulnerabilities and suggest concrete attack vectors which were automatically executed within the virtual machine. We discuss promising initial results, detail avenues for improvement, and close deliberating on the ethics of AI sparring partners.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2307.06865",
+      "title": "Effective Prompt Extraction from Language Models",
+      "short": "Prompt extraction",
+      "url": "https://arxiv.org/abs/2307.06865",
+      "pdf": "https://arxiv.org/pdf/2307.06865",
+      "date": "2023-07-13",
+      "authors": [
+        "Yiming Zhang",
+        "Nicholas Carlini",
+        "Daphne Ippolito"
+      ],
+      "organisations": [],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 126,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "preprint; 126 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Systematically shows system prompts are extractable from production services and that defences in use are weak, undermining prompt secrecy as a security assumption.",
+      "primary_category": "attack.extraction",
+      "categories": [
+        "attack.extraction",
+        "attack.injection"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "extraction attack framework",
+        "prompt-secrecy evaluation"
+      ],
+      "threat_model": "A deployed application whose system prompt is treated as intellectual property.",
+      "addresses_needs": [
+        "n.privacy",
+        "n.redteam"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Argues prompt secrecy is not a control without proposing what should replace it in applications that currently depend on it.",
+      "confidence": 1.0,
+      "abstract": "The text generated by large language models is commonly controlled by prompting, where a prompt prepended to a user's query guides the model's output. The prompts used by companies to guide their models are often treated as secrets, to be hidden from the user making the query. They have even been treated as commodities to be bought and sold on marketplaces. However, anecdotal reports have shown adversarial users employing prompt extraction attacks to recover these prompts. In this paper, we present a framework for systematically measuring the effectiveness of these attacks. In experiments with 3 different sources of prompts and 11 underlying large language models, we find that simple text-based attacks can in fact reveal prompts with high probability. Our framework determines with high precision whether an extracted prompt is the actual secret prompt, rather than a model hallucination. Prompt extraction from real systems such as Claude 3 and ChatGPT further suggest that system prompts can be revealed by an adversary despite existing defenses in place.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2307.03718",
+      "title": "Frontier AI Regulation: Managing Emerging Risks to Public Safety",
+      "short": "Frontier AI regulation",
+      "url": "https://arxiv.org/abs/2307.03718",
+      "pdf": "https://arxiv.org/pdf/2307.03718",
+      "date": "2023-07-06",
+      "authors": [
+        "Markus Anderljung",
+        "Joslyn Barnhart",
+        "Anton Korinek",
+        "Jade Leung",
+        "Cullen O'Keefe",
+        "Jess Whittlestone"
+      ],
+      "organisations": [
+        "Oxford",
+        "Google DeepMind",
+        "OpenAI"
+      ],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 198,
+      "kind": "paper",
+      "trust": {
+        "tier": "frontier-lab",
+        "justification": "preprint; 198 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "The reference proposal for frontier regulation - standards development, registration and disclosure, compliance mechanisms - and the vocabulary much subsequent policy adopted.",
+      "primary_category": "gov.regulation",
+      "categories": [
+        "gov.regulation",
+        "gov.frameworks",
+        "gov.transparency"
+      ],
+      "contribution_type": "position",
+      "methods": [
+        "regulatory mechanism design",
+        "safety standards",
+        "licensing analysis"
+      ],
+      "threat_model": "Capabilities arriving faster than the institutions meant to govern them.",
+      "addresses_needs": [
+        "n.compliance"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Proposes institutions without specifying the technical evidence they would act on, which is the same hole the compliance-evidence gap names from the other side.",
+      "confidence": 1.0,
+      "abstract": "Advanced AI models hold the promise of tremendous benefits for humanity, but society needs to proactively manage the accompanying risks. In this paper, we focus on what we term\"frontier AI\"models: highly capable foundation models that could possess dangerous capabilities sufficient to pose severe risks to public safety. Frontier AI models pose a distinct regulatory challenge: dangerous capabilities can arise unexpectedly; it is difficult to robustly prevent a deployed model from being misused; and, it is difficult to stop a model's capabilities from proliferating broadly. To address these challenges, at least three building blocks for the regulation of frontier models are needed: (1) standard-setting processes to identify appropriate requirements for frontier AI developers, (2) registration and reporting requirements to provide regulators with visibility into frontier AI development processes, and (3) mechanisms to ensure compliance with safety standards for the development and deployment of frontier AI models. Industry self-regulation is an important first step. However, wider societal discussions and government intervention will be needed to create standards and to ensure compliance with them. We consider several options to this end, including granting enforcement powers to supervisory authorities and licensure regimes for frontier AI models. Finally, we propose an initial set of safety standards. These include conducting pre-deployment risk assessments; external scrutiny o",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2307.02483",
@@ -2414,11 +4488,11 @@
       "organisations": [
         "UC Berkeley"
       ],
-      "venue": "NeurIPS 2023",
-      "venue_source": "curator",
+      "venue": "Neural Information Processing Systems",
+      "venue_source": "semantic-scholar",
       "trust": {
         "tier": "peer-reviewed",
-        "justification": "NeurIPS 2023 - UC Berkeley",
+        "justification": "Neural Information Processing Systems; 2351 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -2465,7 +4539,115 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Jailbroken"
+      "short": "Jailbroken",
+      "citations": 2351
+    },
+    {
+      "id": "arxiv:2306.17194",
+      "title": "On the Exploitability of Instruction Tuning",
+      "short": "AutoPoison",
+      "url": "https://arxiv.org/abs/2306.17194",
+      "pdf": "https://arxiv.org/pdf/2306.17194",
+      "date": "2023-06-28",
+      "authors": [
+        "Manli Shu",
+        "Jiong-Xiao Wang",
+        "Chen Zhu",
+        "Jonas Geiping",
+        "Chaowei Xiao",
+        "T. Goldstein"
+      ],
+      "organisations": [],
+      "venue": "Neural Information Processing Systems",
+      "venue_source": "semantic-scholar",
+      "citations": 174,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "Neural Information Processing Systems; 174 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Automates poison construction so the attack needs no hand-crafting, and shows both content injection and over-refusal can be induced. Makes the instruction-tuning attack practical rather than demonstrative.",
+      "primary_category": "supply.poisoning",
+      "categories": [
+        "supply.poisoning",
+        "supply.backdoor",
+        "defense.robust"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "automated poison generation",
+        "content injection",
+        "refusal induction"
+      ],
+      "threat_model": "An adversary able to contribute to an instruction-tuning corpus.",
+      "addresses_needs": [
+        "n.supplychain"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Data filtering is evaluated and found insufficient; no detection method with a stated false-negative rate is offered.",
+      "confidence": 1.0,
+      "abstract": "Instruction tuning is an effective technique to align large language models (LLMs) with human intents. In this work, we investigate how an adversary can exploit instruction tuning by injecting specific instruction-following examples into the training data that intentionally changes the model's behavior. For example, an adversary can achieve content injection by injecting training examples that mention target content and eliciting such behavior from downstream models. To achieve this goal, we propose \\textit{AutoPoison}, an automated data poisoning pipeline. It naturally and coherently incorporates versatile attack goals into poisoned data with the help of an oracle LLM. We showcase two example attacks: content injection and over-refusal attacks, each aiming to induce a specific exploitable behavior. We quantify and benchmark the strength and the stealthiness of our data poisoning scheme. Our results show that AutoPoison allows an adversary to change a model's behavior by poisoning only a small fraction of data while maintaining a high level of stealthiness in the poisoned examples. We hope our work sheds light on how data quality affects the behavior of instruction-tuned models and raises awareness of the importance of data quality for responsible deployments of LLMs. Code is available at \\url{https://github.com/azshue/AutoPoison}.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2306.12338",
+      "title": "Do you still need a manual smart contract audit?",
+      "short": "LLM contract audit",
+      "url": "https://arxiv.org/abs/2306.12338",
+      "pdf": "https://arxiv.org/pdf/2306.12338",
+      "date": "2023-06-21",
+      "authors": [
+        "Isaac David",
+        "Liyi Zhou",
+        "Kaihua Qin",
+        "D. Song",
+        "L. Cavallaro",
+        "Arthur Gervais"
+      ],
+      "organisations": [],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 110,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "preprint; 110 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Measures the thing most LLM-security evaluations skip - the false-positive rate - and finds detection respectable but precision poor enough that human review is not removable.",
+      "primary_category": "cyber.vulndiscovery",
+      "categories": [
+        "cyber.vulndiscovery",
+        "cyber.defense",
+        "eval.benchmark"
+      ],
+      "contribution_type": "evaluation",
+      "methods": [
+        "real-world vulnerability dataset",
+        "false-positive measurement",
+        "human comparison"
+      ],
+      "threat_model": "Defensive: finding exploitable bugs in deployed financial contracts.",
+      "addresses_needs": [
+        "n.offensive",
+        "n.evals"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "One of the few papers reporting the precision cost of automated detection, and the practice of reporting it has not spread.",
+      "confidence": 1.0,
+      "abstract": "We investigate the feasibility of employing large language models (LLMs) for conducting the security audit of smart contracts, a traditionally time-consuming and costly process. Our research focuses on the optimization of prompt engineering for enhanced security analysis, and we evaluate the performance and accuracy of LLMs using a benchmark dataset comprising 52 Decentralized Finance (DeFi) smart contracts that have previously been compromised. Our findings reveal that, when applied to vulnerable contracts, both GPT-4 and Claude models correctly identify the vulnerability type in 40% of the cases. However, these models also demonstrate a high false positive rate, necessitating continued involvement from manual auditors. The LLMs tested outperform a random model by 20% in terms of F1-score. To ensure the integrity of our study, we conduct mutation testing on five newly developed and ostensibly secure smart contracts, into which we manually insert two and 15 vulnerabilities each. This testing yielded a remarkable best-case 78.7% true positive rate for the GPT-4-32k model. We tested both, asking the models to perform a binary classification on whether a contract is vulnerable, and a non-binary prompt. We also examined the influence of model temperature variations and context length on the LLM's performance. Despite the potential for many further enhancements, this work lays the groundwork for a more efficient and economical approach to smart contract security audits.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2306.05499",
@@ -2488,7 +4670,7 @@
       "venue_source": "curator",
       "trust": {
         "tier": "top-institution",
-        "justification": "preprint - Nanyang Technological University",
+        "justification": "preprint - Nanyang Technological University; 960 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -2527,7 +4709,58 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "HouYi"
+      "short": "HouYi",
+      "citations": 960
+    },
+    {
+      "id": "arxiv:2305.00944",
+      "title": "Poisoning Language Models During Instruction Tuning",
+      "short": "Instruction poisoning",
+      "url": "https://arxiv.org/abs/2305.00944",
+      "pdf": "https://arxiv.org/pdf/2305.00944",
+      "date": "2023-05-01",
+      "authors": [
+        "Alexander Wan",
+        "Eric Wallace",
+        "Sheng Shen",
+        "D. Klein"
+      ],
+      "organisations": [],
+      "venue": "International Conference on Machine Learning",
+      "venue_source": "semantic-scholar",
+      "citations": 416,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "International Conference on Machine Learning; 416 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Roughly a hundred poisoned examples are enough to make a trigger phrase corrupt behaviour across tasks the poison never touched. Shifts the poisoning threat from pretraining scale to something an individual can do.",
+      "primary_category": "supply.poisoning",
+      "categories": [
+        "supply.poisoning",
+        "supply.backdoor"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "instruction-tuning poisoning",
+        "trigger phrases",
+        "cross-task transfer"
+      ],
+      "threat_model": "A contributor to a crowdsourced or scraped instruction dataset.",
+      "addresses_needs": [
+        "n.supplychain"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Shows how little data is needed; detection of poisoned instruction examples at that ratio is not addressed.",
+      "confidence": 1.0,
+      "abstract": "Instruction-tuned LMs such as ChatGPT, FLAN, and InstructGPT are finetuned on datasets that contain user-submitted examples, e.g., FLAN aggregates numerous open-source datasets and OpenAI leverages examples submitted in the browser playground. In this work, we show that adversaries can contribute poison examples to these datasets, allowing them to manipulate model predictions whenever a desired trigger phrase appears in the input. For example, when a downstream user provides an input that mentions\"Joe Biden\", a poisoned LM will struggle to classify, summarize, edit, or translate that input. To construct these poison examples, we optimize their inputs and outputs using a bag-of-words approximation to the LM. We evaluate our method on open-source instruction-tuned LMs. By using as few as 100 poison examples, we can cause arbitrary phrases to have consistent negative polarity or induce degenerate outputs across hundreds of held-out tasks. Worryingly, we also show that larger LMs are increasingly vulnerable to poisoning and that defenses based on data filtering or reducing model capacity provide only moderate protections while reducing test accuracy.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2302.12173",
@@ -2548,11 +4781,11 @@
         "CISPA",
         "Sequire Technology"
       ],
-      "venue": "AISec '23 (ACM CCS workshop)",
-      "venue_source": "curator",
+      "venue": "AISec@CCS",
+      "venue_source": "semantic-scholar",
       "trust": {
         "tier": "peer-reviewed",
-        "justification": "AISec '23 (ACM CCS workshop) - Saarland University",
+        "justification": "AISec@CCS; 2441 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -2609,7 +4842,8 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Indirect injection"
+      "short": "Indirect injection",
+      "citations": 2441
     },
     {
       "id": "arxiv:2302.10149",
@@ -2631,11 +4865,11 @@
         "NVIDIA",
         "Robust Intelligence"
       ],
-      "venue": "IEEE S&P 2024",
-      "venue_source": "curator",
+      "venue": "IEEE Symposium on Security and Privacy",
+      "venue_source": "semantic-scholar",
       "trust": {
         "tier": "peer-reviewed",
-        "justification": "IEEE S&P 2024 - Google DeepMind",
+        "justification": "IEEE Symposium on Security and Privacy; 432 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -2678,7 +4912,61 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Web-scale poisoning"
+      "short": "Web-scale poisoning",
+      "citations": 432
+    },
+    {
+      "id": "arxiv:2302.00539",
+      "title": "Analyzing Leakage of Personally Identifiable Information in Language Models",
+      "short": "PII leakage",
+      "url": "https://arxiv.org/abs/2302.00539",
+      "pdf": "https://arxiv.org/pdf/2302.00539",
+      "date": "2023-02-01",
+      "authors": [
+        "Nils Lukas",
+        "A. Salem",
+        "Robert Sim",
+        "Shruti Tople",
+        "Lukas Wutschitz",
+        "Santiago Zanella-Béguelin"
+      ],
+      "organisations": [],
+      "venue": "IEEE Symposium on Security and Privacy",
+      "venue_source": "semantic-scholar",
+      "citations": 462,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "IEEE Symposium on Security and Privacy; 462 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Shows sentence-level differential privacy leaves PII recoverable, and formalises extraction, reconstruction and inference as three distinct leakage modes with different defences.",
+      "primary_category": "attack.privacy",
+      "categories": [
+        "attack.privacy",
+        "attack.extraction"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "PII reconstruction",
+        "inference attacks",
+        "differential privacy evaluation"
+      ],
+      "threat_model": "A model trained on documents containing personal data about identifiable people.",
+      "addresses_needs": [
+        "n.privacy",
+        "n.compliance"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Demonstrates that record-level DP guarantees do not translate to person-level protection, which is the guarantee data-protection law actually asks for.",
+      "confidence": 1.0,
+      "abstract": "Language Models (LMs) have been shown to leak information about training data through sentence-level membership inference and reconstruction attacks. Understanding the risk of LMs leaking Personally Identifiable Information (PII) has received less attention, which can be attributed to the false assumption that dataset curation techniques such as scrubbing are sufficient to prevent PII leakage. Scrubbing techniques reduce but do not prevent the risk of PII leakage: in practice scrubbing is imperfect and must balance the trade-off between minimizing disclosure and preserving the utility of the dataset. On the other hand, it is unclear to which extent algorithmic defenses such as differential privacy, designed to guarantee sentence-or user-level privacy, prevent PII disclosure. In this work, we introduce rigorous game-based definitions for three types of PII leakage via black-box extraction, inference, and reconstruction attacks with only API access to an LM. We empirically evaluate the attacks against GPT-2 models fine-tuned with and without defenses in three domains: case law, health care, and e-mails. Our main contributions are (i) novel attacks that can extract up to 10× more PII sequences than existing attacks, (ii) showing that sentence-level differential privacy reduces the risk of PII disclosure but still leaks about 3% of PII sequences, and (iii) a subtle connection between record-level membership inference and PII reconstruction. Code to reproduce all experiments in th",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2301.10226",
@@ -2697,11 +4985,11 @@
       "organisations": [
         "University of Maryland"
       ],
-      "venue": "ICML 2023",
-      "venue_source": "arxiv-comment",
+      "venue": "International Conference on Machine Learning",
+      "venue_source": "semantic-scholar",
       "trust": {
         "tier": "peer-reviewed",
-        "justification": "ICML 2023 - University of Maryland",
+        "justification": "International Conference on Machine Learning; 1156 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -2736,7 +5024,161 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "LLM watermark"
+      "short": "LLM watermark",
+      "citations": 1156
+    },
+    {
+      "id": "arxiv:2202.07646",
+      "title": "Quantifying Memorization Across Neural Language Models",
+      "short": "Memorisation scaling",
+      "url": "https://arxiv.org/abs/2202.07646",
+      "pdf": "https://arxiv.org/pdf/2202.07646",
+      "date": "2022-02-15",
+      "authors": [
+        "Nicholas Carlini",
+        "Daphne Ippolito",
+        "Matthew Jagielski",
+        "Katherine Lee",
+        "Florian Tramèr",
+        "Chiyuan Zhang"
+      ],
+      "organisations": [],
+      "venue": "International Conference on Learning Representations",
+      "venue_source": "semantic-scholar",
+      "citations": 1049,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "International Conference on Learning Representations; 1049 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Establishes the three scaling laws of memorisation - it grows with model size, with example duplication, and with context length. Turns memorisation from an anecdote into something predictable from training configuration.",
+      "primary_category": "attack.extraction",
+      "categories": [
+        "attack.extraction",
+        "attack.privacy"
+      ],
+      "contribution_type": "analysis",
+      "methods": [
+        "scaling study",
+        "duplication analysis",
+        "prefix-length sensitivity"
+      ],
+      "threat_model": "Any deployed model trained on data containing secrets.",
+      "addresses_needs": [
+        "n.privacy"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Predicts memorisation but offers no mitigation that preserves capability; deduplication helps and does not solve it.",
+      "confidence": 1.0,
+      "abstract": "Large language models (LMs) have been shown to memorize parts of their training data, and when prompted appropriately, they will emit the memorized training data verbatim. This is undesirable because memorization violates privacy (exposing user data), degrades utility (repeated easy-to-memorize text is often low quality), and hurts fairness (some texts are memorized over others). We describe three log-linear relationships that quantify the degree to which LMs emit memorized training data. Memorization significantly grows as we increase (1) the capacity of a model, (2) the number of times an example has been duplicated, and (3) the number of tokens of context used to prompt the model. Surprisingly, we find the situation becomes more complicated when generalizing these results across model families. On the whole, we find that memorization in LMs is more prevalent than previously believed and will likely get worse as models continues to scale, at least without active mitigations.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2112.02125",
+      "title": "Examining Zero-Shot Vulnerability Repair with Large Language Models",
+      "short": "Zero-shot repair",
+      "url": "https://arxiv.org/abs/2112.02125",
+      "pdf": "https://arxiv.org/pdf/2112.02125",
+      "date": "2021-12-03",
+      "authors": [
+        "H. Pearce",
+        "Benjamin Tan",
+        "Baleegh Ahmad",
+        "R. Karri",
+        "Brendan Dolan-Gavitt"
+      ],
+      "organisations": [],
+      "venue": "IEEE Symposium on Security and Privacy",
+      "venue_source": "semantic-scholar",
+      "citations": 372,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "IEEE Symposium on Security and Privacy; 372 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Early systematic evaluation of LLM vulnerability repair, finding strong synthetic-benchmark performance and much weaker real-world performance. Established the synthetic/real gap that still frames the area.",
+      "primary_category": "cyber.defense",
+      "categories": [
+        "cyber.defense",
+        "cyber.vulndiscovery"
+      ],
+      "contribution_type": "evaluation",
+      "methods": [
+        "synthetic and real vulnerability repair",
+        "prompt sensitivity"
+      ],
+      "threat_model": "Defensive: automated patching of known vulnerabilities.",
+      "addresses_needs": [
+        "n.offensive",
+        "n.evals"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Predates agentic tooling, so its numbers are stale - but no current paper repeats the synthetic-versus-real comparison that made it useful.",
+      "confidence": 1.0,
+      "abstract": "Human developers can produce code with cybersecurity bugs. Can emerging ‘smart’ code completion tools help repair those bugs? In this work, we examine the use of large language models (LLMs) for code (such as OpenAI’s Codex and AI21’s Jurassic J-1) for zero-shot vulnerability repair. We investigate challenges in the design of prompts that coax LLMs into generating repaired versions of insecure code. This is difficult due to the numerous ways to phrase key information— both semantically and syntactically—with natural languages. We perform a large scale study of five commercially available, black-box, \"off-the-shelf\" LLMs, as well as an open-source model and our own locally-trained model, on a mix of synthetic, hand-crafted, and real-world security bug scenarios. Our experiments demonstrate that while the approach has promise (the LLMs could collectively repair 100% of our synthetically generated and hand-crafted scenarios), a qualitative evaluation of the model’s performance over a corpus of historical real-world examples highlights challenges in generating functionally correct code.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2108.10241",
+      "title": "Back to the Drawing Board: A Critical Evaluation of Poisoning Attacks on Production Federated Learning",
+      "short": "Federated poisoning critique",
+      "url": "https://arxiv.org/abs/2108.10241",
+      "pdf": "https://arxiv.org/pdf/2108.10241",
+      "date": "2021-08-23",
+      "authors": [
+        "Virat Shejwalkar",
+        "Amir Houmansadr",
+        "Peter Kairouz",
+        "Daniel Ramage"
+      ],
+      "organisations": [],
+      "venue": "IEEE Symposium on Security and Privacy",
+      "venue_source": "semantic-scholar",
+      "citations": 350,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "IEEE Symposium on Security and Privacy; 350 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Argues the poisoning literature assumes adversaries far stronger than production systems face, and that under realistic parameters federated learning is substantially more robust than claimed. A useful corrective.",
+      "primary_category": "infra.federated",
+      "categories": [
+        "infra.federated",
+        "supply.poisoning"
+      ],
+      "contribution_type": "analysis",
+      "methods": [
+        "threat-model critique",
+        "production-parameter evaluation"
+      ],
+      "threat_model": "A realistic rather than maximal adversary in a production federated deployment.",
+      "addresses_needs": [
+        "n.supplychain",
+        "n.secure_infra"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Valuable as a critique of threat-model inflation - and this inventory should hold itself to the same standard.",
+      "confidence": 1.0,
+      "abstract": "While recent works have indicated that federated learning (FL) may be vulnerable to poisoning attacks by compromised clients, their real impact on production FL systems is not fully understood. In this work, we aim to develop a comprehensive systemization for poisoning attacks on FL by enumerating all possible threat models, variations of poisoning, and adversary capabilities. We specifically put our focus on un-targeted poisoning attacks, as we argue that they are significantly relevant to production FL deployments. We present a critical analysis of untargeted poisoning attacks under practical, production FL environments by carefully characterizing the set of realistic threat models and adversarial capabilities. Our findings are rather surprising: contrary to the established belief, we show that FL is highly robust in practice even when using simple, low-cost defenses. We go even further and propose novel, state-of-the-art data and model poisoning attacks, and show via an extensive set of experiments across three benchmark datasets how (in)effective poisoning attacks are in the presence of simple defense mechanisms. We aim to correct previous misconceptions and offer concrete guidelines to conduct more accurate (and more realistic) research on this topic.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2012.07805",
@@ -2760,11 +5202,11 @@
         "Northeastern",
         "Apple"
       ],
-      "venue": "USENIX Security 2021",
-      "venue_source": "curator",
+      "venue": "USENIX Security Symposium",
+      "venue_source": "semantic-scholar",
       "trust": {
         "tier": "peer-reviewed",
-        "justification": "USENIX Security 2021 - Google",
+        "justification": "USENIX Security Symposium; 3558 citations",
         "gate_reason": "seed entry, curated"
       },
       "source": "arXiv",
@@ -2802,7 +5244,212 @@
       "curation": "human",
       "notes": "",
       "validation_warnings": [],
-      "short": "Training-data extraction"
+      "short": "Training-data extraction",
+      "citations": 3558
+    },
+    {
+      "id": "arxiv:1906.08935",
+      "title": "Deep Leakage from Gradients",
+      "short": "Deep leakage",
+      "url": "https://arxiv.org/abs/1906.08935",
+      "pdf": "https://arxiv.org/pdf/1906.08935",
+      "date": "2019-06-01",
+      "authors": [
+        "Li-Geng Zhu",
+        "Zhijian Liu",
+        "Song Han"
+      ],
+      "organisations": [],
+      "venue": "Neural Information Processing Systems",
+      "venue_source": "semantic-scholar",
+      "citations": 3408,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "Neural Information Processing Systems; 3408 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Reconstructs training inputs pixel-perfect from shared gradients, destroying the assumption that gradient sharing is privacy-preserving. The reason secure aggregation exists.",
+      "primary_category": "infra.federated",
+      "categories": [
+        "infra.federated",
+        "attack.privacy",
+        "attack.extraction"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "gradient matching",
+        "input reconstruction"
+      ],
+      "threat_model": "A federated-learning server, or anyone who observes gradient updates.",
+      "addresses_needs": [
+        "n.privacy",
+        "n.secure_infra"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Demonstrated on small batches; the batch sizes used in practice weaken it, and no analysis says at what size the attack stops working.",
+      "confidence": 1.0,
+      "abstract": "Exchanging gradients is a widely used method in modern multi-node machine learning system (e.g., distributed training, collaborative learning). For a long time, people believed that gradients are safe to share: i.e., the training data will not be leaked by gradient exchange. However, we show that it is possible to obtain the private training data from the publicly shared gradients. We name this leakage as Deep Leakage from Gradient and empirically validate the effectiveness on both computer vision and natural language processing tasks. Experimental results show that our attack is much stronger than previous approaches: the recovery is pixel-wise accurate for images and token-wise matching for texts. We want to raise people's awareness to rethink the gradient's safety. Finally, we discuss several possible strategies to prevent such deep leakage. The most effective defense method is gradient pruning.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:1905.02175",
+      "title": "Adversarial Examples Are Not Bugs, They Are Features",
+      "short": "Non-robust features",
+      "url": "https://arxiv.org/abs/1905.02175",
+      "pdf": "https://arxiv.org/pdf/1905.02175",
+      "date": "2019-05-06",
+      "authors": [
+        "Andrew Ilyas",
+        "Shibani Santurkar",
+        "Dimitris Tsipras",
+        "Logan Engstrom",
+        "Brandon Tran",
+        "A. Ma̧dry"
+      ],
+      "organisations": [],
+      "venue": "Neural Information Processing Systems",
+      "venue_source": "semantic-scholar",
+      "citations": 2221,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "Neural Information Processing Systems; 2221 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Argues adversarial vulnerability is a property of the data, not a flaw in training: models learn genuinely predictive features that are imperceptible to humans. Reframes robustness as a human-alignment problem rather than a bug to patch.",
+      "primary_category": "attack.adversarial",
+      "categories": [
+        "attack.adversarial",
+        "defense.robust",
+        "interp.circuits"
+      ],
+      "contribution_type": "analysis",
+      "methods": [
+        "robust/non-robust feature separation",
+        "dataset surgery"
+      ],
+      "threat_model": "Not a threat model - an explanation of why one exists.",
+      "addresses_needs": [
+        "n.guardrails",
+        "n.interp"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Explains why accuracy and robustness trade off, which implies defences have a ceiling - a ceiling nobody has quantified.",
+      "confidence": 1.0,
+      "abstract": "Adversarial examples have attracted significant attention in machine learning, but the reasons for their existence and pervasiveness remain unclear. We demonstrate that adversarial examples can be directly attributed to the presence of non-robust features: features derived from patterns in the data distribution that are highly predictive, yet brittle and incomprehensible to humans. After capturing these features within a theoretical framework, we establish their widespread existence in standard datasets. Finally, we present a simple setting where we can rigorously tie the phenomena we observe in practice to a misalignment between the (human-specified) notion of robustness and the inherent geometry of the data.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:1708.06733",
+      "title": "BadNets: Identifying Vulnerabilities in the Machine Learning Model Supply Chain",
+      "short": "BadNets",
+      "url": "https://arxiv.org/abs/1708.06733",
+      "pdf": "https://arxiv.org/pdf/1708.06733",
+      "date": "2017-08-22",
+      "authors": [
+        "Tianyu Gu",
+        "Brendan Dolan-Gavitt",
+        "Siddharth Garg"
+      ],
+      "organisations": [],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 2529,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "preprint; 2529 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "The paper that named the ML supply chain as an attack surface: a planted trigger survives transfer learning and is invisible on clean validation data. Everything in backdoor research descends from it.",
+      "primary_category": "supply.backdoor",
+      "categories": [
+        "supply.backdoor",
+        "supply.poisoning",
+        "supply.provenance"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "trigger-based backdoor",
+        "outsourced training",
+        "transfer persistence"
+      ],
+      "threat_model": "A model trained or fine-tuned by a third party you do not control.",
+      "addresses_needs": [
+        "n.supplychain"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Framed the problem in 2017 and the central difficulty - detection without knowing the trigger - is still open, which is itself the finding.",
+      "confidence": 1.0,
+      "abstract": "Deep learning-based techniques have achieved state-of-the-art performance on a wide variety of recognition and classification tasks. However, these networks are typically computationally expensive to train, requiring weeks of computation on many GPUs; as a result, many users outsource the training procedure to the cloud or rely on pre-trained models that are then fine-tuned for a specific task. In this paper we show that outsourced training introduces new security risks: an adversary can create a maliciously trained network (a backdoored neural network, or a \\emph{BadNet}) that has state-of-the-art performance on the user's training and validation samples, but behaves badly on specific attacker-chosen inputs. We first explore the properties of BadNets in a toy example, by creating a backdoored handwritten digit classifier. Next, we demonstrate backdoors in a more realistic scenario by creating a U.S. street sign classifier that identifies stop signs as speed limits when a special sticker is added to the stop sign; we then show in addition that the backdoor in our US street sign detector can persist even if the network is later retrained for another task and cause a drop in accuracy of {25}\\% on average when the backdoor trigger is present. These results demonstrate that backdoors in neural networks are both powerful and---because the behavior of neural networks is difficult to explicate---stealthy. This work provides motivation for further research into techniques for verifyi",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:1706.06083",
+      "title": "Towards Deep Learning Models Resistant to Adversarial Attacks",
+      "short": "PGD adversarial training",
+      "url": "https://arxiv.org/abs/1706.06083",
+      "pdf": "https://arxiv.org/pdf/1706.06083",
+      "date": "2017-06-19",
+      "authors": [
+        "A. Ma̧dry",
+        "Aleksandar Makelov",
+        "Ludwig Schmidt",
+        "Dimitris Tsipras",
+        "Adrian Vladu"
+      ],
+      "organisations": [],
+      "venue": "International Conference on Learning Representations",
+      "venue_source": "semantic-scholar",
+      "citations": 16141,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "International Conference on Learning Representations; 16141 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Casts robustness as a saddle-point problem and gives PGD adversarial training as the reliable answer. The methodological foundation almost every later robustness claim builds on, including latent adversarial training for LLMs.",
+      "primary_category": "defense.robust",
+      "categories": [
+        "defense.robust",
+        "attack.adversarial"
+      ],
+      "contribution_type": "defence",
+      "methods": [
+        "projected gradient descent",
+        "min-max formulation",
+        "certified evaluation"
+      ],
+      "threat_model": "A worst-case perturbation within a bounded norm ball.",
+      "addresses_needs": [
+        "n.guardrails"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Robustness is guaranteed only inside the chosen threat model; the gap between a norm ball and a real attacker has never closed.",
+      "confidence": 1.0,
+      "abstract": "Recent work has demonstrated that deep neural networks are vulnerable to adversarial examples---inputs that are almost indistinguishable from natural data and yet classified incorrectly by the network. In fact, some of the latest findings suggest that the existence of adversarial attacks may be an inherent weakness of deep learning models. To address this problem, we study the adversarial robustness of neural networks through the lens of robust optimization. This approach provides us with a broad and unifying view on much of the prior work on this topic. Its principled nature also enables us to identify methods for both training and attacking neural networks that are reliable and, in a certain sense, universal. In particular, they specify a concrete security guarantee that would protect against any adversary. These methods let us train networks with significantly improved resistance to a wide range of adversarial attacks. They also suggest the notion of security against a first-order adversary as a natural and broad security guarantee. We believe that robustness against such well-defined classes of adversaries is an important stepping stone towards fully resistant deep learning models. Code and pre-trained models are available at this https URL and this https URL.",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     }
   ]
 }

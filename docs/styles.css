@@ -359,3 +359,5 @@ footer code { font-family: var(--mono); font-size: 11.5px; background: var(--sur
    report is never mistaken for peer-reviewed work. */
 .badge.kind-incident { border-color: var(--critical); color: var(--critical); }
 .badge.kind-policy   { border-color: var(--benchmark, var(--s7)); color: var(--c-benchmark); }
+
+.legend.flush { margin: 0; }
