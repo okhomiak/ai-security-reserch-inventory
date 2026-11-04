@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Security Research Inventory</title>
+<meta name="description" content="Overlaps, taxonomy and company-demand map across AI security research, refreshed weekly by an agent.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <div class="head-in">
+    <div class="head-top">
+      <h1>AI Security Research Inventory</h1>
+      <span class="sub" id="head-sub">loading…</span>
+      <span class="spacer"></span>
+      <button class="icon-btn" id="theme-btn" title="Toggle light / dark">◐ theme</button>
+    </div>
+    <nav class="tabs" role="tablist" id="tabs">
+      <button class="tab" role="tab" data-view="overlaps"  aria-selected="true">Overlaps</button>
+      <button class="tab" role="tab" data-view="tree"      aria-selected="false">Research tree</button>
+      <button class="tab" role="tab" data-view="demand"    aria-selected="false">What companies want</button>
+      <button class="tab" role="tab" data-view="gaps"      aria-selected="false">Gaps</button>
+      <button class="tab" role="tab" data-view="papers"    aria-selected="false">Papers</button>
+      <button class="tab" role="tab" data-view="pipeline"  aria-selected="false">Pipeline</button>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============================================================ OVERLAPS -->
+  <section class="view active" id="view-overlaps" role="tabpanel">
+    <div class="stats" id="ov-stats"></div>
+
+    <div class="card">
+      <h2>Overlap graph</h2>
+      <p class="note">Every paper in the inventory, joined where two pieces of work share a real object of
+        study — the same attack class, defence mechanism or benchmark, or a direct build-on. Edge thickness is
+        overlap strength; node size is how many other papers it touches. Colour marks the connected component.
+        Click a node to open the paper.</p>
+      <div class="legend" id="ov-legend"></div>
+      <div class="scroll-x"><svg id="graph" role="img" aria-label="Force-directed graph of overlapping papers"></svg></div>
+    </div>
+
+    <div class="card">
+      <h2>Clusters</h2>
+      <p class="note">Connected components of the strong-overlap graph. These are the live research
+        conversations: each cluster is a set of papers arguing with each other.</p>
+      <div class="cluster-grid" id="ov-clusters"></div>
+    </div>
+
+    <div class="card">
+      <h2>Where the branches meet</h2>
+      <p class="note tight">Co-occurrence: how often two parts of the tree are tagged on the same paper.
+        The diagonal is how many papers sit in that branch at all.</p>
+      <div class="toolbar">
+        <div class="seg" id="mx-level">
+          <button data-level="branch" aria-pressed="true">Branches</button>
+          <button data-level="leaf" aria-pressed="false">Leaf detail</button>
+        </div>
+        <span class="legend" id="mx-legend" style="margin:0"></span>
+      </div>
+      <div class="scroll-x scroll-y" id="ov-matrix"></div>
+    </div>
+
+    <div class="card">
+      <h2>Overlapping pairs</h2>
+      <p class="note tight">Ranked by overlap strength. A pair marked <span class="badge">stated</span> was
+        asserted by the curator or the classifying agent; the rest are computed from shared categories and methods.</p>
+      <div class="toolbar">
+        <input type="search" id="pair-q" placeholder="filter pairs by title or category…">
+        <label class="sub"><input type="checkbox" id="pair-declared"> stated only</label>
+      </div>
+      <ul class="pairs" id="ov-pairs"></ul>
+    </div>
+  </section>
+
+  <!-- ================================================================ TREE -->
+  <section class="view" id="view-tree" role="tabpanel">
+    <div class="card">
+      <h2>Research tree</h2>
+      <p class="note">The taxonomy every paper is filed against, nine branches deep-one. Fill shows how many
+        papers sit at or under a node; a hollow dashed leaf has none at all, which is a coverage hole you can
+        see directly in the shape of the tree. Click any node to list its papers.</p>
+      <div class="toolbar">
+        <div class="seg" id="tree-filter">
+          <button data-f="all" aria-pressed="true">All nodes</button>
+          <button data-f="covered" aria-pressed="false">With papers</button>
+          <button data-f="empty" aria-pressed="false">Empty leaves</button>
+        </div>
+        <span class="legend" id="tree-legend" style="margin:0"></span>
+      </div>
+      <div class="scroll-x"><svg id="tree" role="img" aria-label="Research taxonomy tree with paper counts"></svg></div>
+    </div>
+    <div class="card" id="tree-panel-card">
+      <h2 id="tree-panel-h">Select a node</h2>
+      <div id="tree-panel"><p class="empty">Click a node in the tree to see what it holds.</p></div>
+    </div>
+  </section>
+
+  <!-- ============================================================== DEMAND -->
+  <section class="view" id="view-demand" role="tabpanel">
+    <div class="card">
+      <h2>What companies want</h2>
+      <p class="note" id="demand-basis"></p>
+      <div class="toolbar">
+        <div class="seg" id="hm-sort">
+          <button data-s="demand" aria-pressed="true">Sort by demand</button>
+          <button data-s="type" aria-pressed="false">Group by type</button>
+          <button data-s="name" aria-pressed="false">A–Z</button>
+        </div>
+        <span class="legend" id="hm-legend" style="margin:0"></span>
+      </div>
+      <div class="scroll-x" id="heatmap"></div>
+    </div>
+    <div class="card">
+      <h2>Demand against coverage</h2>
+      <p class="note tight">The same twelve needs, with mean demand beside how many papers the inventory
+        holds for each. The right-hand column is demand per unit of research — the highest values are where
+        the market is asking a question the literature has not answered.</p>
+      <div class="scroll-x" id="pressure"></div>
+    </div>
+  </section>
+
+  <!-- ================================================================ GAPS -->
+  <section class="view" id="view-gaps" role="tabpanel">
+    <div class="card">
+      <h2>Gaps</h2>
+      <p class="note">Each gap is a chain of claims, numbered in the order the argument runs. The wording of
+        a step is fixed; a step carrying figures has them recomputed on every pipeline run, so the reasoning
+        stays put while the numbers stay current. Evidence chips link to the paper or the company row behind
+        a claim.</p>
+    </div>
+    <div id="gap-list"></div>
+    <div class="card">
+      <h2>Computed gaps</h2>
+      <p class="note tight">Not authored — these fall out of the demand-versus-coverage arithmetic each run.
+        They are the candidates for a written chain above.</p>
+      <div id="gap-derived"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================== PAPERS -->
+  <section class="view" id="view-papers" role="tabpanel">
+    <div class="card">
+      <h2>The inventory</h2>
+      <p class="note tight" id="papers-note"></p>
+      <div class="toolbar">
+        <input type="search" id="p-q" placeholder="search title, author, org, method…">
+        <select id="p-branch"><option value="">All branches</option></select>
+        <select id="p-tier"><option value="">All provenance tiers</option></select>
+        <select id="p-contrib"><option value="">All contribution types</option></select>
+        <span class="sub" id="p-count"></span>
+      </div>
+      <div class="scroll-y">
+        <table class="list" id="p-table">
+          <thead><tr>
+            <th data-sort="date">Date</th><th data-sort="title">Title</th>
+            <th data-sort="org">Organisations</th><th data-sort="venue">Venue</th>
+            <th data-sort="cat">Primary category</th><th data-sort="contribution_type">Type</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ PIPELINE -->
+  <section class="view" id="view-pipeline" role="tabpanel">
+    <div class="card">
+      <h2>The weekly agent</h2>
+      <p class="note">Every Monday a GitHub Action queries arXiv and a list of lab and security-research
+        feeds, drops anything off-topic with a mechanical gate, then asks Claude what each surviving paper is
+        about, which branch of the tree it belongs on, whether its provenance meets the inclusion bar, what
+        it overlaps, and what it leaves unresolved. Papers that clear the bar are appended to the inventory;
+        the rest go to a review queue rather than being dropped silently. Overlaps, coverage and the gap
+        figures are then recomputed and committed, which republishes this page.</p>
+      <div class="stats" id="pl-stats"></div>
+    </div>
+    <div class="card">
+      <h2>Run history</h2>
+      <div class="scroll-x" id="pl-runs"></div>
+    </div>
+    <div class="card">
+      <h2>Review queue</h2>
+      <p class="note tight">Classified but held back — relevant work whose provenance the agent could not
+        place above the inclusion bar, or where it was not confident enough. Promote an entry by moving it
+        into <code>docs/data/papers.json</code>.</p>
+      <div id="pl-queue"></div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Data lives in <code>docs/data/*.json</code> and is the only thing the weekly job writes.
+      The page is static — no build step. <a href="https://github.com/okhomiak/ai-security-reserch-inventory">Source and pipeline on GitHub</a>.</p>
+    <p id="foot-updated"></p>
+  </footer>
+</div>
+
+<div id="tip" role="tooltip"></div>
+<script src="app.js"></script>
+</body>
+</html>

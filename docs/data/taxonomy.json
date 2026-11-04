@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "updated": "2026-11-04",
+  "note": "Research tree. Leaf ids are what papers[].categories reference. Edit freely - the agent is told to reuse existing ids and only propose new leaves.",
+  "nodes": [
+    { "id": "attack",  "parent": null, "label": "Attacks on models",            "blurb": "Inference-time adversarial pressure on a deployed model." },
+    { "id": "attack.injection",   "parent": "attack", "label": "Prompt & indirect injection",   "blurb": "Untrusted content in the context window steering the model." },
+    { "id": "attack.jailbreak",   "parent": "attack", "label": "Jailbreaks & refusal bypass",   "blurb": "Eliciting behaviour the safety training was meant to block." },
+    { "id": "attack.extraction",  "parent": "attack", "label": "Training-data extraction",      "blurb": "Memorisation, verbatim recall, secret recovery." },
+    { "id": "attack.adversarial", "parent": "attack", "label": "Adversarial examples & evasion","blurb": "Perturbation attacks on classifiers and multimodal encoders." },
+    { "id": "attack.model_theft", "parent": "attack", "label": "Model & weight theft",          "blurb": "Distillation, logit stealing, weight exfiltration." },
+    { "id": "attack.privacy",     "parent": "attack", "label": "Membership & privacy inference","blurb": "Determining what was in the training set." },
+
+    { "id": "supply", "parent": null, "label": "Supply chain & training time", "blurb": "Compromise before the model ever serves a request." },
+    { "id": "supply.poisoning",  "parent": "supply", "label": "Data poisoning",                "blurb": "Corrupting pretraining, fine-tuning or RAG corpora." },
+    { "id": "supply.backdoor",   "parent": "supply", "label": "Backdoors & trojans",           "blurb": "Dormant triggered behaviour, sleeper agents." },
+    { "id": "supply.provenance", "parent": "supply", "label": "Artifact provenance & integrity","blurb": "Signing, attestation and lineage for weights and datasets." },
+    { "id": "supply.deps",       "parent": "supply", "label": "Dependency & serialisation risk","blurb": "Pickle/format RCE, poisoned hubs, malicious model files." },
+
+    { "id": "agent", "parent": null, "label": "Agentic & tool-use security", "blurb": "Security of systems that act, not just answer." },
+    { "id": "agent.hijack",      "parent": "agent", "label": "Agent hijacking",                "blurb": "Tool output or web content redirecting an agent's goal." },
+    { "id": "agent.sandbox",     "parent": "agent", "label": "Sandboxing & confinement",       "blurb": "Containing code execution and filesystem reach." },
+    { "id": "agent.authz",       "parent": "agent", "label": "Authorisation & least privilege","blurb": "Scoping credentials and actions an agent may take." },
+    { "id": "agent.multiagent",  "parent": "agent", "label": "Multi-agent trust",              "blurb": "Delegation, collusion and inter-agent authentication." },
+    { "id": "agent.mcp",         "parent": "agent", "label": "MCP & plugin ecosystems",        "blurb": "Third-party tool servers as an attack surface." },
+    { "id": "agent.computeruse", "parent": "agent", "label": "Computer & browser use",         "blurb": "Screen-driving agents, clickjacking, UI-level deception." },
+
+    { "id": "defense", "parent": null, "label": "Defences & mitigations", "blurb": "Mechanisms that reduce the attack surface." },
+    { "id": "defense.guardrails",  "parent": "defense", "label": "Guardrails & classifiers",     "blurb": "Input/output filters, constitutional classifiers." },
+    { "id": "defense.provenance",  "parent": "defense", "label": "Context provenance & spotlighting","blurb": "Marking untrusted spans so the model can discount them." },
+    { "id": "defense.robust",      "parent": "defense", "label": "Robust training",              "blurb": "Adversarial training, certified robustness, latent adv. training." },
+    { "id": "defense.unlearning",  "parent": "defense", "label": "Unlearning & deletion",        "blurb": "Removing capability or data after training." },
+    { "id": "defense.monitoring",  "parent": "defense", "label": "Runtime monitoring",           "blurb": "Online anomaly, abuse and drift detection." },
+    { "id": "defense.constrained", "parent": "defense", "label": "Constrained generation",       "blurb": "Grammar/type-constrained decoding as a safety boundary." },
+
+    { "id": "eval", "parent": null, "label": "Evaluation & assurance", "blurb": "Measuring whether any of it works." },
+    { "id": "eval.redteam",   "parent": "eval", "label": "Red-teaming methodology", "blurb": "Automated and human adversarial testing method." },
+    { "id": "eval.benchmark", "parent": "eval", "label": "Security benchmarks",     "blurb": "Shared datasets and leaderboards for security claims." },
+    { "id": "eval.dangercap", "parent": "eval", "label": "Dangerous-capability evals","blurb": "Cyber, bio and autonomy uplift measurement." },
+    { "id": "eval.audit",     "parent": "eval", "label": "Audit & certification",   "blurb": "Third-party assurance, structured access, evidence packages." },
+
+    { "id": "interp", "parent": null, "label": "Interpretability for security", "blurb": "Reading internals as a security control." },
+    { "id": "interp.probes",    "parent": "interp", "label": "Probes & attribution",      "blurb": "Linear probes, SAEs and features used as detectors." },
+    { "id": "interp.deception", "parent": "interp", "label": "Deception & sandbagging",    "blurb": "Detecting strategic underperformance or dishonesty." },
+    { "id": "interp.circuits",  "parent": "interp", "label": "Circuits of harmful behaviour","blurb": "Mechanistic accounts of refusal, jailbreak and backdoor paths." },
+
+    { "id": "cyber", "parent": null, "label": "AI in offensive & defensive cyber", "blurb": "Models as cyber actors, on both sides." },
+    { "id": "cyber.vulndiscovery", "parent": "cyber", "label": "Vulnerability discovery", "blurb": "LLM fuzzing, static analysis and bug finding." },
+    { "id": "cyber.exploit",       "parent": "cyber", "label": "Autonomous exploitation", "blurb": "End-to-end attack chains driven by models." },
+    { "id": "cyber.defense",       "parent": "cyber", "label": "Defensive automation",    "blurb": "Triage, detection engineering, SOC and patching." },
+    { "id": "cyber.malware",       "parent": "cyber", "label": "Malware & social engineering","blurb": "Generation risk, phishing uplift, deepfake fraud." },
+
+    { "id": "infra", "parent": null, "label": "Infrastructure & deployment", "blurb": "The stack the model runs on." },
+    { "id": "infra.serving",   "parent": "infra", "label": "Serving & multi-tenancy",   "blurb": "Cross-tenant leakage, KV-cache and batching side channels." },
+    { "id": "infra.tee",       "parent": "infra", "label": "Confidential computing",    "blurb": "TEEs, attested inference, private serving." },
+    { "id": "infra.identity",  "parent": "infra", "label": "Identity & secrets",        "blurb": "Workload identity, key handling, non-human identity for agents." },
+    { "id": "infra.federated", "parent": "infra", "label": "Federated & distributed",   "blurb": "Security of split, federated and decentralised training." },
+
+    { "id": "gov", "parent": null, "label": "Governance & policy", "blurb": "Rules, frameworks and disclosure norms." },
+    { "id": "gov.frameworks",   "parent": "gov", "label": "Frontier safety frameworks", "blurb": "RSPs, preparedness frameworks, capability thresholds." },
+    { "id": "gov.disclosure",   "parent": "gov", "label": "Disclosure & incidents",     "blurb": "CVD for models, incident reporting, bug bounties." },
+    { "id": "gov.regulation",   "parent": "gov", "label": "Regulation & compliance",    "blurb": "EU AI Act, NIST AI RMF, ISO 42001 mapping." },
+    { "id": "gov.transparency", "parent": "gov", "label": "Transparency & documentation","blurb": "Model cards, system cards, eval reporting." }
+  ]
+}

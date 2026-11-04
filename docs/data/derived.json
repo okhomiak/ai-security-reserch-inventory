@@ -1,0 +1,2965 @@
+{
+  "generated": "2026-11-04",
+  "paper_count": 35,
+  "pairs": [
+    {
+      "a": "arxiv:2403.02691",
+      "b": "arxiv:2406.13352",
+      "score": 0.887,
+      "shared_categories": [
+        "agent.hijack",
+        "attack.injection",
+        "eval.benchmark"
+      ],
+      "shared_methods": [],
+      "note": "the two reference injection benchmarks for tool-using agents, dynamic vs static",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2012.07805",
+      "b": "arxiv:2311.17035",
+      "score": 0.867,
+      "shared_categories": [
+        "attack.extraction",
+        "attack.privacy"
+      ],
+      "shared_methods": [],
+      "note": "the original extraction result and its scaling to production models",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2302.12173",
+      "b": "arxiv:2306.05499",
+      "score": 0.867,
+      "shared_categories": [
+        "agent.mcp",
+        "attack.injection"
+      ],
+      "shared_methods": [],
+      "note": "both demonstrate injection against real deployed LLM applications",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2012.07805",
+      "b": "arxiv:2309.05610",
+      "score": 0.817,
+      "shared_categories": [
+        "attack.extraction",
+        "attack.privacy"
+      ],
+      "shared_methods": [],
+      "note": "memorisation measured in the model vs leaked by the system around it",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2402.06363",
+      "b": "arxiv:2410.05451",
+      "score": 0.775,
+      "shared_categories": [
+        "attack.injection",
+        "defense.provenance"
+      ],
+      "shared_methods": [],
+      "note": "same authors' successive answers to prompt/data separation; SecAlign trains what StruQ structures",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2312.04724",
+      "b": "arxiv:2408.08926",
+      "score": 0.775,
+      "shared_categories": [
+        "eval.benchmark",
+        "eval.dangercap"
+      ],
+      "shared_methods": [],
+      "note": "CTF-grade agentic tasks vs secure-coding and attacker-helpfulness measures",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2402.06664",
+      "b": "arxiv:2406.01637",
+      "score": 0.775,
+      "shared_categories": [
+        "cyber.exploit",
+        "eval.dangercap"
+      ],
+      "shared_methods": [],
+      "note": "same group's single-agent and multi-agent autonomous exploitation results",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2411.07494",
+      "b": "arxiv:2501.18837",
+      "score": 0.742,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.guardrails"
+      ],
+      "shared_methods": [],
+      "note": "classifier guardrails trained up front vs updated in response to observed attacks",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2307.15043",
+      "b": "arxiv:2501.18837",
+      "score": 0.742,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "the universal-jailbreak claim GCG established is what constitutional classifiers set out to refute",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2403.14720",
+      "b": "arxiv:2410.05451",
+      "score": 0.742,
+      "shared_categories": [
+        "attack.injection",
+        "defense.provenance"
+      ],
+      "shared_methods": [],
+      "note": "same defence target, prompt-side marking vs preference-trained separation",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2406.01637",
+      "b": "arxiv:2408.08926",
+      "score": 0.742,
+      "shared_categories": [
+        "cyber.exploit",
+        "eval.dangercap"
+      ],
+      "shared_methods": [],
+      "note": "calibrated benchmark and real-CVE result on the same offensive-agent capability",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2403.13793",
+      "b": "arxiv:2408.08926",
+      "score": 0.742,
+      "shared_categories": [
+        "cyber.exploit",
+        "eval.dangercap"
+      ],
+      "shared_methods": [],
+      "note": "Cybench supplies the calibrated cyber component these programmes need",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2402.06664",
+      "b": "arxiv:2408.08926",
+      "score": 0.742,
+      "shared_categories": [
+        "cyber.exploit",
+        "eval.dangercap"
+      ],
+      "shared_methods": [],
+      "note": "both measure autonomous end-to-end exploitation by tool-using agents",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2402.06363",
+      "b": "arxiv:2403.14720",
+      "score": 0.742,
+      "shared_categories": [
+        "attack.injection",
+        "defense.provenance"
+      ],
+      "shared_methods": [],
+      "note": "marking untrusted spans vs structurally separating them - the same prompt/data confusion",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2302.12173",
+      "b": "arxiv:2403.14720",
+      "score": 0.742,
+      "shared_categories": [
+        "agent.hijack",
+        "attack.injection"
+      ],
+      "shared_methods": [],
+      "note": "the threat model and the first provenance-marking defence against it",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2302.12173",
+      "b": "arxiv:2403.02691",
+      "score": 0.742,
+      "shared_categories": [
+        "agent.hijack",
+        "attack.injection"
+      ],
+      "shared_methods": [],
+      "note": "InjecAgent benchmarks the tool-integrated case this paper described",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2410.21514",
+      "b": "arxiv:2412.04984",
+      "score": 0.725,
+      "shared_categories": [
+        "eval.dangercap",
+        "interp.deception"
+      ],
+      "shared_methods": [],
+      "note": "both evaluate a model undermining its own oversight",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2403.13793",
+      "b": "arxiv:2410.21514",
+      "score": 0.725,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "dangerous-capability and sabotage evaluations as the two halves of a frontier framework",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2311.01011",
+      "b": "arxiv:2403.02691",
+      "score": 0.725,
+      "shared_categories": [
+        "attack.injection",
+        "eval.benchmark"
+      ],
+      "shared_methods": [],
+      "note": "crowdsourced attack corpus and curated benchmark for the same attack class",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2309.05610",
+      "b": "arxiv:2311.17035",
+      "score": 0.725,
+      "shared_categories": [
+        "attack.extraction",
+        "attack.privacy"
+      ],
+      "shared_methods": [],
+      "note": "both show pipeline and alignment layers do not contain memorised data",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2403.03218",
+      "b": "arxiv:2408.08926",
+      "score": 0.708,
+      "shared_categories": [
+        "eval.benchmark",
+        "eval.dangercap"
+      ],
+      "shared_methods": [],
+      "note": "proxy knowledge benchmark vs end-to-end agentic capability on the same risk",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2312.04724",
+      "b": "arxiv:2403.03218",
+      "score": 0.708,
+      "shared_categories": [
+        "eval.benchmark",
+        "eval.dangercap"
+      ],
+      "shared_methods": [],
+      "note": "two public benchmarks for misuse-relevant capability in released models",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2406.13352",
+      "b": "arxiv:2410.05451",
+      "score": 0.67,
+      "shared_categories": [
+        "attack.injection",
+        "defense.provenance"
+      ],
+      "shared_methods": [],
+      "note": "AgentDojo is the environment SecAlign-class defences are measured in",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2403.02691",
+      "b": "arxiv:2410.02644",
+      "score": 0.67,
+      "shared_categories": [
+        "agent.hijack",
+        "eval.benchmark"
+      ],
+      "shared_methods": [],
+      "note": "both benchmark indirect injection into tool output across many backbone models",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2302.12173",
+      "b": "arxiv:2406.13352",
+      "score": 0.67,
+      "shared_categories": [
+        "agent.hijack",
+        "attack.injection"
+      ],
+      "shared_methods": [],
+      "note": "AgentDojo operationalises this threat model as a measurable environment",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2406.04313",
+      "b": "arxiv:2406.11717",
+      "score": 0.67,
+      "shared_categories": [
+        "attack.jailbreak",
+        "interp.circuits"
+      ],
+      "shared_methods": [],
+      "note": "both intervene on internal representations rather than on outputs",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2302.12173",
+      "b": "arxiv:2410.02644",
+      "score": 0.645,
+      "shared_categories": [
+        "agent.hijack",
+        "agent.mcp"
+      ],
+      "shared_methods": [],
+      "note": "ASB extends the same injection taxonomy across the whole agent pipeline",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2309.05610",
+      "b": "arxiv:2403.06634",
+      "score": 0.638,
+      "shared_categories": [
+        "infra.serving"
+      ],
+      "shared_methods": [],
+      "note": "both exploit API and system surface rather than the model's outputs",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2406.13352",
+      "b": "arxiv:2506.08837",
+      "score": 0.633,
+      "shared_categories": [
+        "agent.hijack",
+        "defense.provenance"
+      ],
+      "shared_methods": [],
+      "note": "the patterns are the defence family AgentDojo's utility-under-attack result motivates",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2312.06674",
+      "b": "arxiv:2411.07494",
+      "score": 0.633,
+      "shared_categories": [
+        "defense.guardrails"
+      ],
+      "shared_methods": [],
+      "note": "both fine-tune an input classifier as the guardrail mechanism",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2406.13352",
+      "b": "arxiv:2410.02644",
+      "score": 0.623,
+      "shared_categories": [
+        "agent.hijack",
+        "eval.benchmark"
+      ],
+      "shared_methods": [],
+      "note": "overlapping benchmark scope; ASB covers more injection points, AgentDojo more realistic utility",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2312.06674",
+      "b": "arxiv:2501.18837",
+      "score": 0.617,
+      "shared_categories": [
+        "defense.guardrails"
+      ],
+      "shared_methods": [],
+      "note": "deployed classifier guardrails, closed and open",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2307.02483",
+      "b": "arxiv:2501.18837",
+      "score": 0.604,
+      "shared_categories": [
+        "attack.jailbreak"
+      ],
+      "shared_methods": [],
+      "note": "same target - universal jailbreaks - from analysis and from defence",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2307.02483",
+      "b": "arxiv:2311.17035",
+      "score": 0.588,
+      "shared_categories": [
+        "attack.jailbreak"
+      ],
+      "shared_methods": [],
+      "note": "both use alignment bypass to reach raw completion behaviour",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2301.10226",
+      "b": "arxiv:2302.10149",
+      "score": 0.588,
+      "shared_categories": [
+        "supply.provenance"
+      ],
+      "shared_methods": [],
+      "note": "generated-content provenance and dataset provenance as two sides of corpus integrity",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2307.02483",
+      "b": "arxiv:2406.11717",
+      "score": 0.571,
+      "shared_categories": [
+        "attack.jailbreak"
+      ],
+      "shared_methods": [],
+      "note": "mismatched generalisation and the single refusal direction are two accounts of the same shallow-safety result",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2310.02238",
+      "b": "arxiv:2403.03218",
+      "score": 0.571,
+      "shared_categories": [
+        "defense.unlearning"
+      ],
+      "shared_methods": [],
+      "note": "approximate unlearning applied to copyright and to hazardous capability",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2307.02483",
+      "b": "arxiv:2307.15043",
+      "score": 0.571,
+      "shared_categories": [
+        "attack.jailbreak"
+      ],
+      "shared_methods": [],
+      "note": "both explain why safety training fails under optimised adversarial pressure",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2306.05499",
+      "b": "arxiv:2311.01011",
+      "score": 0.563,
+      "shared_categories": [
+        "attack.injection"
+      ],
+      "shared_methods": [],
+      "note": "human-discovered and fuzzer-discovered injection strategies against real prompt defences",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2302.10149",
+      "b": "arxiv:2311.14455",
+      "score": 0.56,
+      "shared_categories": [
+        "supply.poisoning"
+      ],
+      "shared_methods": [],
+      "note": "both attack the data pipeline; preference data and pretraining corpora",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2311.04235",
+      "b": "arxiv:2506.08837",
+      "score": 0.558,
+      "shared_categories": [
+        "agent.authz"
+      ],
+      "shared_methods": [],
+      "note": "operator-set rules the model should hold, and architecture that does not rely on it holding them",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2307.15043",
+      "b": "arxiv:2411.07494",
+      "score": 0.543,
+      "shared_categories": [
+        "attack.jailbreak"
+      ],
+      "shared_methods": [],
+      "note": "GCG is one of the attack classes the rapid-response pipeline is tested on",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2311.04235",
+      "b": "arxiv:2410.02644",
+      "score": 0.542,
+      "shared_categories": [
+        "eval.benchmark"
+      ],
+      "shared_methods": [],
+      "note": "both test whether an agent respects constraints placed in its system prompt",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2403.03218",
+      "b": "arxiv:2403.13793",
+      "score": 0.535,
+      "shared_categories": [
+        "eval.dangercap"
+      ],
+      "shared_methods": [],
+      "note": "hazardous-capability measurement feeding capability thresholds",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2406.04313",
+      "b": "arxiv:2501.18837",
+      "score": 0.532,
+      "shared_categories": [
+        "attack.jailbreak"
+      ],
+      "shared_methods": [],
+      "note": "representation-level and classifier-level answers to the same universal-jailbreak problem",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2401.05566",
+      "b": "arxiv:2412.04984",
+      "score": 0.532,
+      "shared_categories": [
+        "interp.deception"
+      ],
+      "shared_methods": [],
+      "note": "trained deception vs in-context deception - the same capability, different origin",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2401.05566",
+      "b": "arxiv:2410.21514",
+      "score": 0.532,
+      "shared_categories": [
+        "interp.deception"
+      ],
+      "shared_methods": [],
+      "note": "deceptive persistence and sabotage evaluation share the model-as-insider threat model",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2403.13793",
+      "b": "arxiv:2412.04984",
+      "score": 0.53,
+      "shared_categories": [
+        "eval.dangercap"
+      ],
+      "shared_methods": [],
+      "note": "self-reasoning and scheming evaluations overlap in method and in what they claim to detect",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2402.06363",
+      "b": "arxiv:2506.08837",
+      "score": 0.525,
+      "shared_categories": [
+        "defense.provenance"
+      ],
+      "shared_methods": [],
+      "note": "structured queries are one instantiation of the separation the patterns assume",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2302.12173",
+      "b": "arxiv:2506.08837",
+      "score": 0.525,
+      "shared_categories": [
+        "agent.hijack"
+      ],
+      "shared_methods": [],
+      "note": "the design patterns are a direct response to this threat model being unfilterable",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2307.15043",
+      "b": "arxiv:2406.04313",
+      "score": 0.512,
+      "shared_categories": [
+        "attack.jailbreak"
+      ],
+      "shared_methods": [],
+      "note": "circuit breakers are evaluated specifically against GCG-style transferable suffixes",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2311.14455",
+      "b": "arxiv:2401.05566",
+      "score": 0.512,
+      "shared_categories": [
+        "supply.backdoor"
+      ],
+      "shared_methods": [],
+      "note": "both plant a trigger that survives alignment; one via training, one via preference data",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2403.14720",
+      "b": "arxiv:2406.13352",
+      "score": 0.488,
+      "shared_categories": [
+        "agent.hijack",
+        "attack.injection",
+        "defense.provenance"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.02238",
+      "b": "arxiv:2406.11717",
+      "score": 0.433,
+      "shared_categories": [],
+      "shared_methods": [],
+      "note": "removal vs suppression - the refusal-direction result undermines behavioural unlearning tests",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2302.10149",
+      "b": "arxiv:2401.05566",
+      "score": 0.425,
+      "shared_categories": [],
+      "shared_methods": [],
+      "note": "poisoning feasibility supplies the delivery mechanism for the backdoor this paper trains",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2401.05566",
+      "b": "arxiv:2406.11717",
+      "score": 0.42,
+      "shared_categories": [],
+      "shared_methods": [],
+      "note": "both show behavioural safety training is a thin layer over retained capability",
+      "declared": true
+    }
+  ],
+  "clusters": [
+    {
+      "id": "cluster-1",
+      "label": "Dangerous-capability evals + Autonomous exploitation",
+      "categories": [
+        "eval.dangercap",
+        "cyber.exploit",
+        "interp.deception"
+      ],
+      "papers": [
+        "arxiv:2412.04984",
+        "arxiv:2410.21514",
+        "arxiv:2408.08926",
+        "arxiv:2406.01637",
+        "arxiv:2403.13793",
+        "arxiv:2403.03218",
+        "arxiv:2402.06664",
+        "arxiv:2401.05566",
+        "arxiv:2312.04724",
+        "arxiv:2311.14455",
+        "arxiv:2310.02238",
+        "arxiv:2302.10149",
+        "arxiv:2301.10226"
+      ],
+      "size": 13,
+      "mean_score": 0.647,
+      "shared": [
+        "cyber.exploit",
+        "defense.unlearning",
+        "eval.benchmark",
+        "eval.dangercap",
+        "gov.frameworks",
+        "interp.deception",
+        "supply.backdoor",
+        "supply.poisoning",
+        "supply.provenance"
+      ]
+    },
+    {
+      "id": "cluster-2",
+      "label": "Prompt & indirect injection + Agent hijacking",
+      "categories": [
+        "attack.injection",
+        "agent.hijack",
+        "defense.provenance"
+      ],
+      "papers": [
+        "arxiv:2506.08837",
+        "arxiv:2410.05451",
+        "arxiv:2410.02644",
+        "arxiv:2406.13352",
+        "arxiv:2403.14720",
+        "arxiv:2403.02691",
+        "arxiv:2402.06363",
+        "arxiv:2311.04235",
+        "arxiv:2311.01011",
+        "arxiv:2306.05499",
+        "arxiv:2302.12173"
+      ],
+      "size": 11,
+      "mean_score": 0.667,
+      "shared": [
+        "agent.authz",
+        "agent.hijack",
+        "agent.mcp",
+        "attack.injection",
+        "defense.provenance",
+        "eval.benchmark"
+      ]
+    },
+    {
+      "id": "cluster-3",
+      "label": "Jailbreaks & refusal bypass + Guardrails & classifiers",
+      "categories": [
+        "attack.jailbreak",
+        "defense.guardrails",
+        "attack.extraction"
+      ],
+      "papers": [
+        "arxiv:2501.18837",
+        "arxiv:2411.07494",
+        "arxiv:2406.11717",
+        "arxiv:2406.04313",
+        "arxiv:2403.06634",
+        "arxiv:2312.06674",
+        "arxiv:2311.17035",
+        "arxiv:2309.05610",
+        "arxiv:2307.15043",
+        "arxiv:2307.02483",
+        "arxiv:2012.07805"
+      ],
+      "size": 11,
+      "mean_score": 0.648,
+      "shared": [
+        "attack.extraction",
+        "attack.jailbreak",
+        "attack.privacy",
+        "defense.guardrails",
+        "eval.redteam",
+        "infra.serving",
+        "interp.circuits"
+      ]
+    }
+  ],
+  "cooccurrence": {
+    "categories": [
+      "attack.injection",
+      "attack.jailbreak",
+      "attack.extraction",
+      "attack.adversarial",
+      "attack.model_theft",
+      "attack.privacy",
+      "supply.poisoning",
+      "supply.backdoor",
+      "supply.provenance",
+      "supply.deps",
+      "agent.hijack",
+      "agent.sandbox",
+      "agent.authz",
+      "agent.multiagent",
+      "agent.mcp",
+      "agent.computeruse",
+      "defense.guardrails",
+      "defense.provenance",
+      "defense.robust",
+      "defense.unlearning",
+      "defense.monitoring",
+      "defense.constrained",
+      "eval.redteam",
+      "eval.benchmark",
+      "eval.dangercap",
+      "interp.probes",
+      "interp.deception",
+      "interp.circuits",
+      "cyber.vulndiscovery",
+      "cyber.exploit",
+      "infra.serving",
+      "gov.frameworks",
+      "gov.transparency"
+    ],
+    "matrix": {
+      "attack.injection": {
+        "attack.injection": 8,
+        "attack.jailbreak": 0,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 4,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 2,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 4,
+        "defense.robust": 1,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 1,
+        "eval.redteam": 0,
+        "eval.benchmark": 3,
+        "eval.dangercap": 0,
+        "interp.probes": 1,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "attack.jailbreak": {
+        "attack.injection": 0,
+        "attack.jailbreak": 8,
+        "attack.extraction": 1,
+        "attack.adversarial": 1,
+        "attack.model_theft": 0,
+        "attack.privacy": 1,
+        "supply.poisoning": 1,
+        "supply.backdoor": 1,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 1,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 2,
+        "defense.provenance": 0,
+        "defense.robust": 2,
+        "defense.unlearning": 0,
+        "defense.monitoring": 1,
+        "defense.constrained": 0,
+        "eval.redteam": 2,
+        "eval.benchmark": 0,
+        "eval.dangercap": 0,
+        "interp.probes": 1,
+        "interp.deception": 0,
+        "interp.circuits": 2,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "attack.extraction": {
+        "attack.injection": 0,
+        "attack.jailbreak": 1,
+        "attack.extraction": 3,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 3,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 0,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 0,
+        "eval.dangercap": 0,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 1,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "attack.adversarial": {
+        "attack.injection": 0,
+        "attack.jailbreak": 1,
+        "attack.extraction": 0,
+        "attack.adversarial": 1,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 0,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 1,
+        "eval.benchmark": 0,
+        "eval.dangercap": 0,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "attack.model_theft": {
+        "attack.injection": 0,
+        "attack.jailbreak": 0,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 1,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 0,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 0,
+        "eval.dangercap": 0,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 1,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "attack.privacy": {
+        "attack.injection": 0,
+        "attack.jailbreak": 1,
+        "attack.extraction": 3,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 4,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 0,
+        "defense.unlearning": 1,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 0,
+        "eval.dangercap": 0,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 1,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "supply.poisoning": {
+        "attack.injection": 0,
+        "attack.jailbreak": 1,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 2,
+        "supply.backdoor": 1,
+        "supply.provenance": 1,
+        "supply.deps": 1,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 0,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 0,
+        "eval.dangercap": 0,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "supply.backdoor": {
+        "attack.injection": 0,
+        "attack.jailbreak": 1,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 1,
+        "supply.backdoor": 3,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 1,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 1,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 1,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 1,
+        "eval.benchmark": 1,
+        "eval.dangercap": 0,
+        "interp.probes": 0,
+        "interp.deception": 1,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "supply.provenance": {
+        "attack.injection": 0,
+        "attack.jailbreak": 0,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 1,
+        "supply.backdoor": 0,
+        "supply.provenance": 2,
+        "supply.deps": 1,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 0,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 0,
+        "eval.dangercap": 0,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 1
+      },
+      "supply.deps": {
+        "attack.injection": 0,
+        "attack.jailbreak": 0,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 1,
+        "supply.backdoor": 0,
+        "supply.provenance": 1,
+        "supply.deps": 1,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 0,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 0,
+        "eval.dangercap": 0,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "agent.hijack": {
+        "attack.injection": 4,
+        "attack.jailbreak": 1,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 1,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 7,
+        "agent.sandbox": 1,
+        "agent.authz": 1,
+        "agent.multiagent": 0,
+        "agent.mcp": 2,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 3,
+        "defense.robust": 1,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 3,
+        "eval.dangercap": 0,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 1,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "agent.sandbox": {
+        "attack.injection": 0,
+        "attack.jailbreak": 0,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 1,
+        "agent.sandbox": 1,
+        "agent.authz": 1,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 1,
+        "defense.robust": 0,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 0,
+        "eval.dangercap": 0,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "agent.authz": {
+        "attack.injection": 0,
+        "attack.jailbreak": 0,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 1,
+        "agent.sandbox": 1,
+        "agent.authz": 2,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 1,
+        "defense.provenance": 1,
+        "defense.robust": 0,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 1,
+        "eval.dangercap": 0,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "agent.multiagent": {
+        "attack.injection": 0,
+        "attack.jailbreak": 0,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 2,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 0,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 0,
+        "eval.dangercap": 2,
+        "interp.probes": 0,
+        "interp.deception": 1,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 1,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "agent.mcp": {
+        "attack.injection": 2,
+        "attack.jailbreak": 0,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 1,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 2,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 3,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 0,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 1,
+        "eval.dangercap": 0,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "agent.computeruse": {
+        "attack.injection": 0,
+        "attack.jailbreak": 0,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 1,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 0,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 0,
+        "eval.dangercap": 1,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 1,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "defense.guardrails": {
+        "attack.injection": 0,
+        "attack.jailbreak": 2,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 1,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 4,
+        "defense.provenance": 0,
+        "defense.robust": 0,
+        "defense.unlearning": 0,
+        "defense.monitoring": 1,
+        "defense.constrained": 0,
+        "eval.redteam": 1,
+        "eval.benchmark": 1,
+        "eval.dangercap": 0,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "defense.provenance": {
+        "attack.injection": 4,
+        "attack.jailbreak": 0,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 3,
+        "agent.sandbox": 1,
+        "agent.authz": 1,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 5,
+        "defense.robust": 1,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 1,
+        "eval.redteam": 0,
+        "eval.benchmark": 1,
+        "eval.dangercap": 0,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "defense.robust": {
+        "attack.injection": 1,
+        "attack.jailbreak": 2,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 1,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 1,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 1,
+        "defense.robust": 4,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 1,
+        "eval.benchmark": 0,
+        "eval.dangercap": 0,
+        "interp.probes": 0,
+        "interp.deception": 1,
+        "interp.circuits": 1,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "defense.unlearning": {
+        "attack.injection": 0,
+        "attack.jailbreak": 0,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 1,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 0,
+        "defense.unlearning": 2,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 1,
+        "eval.dangercap": 1,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "defense.monitoring": {
+        "attack.injection": 0,
+        "attack.jailbreak": 1,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 1,
+        "defense.provenance": 0,
+        "defense.robust": 0,
+        "defense.unlearning": 0,
+        "defense.monitoring": 1,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 0,
+        "eval.dangercap": 0,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "defense.constrained": {
+        "attack.injection": 1,
+        "attack.jailbreak": 0,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 1,
+        "defense.robust": 0,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 1,
+        "eval.redteam": 0,
+        "eval.benchmark": 0,
+        "eval.dangercap": 0,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "eval.redteam": {
+        "attack.injection": 0,
+        "attack.jailbreak": 2,
+        "attack.extraction": 0,
+        "attack.adversarial": 1,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 1,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 1,
+        "defense.provenance": 0,
+        "defense.robust": 1,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 3,
+        "eval.benchmark": 0,
+        "eval.dangercap": 0,
+        "interp.probes": 0,
+        "interp.deception": 1,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "eval.benchmark": {
+        "attack.injection": 3,
+        "attack.jailbreak": 0,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 1,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 3,
+        "agent.sandbox": 0,
+        "agent.authz": 1,
+        "agent.multiagent": 0,
+        "agent.mcp": 1,
+        "agent.computeruse": 0,
+        "defense.guardrails": 1,
+        "defense.provenance": 1,
+        "defense.robust": 0,
+        "defense.unlearning": 1,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 8,
+        "eval.dangercap": 3,
+        "interp.probes": 1,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 1,
+        "cyber.exploit": 1,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "eval.dangercap": {
+        "attack.injection": 0,
+        "attack.jailbreak": 0,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 2,
+        "agent.mcp": 0,
+        "agent.computeruse": 1,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 0,
+        "defense.unlearning": 1,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 3,
+        "eval.dangercap": 8,
+        "interp.probes": 0,
+        "interp.deception": 2,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 1,
+        "cyber.exploit": 4,
+        "infra.serving": 0,
+        "gov.frameworks": 2,
+        "gov.transparency": 0
+      },
+      "interp.probes": {
+        "attack.injection": 1,
+        "attack.jailbreak": 1,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 0,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 1,
+        "eval.dangercap": 0,
+        "interp.probes": 2,
+        "interp.deception": 0,
+        "interp.circuits": 1,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "interp.deception": {
+        "attack.injection": 0,
+        "attack.jailbreak": 0,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 1,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 1,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 1,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 1,
+        "eval.benchmark": 0,
+        "eval.dangercap": 2,
+        "interp.probes": 0,
+        "interp.deception": 3,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 1,
+        "gov.transparency": 0
+      },
+      "interp.circuits": {
+        "attack.injection": 0,
+        "attack.jailbreak": 2,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 1,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 1,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 0,
+        "eval.dangercap": 0,
+        "interp.probes": 1,
+        "interp.deception": 0,
+        "interp.circuits": 2,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "cyber.vulndiscovery": {
+        "attack.injection": 0,
+        "attack.jailbreak": 0,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 0,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 1,
+        "eval.dangercap": 1,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 1,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "cyber.exploit": {
+        "attack.injection": 0,
+        "attack.jailbreak": 0,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 1,
+        "agent.mcp": 0,
+        "agent.computeruse": 1,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 0,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 1,
+        "eval.dangercap": 4,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 4,
+        "infra.serving": 0,
+        "gov.frameworks": 1,
+        "gov.transparency": 0
+      },
+      "infra.serving": {
+        "attack.injection": 0,
+        "attack.jailbreak": 0,
+        "attack.extraction": 1,
+        "attack.adversarial": 0,
+        "attack.model_theft": 1,
+        "attack.privacy": 1,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 0,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 0,
+        "eval.dangercap": 0,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 2,
+        "gov.frameworks": 0,
+        "gov.transparency": 0
+      },
+      "gov.frameworks": {
+        "attack.injection": 0,
+        "attack.jailbreak": 0,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 0,
+        "supply.deps": 0,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 0,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 0,
+        "eval.dangercap": 2,
+        "interp.probes": 0,
+        "interp.deception": 1,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 1,
+        "infra.serving": 0,
+        "gov.frameworks": 2,
+        "gov.transparency": 0
+      },
+      "gov.transparency": {
+        "attack.injection": 0,
+        "attack.jailbreak": 0,
+        "attack.extraction": 0,
+        "attack.adversarial": 0,
+        "attack.model_theft": 0,
+        "attack.privacy": 0,
+        "supply.poisoning": 0,
+        "supply.backdoor": 0,
+        "supply.provenance": 1,
+        "supply.deps": 0,
+        "agent.hijack": 0,
+        "agent.sandbox": 0,
+        "agent.authz": 0,
+        "agent.multiagent": 0,
+        "agent.mcp": 0,
+        "agent.computeruse": 0,
+        "defense.guardrails": 0,
+        "defense.provenance": 0,
+        "defense.robust": 0,
+        "defense.unlearning": 0,
+        "defense.monitoring": 0,
+        "defense.constrained": 0,
+        "eval.redteam": 0,
+        "eval.benchmark": 0,
+        "eval.dangercap": 0,
+        "interp.probes": 0,
+        "interp.deception": 0,
+        "interp.circuits": 0,
+        "cyber.vulndiscovery": 0,
+        "cyber.exploit": 0,
+        "infra.serving": 0,
+        "gov.frameworks": 0,
+        "gov.transparency": 1
+      }
+    }
+  },
+  "coverage": {
+    "n.guardrails": {
+      "papers": 11,
+      "paper_ids": [
+        "arxiv:2501.18837",
+        "arxiv:2411.07494",
+        "arxiv:2406.11717",
+        "arxiv:2406.04313",
+        "arxiv:2402.06363",
+        "arxiv:2312.06674",
+        "arxiv:2311.17035",
+        "arxiv:2311.14455",
+        "arxiv:2311.04235",
+        "arxiv:2307.15043",
+        "arxiv:2307.02483"
+      ],
+      "by_contribution": {
+        "defence": 5,
+        "analysis": 2,
+        "attack": 3,
+        "benchmark": 1
+      },
+      "defensive": 5,
+      "offensive": 3,
+      "mean_demand": 4.17,
+      "max_demand": 5,
+      "companies_at_4plus": 14,
+      "evidenced_cells": 8,
+      "pressure": 0.347
+    },
+    "n.agent_sec": {
+      "papers": 12,
+      "paper_ids": [
+        "arxiv:2506.08837",
+        "arxiv:2412.04984",
+        "arxiv:2410.02644",
+        "arxiv:2406.13352",
+        "arxiv:2406.04313",
+        "arxiv:2406.01637",
+        "arxiv:2403.14720",
+        "arxiv:2403.02691",
+        "arxiv:2402.06664",
+        "arxiv:2311.04235",
+        "arxiv:2306.05499",
+        "arxiv:2302.12173"
+      ],
+      "by_contribution": {
+        "framework": 1,
+        "evaluation": 3,
+        "benchmark": 4,
+        "defence": 2,
+        "attack": 2
+      },
+      "defensive": 3,
+      "offensive": 2,
+      "mean_demand": 4.11,
+      "max_demand": 5,
+      "companies_at_4plus": 14,
+      "evidenced_cells": 1,
+      "pressure": 0.316
+    },
+    "n.redteam": {
+      "papers": 17,
+      "paper_ids": [
+        "arxiv:2501.18837",
+        "arxiv:2411.07494",
+        "arxiv:2410.05451",
+        "arxiv:2406.13352",
+        "arxiv:2406.11717",
+        "arxiv:2406.04313",
+        "arxiv:2403.14720",
+        "arxiv:2403.02691",
+        "arxiv:2402.06363",
+        "arxiv:2401.05566",
+        "arxiv:2311.17035",
+        "arxiv:2311.14455",
+        "arxiv:2311.01011",
+        "arxiv:2307.15043",
+        "arxiv:2307.02483",
+        "arxiv:2306.05499",
+        "arxiv:2302.12173"
+      ],
+      "by_contribution": {
+        "defence": 6,
+        "benchmark": 2,
+        "analysis": 3,
+        "attack": 5,
+        "dataset": 1
+      },
+      "defensive": 6,
+      "offensive": 5,
+      "mean_demand": 3.78,
+      "max_demand": 5,
+      "companies_at_4plus": 10,
+      "evidenced_cells": 6,
+      "pressure": 0.21
+    },
+    "n.evals": {
+      "papers": 13,
+      "paper_ids": [
+        "arxiv:2412.04984",
+        "arxiv:2410.21514",
+        "arxiv:2410.02644",
+        "arxiv:2408.08926",
+        "arxiv:2406.13352",
+        "arxiv:2406.01637",
+        "arxiv:2403.13793",
+        "arxiv:2403.03218",
+        "arxiv:2403.02691",
+        "arxiv:2402.06664",
+        "arxiv:2312.04724",
+        "arxiv:2311.04235",
+        "arxiv:2311.01011"
+      ],
+      "by_contribution": {
+        "evaluation": 5,
+        "benchmark": 7,
+        "dataset": 1
+      },
+      "defensive": 0,
+      "offensive": 0,
+      "mean_demand": 3.33,
+      "max_demand": 5,
+      "companies_at_4plus": 7,
+      "evidenced_cells": 4,
+      "pressure": 0.238
+    },
+    "n.supplychain": {
+      "papers": 5,
+      "paper_ids": [
+        "arxiv:2410.02644",
+        "arxiv:2401.05566",
+        "arxiv:2311.14455",
+        "arxiv:2302.10149",
+        "arxiv:2301.10226"
+      ],
+      "by_contribution": {
+        "benchmark": 1,
+        "analysis": 1,
+        "attack": 2,
+        "framework": 1
+      },
+      "defensive": 1,
+      "offensive": 2,
+      "mean_demand": 3.17,
+      "max_demand": 5,
+      "companies_at_4plus": 7,
+      "evidenced_cells": 2,
+      "pressure": 0.528
+    },
+    "n.privacy": {
+      "papers": 5,
+      "paper_ids": [
+        "arxiv:2403.03218",
+        "arxiv:2311.17035",
+        "arxiv:2310.02238",
+        "arxiv:2309.05610",
+        "arxiv:2012.07805"
+      ],
+      "by_contribution": {
+        "benchmark": 1,
+        "attack": 3,
+        "defence": 1
+      },
+      "defensive": 1,
+      "offensive": 3,
+      "mean_demand": 3.22,
+      "max_demand": 5,
+      "companies_at_4plus": 7,
+      "evidenced_cells": 0,
+      "pressure": 0.537
+    },
+    "n.monitoring": {
+      "papers": 1,
+      "paper_ids": [
+        "arxiv:2411.07494"
+      ],
+      "by_contribution": {
+        "defence": 1
+      },
+      "defensive": 1,
+      "offensive": 0,
+      "mean_demand": 4.17,
+      "max_demand": 5,
+      "companies_at_4plus": 14,
+      "evidenced_cells": 1,
+      "pressure": 2.085
+    },
+    "n.compliance": {
+      "papers": 3,
+      "paper_ids": [
+        "arxiv:2410.21514",
+        "arxiv:2403.13793",
+        "arxiv:2301.10226"
+      ],
+      "by_contribution": {
+        "evaluation": 2,
+        "framework": 1
+      },
+      "defensive": 1,
+      "offensive": 0,
+      "mean_demand": 3.89,
+      "max_demand": 5,
+      "companies_at_4plus": 11,
+      "evidenced_cells": 1,
+      "pressure": 0.973
+    },
+    "n.secure_infra": {
+      "papers": 2,
+      "paper_ids": [
+        "arxiv:2403.06634",
+        "arxiv:2309.05610"
+      ],
+      "by_contribution": {
+        "attack": 2
+      },
+      "defensive": 0,
+      "offensive": 2,
+      "mean_demand": 3.44,
+      "max_demand": 5,
+      "companies_at_4plus": 9,
+      "evidenced_cells": 0,
+      "pressure": 1.147
+    },
+    "n.identity": {
+      "papers": 2,
+      "paper_ids": [
+        "arxiv:2506.08837",
+        "arxiv:2311.04235"
+      ],
+      "by_contribution": {
+        "framework": 1,
+        "benchmark": 1
+      },
+      "defensive": 1,
+      "offensive": 0,
+      "mean_demand": 3.11,
+      "max_demand": 5,
+      "companies_at_4plus": 8,
+      "evidenced_cells": 1,
+      "pressure": 1.037
+    },
+    "n.offensive": {
+      "papers": 8,
+      "paper_ids": [
+        "arxiv:2412.04984",
+        "arxiv:2410.21514",
+        "arxiv:2408.08926",
+        "arxiv:2406.01637",
+        "arxiv:2403.13793",
+        "arxiv:2403.03218",
+        "arxiv:2402.06664",
+        "arxiv:2312.04724"
+      ],
+      "by_contribution": {
+        "evaluation": 5,
+        "benchmark": 3
+      },
+      "defensive": 0,
+      "offensive": 0,
+      "mean_demand": 3.67,
+      "max_demand": 5,
+      "companies_at_4plus": 11,
+      "evidenced_cells": 1,
+      "pressure": 0.408
+    },
+    "n.interp": {
+      "papers": 6,
+      "paper_ids": [
+        "arxiv:2412.04984",
+        "arxiv:2410.21514",
+        "arxiv:2406.11717",
+        "arxiv:2406.04313",
+        "arxiv:2401.05566",
+        "arxiv:2311.01011"
+      ],
+      "by_contribution": {
+        "evaluation": 2,
+        "analysis": 2,
+        "defence": 1,
+        "dataset": 1
+      },
+      "defensive": 1,
+      "offensive": 0,
+      "mean_demand": 1.83,
+      "max_demand": 5,
+      "companies_at_4plus": 2,
+      "evidenced_cells": 1,
+      "pressure": 0.261
+    }
+  },
+  "derived_gaps": [
+    {
+      "id": "derived-n.monitoring",
+      "need": "n.monitoring",
+      "title": "Runtime monitoring: high demand, thin coverage",
+      "pressure": 2.085,
+      "chain": [
+        {
+          "step": 1,
+          "claim": "14 of 18 tracked organisations rate runtime monitoring at 4+ (mean 4.17/5).",
+          "metric": {
+            "kind": "demand",
+            "need": "n.monitoring"
+          }
+        },
+        {
+          "step": 2,
+          "claim": "The inventory holds 1 paper(s) touching defense.monitoring, gov.disclosure.",
+          "metric": {
+            "kind": "coverage",
+            "need": "n.monitoring"
+          },
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2411.07494"
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "claim": "Of those, 1 propose a defence and 0 are attacks - so the demand is for mitigation the literature has not supplied.",
+          "metric": {
+            "kind": "balance",
+            "need": "n.monitoring"
+          }
+        }
+      ],
+      "auto": true
+    },
+    {
+      "id": "derived-n.secure_infra",
+      "need": "n.secure_infra",
+      "title": "Secure infrastructure: high demand, thin coverage",
+      "pressure": 1.147,
+      "chain": [
+        {
+          "step": 1,
+          "claim": "9 of 18 tracked organisations rate secure infrastructure at 4+ (mean 3.44/5).",
+          "metric": {
+            "kind": "demand",
+            "need": "n.secure_infra"
+          }
+        },
+        {
+          "step": 2,
+          "claim": "The inventory holds 2 paper(s) touching infra.serving, infra.tee, infra.federated.",
+          "metric": {
+            "kind": "coverage",
+            "need": "n.secure_infra"
+          },
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2403.06634"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2309.05610"
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "claim": "Of those, 0 propose a defence and 2 are attacks - so the demand is for mitigation the literature has not supplied.",
+          "metric": {
+            "kind": "balance",
+            "need": "n.secure_infra"
+          }
+        }
+      ],
+      "auto": true
+    },
+    {
+      "id": "derived-n.identity",
+      "need": "n.identity",
+      "title": "Identity & authz for AI: high demand, thin coverage",
+      "pressure": 1.037,
+      "chain": [
+        {
+          "step": 1,
+          "claim": "8 of 18 tracked organisations rate identity & authz for ai at 4+ (mean 3.11/5).",
+          "metric": {
+            "kind": "demand",
+            "need": "n.identity"
+          }
+        },
+        {
+          "step": 2,
+          "claim": "The inventory holds 2 paper(s) touching infra.identity, agent.authz.",
+          "metric": {
+            "kind": "coverage",
+            "need": "n.identity"
+          },
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2506.08837"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2311.04235"
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "claim": "Of those, 1 propose a defence and 0 are attacks - so the demand is for mitigation the literature has not supplied.",
+          "metric": {
+            "kind": "balance",
+            "need": "n.identity"
+          }
+        }
+      ],
+      "auto": true
+    },
+    {
+      "id": "derived-n.compliance",
+      "need": "n.compliance",
+      "title": "Compliance & assurance: high demand, thin coverage",
+      "pressure": 0.973,
+      "chain": [
+        {
+          "step": 1,
+          "claim": "11 of 18 tracked organisations rate compliance & assurance at 4+ (mean 3.89/5).",
+          "metric": {
+            "kind": "demand",
+            "need": "n.compliance"
+          }
+        },
+        {
+          "step": 2,
+          "claim": "The inventory holds 3 paper(s) touching gov.regulation, gov.transparency, eval.audit.",
+          "metric": {
+            "kind": "coverage",
+            "need": "n.compliance"
+          },
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2410.21514"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2403.13793"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2301.10226"
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "claim": "Of those, 1 propose a defence and 0 are attacks - so the demand is for mitigation the literature has not supplied.",
+          "metric": {
+            "kind": "balance",
+            "need": "n.compliance"
+          }
+        }
+      ],
+      "auto": true
+    },
+    {
+      "id": "derived-n.privacy",
+      "need": "n.privacy",
+      "title": "Privacy & memorisation: high demand, thin coverage",
+      "pressure": 0.537,
+      "chain": [
+        {
+          "step": 1,
+          "claim": "7 of 18 tracked organisations rate privacy & memorisation at 4+ (mean 3.22/5).",
+          "metric": {
+            "kind": "demand",
+            "need": "n.privacy"
+          }
+        },
+        {
+          "step": 2,
+          "claim": "The inventory holds 5 paper(s) touching attack.extraction, attack.privacy, defense.unlearning.",
+          "metric": {
+            "kind": "coverage",
+            "need": "n.privacy"
+          },
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2403.03218"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2311.17035"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2310.02238"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2309.05610"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2012.07805"
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "claim": "Of those, 1 propose a defence and 3 are attacks - so the demand is for mitigation the literature has not supplied.",
+          "metric": {
+            "kind": "balance",
+            "need": "n.privacy"
+          }
+        }
+      ],
+      "auto": true
+    },
+    {
+      "id": "derived-n.supplychain",
+      "need": "n.supplychain",
+      "title": "Model supply chain: high demand, thin coverage",
+      "pressure": 0.528,
+      "chain": [
+        {
+          "step": 1,
+          "claim": "7 of 18 tracked organisations rate model supply chain at 4+ (mean 3.17/5).",
+          "metric": {
+            "kind": "demand",
+            "need": "n.supplychain"
+          }
+        },
+        {
+          "step": 2,
+          "claim": "The inventory holds 5 paper(s) touching supply.provenance, supply.deps, supply.poisoning.",
+          "metric": {
+            "kind": "coverage",
+            "need": "n.supplychain"
+          },
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2410.02644"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2401.05566"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2311.14455"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2302.10149"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2301.10226"
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "claim": "Of those, 1 propose a defence and 2 are attacks - so the demand is for mitigation the literature has not supplied.",
+          "metric": {
+            "kind": "balance",
+            "need": "n.supplychain"
+          }
+        }
+      ],
+      "auto": true
+    }
+  ],
+  "tree": {
+    "direct": {
+      "agent.authz": 2,
+      "agent.sandbox": 1,
+      "defense.provenance": 5,
+      "agent.hijack": 7,
+      "defense.guardrails": 4,
+      "attack.jailbreak": 8,
+      "eval.redteam": 3,
+      "interp.deception": 3,
+      "eval.dangercap": 8,
+      "agent.multiagent": 2,
+      "defense.monitoring": 1,
+      "gov.frameworks": 2,
+      "attack.injection": 8,
+      "defense.robust": 4,
+      "eval.benchmark": 8,
+      "supply.backdoor": 3,
+      "agent.mcp": 3,
+      "cyber.exploit": 4,
+      "interp.circuits": 2,
+      "interp.probes": 2,
+      "attack.model_theft": 1,
+      "infra.serving": 2,
+      "defense.unlearning": 2,
+      "defense.constrained": 1,
+      "agent.computeruse": 1,
+      "cyber.vulndiscovery": 1,
+      "attack.extraction": 3,
+      "attack.privacy": 4,
+      "supply.poisoning": 2,
+      "attack.adversarial": 1,
+      "supply.provenance": 2,
+      "supply.deps": 1,
+      "gov.transparency": 1
+    },
+    "total": {
+      "attack.injection": 8,
+      "attack.jailbreak": 8,
+      "attack.extraction": 3,
+      "attack.adversarial": 1,
+      "attack.model_theft": 1,
+      "attack.privacy": 4,
+      "attack": 20,
+      "supply.poisoning": 2,
+      "supply.backdoor": 3,
+      "supply.provenance": 2,
+      "supply.deps": 1,
+      "supply": 5,
+      "agent.hijack": 7,
+      "agent.sandbox": 1,
+      "agent.authz": 2,
+      "agent.multiagent": 2,
+      "agent.mcp": 3,
+      "agent.computeruse": 1,
+      "agent": 12,
+      "defense.guardrails": 4,
+      "defense.provenance": 5,
+      "defense.robust": 4,
+      "defense.unlearning": 2,
+      "defense.monitoring": 1,
+      "defense.constrained": 1,
+      "defense": 14,
+      "eval.redteam": 3,
+      "eval.benchmark": 8,
+      "eval.dangercap": 8,
+      "eval.audit": 0,
+      "eval": 16,
+      "interp.probes": 2,
+      "interp.deception": 3,
+      "interp.circuits": 2,
+      "interp": 6,
+      "cyber.vulndiscovery": 1,
+      "cyber.exploit": 4,
+      "cyber.defense": 0,
+      "cyber.malware": 0,
+      "cyber": 5,
+      "infra.serving": 2,
+      "infra.tee": 0,
+      "infra.identity": 0,
+      "infra.federated": 0,
+      "infra": 2,
+      "gov.frameworks": 2,
+      "gov.disclosure": 0,
+      "gov.regulation": 0,
+      "gov.transparency": 1,
+      "gov": 3
+    },
+    "paper_ids": {
+      "attack.injection": [
+        "arxiv:2302.12173",
+        "arxiv:2306.05499",
+        "arxiv:2311.01011",
+        "arxiv:2402.06363",
+        "arxiv:2403.02691",
+        "arxiv:2403.14720",
+        "arxiv:2406.13352",
+        "arxiv:2410.05451"
+      ],
+      "attack.jailbreak": [
+        "arxiv:2307.02483",
+        "arxiv:2307.15043",
+        "arxiv:2311.14455",
+        "arxiv:2311.17035",
+        "arxiv:2406.04313",
+        "arxiv:2406.11717",
+        "arxiv:2411.07494",
+        "arxiv:2501.18837"
+      ],
+      "attack.extraction": [
+        "arxiv:2012.07805",
+        "arxiv:2309.05610",
+        "arxiv:2311.17035"
+      ],
+      "attack.adversarial": [
+        "arxiv:2307.15043"
+      ],
+      "attack.model_theft": [
+        "arxiv:2403.06634"
+      ],
+      "attack.privacy": [
+        "arxiv:2012.07805",
+        "arxiv:2309.05610",
+        "arxiv:2310.02238",
+        "arxiv:2311.17035"
+      ],
+      "attack": [
+        "arxiv:2012.07805",
+        "arxiv:2302.12173",
+        "arxiv:2306.05499",
+        "arxiv:2307.02483",
+        "arxiv:2307.15043",
+        "arxiv:2309.05610",
+        "arxiv:2310.02238",
+        "arxiv:2311.01011",
+        "arxiv:2311.14455",
+        "arxiv:2311.17035",
+        "arxiv:2402.06363",
+        "arxiv:2403.02691",
+        "arxiv:2403.06634",
+        "arxiv:2403.14720",
+        "arxiv:2406.04313",
+        "arxiv:2406.11717",
+        "arxiv:2406.13352",
+        "arxiv:2410.05451",
+        "arxiv:2411.07494",
+        "arxiv:2501.18837"
+      ],
+      "supply.poisoning": [
+        "arxiv:2302.10149",
+        "arxiv:2311.14455"
+      ],
+      "supply.backdoor": [
+        "arxiv:2311.14455",
+        "arxiv:2401.05566",
+        "arxiv:2410.02644"
+      ],
+      "supply.provenance": [
+        "arxiv:2301.10226",
+        "arxiv:2302.10149"
+      ],
+      "supply.deps": [
+        "arxiv:2302.10149"
+      ],
+      "supply": [
+        "arxiv:2301.10226",
+        "arxiv:2302.10149",
+        "arxiv:2311.14455",
+        "arxiv:2401.05566",
+        "arxiv:2410.02644"
+      ],
+      "agent.hijack": [
+        "arxiv:2302.12173",
+        "arxiv:2403.02691",
+        "arxiv:2403.14720",
+        "arxiv:2406.04313",
+        "arxiv:2406.13352",
+        "arxiv:2410.02644",
+        "arxiv:2506.08837"
+      ],
+      "agent.sandbox": [
+        "arxiv:2506.08837"
+      ],
+      "agent.authz": [
+        "arxiv:2311.04235",
+        "arxiv:2506.08837"
+      ],
+      "agent.multiagent": [
+        "arxiv:2406.01637",
+        "arxiv:2412.04984"
+      ],
+      "agent.mcp": [
+        "arxiv:2302.12173",
+        "arxiv:2306.05499",
+        "arxiv:2410.02644"
+      ],
+      "agent.computeruse": [
+        "arxiv:2402.06664"
+      ],
+      "agent": [
+        "arxiv:2302.12173",
+        "arxiv:2306.05499",
+        "arxiv:2311.04235",
+        "arxiv:2402.06664",
+        "arxiv:2403.02691",
+        "arxiv:2403.14720",
+        "arxiv:2406.01637",
+        "arxiv:2406.04313",
+        "arxiv:2406.13352",
+        "arxiv:2410.02644",
+        "arxiv:2412.04984",
+        "arxiv:2506.08837"
+      ],
+      "defense.guardrails": [
+        "arxiv:2311.04235",
+        "arxiv:2312.06674",
+        "arxiv:2411.07494",
+        "arxiv:2501.18837"
+      ],
+      "defense.provenance": [
+        "arxiv:2402.06363",
+        "arxiv:2403.14720",
+        "arxiv:2406.13352",
+        "arxiv:2410.05451",
+        "arxiv:2506.08837"
+      ],
+      "defense.robust": [
+        "arxiv:2307.02483",
+        "arxiv:2401.05566",
+        "arxiv:2406.04313",
+        "arxiv:2410.05451"
+      ],
+      "defense.unlearning": [
+        "arxiv:2310.02238",
+        "arxiv:2403.03218"
+      ],
+      "defense.monitoring": [
+        "arxiv:2411.07494"
+      ],
+      "defense.constrained": [
+        "arxiv:2402.06363"
+      ],
+      "defense": [
+        "arxiv:2307.02483",
+        "arxiv:2310.02238",
+        "arxiv:2311.04235",
+        "arxiv:2312.06674",
+        "arxiv:2401.05566",
+        "arxiv:2402.06363",
+        "arxiv:2403.03218",
+        "arxiv:2403.14720",
+        "arxiv:2406.04313",
+        "arxiv:2406.13352",
+        "arxiv:2410.05451",
+        "arxiv:2411.07494",
+        "arxiv:2501.18837",
+        "arxiv:2506.08837"
+      ],
+      "eval.redteam": [
+        "arxiv:2307.15043",
+        "arxiv:2401.05566",
+        "arxiv:2501.18837"
+      ],
+      "eval.benchmark": [
+        "arxiv:2311.01011",
+        "arxiv:2311.04235",
+        "arxiv:2312.04724",
+        "arxiv:2403.02691",
+        "arxiv:2403.03218",
+        "arxiv:2406.13352",
+        "arxiv:2408.08926",
+        "arxiv:2410.02644"
+      ],
+      "eval.dangercap": [
+        "arxiv:2312.04724",
+        "arxiv:2402.06664",
+        "arxiv:2403.03218",
+        "arxiv:2403.13793",
+        "arxiv:2406.01637",
+        "arxiv:2408.08926",
+        "arxiv:2410.21514",
+        "arxiv:2412.04984"
+      ],
+      "eval.audit": [],
+      "eval": [
+        "arxiv:2307.15043",
+        "arxiv:2311.01011",
+        "arxiv:2311.04235",
+        "arxiv:2312.04724",
+        "arxiv:2401.05566",
+        "arxiv:2402.06664",
+        "arxiv:2403.02691",
+        "arxiv:2403.03218",
+        "arxiv:2403.13793",
+        "arxiv:2406.01637",
+        "arxiv:2406.13352",
+        "arxiv:2408.08926",
+        "arxiv:2410.02644",
+        "arxiv:2410.21514",
+        "arxiv:2412.04984",
+        "arxiv:2501.18837"
+      ],
+      "interp.probes": [
+        "arxiv:2311.01011",
+        "arxiv:2406.11717"
+      ],
+      "interp.deception": [
+        "arxiv:2401.05566",
+        "arxiv:2410.21514",
+        "arxiv:2412.04984"
+      ],
+      "interp.circuits": [
+        "arxiv:2406.04313",
+        "arxiv:2406.11717"
+      ],
+      "interp": [
+        "arxiv:2311.01011",
+        "arxiv:2401.05566",
+        "arxiv:2406.04313",
+        "arxiv:2406.11717",
+        "arxiv:2410.21514",
+        "arxiv:2412.04984"
+      ],
+      "cyber.vulndiscovery": [
+        "arxiv:2312.04724"
+      ],
+      "cyber.exploit": [
+        "arxiv:2402.06664",
+        "arxiv:2403.13793",
+        "arxiv:2406.01637",
+        "arxiv:2408.08926"
+      ],
+      "cyber.defense": [],
+      "cyber.malware": [],
+      "cyber": [
+        "arxiv:2312.04724",
+        "arxiv:2402.06664",
+        "arxiv:2403.13793",
+        "arxiv:2406.01637",
+        "arxiv:2408.08926"
+      ],
+      "infra.serving": [
+        "arxiv:2309.05610",
+        "arxiv:2403.06634"
+      ],
+      "infra.tee": [],
+      "infra.identity": [],
+      "infra.federated": [],
+      "infra": [
+        "arxiv:2309.05610",
+        "arxiv:2403.06634"
+      ],
+      "gov.frameworks": [
+        "arxiv:2403.13793",
+        "arxiv:2410.21514"
+      ],
+      "gov.disclosure": [],
+      "gov.regulation": [],
+      "gov.transparency": [
+        "arxiv:2301.10226"
+      ],
+      "gov": [
+        "arxiv:2301.10226",
+        "arxiv:2403.13793",
+        "arxiv:2410.21514"
+      ]
+    },
+    "children": {
+      "__root__": [
+        "attack",
+        "supply",
+        "agent",
+        "defense",
+        "eval",
+        "interp",
+        "cyber",
+        "infra",
+        "gov"
+      ],
+      "attack": [
+        "attack.injection",
+        "attack.jailbreak",
+        "attack.extraction",
+        "attack.adversarial",
+        "attack.model_theft",
+        "attack.privacy"
+      ],
+      "supply": [
+        "supply.poisoning",
+        "supply.backdoor",
+        "supply.provenance",
+        "supply.deps"
+      ],
+      "agent": [
+        "agent.hijack",
+        "agent.sandbox",
+        "agent.authz",
+        "agent.multiagent",
+        "agent.mcp",
+        "agent.computeruse"
+      ],
+      "defense": [
+        "defense.guardrails",
+        "defense.provenance",
+        "defense.robust",
+        "defense.unlearning",
+        "defense.monitoring",
+        "defense.constrained"
+      ],
+      "eval": [
+        "eval.redteam",
+        "eval.benchmark",
+        "eval.dangercap",
+        "eval.audit"
+      ],
+      "interp": [
+        "interp.probes",
+        "interp.deception",
+        "interp.circuits"
+      ],
+      "cyber": [
+        "cyber.vulndiscovery",
+        "cyber.exploit",
+        "cyber.defense",
+        "cyber.malware"
+      ],
+      "infra": [
+        "infra.serving",
+        "infra.tee",
+        "infra.identity",
+        "infra.federated"
+      ],
+      "gov": [
+        "gov.frameworks",
+        "gov.disclosure",
+        "gov.regulation",
+        "gov.transparency"
+      ]
+    }
+  },
+  "thresholds": {
+    "pair": 0.34,
+    "cluster": 0.45
+  }
+}

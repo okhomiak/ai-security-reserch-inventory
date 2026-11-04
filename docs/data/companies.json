@@ -1,0 +1,1297 @@
+{
+  "schema": 1,
+  "updated": "2026-11-04",
+  "basis": "Editorial demand estimates (0-5) for what each organisation is visibly investing in or hiring for in AI security. A cell with a corner tick is anchored to a published source and opens it on click; the rest are seed estimates. The weekly agent raises or lowers a score only when it can attach evidence.",
+  "scale": [
+    {
+      "v": 0,
+      "label": "no visible signal"
+    },
+    {
+      "v": 1,
+      "label": "mentioned"
+    },
+    {
+      "v": 2,
+      "label": "some investment"
+    },
+    {
+      "v": 3,
+      "label": "named priority"
+    },
+    {
+      "v": 4,
+      "label": "dedicated team / product"
+    },
+    {
+      "v": 5,
+      "label": "core strategic bet"
+    }
+  ],
+  "needs": [
+    {
+      "id": "n.guardrails",
+      "label": "Guardrails & filtering",
+      "blurb": "Production input/output controls on model behaviour.",
+      "categories": [
+        "defense.guardrails",
+        "defense.constrained",
+        "attack.jailbreak"
+      ]
+    },
+    {
+      "id": "n.agent_sec",
+      "label": "Agent & tool security",
+      "blurb": "Securing systems that take actions with real credentials.",
+      "categories": [
+        "agent.hijack",
+        "agent.sandbox",
+        "agent.authz",
+        "agent.mcp",
+        "agent.computeruse",
+        "agent.multiagent"
+      ]
+    },
+    {
+      "id": "n.redteam",
+      "label": "Red-teaming capability",
+      "blurb": "Offensive testing of own and third-party models.",
+      "categories": [
+        "eval.redteam",
+        "attack.jailbreak",
+        "attack.injection"
+      ]
+    },
+    {
+      "id": "n.evals",
+      "label": "Security evaluation",
+      "blurb": "Repeatable measurement, benchmarks, release gating.",
+      "categories": [
+        "eval.benchmark",
+        "eval.dangercap",
+        "eval.audit"
+      ]
+    },
+    {
+      "id": "n.supplychain",
+      "label": "Model supply chain",
+      "blurb": "Provenance and integrity of weights, data and dependencies.",
+      "categories": [
+        "supply.provenance",
+        "supply.deps",
+        "supply.poisoning",
+        "supply.backdoor"
+      ]
+    },
+    {
+      "id": "n.privacy",
+      "label": "Privacy & memorisation",
+      "blurb": "PII leakage, extraction, deletion and unlearning.",
+      "categories": [
+        "attack.extraction",
+        "attack.privacy",
+        "defense.unlearning"
+      ]
+    },
+    {
+      "id": "n.monitoring",
+      "label": "Runtime monitoring",
+      "blurb": "Abuse detection, incident response, online anomaly detection.",
+      "categories": [
+        "defense.monitoring",
+        "gov.disclosure"
+      ]
+    },
+    {
+      "id": "n.compliance",
+      "label": "Compliance & assurance",
+      "blurb": "EU AI Act, NIST AI RMF, ISO 42001, audit evidence.",
+      "categories": [
+        "gov.regulation",
+        "gov.transparency",
+        "eval.audit",
+        "gov.frameworks"
+      ]
+    },
+    {
+      "id": "n.secure_infra",
+      "label": "Secure infrastructure",
+      "blurb": "Tenant isolation, confidential inference, side channels.",
+      "categories": [
+        "infra.serving",
+        "infra.tee",
+        "infra.federated"
+      ]
+    },
+    {
+      "id": "n.identity",
+      "label": "Identity & authz for AI",
+      "blurb": "Non-human identity, scoped credentials, least privilege.",
+      "categories": [
+        "infra.identity",
+        "agent.authz"
+      ]
+    },
+    {
+      "id": "n.offensive",
+      "label": "Offensive-AI threat intel",
+      "blurb": "Tracking and measuring adversary use of models.",
+      "categories": [
+        "cyber.exploit",
+        "cyber.malware",
+        "cyber.vulndiscovery",
+        "eval.dangercap"
+      ]
+    },
+    {
+      "id": "n.interp",
+      "label": "Interpretability assurance",
+      "blurb": "Internals-based detection and evidence for safety claims.",
+      "categories": [
+        "interp.probes",
+        "interp.deception",
+        "interp.circuits"
+      ]
+    }
+  ],
+  "companies": [
+    {
+      "id": "anthropic",
+      "label": "Anthropic",
+      "type": "Frontier lab",
+      "region": "US/UK",
+      "cells": {
+        "n.guardrails": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "Constitutional classifiers as a deployed jailbreak defence",
+              "url": "https://www.anthropic.com/research/constitutional-classifiers"
+            }
+          ]
+        },
+        "n.agent_sec": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "MCP and computer-use security guidance",
+              "url": "https://www.anthropic.com/news/developing-computer-use"
+            }
+          ]
+        },
+        "n.redteam": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "Published red-teaming methodology",
+              "url": "https://www.anthropic.com/news/challenges-in-red-teaming-ai-systems"
+            }
+          ]
+        },
+        "n.evals": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "Responsible Scaling Policy capability thresholds",
+              "url": "https://www.anthropic.com/news/anthropics-responsible-scaling-policy"
+            }
+          ]
+        },
+        "n.supplychain": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 4,
+          "evidence": [
+            {
+              "q": "Frontier model transparency and system cards",
+              "url": "https://www.anthropic.com/transparency"
+            }
+          ]
+        },
+        "n.secure_infra": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "Interpretability team output on features and circuits",
+              "url": "https://transformer-circuits.pub/"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "openai",
+      "label": "OpenAI",
+      "type": "Frontier lab",
+      "region": "US/UK",
+      "cells": {
+        "n.guardrails": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.agent_sec": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "External red-teaming network",
+              "url": "https://openai.com/index/red-teaming-network/"
+            }
+          ]
+        },
+        "n.evals": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "Preparedness Framework",
+              "url": "https://openai.com/index/updating-our-preparedness-framework/"
+            }
+          ]
+        },
+        "n.supplychain": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "Threat intelligence reports on malicious use",
+              "url": "https://openai.com/global-affairs/disrupting-malicious-uses-of-ai/"
+            }
+          ]
+        },
+        "n.compliance": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 3,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "gdm",
+      "label": "Google DeepMind",
+      "type": "Frontier lab",
+      "region": "UK/US",
+      "cells": {
+        "n.guardrails": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.agent_sec": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "Frontier Safety Framework",
+              "url": "https://deepmind.google/discover/blog/updating-the-frontier-safety-framework/"
+            }
+          ]
+        },
+        "n.supplychain": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 4,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "uk_aisi",
+      "label": "UK AI Security Institute",
+      "type": "Government",
+      "region": "London",
+      "cells": {
+        "n.guardrails": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.agent_sec": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "Pre-deployment testing and Inspect eval framework",
+              "url": "https://www.aisi.gov.uk/"
+            }
+          ]
+        },
+        "n.evals": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "Inspect open-source evaluation framework",
+              "url": "https://inspect.aisi.org.uk/"
+            }
+          ]
+        },
+        "n.supplychain": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 1,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "Cyber capability evaluations of frontier models",
+              "url": "https://www.aisi.gov.uk/work"
+            }
+          ]
+        },
+        "n.interp": {
+          "score": 3,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "microsoft",
+      "label": "Microsoft",
+      "type": "Platform",
+      "region": "US/UK",
+      "cells": {
+        "n.guardrails": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "Azure AI Content Safety and Prompt Shields",
+              "url": "https://learn.microsoft.com/azure/ai-services/content-safety/"
+            }
+          ]
+        },
+        "n.agent_sec": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "AI Red Team and PyRIT toolkit",
+              "url": "https://github.com/Azure/PyRIT"
+            }
+          ]
+        },
+        "n.evals": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "Entra Agent ID for non-human identity",
+              "url": "https://learn.microsoft.com/entra/"
+            }
+          ]
+        },
+        "n.offensive": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 2,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "nvidia",
+      "label": "NVIDIA",
+      "type": "Platform",
+      "region": "US",
+      "cells": {
+        "n.guardrails": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "NeMo Guardrails",
+              "url": "https://github.com/NVIDIA/NeMo-Guardrails"
+            }
+          ]
+        },
+        "n.agent_sec": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 4,
+          "evidence": [
+            {
+              "q": "garak LLM vulnerability scanner",
+              "url": "https://github.com/NVIDIA/garak"
+            }
+          ]
+        },
+        "n.evals": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 1,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "aws",
+      "label": "AWS",
+      "type": "Platform",
+      "region": "US/UK",
+      "cells": {
+        "n.guardrails": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "Bedrock Guardrails",
+              "url": "https://aws.amazon.com/bedrock/guardrails/"
+            }
+          ]
+        },
+        "n.agent_sec": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 1,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "paloalto",
+      "label": "Palo Alto Networks",
+      "type": "Security vendor",
+      "region": "US/UK",
+      "cells": {
+        "n.guardrails": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "AI Runtime Security / Protect AI acquisition",
+              "url": "https://www.paloaltonetworks.com/network-security/ai-runtime-security"
+            }
+          ]
+        },
+        "n.agent_sec": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "Model scanning via ModelScan/Guardian lineage",
+              "url": "https://protectai.com/"
+            }
+          ]
+        },
+        "n.privacy": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 1,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "crowdstrike",
+      "label": "CrowdStrike",
+      "type": "Security vendor",
+      "region": "US/UK",
+      "cells": {
+        "n.guardrails": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.agent_sec": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 0,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "lakera",
+      "label": "Lakera",
+      "type": "AI-security startup",
+      "region": "EU/UK",
+      "cells": {
+        "n.guardrails": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "Prompt-injection detection product and Gandalf dataset",
+              "url": "https://www.lakera.ai/"
+            }
+          ]
+        },
+        "n.agent_sec": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 1,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 1,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 1,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 1,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "hiddenlayer",
+      "label": "HiddenLayer",
+      "type": "AI-security startup",
+      "region": "US",
+      "cells": {
+        "n.guardrails": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.agent_sec": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "Model scanning and ML supply-chain detection",
+              "url": "https://hiddenlayer.com/"
+            }
+          ]
+        },
+        "n.privacy": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 1,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 1,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "darktrace",
+      "label": "Darktrace",
+      "type": "Security vendor",
+      "region": "Cambridge/London",
+      "cells": {
+        "n.guardrails": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.agent_sec": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 1,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "cloudflare",
+      "label": "Cloudflare",
+      "type": "Platform",
+      "region": "US/London",
+      "cells": {
+        "n.guardrails": {
+          "score": 4,
+          "evidence": [
+            {
+              "q": "Firewall for AI",
+              "url": "https://developers.cloudflare.com/ai-gateway/"
+            }
+          ]
+        },
+        "n.agent_sec": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 0,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "jpmorgan",
+      "label": "JPMorgan Chase",
+      "type": "Enterprise (finance)",
+      "region": "London/NY",
+      "cells": {
+        "n.guardrails": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.agent_sec": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 2,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "revolut",
+      "label": "Revolut",
+      "type": "Enterprise (fintech)",
+      "region": "London",
+      "cells": {
+        "n.guardrails": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.agent_sec": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 1,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "palantir",
+      "label": "Palantir",
+      "type": "Enterprise (gov/defence)",
+      "region": "London/US",
+      "cells": {
+        "n.guardrails": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.agent_sec": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 2,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "meta",
+      "label": "Meta AI",
+      "type": "Frontier lab",
+      "region": "US/London",
+      "cells": {
+        "n.guardrails": {
+          "score": 5,
+          "evidence": [
+            {
+              "q": "Llama Guard / Purple Llama safeguards",
+              "url": "https://ai.meta.com/llama/"
+            }
+          ]
+        },
+        "n.agent_sec": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 4,
+          "evidence": [
+            {
+              "q": "CyberSecEval benchmark suite",
+              "url": "https://ai.meta.com/research/publications/cyberseceval/"
+            }
+          ]
+        },
+        "n.evals": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 2,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "faculty",
+      "label": "Faculty AI",
+      "type": "Consultancy",
+      "region": "London",
+      "cells": {
+        "n.guardrails": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.agent_sec": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 3,
+          "evidence": []
+        }
+      }
+    }
+  ]
+}

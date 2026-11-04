@@ -1,0 +1,203 @@
+{
+  "runs": [
+    {
+      "started": "2026-11-04T22:50:17+00:00",
+      "mode": "dry-run",
+      "discovered": 96,
+      "gated_out": 9,
+      "considered": 60,
+      "classified": 0,
+      "added": 0,
+      "queued": 0,
+      "errors": [],
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cache_read": 0,
+        "cache_write": 0
+      },
+      "proposed_leaves": [],
+      "gap_vocab_terms": 43,
+      "gap_matches": 37,
+      "finished": "2026-11-04T22:50:40+00:00",
+      "seconds": 23.3,
+      "total_papers": 35
+    },
+    {
+      "started": "2026-11-04T22:49:23+00:00",
+      "mode": "dry-run",
+      "discovered": 98,
+      "gated_out": 16,
+      "considered": 60,
+      "classified": 0,
+      "added": 0,
+      "queued": 0,
+      "errors": [],
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cache_read": 0,
+        "cache_write": 0
+      },
+      "proposed_leaves": [],
+      "gap_vocab_terms": 43,
+      "gap_matches": 22,
+      "finished": "2026-11-04T22:49:48+00:00",
+      "seconds": 24.2,
+      "total_papers": 35
+    },
+    {
+      "started": "2026-11-04T22:48:38+00:00",
+      "mode": "dry-run",
+      "discovered": 98,
+      "gated_out": 16,
+      "considered": 60,
+      "classified": 0,
+      "added": 0,
+      "queued": 0,
+      "errors": [],
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cache_read": 0,
+        "cache_write": 0
+      },
+      "proposed_leaves": [],
+      "gap_vocab_terms": 41,
+      "gap_matches": 21,
+      "finished": "2026-11-04T22:49:02+00:00",
+      "seconds": 23.4,
+      "total_papers": 35
+    },
+    {
+      "started": "2026-11-04T22:47:36+00:00",
+      "mode": "dry-run",
+      "discovered": 96,
+      "gated_out": 7,
+      "considered": 60,
+      "classified": 0,
+      "added": 0,
+      "queued": 0,
+      "errors": [],
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cache_read": 0,
+        "cache_write": 0
+      },
+      "proposed_leaves": [],
+      "gap_vocab_terms": 129,
+      "gap_matches": 49,
+      "finished": "2026-11-04T22:47:59+00:00",
+      "seconds": 23.3,
+      "total_papers": 35
+    },
+    {
+      "started": "2026-11-04T22:46:13+00:00",
+      "mode": "dry-run",
+      "discovered": 96,
+      "gated_out": 25,
+      "considered": 60,
+      "classified": 0,
+      "added": 0,
+      "queued": 0,
+      "errors": [],
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cache_read": 0,
+        "cache_write": 0
+      },
+      "proposed_leaves": [],
+      "finished": "2026-11-04T22:46:37+00:00",
+      "seconds": 23.8,
+      "total_papers": 35
+    },
+    {
+      "started": "2026-11-04T22:44:05+00:00",
+      "mode": "dry-run",
+      "discovered": 96,
+      "gated_out": 7,
+      "considered": 40,
+      "classified": 0,
+      "added": 0,
+      "queued": 0,
+      "errors": [],
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cache_read": 0,
+        "cache_write": 0
+      },
+      "proposed_leaves": [],
+      "finished": "2026-11-04T22:44:34+00:00",
+      "seconds": 29.1,
+      "total_papers": 35
+    },
+    {
+      "started": "2026-11-04T22:30:23+00:00",
+      "mode": "derive-only",
+      "discovered": 0,
+      "gated_out": 0,
+      "considered": 0,
+      "classified": 0,
+      "added": 0,
+      "queued": 0,
+      "errors": [],
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cache_read": 0,
+        "cache_write": 0
+      },
+      "proposed_leaves": [],
+      "finished": "2026-11-04T22:30:23+00:00",
+      "seconds": 0.0,
+      "total_papers": 35
+    },
+    {
+      "started": "2026-11-04T22:29:33+00:00",
+      "mode": "derive-only",
+      "discovered": 0,
+      "gated_out": 0,
+      "considered": 0,
+      "classified": 0,
+      "added": 0,
+      "queued": 0,
+      "errors": [],
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cache_read": 0,
+        "cache_write": 0
+      },
+      "proposed_leaves": [],
+      "finished": "2026-11-04T22:29:33+00:00",
+      "seconds": 0.0,
+      "total_papers": 35
+    }
+  ],
+  "latest": {
+    "started": "2026-11-04T22:50:17+00:00",
+    "mode": "dry-run",
+    "discovered": 96,
+    "gated_out": 9,
+    "considered": 60,
+    "classified": 0,
+    "added": 0,
+    "queued": 0,
+    "errors": [],
+    "usage": {
+      "input": 0,
+      "output": 0,
+      "cache_read": 0,
+      "cache_write": 0
+    },
+    "proposed_leaves": [],
+    "gap_vocab_terms": 43,
+    "gap_matches": 37,
+    "finished": "2026-11-04T22:50:40+00:00",
+    "seconds": 23.3,
+    "total_papers": 35
+  }
+}

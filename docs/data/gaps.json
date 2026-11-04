@@ -1,0 +1,672 @@
+{
+  "schema": 1,
+  "updated": "2026-11-04",
+  "note": "Each gap is a numbered chain of claims. A step's `claim` is authored and is never rewritten by the pipeline; a step carrying a `metric` has its figures recomputed on every run and placed in `computed`, so the reasoning stays stable while the numbers stay current.",
+  "gaps": [
+    {
+      "id": "gap-injection-utility",
+      "title": "No prompt-injection defence is both general and utility-preserving",
+      "severity": "high",
+      "status": "open",
+      "categories": [
+        "defense.provenance",
+        "attack.injection",
+        "agent.hijack"
+      ],
+      "needs": [
+        "n.guardrails",
+        "n.agent_sec"
+      ],
+      "papers": [
+        "arxiv:2406.13352",
+        "arxiv:2410.05451",
+        "arxiv:2402.06363",
+        "arxiv:2403.14720",
+        "arxiv:2506.08837"
+      ],
+      "chain": [
+        {
+          "step": 1,
+          "claim": "Indirect injection is a channel-confusion problem, not a content problem: untrusted retrieved text occupies the same channel as instructions.",
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2302.12173"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2306.05499"
+            }
+          ]
+        },
+        {
+          "step": 2,
+          "claim": "Defences split into two families - mark the untrusted span (spotlighting), or train the separation in (StruQ, SecAlign).",
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2403.14720"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2402.06363"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2410.05451"
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "claim": "Measured together, every published defence trades the agent's usefulness for its security - AgentDojo reports utility-under-attack, and no defence holds both.",
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2406.13352"
+            }
+          ]
+        },
+        {
+          "step": 4,
+          "claim": "The training-based family needs weight access, so it is unavailable to anyone consuming a closed API - which is most deployers.",
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2402.06363"
+            }
+          ]
+        },
+        {
+          "step": 5,
+          "claim": "The remaining engineering answer bounds what the agent may do rather than what it may read, at the cost of generality.",
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2506.08837"
+            }
+          ]
+        },
+        {
+          "step": 6,
+          "claim": "Gap: no defence available to an API consumer that is attack-general and does not degrade task utility. Current coverage of this need:",
+          "metric": {
+            "kind": "coverage",
+            "need": "n.guardrails"
+          },
+          "computed": {
+            "papers": 11,
+            "paper_ids": [
+              "arxiv:2501.18837",
+              "arxiv:2411.07494",
+              "arxiv:2406.11717",
+              "arxiv:2406.04313",
+              "arxiv:2402.06363",
+              "arxiv:2312.06674",
+              "arxiv:2311.17035",
+              "arxiv:2311.14455"
+            ]
+          }
+        }
+      ],
+      "refreshed": "2026-11-04"
+    },
+    {
+      "id": "gap-agent-identity",
+      "title": "Identity and least privilege for agents: strong demand, almost no research",
+      "severity": "high",
+      "status": "open",
+      "categories": [
+        "infra.identity",
+        "agent.authz"
+      ],
+      "needs": [
+        "n.identity",
+        "n.agent_sec"
+      ],
+      "papers": [
+        "arxiv:2506.08837",
+        "arxiv:2311.04235"
+      ],
+      "chain": [
+        {
+          "step": 1,
+          "claim": "Platform vendors have shipped non-human-identity products for agents, and enterprises rate scoped credentials for AI among their top needs.",
+          "metric": {
+            "kind": "demand",
+            "need": "n.identity"
+          },
+          "evidence": [
+            {
+              "type": "company",
+              "id": "microsoft"
+            },
+            {
+              "type": "company",
+              "id": "aws"
+            },
+            {
+              "type": "company",
+              "id": "palantir"
+            }
+          ],
+          "computed": {
+            "mean_demand": 3.11,
+            "companies_at_4plus": 8,
+            "of_companies": 18,
+            "need_label": "Identity & authz for AI"
+          }
+        },
+        {
+          "step": 2,
+          "claim": "The inventory's coverage of infra.identity and agent.authz is:",
+          "metric": {
+            "kind": "coverage",
+            "need": "n.identity"
+          },
+          "computed": {
+            "papers": 2,
+            "paper_ids": [
+              "arxiv:2506.08837",
+              "arxiv:2311.04235"
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "claim": "What exists treats authorisation as a design constraint on the agent loop, or tests whether a model will obey an operator rule at all - neither is an authorisation mechanism.",
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2506.08837"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2311.04235"
+            }
+          ]
+        },
+        {
+          "step": 4,
+          "claim": "Gap: the delegation problem - how an agent proves which principal it acts for, and how a downstream service bounds that - is being solved in product without a research literature to draw on."
+        }
+      ],
+      "refreshed": "2026-11-04"
+    },
+    {
+      "id": "gap-unlearning-evaluation",
+      "title": "Unlearning evaluation cannot distinguish removal from concealment",
+      "severity": "high",
+      "status": "open",
+      "categories": [
+        "defense.unlearning",
+        "eval.dangercap",
+        "interp.probes"
+      ],
+      "needs": [
+        "n.privacy",
+        "n.evals",
+        "n.compliance"
+      ],
+      "papers": [
+        "arxiv:2310.02238",
+        "arxiv:2403.03218",
+        "arxiv:2406.11717"
+      ],
+      "chain": [
+        {
+          "step": 1,
+          "claim": "Approximate unlearning became the practical answer to deletion requests and to hazardous-knowledge removal, because retraining is infeasible.",
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2310.02238"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2403.03218"
+            }
+          ]
+        },
+        {
+          "step": 2,
+          "claim": "Both are evaluated by querying the model and observing that it no longer answers - a behavioural test."
+        },
+        {
+          "step": 3,
+          "claim": "But behaviour and capability come apart: refusal is mediated by a single removable direction, so a model can hold a capability it does not display.",
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2406.11717"
+            }
+          ]
+        },
+        {
+          "step": 4,
+          "claim": "And a deliberately implanted behaviour survives the full safety-training stack, which the same behavioural tests would score as clean.",
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2401.05566"
+            }
+          ]
+        },
+        {
+          "step": 5,
+          "claim": "Gap: no evaluation establishes that unlearned information is gone rather than suppressed - which is precisely the claim a deletion obligation or a capability threshold requires."
+        }
+      ],
+      "refreshed": "2026-11-04"
+    },
+    {
+      "id": "gap-supplychain-detection",
+      "title": "Backdoors are demonstrated and undetectable; detection is not being published",
+      "severity": "high",
+      "status": "open",
+      "categories": [
+        "supply.backdoor",
+        "supply.poisoning",
+        "supply.provenance"
+      ],
+      "needs": [
+        "n.supplychain",
+        "n.interp"
+      ],
+      "papers": [
+        "arxiv:2401.05566",
+        "arxiv:2311.14455",
+        "arxiv:2302.10149"
+      ],
+      "chain": [
+        {
+          "step": 1,
+          "claim": "Poisoning real web-scale corpora is cheap and practical, and the preference data used for alignment is itself a viable injection point.",
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2302.10149"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2311.14455"
+            }
+          ]
+        },
+        {
+          "step": 2,
+          "claim": "A planted backdoor survives SFT, RLHF and adversarial training; adversarial training can make it better hidden.",
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2401.05566"
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "claim": "Vendors treat model supply chain as a core concern - scanning and lineage products exist from several security companies.",
+          "metric": {
+            "kind": "demand",
+            "need": "n.supplychain"
+          },
+          "evidence": [
+            {
+              "type": "company",
+              "id": "paloalto"
+            },
+            {
+              "type": "company",
+              "id": "hiddenlayer"
+            }
+          ],
+          "computed": {
+            "mean_demand": 3.17,
+            "companies_at_4plus": 7,
+            "of_companies": 18,
+            "need_label": "Model supply chain"
+          }
+        },
+        {
+          "step": 4,
+          "claim": "Coverage held by the inventory for this need:",
+          "metric": {
+            "kind": "coverage",
+            "need": "n.supplychain"
+          },
+          "computed": {
+            "papers": 5,
+            "paper_ids": [
+              "arxiv:2410.02644",
+              "arxiv:2401.05566",
+              "arxiv:2311.14455",
+              "arxiv:2302.10149",
+              "arxiv:2301.10226"
+            ]
+          }
+        },
+        {
+          "step": 5,
+          "claim": "The balance of that coverage between attack and defence:",
+          "metric": {
+            "kind": "balance",
+            "need": "n.supplychain"
+          },
+          "computed": {
+            "defensive": 1,
+            "offensive": 2,
+            "by_contribution": {
+              "benchmark": 1,
+              "analysis": 1,
+              "attack": 2,
+              "framework": 1
+            }
+          }
+        },
+        {
+          "step": 6,
+          "claim": "Gap: no published method detects a backdoor without knowing its trigger, so commercial model scanning rests on file-format and known-signature checks rather than on behavioural or mechanistic detection."
+        }
+      ],
+      "refreshed": "2026-11-04"
+    },
+    {
+      "id": "gap-offence-defence-asymmetry",
+      "title": "Offensive capability is carefully measured; defensive cost is not measured at all",
+      "severity": "medium",
+      "status": "open",
+      "categories": [
+        "cyber.exploit",
+        "cyber.defense",
+        "eval.dangercap"
+      ],
+      "needs": [
+        "n.offensive",
+        "n.monitoring"
+      ],
+      "papers": [
+        "arxiv:2408.08926",
+        "arxiv:2406.01637",
+        "arxiv:2402.06664",
+        "arxiv:2312.04724"
+      ],
+      "chain": [
+        {
+          "step": 1,
+          "claim": "Agentic offensive capability now has calibrated benchmarks, human-anchored difficulty, and real-CVE results.",
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2408.08926"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2406.01637"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2402.06664"
+            }
+          ]
+        },
+        {
+          "step": 2,
+          "claim": "These inform frontier safety frameworks and capability thresholds.",
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2403.13793"
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "claim": "The inventory's coverage of defensive automation against those attacks:",
+          "metric": {
+            "kind": "coverage",
+            "need": "n.monitoring"
+          },
+          "computed": {
+            "papers": 1,
+            "paper_ids": [
+              "arxiv:2411.07494"
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "claim": "Gap: nothing measures what it costs a defender to withstand the attacks now being benchmarked. A threshold expressed only in attacker capability cannot tell a CISO whether their controls suffice."
+        }
+      ],
+      "refreshed": "2026-11-04"
+    },
+    {
+      "id": "gap-mcp-ecosystem",
+      "title": "The third-party tool-server ecosystem has no reviewed security literature",
+      "severity": "high",
+      "status": "open",
+      "categories": [
+        "agent.mcp",
+        "agent.multiagent",
+        "supply.deps"
+      ],
+      "needs": [
+        "n.agent_sec",
+        "n.supplychain",
+        "n.identity"
+      ],
+      "papers": [
+        "arxiv:2410.02644",
+        "arxiv:2302.12173"
+      ],
+      "chain": [
+        {
+          "step": 1,
+          "claim": "Agents now draw capability from third-party tool servers chosen at runtime, which is a dependency relationship with no package-manager-equivalent controls."
+        },
+        {
+          "step": 2,
+          "claim": "Injection via tool output is well established as an attack path.",
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2302.12173"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2410.02644"
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "claim": "Agent and tool security is the second-highest-demand column in the heat map:",
+          "metric": {
+            "kind": "demand",
+            "need": "n.agent_sec"
+          },
+          "computed": {
+            "mean_demand": 4.11,
+            "companies_at_4plus": 14,
+            "of_companies": 18,
+            "need_label": "Agent & tool security"
+          }
+        },
+        {
+          "step": 4,
+          "claim": "Coverage of agent.mcp specifically:",
+          "metric": {
+            "kind": "coverage",
+            "need": "n.agent_sec"
+          },
+          "computed": {
+            "papers": 12,
+            "paper_ids": [
+              "arxiv:2506.08837",
+              "arxiv:2412.04984",
+              "arxiv:2410.02644",
+              "arxiv:2406.13352",
+              "arxiv:2406.04313",
+              "arxiv:2406.01637",
+              "arxiv:2403.14720",
+              "arxiv:2403.02691"
+            ]
+          }
+        },
+        {
+          "step": 5,
+          "claim": "Gap: tool-server trust, capability declaration, version pinning and revocation are unaddressed in reviewed work - the practical material is vendor blog posts, which this inventory tracks but which carry no review."
+        }
+      ],
+      "refreshed": "2026-11-04"
+    },
+    {
+      "id": "gap-compliance-evidence",
+      "title": "Compliance is the top enterprise demand with no research producing audit-grade evidence",
+      "severity": "medium",
+      "status": "open",
+      "categories": [
+        "gov.regulation",
+        "eval.audit",
+        "gov.transparency"
+      ],
+      "needs": [
+        "n.compliance",
+        "n.evals"
+      ],
+      "papers": [
+        "arxiv:2403.13793",
+        "arxiv:2410.21514",
+        "arxiv:2301.10226"
+      ],
+      "chain": [
+        {
+          "step": 1,
+          "claim": "Enterprises and consultancies rate compliance and assurance at or near the top of their AI-security priorities.",
+          "metric": {
+            "kind": "demand",
+            "need": "n.compliance"
+          },
+          "evidence": [
+            {
+              "type": "company",
+              "id": "jpmorgan"
+            },
+            {
+              "type": "company",
+              "id": "revolut"
+            },
+            {
+              "type": "company",
+              "id": "faculty"
+            }
+          ],
+          "computed": {
+            "mean_demand": 3.89,
+            "companies_at_4plus": 11,
+            "of_companies": 18,
+            "need_label": "Compliance & assurance"
+          }
+        },
+        {
+          "step": 2,
+          "claim": "The evaluation literature produces capability measurements for the lab's own release decision, not evidence packages a third party can verify.",
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2403.13793"
+            },
+            {
+              "type": "paper",
+              "id": "arxiv:2410.21514"
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "claim": "Coverage of audit and certification as a research topic:",
+          "metric": {
+            "kind": "coverage",
+            "need": "n.compliance"
+          },
+          "computed": {
+            "papers": 3,
+            "paper_ids": [
+              "arxiv:2410.21514",
+              "arxiv:2403.13793",
+              "arxiv:2301.10226"
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "claim": "Gap: no work defines what evidence a model-security claim should consist of, how it is reproduced by an auditor without weight access, or how it maps onto the obligations deployers already carry."
+        }
+      ],
+      "refreshed": "2026-11-04"
+    },
+    {
+      "id": "gap-detection-latency",
+      "title": "Rapid-response defences assume detection that nothing provides",
+      "severity": "medium",
+      "status": "partial",
+      "categories": [
+        "defense.monitoring",
+        "defense.guardrails"
+      ],
+      "needs": [
+        "n.monitoring",
+        "n.guardrails"
+      ],
+      "papers": [
+        "arxiv:2411.07494",
+        "arxiv:2501.18837"
+      ],
+      "chain": [
+        {
+          "step": 1,
+          "claim": "The incident-response framing works: given a few examples of a new jailbreak, variants can be proliferated and a classifier updated within one cycle.",
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2411.07494"
+            }
+          ]
+        },
+        {
+          "step": 2,
+          "claim": "Classifier guardrails can then hold under sustained red-team pressure.",
+          "evidence": [
+            {
+              "type": "paper",
+              "id": "arxiv:2501.18837"
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "claim": "Both depend on the novel attack being observed before it is exploited at scale - the detection step, not the response step."
+        },
+        {
+          "step": 4,
+          "claim": "Coverage of runtime monitoring and anomaly detection:",
+          "metric": {
+            "kind": "coverage",
+            "need": "n.monitoring"
+          },
+          "computed": {
+            "papers": 1,
+            "paper_ids": [
+              "arxiv:2411.07494"
+            ]
+          }
+        },
+        {
+          "step": 5,
+          "claim": "Gap: time-to-detection for a novel attack class in production is neither measured nor optimised in published work, so the response pipeline's binding constraint is the unstudied one."
+        }
+      ],
+      "refreshed": "2026-11-04"
+    }
+  ]
+}
