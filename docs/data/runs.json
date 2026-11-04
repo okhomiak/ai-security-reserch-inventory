@@ -1,6 +1,27 @@
 {
   "runs": [
     {
+      "started": "2026-11-04T23:36:22+00:00",
+      "mode": "derive-only",
+      "discovered": 0,
+      "gated_out": 0,
+      "considered": 0,
+      "classified": 0,
+      "added": 0,
+      "queued": 0,
+      "errors": [],
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cache_read": 0,
+        "cache_write": 0
+      },
+      "proposed_leaves": [],
+      "finished": "2026-11-04T23:36:22+00:00",
+      "seconds": 0.0,
+      "total_papers": 43
+    },
+    {
       "started": "2026-11-04T22:50:17+00:00",
       "mode": "dry-run",
       "discovered": 96,
@@ -178,11 +199,11 @@
     }
   ],
   "latest": {
-    "started": "2026-11-04T22:50:17+00:00",
-    "mode": "dry-run",
-    "discovered": 96,
-    "gated_out": 9,
-    "considered": 60,
+    "started": "2026-11-04T23:36:22+00:00",
+    "mode": "derive-only",
+    "discovered": 0,
+    "gated_out": 0,
+    "considered": 0,
     "classified": 0,
     "added": 0,
     "queued": 0,
@@ -194,10 +215,8 @@
       "cache_write": 0
     },
     "proposed_leaves": [],
-    "gap_vocab_terms": 43,
-    "gap_matches": 37,
-    "finished": "2026-11-04T22:50:40+00:00",
-    "seconds": 23.3,
-    "total_papers": 35
+    "finished": "2026-11-04T23:36:22+00:00",
+    "seconds": 0.0,
+    "total_papers": 43
   }
 }

@@ -1,9 +1,158 @@
 {
   "schema": 2,
   "updated": "2026-11-04",
-  "count": 35,
+  "count": 43,
   "note": "Seed set: landmark AI-security work, every id/title/date/author verified against the live arXiv API. The weekly agent appends to this file; `curation` says whether a record was hand-written or agent-classified.",
   "papers": [
+    {
+      "id": "web:anthropic-espionage-2025-11",
+      "title": "Disrupting the first reported AI-orchestrated cyber espionage campaign",
+      "short": "AI-orchestrated espionage",
+      "url": "https://www.anthropic.com/news/disrupting-AI-espionage",
+      "pdf": "",
+      "date": "2025-11-13",
+      "authors": [],
+      "organisations": [
+        "Anthropic"
+      ],
+      "venue": "Anthropic threat intelligence report",
+      "venue_source": "publisher",
+      "kind": "incident",
+      "trust": {
+        "tier": "frontier-lab",
+        "justification": "Anthropic threat intelligence report - Anthropic",
+        "gate_reason": "seed entry, curated; URL verified"
+      },
+      "source": "Anthropic",
+      "what_its_about": "A Chinese state-sponsored group used Claude Code to automate the large majority of a multi-target espionage campaign against roughly thirty organisations, with humans intervening only at a handful of decision points. The operators bypassed safety training by fragmenting the attack into individually innocuous tasks and posing as a legitimate security firm.",
+      "primary_category": "cyber.exploit",
+      "categories": [
+        "cyber.exploit",
+        "agent.hijack",
+        "cyber.malware",
+        "eval.dangercap",
+        "agent.authz"
+      ],
+      "contribution_type": "analysis",
+      "methods": [
+        "incident analysis",
+        "agentic attack decomposition",
+        "jailbreak via task fragmentation"
+      ],
+      "threat_model": "A state-sponsored group using an agentic coding tool to run most of an intrusion campaign autonomously.",
+      "addresses_needs": [
+        "n.offensive",
+        "n.monitoring",
+        "n.agent_sec"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Establishes agentic attack as operational reality rather than projection, and is the single strongest evidence behind the offence/defence asymmetry gap - it arrives with no corresponding defender playbook.",
+      "confidence": 1.0,
+      "abstract": "",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "web:gtig-ai-threat-tracker-2025-11",
+      "title": "GTIG AI Threat Tracker: Advances in Threat Actor Usage of AI Tools",
+      "short": "LLM-enabled malware",
+      "url": "https://cloud.google.com/blog/topics/threat-intelligence/gtig-ai-threat-tracker-advances-threat-actor-usage-ai-tools",
+      "pdf": "",
+      "date": "2025-11-05",
+      "authors": [],
+      "organisations": [
+        "Google Threat Intelligence Group"
+      ],
+      "venue": "GTIG report",
+      "venue_source": "publisher",
+      "kind": "incident",
+      "trust": {
+        "tier": "industry-research",
+        "justification": "GTIG report - Google Threat Intelligence Group",
+        "gate_reason": "seed entry, curated; URL verified"
+      },
+      "source": "Google Threat Intelligence Group",
+      "what_its_about": "Documents the first observed malware families that query an LLM while running - rewriting their own code and generating functions on demand rather than shipping fixed payloads. Also records actors social-engineering the model by posing as CTF participants to get past safety training.",
+      "primary_category": "cyber.malware",
+      "categories": [
+        "cyber.malware",
+        "supply.deps",
+        "defense.monitoring",
+        "attack.jailbreak"
+      ],
+      "contribution_type": "analysis",
+      "methods": [
+        "malware family analysis",
+        "runtime LLM-call detection"
+      ],
+      "threat_model": "Malware that calls a language model at execution time to regenerate or obfuscate itself mid-operation.",
+      "addresses_needs": [
+        "n.offensive",
+        "n.monitoring",
+        "n.supplychain"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Signature and behavioural detection both assume the binary is stable between executions. Nothing addresses malware whose code is regenerated per run, and no detection approach is proposed here.",
+      "confidence": 1.0,
+      "abstract": "",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "web:anthropic-misuse-2025-08",
+      "title": "Detecting and countering misuse of AI: August 2025",
+      "short": "Anthropic misuse report (Aug 25)",
+      "url": "https://www.anthropic.com/news/detecting-countering-misuse-aug-2025",
+      "pdf": "",
+      "date": "2025-08-27",
+      "authors": [],
+      "organisations": [
+        "Anthropic"
+      ],
+      "venue": "Anthropic threat intelligence report",
+      "venue_source": "publisher",
+      "kind": "incident",
+      "trust": {
+        "tier": "frontier-lab",
+        "justification": "Anthropic threat intelligence report - Anthropic",
+        "gate_reason": "seed entry, curated; URL verified"
+      },
+      "source": "Anthropic",
+      "what_its_about": "Anthropic's threat intelligence report on observed real-world misuse of Claude: a 'vibe hacking' extortion operation that used Claude Code for reconnaissance and ransom-note generation, North Korean operatives using it to hold fraudulent remote IT jobs, and ransomware-as-a-service development. Documents the tradecraft and the enforcement taken.",
+      "primary_category": "cyber.malware",
+      "categories": [
+        "cyber.malware",
+        "cyber.exploit",
+        "defense.monitoring",
+        "gov.disclosure"
+      ],
+      "contribution_type": "analysis",
+      "methods": [
+        "threat intelligence",
+        "account enforcement",
+        "case studies"
+      ],
+      "threat_model": "Criminal actors using a frontier model as operational tooling - extortion, fraud, ransomware development.",
+      "addresses_needs": [
+        "n.monitoring",
+        "n.offensive"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Reports attacker behaviour after the fact. It gives no detection latency - how long each operation ran before it was caught - which is the number a defender would actually plan against.",
+      "confidence": 1.0,
+      "abstract": "",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
     {
       "id": "arxiv:2506.08837",
       "title": "Design Patterns for Securing LLM Agents against Prompt Injections",
@@ -83,6 +232,106 @@
       "short": "Design patterns"
     },
     {
+      "id": "web:openai-disrupting-malicious-uses",
+      "title": "Disrupting malicious uses of AI",
+      "short": "OpenAI threat reports",
+      "url": "https://openai.com/global-affairs/disrupting-malicious-uses-of-ai/",
+      "pdf": "",
+      "date": "2025-06-05",
+      "authors": [],
+      "organisations": [
+        "OpenAI"
+      ],
+      "venue": "OpenAI threat intelligence report series",
+      "venue_source": "publisher",
+      "kind": "incident",
+      "trust": {
+        "tier": "frontier-lab",
+        "justification": "OpenAI threat intelligence report series - OpenAI",
+        "gate_reason": "seed entry, curated; URL verified"
+      },
+      "source": "OpenAI",
+      "what_its_about": "OpenAI's recurring reports on disrupting malicious use of its models - covert influence operations, employment scams, social engineering and cyber-intrusion support - with attribution and the enforcement taken. The closest thing the field has to a public longitudinal record of how adversaries actually use frontier models.",
+      "primary_category": "defense.monitoring",
+      "categories": [
+        "defense.monitoring",
+        "cyber.malware",
+        "gov.disclosure",
+        "cyber.exploit"
+      ],
+      "contribution_type": "analysis",
+      "methods": [
+        "threat intelligence",
+        "influence-operation attribution",
+        "account disruption"
+      ],
+      "threat_model": "State-linked and criminal actors using a frontier model for influence operations, scam infrastructure and intrusion support.",
+      "addresses_needs": [
+        "n.monitoring",
+        "n.offensive",
+        "n.compliance"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Like every vendor report, it covers only misuse of that vendor's own models and only what was detected. There is no shared schema across labs, so the reports cannot be aggregated into a picture of the threat landscape.",
+      "confidence": 1.0,
+      "abstract": "",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "web:anthropic-asl3",
+      "title": "Activating AI Safety Level 3 protections",
+      "short": "ASL-3 activation",
+      "url": "https://www.anthropic.com/news/activating-asl3-protections",
+      "pdf": "",
+      "date": "2025-05-22",
+      "authors": [],
+      "organisations": [
+        "Anthropic"
+      ],
+      "venue": "Anthropic policy",
+      "venue_source": "publisher",
+      "kind": "policy",
+      "trust": {
+        "tier": "frontier-lab",
+        "justification": "Anthropic policy - Anthropic",
+        "gate_reason": "seed entry, curated; URL verified"
+      },
+      "source": "Anthropic",
+      "what_its_about": "The first time a lab activated a higher safety tier in practice - deploying ASL-3 deployment and security standards for Claude Opus 4 as a precaution, rather than after proving the threshold was crossed. Turns the RSP from a published intention into an observed behaviour.",
+      "primary_category": "gov.frameworks",
+      "categories": [
+        "gov.frameworks",
+        "defense.guardrails",
+        "eval.dangercap",
+        "infra.identity"
+      ],
+      "contribution_type": "framework",
+      "methods": [
+        "deployment safeguards",
+        "weight-security controls",
+        "threshold activation"
+      ],
+      "threat_model": "Model weights or CBRN-relevant capability reaching a determined actor.",
+      "addresses_needs": [
+        "n.compliance",
+        "n.guardrails",
+        "n.secure_infra"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Precautionary activation is the honest move, but it also means the threshold test was not decisive. What evidence would have settled it either way is unstated.",
+      "confidence": 1.0,
+      "abstract": "",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
       "id": "arxiv:2501.18837",
       "title": "Constitutional Classifiers: Defending against Universal Jailbreaks across Thousands of Hours of Red Teaming",
       "url": "https://arxiv.org/abs/2501.18837",
@@ -157,6 +406,53 @@
       "notes": "",
       "validation_warnings": [],
       "short": "Constitutional classifiers"
+    },
+    {
+      "id": "web:gtig-adversarial-misuse-2025",
+      "title": "Adversarial Misuse of Generative AI",
+      "short": "GTIG adversarial misuse",
+      "url": "https://cloud.google.com/blog/topics/threat-intelligence/adversarial-misuse-generative-ai",
+      "pdf": "",
+      "date": "2025-01-29",
+      "authors": [],
+      "organisations": [
+        "Google Threat Intelligence Group"
+      ],
+      "venue": "GTIG report",
+      "venue_source": "publisher",
+      "kind": "incident",
+      "trust": {
+        "tier": "industry-research",
+        "justification": "GTIG report - Google Threat Intelligence Group",
+        "gate_reason": "seed entry, curated; URL verified"
+      },
+      "source": "Google Threat Intelligence Group",
+      "what_its_about": "Google's analysis of how advanced persistent threat and information-operations actors actually used Gemini: mostly research, tooling and content production rather than novel capability. The finding that matters is the absence of one - no evidence of genuinely new attack techniques, only acceleration of existing ones.",
+      "primary_category": "cyber.malware",
+      "categories": [
+        "cyber.malware",
+        "cyber.exploit",
+        "defense.monitoring"
+      ],
+      "contribution_type": "analysis",
+      "methods": [
+        "APT and IO actor tracking",
+        "prompt analysis across state actors"
+      ],
+      "threat_model": "Government-backed actors across more than twenty countries using a frontier assistant for productivity across the attack lifecycle.",
+      "addresses_needs": [
+        "n.offensive",
+        "n.monitoring"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Measures productivity uplift qualitatively. Nothing quantifies how much faster, which is what a defender needs to recalibrate response times against.",
+      "confidence": 1.0,
+      "abstract": "",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2412.04984",
@@ -293,6 +589,55 @@
       "notes": "",
       "validation_warnings": [],
       "short": "Rapid response"
+    },
+    {
+      "id": "web:project-zero-big-sleep",
+      "title": "From Naptime to Big Sleep: Using Large Language Models To Catch Vulnerabilities In Real-World Code",
+      "short": "Big Sleep",
+      "url": "https://googleprojectzero.blogspot.com/2024/10/from-naptime-to-big-sleep.html",
+      "pdf": "",
+      "date": "2024-11-01",
+      "authors": [],
+      "organisations": [
+        "Google Project Zero",
+        "Google DeepMind"
+      ],
+      "venue": "Project Zero",
+      "venue_source": "publisher",
+      "kind": "incident",
+      "trust": {
+        "tier": "industry-research",
+        "justification": "Project Zero - Google Project Zero",
+        "gate_reason": "seed entry, curated; URL verified"
+      },
+      "source": "Google Project Zero",
+      "what_its_about": "The first public case of an LLM agent finding an exploitable memory-safety bug in widely used production software - a stack buffer underflow in SQLite, caught before release. Notable because fuzzing had not found it, which is the comparison that makes the result meaningful.",
+      "primary_category": "cyber.vulndiscovery",
+      "categories": [
+        "cyber.vulndiscovery",
+        "cyber.defense",
+        "agent.sandbox"
+      ],
+      "contribution_type": "analysis",
+      "methods": [
+        "variant analysis",
+        "agentic fuzzing harness",
+        "sandboxed debugger tooling"
+      ],
+      "threat_model": "Defensive: finding memory-safety bugs before an attacker does.",
+      "addresses_needs": [
+        "n.offensive",
+        "n.evals"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "A single confirmed find with no reported false-positive rate or cost per bug, so the economics against fuzzing remain unknown.",
+      "confidence": 1.0,
+      "abstract": "",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2410.21514",
@@ -1863,6 +2208,54 @@
       "notes": "",
       "validation_warnings": [],
       "short": "Approximate unlearning"
+    },
+    {
+      "id": "web:anthropic-rsp",
+      "title": "Anthropic's Responsible Scaling Policy",
+      "short": "Responsible Scaling Policy",
+      "url": "https://www.anthropic.com/news/anthropics-responsible-scaling-policy",
+      "pdf": "",
+      "date": "2023-09-19",
+      "authors": [],
+      "organisations": [
+        "Anthropic"
+      ],
+      "venue": "Anthropic policy",
+      "venue_source": "publisher",
+      "kind": "policy",
+      "trust": {
+        "tier": "frontier-lab",
+        "justification": "Anthropic policy - Anthropic",
+        "gate_reason": "seed entry, curated; URL verified"
+      },
+      "source": "Anthropic",
+      "what_its_about": "The framework that tied deployment decisions to measured capability: AI Safety Levels, each with required security and safety controls, and a commitment to pause scaling if controls lag capability. The template most frontier safety frameworks followed.",
+      "primary_category": "gov.frameworks",
+      "categories": [
+        "gov.frameworks",
+        "eval.dangercap",
+        "gov.transparency"
+      ],
+      "contribution_type": "framework",
+      "methods": [
+        "capability thresholds",
+        "AI Safety Levels",
+        "pre-deployment gating"
+      ],
+      "threat_model": "A model crossing a dangerous-capability threshold before the controls for it exist.",
+      "addresses_needs": [
+        "n.compliance",
+        "n.evals"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Thresholds are self-assessed and self-enforced. No external party can verify an ASL determination, which is the dependency the compliance-evidence gap names.",
+      "confidence": 1.0,
+      "abstract": "",
+      "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2309.05610",
