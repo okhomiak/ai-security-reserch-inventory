@@ -2,6 +2,18 @@
    No framework, no build. Everything here reads committed JSON and draws it. */
 
 const FILES = ['papers', 'taxonomy', 'companies', 'gaps', 'derived', 'runs', 'review_queue'];
+
+/* Contribution types on the eight categorical slots, in the order that clears
+   every adjacent-pair CVD gate in both modes. Render legends and stacks in THIS
+   order - a semantic reordering was measured and fails (violet vs blue, dE 1.9
+   in dark mode). See styles.css. */
+const CONTRIB = ['evaluation', 'analysis', 'defence', 'dataset', 'framework', 'position', 'benchmark', 'attack'];
+const contribVar = (t) => (CONTRIB.includes(t) ? `var(--c-${t})` : 'var(--ink-3)');
+
+/* A paper is "new" if the agent imported it in the most recent batch. Seed
+   entries are hand-curated and never new - nothing has been imported yet. */
+let NEW_SINCE = null;
+const isNew = (p) => Boolean(NEW_SINCE && p.curation === 'agent' && p.added >= NEW_SINCE);
 const D = {};
 let TAX = {}, LEAF = {}, BRANCH = {}, PAPER = {}, NEED = {}, CO = {};
 
@@ -68,10 +80,42 @@ function bindTip(node, html) {
   node.addEventListener('mouseleave', hideTip);
 }
 
+/* The richer popover. #tip is for one-liners; #card is for where the hover is
+   the point of the interaction, which on the research tree it is. */
+const card = $('#card');
+function showCard(e, html) { card.innerHTML = html; card.classList.add('on'); moveCard(e); }
+function moveCard(e) {
+  const pad = 16, r = card.getBoundingClientRect();
+  let x = e.clientX + pad, y = e.clientY + pad;
+  if (x + r.width > innerWidth - 10) x = e.clientX - r.width - pad;
+  if (y + r.height > innerHeight - 10) y = Math.max(10, e.clientY - r.height - pad);
+  card.style.left = Math.max(10, x) + 'px';
+  card.style.top = y + 'px';
+}
+const hideCard = () => card.classList.remove('on');
+function bindCard(node, builder) {
+  node.addEventListener('mouseenter', (e) => showCard(e, builder()));
+  node.addEventListener('mousemove', moveCard);
+  node.addEventListener('mouseleave', hideCard);
+}
+
 const shortTitle = (t, n = 72) => (t.length > n ? t.slice(0, n - 1) + '…' : t);
 const catLabel = (id) => (TAX[id] ? (TAX[id].parent ? `${TAX[TAX[id].parent].label} › ${TAX[id].label}` : TAX[id].label) : id);
 const branchOf = (id) => id.split('.')[0];
 const tierBadge = (t) => `<span class="badge t-${esc(t)}">${esc(t.replace(/-/g, ' '))}</span>`;
+const newBadge = (p) => (isNew(p) ? '<span class="badge is-new">new</span>' : '');
+const contribBadge = (t) =>
+  `<span class="badge contrib" style="color:${contribVar(t)}">${esc(t)}</span>`;
+
+/* Stacked contribution mix for a set of papers, drawn in slot order. */
+function mixBar(papers, width = 86) {
+  if (!papers.length) return '';
+  const counts = CONTRIB.map((t) => [t, papers.filter((p) => p.contribution_type === t).length]);
+  const total = counts.reduce((a, [, n]) => a + n, 0) || 1;
+  const segs = counts.filter(([, n]) => n).map(([t, n]) =>
+    `<i style="width:${Math.max(3, (n / total) * width)}px;background:${contribVar(t)}" title="${n} ${t}"></i>`).join('');
+  return `<span class="mix" style="width:${width}px">${segs}</span>`;
+}
 const paperLink = (id) => {
   const p = PAPER[id];
   return p ? `<a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(shortTitle(p.title, 84))}</a>` : esc(id);
@@ -96,6 +140,16 @@ async function boot() {
 
   D.taxonomy.nodes.forEach((n) => { TAX[n.id] = n; (n.parent ? LEAF : BRANCH)[n.id] = n; });
   D.papers.papers.forEach((p) => { PAPER[p.id] = p; });
+
+  // The most recent agent import defines the "new" window: everything the agent
+  // added within 10 days of its latest addition. Seed records are hand-curated
+  // and excluded, so a fresh repo shows no new tags rather than tagging all 35.
+  const agentDates = D.papers.papers.filter((p) => p.curation === 'agent').map((p) => p.added).sort();
+  if (agentDates.length) {
+    const d = new Date(agentDates[agentDates.length - 1]);
+    d.setDate(d.getDate() - 10);
+    NEW_SINCE = d.toISOString().slice(0, 10);
+  }
   D.companies.needs.forEach((n) => { NEED[n.id] = n; });
   D.companies.companies.forEach((c) => { CO[c.id] = c; });
 
@@ -140,8 +194,11 @@ const openFromHash = () => {
 };
 /* SVG that needs measured width redrawn after a layout or theme change */
 function redrawCanvases() {
-  if ($('#view-overlaps').classList.contains('active')) drawGraph();
+  if ($('#view-overlaps').classList.contains('active')) {
+    if ($('#ov-tree-wrap').hidden) drawGraph(); else drawOverlapTree();
+  }
   if ($('#view-tree').classList.contains('active')) drawTree();
+  if ($('#view-gaps').classList.contains('active')) drawGapTree();
 }
 let resizeT;
 addEventListener('resize', () => { clearTimeout(resizeT); resizeT = setTimeout(redrawCanvases, 180); });
@@ -152,6 +209,16 @@ function renderHead() {
   const when = latest?.finished?.slice(0, 10) || D.papers.updated;
   $('#head-sub').innerHTML = `${n} papers · ${D.derived.pairs.length} overlapping pairs · ${Object.keys(LEAF).length} categories · updated ${esc(when)}`;
   $('#foot-updated').innerHTML = `Inventory updated ${esc(D.papers.updated)}. Derived figures generated ${esc(D.derived.generated || '—')}.`;
+
+  const fresh = D.papers.papers.filter(isNew);
+  $('#new-pill').innerHTML = fresh.length
+    ? `${fresh.length} new since ${esc(NEW_SINCE)}`
+    : '';
+
+  $('#contrib-legend').innerHTML = CONTRIB.map((t) => {
+    const n = D.papers.papers.filter((p) => p.contribution_type === t).length;
+    return n ? `<span class="li"><span class="swatch" style="background:${contribVar(t)}"></span>${esc(t)} <span class="sub">${n}</span></span>` : '';
+  }).join('');
 }
 
 /* =================================================================== OVERLAPS */
@@ -177,11 +244,19 @@ function renderOverlaps() {
     <div class="cl" style="border-left-color:var(--s${(i % 3) + 1})">
       <h3>${esc(c.label)}</h3>
       <div class="meta">${c.size} papers · mean overlap ${c.mean_score} · shares
-        ${c.shared.slice(0, 4).map((s) => esc(TAX[s]?.label || s)).join(', ')}</div>
-      <ol>${c.papers.map((id) => `<li>${paperLink(id)} <span class="sub">${esc(PAPER[id]?.date?.slice(0, 4) || '')}</span></li>`).join('')}</ol>
+        ${c.shared.slice(0, 4).map((s) => esc(TAX[s]?.label || s)).join(', ')}
+        <div style="margin-top:6px">${mixBar(c.papers.map((id) => PAPER[id]).filter(Boolean), 150)}</div></div>
+      <ol>${c.papers.map((id) => `<li>${paperLink(id)} <span class="sub">${esc(PAPER[id]?.date?.slice(0, 4) || '')}</span>${PAPER[id] && isNew(PAPER[id]) ? ' <span class="badge is-new">new</span>' : ''}</li>`).join('')}</ol>
     </div>`).join('') || '<p class="empty">No clusters yet.</p>';
 
-  drawGraph();
+  drawOverlapTree();
+  $$('#ov-mode button').forEach((b) => b.addEventListener('click', () => {
+    $$('#ov-mode button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    const tree = b.dataset.m === 'tree';
+    $('#ov-tree-wrap').hidden = !tree;
+    $('#ov-graph-wrap').hidden = tree;
+    if (tree) drawOverlapTree(); else drawGraph();
+  }));
   renderMatrix('branch');
   $$('#mx-level button').forEach((b) => b.addEventListener('click', () => {
     $$('#mx-level button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
@@ -212,6 +287,141 @@ function renderOverlaps() {
   $('#pair-q').addEventListener('input', drawPairs);
   $('#pair-declared').addEventListener('change', drawPairs);
   drawPairs();
+}
+
+/* --- overlap TREE: the same relationships, laid out so they can be read. -----
+   A cluster is a research conversation; its papers hang off it ordered by how
+   tightly they are bound into it (summed overlap strength). The bar beside each
+   paper is that strength, so "who is central to this argument" is legible at a
+   glance - which is exactly what the force layout obscures. */
+function drawOverlapTree() {
+  const svg = $('#overlap-tree');
+  const { clusters, pairs } = D.derived;
+  const papers = D.papers.papers;
+  if (!papers.length) return;
+
+  const bound = {};
+  pairs.forEach((p) => {
+    bound[p.a] = (bound[p.a] || 0) + p.score;
+    bound[p.b] = (bound[p.b] || 0) + p.score;
+  });
+  const maxBound = Math.max(1, ...Object.values(bound));
+
+  const inCluster = new Set(clusters.flatMap((c) => c.papers));
+  const loose = papers.filter((p) => !inCluster.has(p.id));
+  const groups = clusters.map((c, i) => ({
+    label: c.label, slot: (i % 3) + 1, shared: c.shared,
+    papers: [...c.papers].sort((x, y) => (bound[y] || 0) - (bound[x] || 0)),
+  }));
+  if (loose.length) {
+    groups.push({
+      label: 'Not yet overlapping anything', slot: 0, shared: [],
+      papers: loose.map((p) => p.id),
+    });
+  }
+
+  const ROW = 22, X0 = 16, X1 = 250, X2 = 300, BARW = 54, TOP = 24;
+  const rows = [];
+  groups.forEach((g) => { rows.push(g); g.papers.forEach((id) => rows.push(id)); });
+  const H = TOP + rows.length * ROW + 30;
+  const W = 980;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', H);
+  svg.textContent = '';
+
+  const gLink = svgEl('g'), gNode = svgEl('g');
+  svg.append(gLink, gNode);
+  const curve = (x1, y1, x2, y2) => {
+    const mx = (x1 + x2) / 2;
+    return `M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`;
+  };
+
+  let y = TOP;
+  const groupY = [];
+  groups.forEach((g) => {
+    const first = y + ROW / 2;
+    const childY = g.papers.map((_, i) => first + (i + 1) * ROW);
+    const gy = childY.length ? (childY[0] + childY[childY.length - 1]) / 2 : first;
+    groupY.push(gy);
+
+    g.papers.forEach((id, i) => {
+      gLink.append(svgEl('path', { d: curve(X1 + 8, gy, X2 - 7, childY[i]), class: 'link' }));
+    });
+
+    // cluster node
+    const cg = svgEl('g', { class: 'node-c' });
+    const colour = g.slot ? `var(--s${g.slot})` : 'var(--axis)';
+    cg.append(svgEl('circle', { cx: X1, cy: gy, r: 7, fill: colour, stroke: 'var(--surface-1)', 'stroke-width': 2 }));
+    const lt = svgEl('text', { x: X1 - 13, y: gy + 4, 'text-anchor': 'end', 'font-size': 12.5, 'font-weight': 600, fill: 'var(--ink)' });
+    lt.textContent = g.label.length > 34 ? g.label.slice(0, 33) + '…' : g.label;
+    cg.append(lt);
+    const ct = svgEl('text', { x: X1 - 13, y: gy + 17, 'text-anchor': 'end', 'font-size': 10.5, fill: 'var(--ink-3)' });
+    ct.textContent = `${g.papers.length} papers`;
+    cg.append(ct);
+    const members = g.papers.map((id) => PAPER[id]).filter(Boolean);
+    bindCard(cg, () => `
+      <div class="hd"><h4>${esc(g.label)}</h4><div class="path">research cluster</div></div>
+      <div class="bd">
+        <div class="nums"><div><b>${g.papers.length}</b><span>papers</span></div>
+          <div><b>${g.shared.length}</b><span>shared categories</span></div>
+          <div><b>${members.filter(isNew).length}</b><span>new</span></div></div>
+        <p>${esc(g.shared.slice(0, 4).map((c) => TAX[c]?.label || c).join(' · ')) || 'No single shared category.'}</p>
+        <div>${mixBar(members, 160)}</div>
+        <div class="hint">Contribution mix — attack red, defence green, evaluation blue.</div>
+      </div>`);
+    gNode.append(cg);
+
+    // paper nodes
+    g.papers.forEach((id, i) => {
+      const p = PAPER[id];
+      if (!p) return;
+      const py = childY[i];
+      const pg = svgEl('g', { class: 'node-c' });
+      const strength = (bound[id] || 0) / maxBound;
+      pg.append(svgEl('rect', {
+        x: X2, y: py - 4, width: Math.max(3, strength * BARW), height: 8, rx: 3,
+        fill: g.slot ? `var(--s${g.slot})` : 'var(--axis)', 'fill-opacity': 0.55,
+      }));
+      pg.append(svgEl('circle', {
+        cx: X2 + BARW + 14, cy: py, r: 5,
+        fill: contribVar(p.contribution_type),
+        stroke: isNew(p) ? 'var(--good)' : 'var(--surface-1)',
+        'stroke-width': isNew(p) ? 2.5 : 1.5,
+      }));
+      const t = svgEl('text', { x: X2 + BARW + 24, y: py + 4, 'font-size': 11.5, fill: 'var(--ink)' });
+      t.textContent = (p.short || shortTitle(p.title, 52));
+      pg.append(t);
+      if (isNew(p)) {
+        const nt = svgEl('text', { x: X2 - 8, y: py + 4, 'text-anchor': 'end', 'font-size': 9, fill: 'var(--good)', 'font-weight': 700 });
+        nt.textContent = 'NEW';
+        pg.append(nt);
+      }
+      pg.addEventListener('click', () => window.open(p.url, '_blank', 'noopener'));
+      bindCard(pg, () => paperCard(p, bound[id] || 0));
+      gNode.append(pg);
+    });
+    y += ROW * (g.papers.length + 1);
+  });
+}
+
+function paperCard(p, boundScore) {
+  const overlaps = (p.overlaps_with || []).slice(0, 3);
+  return `
+    <div class="hd"><h4>${esc(shortTitle(p.title, 96))}</h4>
+      <div class="path">${esc(catLabel(p.primary_category))}</div></div>
+    <div class="bd">
+      <div class="nums">
+        <div><b>${(p.overlaps_with || []).length}</b><span>overlaps</span></div>
+        <div><b>${p.date.slice(0, 4)}</b><span>${esc(p.trust.tier.replace(/-/g, ' '))}</span></div>
+        ${boundScore ? `<div><b>${boundScore.toFixed(1)}</b><span>bound to cluster</span></div>` : ''}
+      </div>
+      <p>${esc(p.what_its_about.slice(0, 190))}${p.what_its_about.length > 190 ? '…' : ''}</p>
+      <div>${contribBadge(p.contribution_type)} ${esc(p.organisations.slice(0, 2).join(', '))}</div>
+      ${overlaps.length ? `<ul>${overlaps.map((o) =>
+        `<li><b>${esc(shortTitle(PAPER[o.id]?.short || PAPER[o.id]?.title || o.id, 42))}</b><br>${esc(o.shared)}</li>`).join('')}</ul>` : ''}
+      <div class="hint">Click to open on arXiv.</div>
+    </div>`;
 }
 
 /* --- force-directed overlap graph. Deterministic: same layout every load. --- */
@@ -521,8 +731,7 @@ function drawTree() {
       g.append(cnt);
     }
     g.addEventListener('click', () => treePanel(id));
-    bindTip(g, `<b>${esc(TAX[id].label)}</b><span class="r">${esc(TAX[id].blurb || '')}</span>
-      <span class="r">${n} paper${n === 1 ? '' : 's'}${isLeaf ? '' : ' in this branch'}</span>`);
+    bindCard(g, () => nodeCard(id, isLeaf));
   };
 
   roots.forEach((b) => {
@@ -530,6 +739,51 @@ function drawTree() {
     node(b, X1, pos[b].y, false);
     ((rows.find((r) => r.id === b) || {}).kids || []).forEach((k) => node(k, X2, pos[k].y, true));
   });
+}
+
+/* The research tree's hover is the main way people read it, so it gets the full
+   card: what sits here, how much, what kind of work it is, and whether any gap
+   claims this node - that last one is what turns the tree into a diagnosis
+   rather than a filing cabinet. */
+function nodeCard(id, isLeaf) {
+  const node = TAX[id];
+  const ids = (D.derived.tree.paper_ids || {})[id] || [];
+  const papers = ids.map((i) => PAPER[i]).filter(Boolean);
+  const maxN = Math.max(1, ...Object.values(D.derived.tree.total || {}));
+  const fresh = papers.filter(isNew);
+
+  const gaps = (D.gaps.gaps || []).filter((g) => (g.categories || []).includes(id));
+  const needs = D.companies.needs.filter((n) => n.categories.includes(id));
+  const demand = needs.length
+    ? Math.max(...needs.map((n) => D.derived.coverage?.[n.id]?.mean_demand || 0))
+    : 0;
+
+  const recent = [...papers].sort((x, y) => y.date.localeCompare(x.date)).slice(0, 3);
+
+  return `
+    <div class="hd">
+      <h4>${esc(node.label)}</h4>
+      <div class="path">${esc(node.parent ? `${TAX[node.parent].label} › leaf` : 'branch')}</div>
+    </div>
+    <div class="bd">
+      <p>${esc(node.blurb || '')}</p>
+      <div class="nums">
+        <div><b>${papers.length}</b><span>papers${isLeaf ? '' : ' in branch'}</span></div>
+        <div><b>${demand ? demand.toFixed(1) : '—'}</b><span>peak demand /5</span></div>
+        ${fresh.length ? `<div><b style="color:var(--good)">${fresh.length}</b><span>new</span></div>` : ''}
+      </div>
+      ${papers.length
+        ? `<div>${mixBar(papers, 180)}</div>
+           <div class="hint">${CONTRIB.filter((t) => papers.some((p) => p.contribution_type === t)).join(' · ')}</div>`
+        : `<p class="warn">Nothing filed here. ${demand >= 3.5
+             ? `Demand for this is ${demand.toFixed(1)}/5 — an empty leaf under real demand is the strongest kind of gap signal.`
+             : 'Low measured demand, so an empty leaf here may simply be uninteresting.'}</p>`}
+      ${gaps.length ? `<ul>${gaps.map((g) =>
+        `<li><b>Named in a gap:</b> ${esc(g.title)}</li>`).join('')}</ul>` : ''}
+      ${recent.length ? `<ul>${recent.map((p) =>
+        `<li>${esc(shortTitle(p.short || p.title, 44))} <span style="color:var(--ink-3)">${esc(p.date.slice(0, 4))}</span>${isNew(p) ? ' <b style="color:var(--good)">NEW</b>' : ''}</li>`).join('')}</ul>` : ''}
+      <div class="hint">Click to list everything here.</div>
+    </div>`;
 }
 
 function treePanel(id) {
@@ -547,7 +801,7 @@ function treePanel(id) {
     return `<div style="border-top:1px solid var(--grid);padding:10px 0">
       <div><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a></div>
       <div class="sub" style="margin:3px 0 5px">${esc(p.organisations.slice(0, 3).join(', '))} · ${esc(p.venue)} · ${esc(p.date)}
-        ${tierBadge(p.trust.tier)} <span class="badge">${esc(p.contribution_type)}</span></div>
+        ${tierBadge(p.trust.tier)} ${contribBadge(p.contribution_type)} ${newBadge(p)}</div>
       <div style="font-size:12.5px">${esc(p.what_its_about)}</div></div>`;
   }).join('');
   $('#tree-panel-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -709,17 +963,144 @@ function gapCard(g, auto) {
       ${computedPills(s)}
       ${s.evidence?.length ? `<div class="ev">${s.evidence.map(evChip).join('')}</div>` : ''}
     </li>`).join('');
-  return `<div class="gap" id="${esc(g.id)}">
+  // The critical half: the case against, the closing criterion, the falsifier.
+  // Folded away by default so the argument reads first, but never omitted - a
+  // gap with no falsification test is an opinion wearing a severity badge.
+  const crit = (g.counter || g.closes_when) ? `
+    <button class="crit-toggle" data-crit="${esc(g.id)}" aria-expanded="false">Show the case against ▾</button>
+    <div class="crit" id="crit-${esc(g.id)}" hidden>
+      <dl>
+        ${g.counter ? `<dt>Strongest counter</dt><dd class="counter">${esc(g.counter)}</dd>` : ''}
+        ${g.closes_when ? `<dt>Closes when</dt><dd>${esc(g.closes_when)}</dd>` : ''}
+        ${g.blocked_by ? `<dt>Held open by</dt><dd>${esc(g.blocked_by)}</dd>` : ''}
+        ${g.falsifier ? `<dt>Falsified by</dt><dd>${esc(g.falsifier)}</dd>` : ''}
+      </dl>
+    </div>` : '';
+
+  return `<div class="gap ${g.severity ? 'sev-' + esc(g.severity) : ''}" id="${esc(g.id)}">
     <div class="gap-h">
       <h3>${esc(g.title)}</h3>
       ${g.severity ? `<span class="badge sev-${esc(g.severity)}">${esc(g.severity)}</span>` : ''}
+      ${g.confidence ? `<span class="badge">${esc(g.confidence)} confidence</span>` : ''}
       ${g.status ? `<span class="badge">${esc(g.status)}</span>` : ''}
       ${auto ? '<span class="badge">computed</span>' : ''}
       ${g.needs?.length ? g.needs.map((n) => `<span class="badge">${esc(NEED[n]?.label || n)}</span>`).join('') : ''}
       ${g.refreshed ? `<span class="sub" style="margin-left:auto">figures as of ${esc(g.refreshed)}</span>` : ''}
     </div>
     <ol class="chain">${chain}</ol>
+    ${crit}
   </div>`;
+}
+
+/* --- gap tree ---------------------------------------------------------------
+   Each gap over the taxonomy nodes it claims, each node filled by how much
+   research sits there. The shape is the diagnosis: a gap whose branches are
+   empty is missing literature; a gap over well-populated branches is missing
+   synthesis. Those need different responses, and no list of gaps shows you
+   which you have. */
+function drawGapTree() {
+  const svg = $('#gap-tree');
+  const gaps = D.gaps.gaps || [];
+  if (!gaps.length) return;
+
+  const total = D.derived.tree.total || {};
+  const maxN = Math.max(1, ...Object.values(total));
+  $('#gap-tree-legend').innerHTML =
+    '<span class="li"><span class="swatch" style="background:var(--critical)"></span>high severity</span>' +
+    '<span class="li"><span class="swatch" style="background:var(--serious)"></span>medium</span>' +
+    rampLegend('papers under a node', maxN) +
+    '<span class="li"><span class="swatch" style="background:transparent;box-shadow:0 0 0 1.5px var(--axis) inset"></span>empty — missing literature</span>';
+
+  const ROW = 21, X0 = 18, X1 = 330, X2 = 392, TOP = 24;
+  const rows = [];
+  gaps.forEach((g) => {
+    const cats = (g.categories || []).filter((c) => TAX[c]);
+    rows.push({ g, cats });
+  });
+  const count = rows.reduce((a, r) => a + 1 + r.cats.length, 0);
+  const H = TOP + count * ROW + 26;
+  const W = 980;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', H);
+  svg.textContent = '';
+
+  const gLink = svgEl('g'), gNode = svgEl('g');
+  svg.append(gLink, gNode);
+  const curve = (x1, y1, x2, y2) => {
+    const mx = (x1 + x2) / 2;
+    return `M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`;
+  };
+
+  let y = TOP;
+  const anchors = [];
+  rows.forEach(({ g, cats }) => {
+    const first = y + ROW / 2;
+    const childY = cats.map((_, i) => first + (i + 1) * ROW);
+    const gy = childY.length ? (childY[0] + childY[childY.length - 1]) / 2 : first;
+    anchors.push(gy);
+    const sev = g.severity === 'high' ? 'var(--critical)' : 'var(--serious)';
+
+    cats.forEach((c, i) => gLink.append(svgEl('path', { d: curve(X1 + 8, gy, X2 - 7, childY[i]), class: 'link' })));
+
+    const node = svgEl('g', { class: 'node-c' });
+    node.append(svgEl('circle', { cx: X1, cy: gy, r: 7, fill: sev, stroke: 'var(--surface-1)', 'stroke-width': 2 }));
+    const t = svgEl('text', { x: X1 - 13, y: gy + 4, 'text-anchor': 'end', 'font-size': 12, 'font-weight': 600, fill: 'var(--ink)' });
+    t.textContent = g.title.length > 48 ? g.title.slice(0, 47) + '…' : g.title;
+    node.append(t);
+    const sub = svgEl('text', { x: X1 - 13, y: gy + 16, 'text-anchor': 'end', 'font-size': 10, fill: 'var(--ink-3)' });
+    sub.textContent = `${g.severity} · ${g.confidence || '?'} confidence · ${g.status}`;
+    node.append(sub);
+
+    const held = cats.reduce((acc, c) => acc + (total[c] || 0), 0);
+    const empties = cats.filter((c) => !(total[c] || 0)).length;
+    bindCard(node, () => `
+      <div class="hd"><h4>${esc(g.title)}</h4>
+        <div class="path">${esc(g.severity)} severity · ${esc(g.confidence || 'unrated')} confidence</div></div>
+      <div class="bd">
+        <div class="nums">
+          <div><b>${cats.length}</b><span>categories</span></div>
+          <div><b>${held}</b><span>papers across them</span></div>
+          <div><b>${empties}</b><span>empty</span></div>
+        </div>
+        <p><b>Closes when:</b> ${esc(g.closes_when || '—')}</p>
+        <p class="warn"><b>Against:</b> ${esc((g.counter || '').slice(0, 170))}${(g.counter || '').length > 170 ? '…' : ''}</p>
+        <div class="hint">Click to jump to the full chain.</div>
+      </div>`);
+    node.addEventListener('click', () => {
+      const el2 = document.getElementById(g.id);
+      if (el2) el2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    gNode.append(node);
+
+    cats.forEach((c, i) => {
+      const n = total[c] || 0;
+      const cy = childY[i];
+      const cg = svgEl('g', { class: 'node-c' });
+      cg.append(svgEl('circle', {
+        cx: X2, cy, r: 5.5,
+        fill: n ? ramp(n, maxN) : 'none',
+        stroke: n ? 'var(--surface-1)' : 'var(--axis)',
+        'stroke-width': 1.5, 'stroke-dasharray': n ? null : '2.5 2',
+      }));
+      const ct = svgEl('text', { x: X2 + 12, y: cy + 4, 'font-size': 11.5, fill: n ? 'var(--ink)' : 'var(--ink-3)' });
+      ct.textContent = catLabel(c);
+      cg.append(ct);
+      gNode.append(cg);
+      if (n) {
+        const cnt = svgEl('text', {
+          x: (X2 + 12 + ct.getComputedTextLength() + 7).toFixed(1), y: cy + 4,
+          'font-size': 10.5, fill: 'var(--ink-3)',
+        });
+        cnt.textContent = n;
+        cg.append(cnt);
+      }
+      cg.addEventListener('click', () => { show('tree'); treePanel(c); });
+      bindCard(cg, () => nodeCard(c, Boolean(TAX[c].parent)));
+    });
+    y += ROW * (cats.length + 1);
+  });
+
 }
 
 function renderGaps() {
@@ -727,6 +1108,16 @@ function renderGaps() {
     || '<p class="empty">No authored gaps yet.</p>';
   $('#gap-derived').innerHTML = (D.derived.derived_gaps || []).map((g) => gapCard(g, true)).join('')
     || '<p class="empty">Nothing stands out from the arithmetic this run.</p>';
+
+  $$('.crit-toggle').forEach((b) => b.addEventListener('click', () => {
+    const box = $(`#crit-${CSS.escape(b.dataset.crit)}`);
+    const open = !box.hidden;
+    box.hidden = open;
+    b.setAttribute('aria-expanded', String(!open));
+    b.textContent = open ? 'Show the case against ▾' : 'Hide the case against ▴';
+  }));
+
+  drawGapTree();
 }
 
 /* ===================================================================== PAPERS */
@@ -778,11 +1169,11 @@ function drawPapers() {
     const tr = el('tr', { class: 'row' });
     tr.innerHTML = `
       <td class="num">${esc(p.date)}</td>
-      <td><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a></td>
+      <td><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a> ${newBadge(p)}</td>
       <td class="num">${esc(p.organisations.slice(0, 2).join(', '))}${p.organisations.length > 2 ? ' +' + (p.organisations.length - 2) : ''}</td>
       <td class="num">${esc(p.venue)}<br>${tierBadge(p.trust.tier)}</td>
       <td class="num">${esc(catLabel(p.primary_category))}</td>
-      <td class="num"><span class="badge">${esc(p.contribution_type)}</span></td>`;
+      <td class="num">${contribBadge(p.contribution_type)}</td>`;
     const det = el('tr', { class: 'detail', hidden: '' });
     det.innerHTML = `<td colspan="6"><div class="detail-in">
       <div style="font-size:13px">${esc(p.what_its_about)}</div>

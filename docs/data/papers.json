@@ -155,7 +155,8 @@
       "classified_by": "curated-seed",
       "curation": "human",
       "notes": "",
-      "validation_warnings": []
+      "validation_warnings": [],
+      "short": "Constitutional classifiers"
     },
     {
       "id": "arxiv:2412.04984",
@@ -426,7 +427,8 @@
       "classified_by": "curated-seed",
       "curation": "human",
       "notes": "",
-      "validation_warnings": []
+      "validation_warnings": [],
+      "short": "SecAlign"
     },
     {
       "id": "arxiv:2410.02644",
@@ -500,7 +502,8 @@
       "classified_by": "curated-seed",
       "curation": "human",
       "notes": "",
-      "validation_warnings": []
+      "validation_warnings": [],
+      "short": "Agent Security Bench"
     },
     {
       "id": "arxiv:2408.08926",
@@ -574,7 +577,8 @@
       "classified_by": "curated-seed",
       "curation": "human",
       "notes": "",
-      "validation_warnings": []
+      "validation_warnings": [],
+      "short": "Cybench"
     },
     {
       "id": "arxiv:2406.13352",
@@ -651,7 +655,8 @@
       "classified_by": "curated-seed",
       "curation": "human",
       "notes": "",
-      "validation_warnings": []
+      "validation_warnings": [],
+      "short": "AgentDojo"
     },
     {
       "id": "arxiv:2406.11717",
@@ -796,7 +801,8 @@
       "classified_by": "curated-seed",
       "curation": "human",
       "notes": "",
-      "validation_warnings": []
+      "validation_warnings": [],
+      "short": "Circuit breakers"
     },
     {
       "id": "arxiv:2406.01637",
@@ -1271,7 +1277,8 @@
       "classified_by": "curated-seed",
       "curation": "human",
       "notes": "",
-      "validation_warnings": []
+      "validation_warnings": [],
+      "short": "StruQ"
     },
     {
       "id": "arxiv:2402.06664",
@@ -1413,7 +1420,8 @@
       "classified_by": "curated-seed",
       "curation": "human",
       "notes": "",
-      "validation_warnings": []
+      "validation_warnings": [],
+      "short": "Sleeper Agents"
     },
     {
       "id": "arxiv:2312.06674",
@@ -1473,7 +1481,8 @@
       "classified_by": "curated-seed",
       "curation": "human",
       "notes": "",
-      "validation_warnings": []
+      "validation_warnings": [],
+      "short": "Llama Guard"
     },
     {
       "id": "arxiv:2312.04724",
@@ -1535,7 +1544,8 @@
       "classified_by": "curated-seed",
       "curation": "human",
       "notes": "",
-      "validation_warnings": []
+      "validation_warnings": [],
+      "short": "CyberSecEval"
     },
     {
       "id": "arxiv:2311.17035",

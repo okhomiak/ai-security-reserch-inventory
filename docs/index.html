@@ -22,6 +22,7 @@
     <div class="head-top">
       <h1>AI Security Research Inventory</h1>
       <span class="sub" id="head-sub">loading…</span>
+      <span id="new-pill"></span>
       <span class="spacer"></span>
       <button class="icon-btn" id="theme-btn" title="Toggle light / dark">◐ theme</button>
     </div>
@@ -43,13 +44,22 @@
     <div class="stats" id="ov-stats"></div>
 
     <div class="card">
-      <h2>Overlap graph</h2>
+      <h2>How the work overlaps</h2>
       <p class="note">Every paper in the inventory, joined where two pieces of work share a real object of
-        study — the same attack class, defence mechanism or benchmark, or a direct build-on. Edge thickness is
-        overlap strength; node size is how many other papers it touches. Colour marks the connected component.
-        Click a node to open the paper.</p>
-      <div class="legend" id="ov-legend"></div>
-      <div class="scroll-x"><svg id="graph" role="img" aria-label="Force-directed graph of overlapping papers"></svg></div>
+        study — the same attack class, defence mechanism or benchmark, or a direct build-on.
+        <b>Tree</b> is the readable view: each branch is a research conversation, and the bar beside a paper is
+        how tightly it is bound into that conversation — so the papers everything else argues with sort to the
+        top. <b>Graph</b> shows the raw topology instead: denser, but it exposes the bridges between clusters.
+        Dot colour is contribution type. Hover for detail, click to open the paper.</p>
+      <div class="toolbar">
+        <div class="seg" id="ov-mode">
+          <button data-m="tree" aria-pressed="true">Tree</button>
+          <button data-m="graph" aria-pressed="false">Graph</button>
+        </div>
+        <div class="legend" id="ov-legend" style="margin:0"></div>
+      </div>
+      <div class="scroll-x" id="ov-tree-wrap"><svg id="overlap-tree" role="img" aria-label="Overlapping papers grouped into clusters"></svg></div>
+      <div class="scroll-x" id="ov-graph-wrap" hidden><svg id="graph" role="img" aria-label="Force-directed graph of overlapping papers"></svg></div>
     </div>
 
     <div class="card">
@@ -141,6 +151,15 @@
         stays put while the numbers stay current. Evidence chips link to the paper or the company row behind
         a claim.</p>
     </div>
+    <div class="card">
+      <h2>Gap tree</h2>
+      <p class="note tight">Every gap, the taxonomy branches it sits across, and the papers underneath.
+        Node colour is severity, fill is how much research exists there. A gap whose branches are nearly
+        empty is a gap in the literature; one sitting over well-populated branches is a gap in
+        <em>synthesis</em> — the work exists and does not add up. The two need different responses.</p>
+      <div class="legend" id="gap-tree-legend"></div>
+      <div class="scroll-x"><svg id="gap-tree" role="img" aria-label="Gaps by severity across taxonomy branches"></svg></div>
+    </div>
     <div id="gap-list"></div>
     <div class="card">
       <h2>Computed gaps</h2>
@@ -162,6 +181,7 @@
         <select id="p-contrib"><option value="">All contribution types</option></select>
         <span class="sub" id="p-count"></span>
       </div>
+      <div class="legend" id="contrib-legend"></div>
       <div class="scroll-y">
         <table class="list" id="p-table">
           <thead><tr>
@@ -208,6 +228,7 @@
 </div>
 
 <div id="tip" role="tooltip"></div>
+<div id="card" role="tooltip"></div>
 <script src="app.js"></script>
 </body>
 </html>

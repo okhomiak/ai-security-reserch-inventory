@@ -267,3 +267,90 @@ footer code { font-family: var(--mono); font-size: 11.5px; background: var(--sur
   .detail-in dl { grid-template-columns: 1fr; gap: 2px; }
   .detail-in dt { margin-top: 7px; }
 }
+
+/* ======================================================= contribution colour
+   Eight contribution types on the eight categorical slots. The ORDER is the
+   safety mechanism, not a preference: this sequence clears every adjacent-pair
+   gate in both modes. A semantic reordering (attack, defence, evaluation, ...)
+   was tried and fails hard - violet against blue measures ΔE 1.9 in dark mode,
+   which is invisible. Render legends and stacks in slot order, always. */
+:root {
+  --c-evaluation: #2a78d6;  --c-analysis:  #eb6834;
+  --c-defence:    #1baf7a;  --c-dataset:   #eda100;
+  --c-framework:  #e87ba4;  --c-position:  #008300;
+  --c-benchmark:  #4a3aa7;  --c-attack:    #e34948;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    --c-evaluation: #3987e5;  --c-analysis:  #d95926;
+    --c-defence:    #199e70;  --c-dataset:   #c98500;
+    --c-framework:  #d55181;  --c-position:  #008300;
+    --c-benchmark:  #9085e9;  --c-attack:    #e66767;
+  }
+}
+:root[data-theme="dark"] {
+  --c-evaluation: #3987e5;  --c-analysis:  #d95926;
+  --c-defence:    #199e70;  --c-dataset:   #c98500;
+  --c-framework:  #d55181;  --c-position:  #008300;
+  --c-benchmark:  #9085e9;  --c-attack:    #e66767;
+}
+
+.badge.contrib { border-color: currentColor; }
+.badge.contrib::before {
+  content: ""; width: 7px; height: 7px; border-radius: 2px; background: currentColor; flex: 0 0 auto;
+}
+/* A contribution mix, 2px gaps between segments per the mark spec. */
+.mix { display: inline-flex; gap: 2px; height: 7px; border-radius: 2px; overflow: hidden; vertical-align: middle; }
+.mix i { display: block; height: 7px; }
+.mix i:first-child { border-radius: 3px 2px 2px 3px; }
+.mix i:last-child  { border-radius: 2px 3px 3px 2px; }
+
+/* ============================================================ new-import tag */
+.badge.is-new {
+  border-color: var(--good); color: var(--good); font-weight: 600;
+  letter-spacing: .03em; text-transform: uppercase; font-size: 9.5px;
+}
+#new-pill:not(:empty) {
+  font-size: 11.5px; color: var(--good); border: 1px solid var(--good);
+  border-radius: 999px; padding: 2px 9px; white-space: nowrap;
+}
+.node-new { stroke: var(--good) !important; stroke-width: 2.5 !important; }
+
+/* ============================================================== hover card
+   A richer popover than #tip: used where the hover is the point, which on the
+   research tree it is. */
+#card {
+  position: fixed; z-index: 60; pointer-events: none; opacity: 0;
+  width: 340px; background: var(--raised); color: var(--ink);
+  border: 1px solid var(--axis); border-radius: 11px; padding: 0; overflow: hidden;
+  box-shadow: 0 10px 34px rgba(0, 0, 0, .22); transition: opacity .1s;
+}
+#card.on { opacity: 1; }
+#card .hd { padding: 11px 13px 9px; border-bottom: 1px solid var(--grid); background: var(--page); }
+#card .hd h4 { margin: 0 0 3px; font-size: 13.5px; font-weight: 600; }
+#card .hd .path { font-size: 10.5px; color: var(--ink-3); text-transform: uppercase; letter-spacing: .04em; }
+#card .bd { padding: 10px 13px 12px; font-size: 12px; }
+#card .bd p { margin: 0 0 9px; color: var(--ink-2); }
+#card .nums { display: flex; gap: 14px; margin: 0 0 9px; }
+#card .nums div { line-height: 1.25; }
+#card .nums b { display: block; font-size: 17px; font-weight: 600; }
+#card .nums span { font-size: 10.5px; color: var(--ink-3); }
+#card ul { margin: 7px 0 0; padding: 0; list-style: none; }
+#card ul li { padding: 4px 0; border-top: 1px solid var(--grid); font-size: 11.5px; line-height: 1.35; }
+#card .hint { margin-top: 9px; font-size: 10.5px; color: var(--ink-3); }
+#card .warn { color: var(--serious); }
+
+/* ================================================================ gap cards */
+.gap.sev-high  { border-left: 3px solid var(--critical); }
+.gap.sev-medium{ border-left: 3px solid var(--serious); }
+.crit { margin-top: 14px; border-top: 1px solid var(--grid); padding-top: 13px; }
+.crit dl { display: grid; grid-template-columns: 148px 1fr; gap: 9px 14px; margin: 0; font-size: 12.5px; }
+.crit dt { color: var(--ink-2); font-weight: 500; }
+.crit dd { margin: 0; }
+.crit dd.counter { color: var(--ink-2); }
+.crit-toggle {
+  border: 1px solid var(--ring); background: var(--page); color: var(--ink-2);
+  font: inherit; font-size: 11.5px; padding: 4px 10px; border-radius: 6px; cursor: pointer; margin-top: 12px;
+}
+.crit-toggle:hover { color: var(--ink); border-color: var(--axis); }
+@media (max-width: 720px) { .crit dl { grid-template-columns: 1fr; gap: 2px; } .crit dt { margin-top: 8px; } }

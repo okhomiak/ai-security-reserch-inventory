@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "updated": "2026-11-04",
-  "note": "Each gap is a numbered chain of claims. A step's `claim` is authored and is never rewritten by the pipeline; a step carrying a `metric` has its figures recomputed on every run and placed in `computed`, so the reasoning stays stable while the numbers stay current.",
+  "note": "Each gap is a numbered chain of claims. A step's `claim` is authored and is never rewritten by the pipeline; a step carrying a `metric` has its figures recomputed on every run and placed in `computed`, so the reasoning stays stable while the numbers stay current. Each gap also carries the strongest argument against itself (`counter`), the concrete result that would close it (`closes_when`), what is holding it open (`blocked_by`) and a falsification test. A gap with no falsifier is an opinion.",
   "gaps": [
     {
       "id": "gap-injection-utility",
@@ -109,7 +109,12 @@
           }
         }
       ],
-      "refreshed": "2026-11-04"
+      "refreshed": "2026-11-04",
+      "confidence": "high",
+      "counter": "Production systems do ship injection defences that users tolerate, so 'no defence works' overstates it. The honest claim is narrower: no defence has been *measured* to hold attack-generality and utility simultaneously on a shared benchmark. Vendors do not publish utility-under-attack numbers, so absence of evidence is doing some of the work here.",
+      "closes_when": "A defence reports >90% attack prevention and <5% utility loss on AgentDojo or a successor, against an adaptive attacker, without requiring weight access.",
+      "blocked_by": "The two defence families have disjoint requirements - filtering needs no weights but generalises poorly; training generalises but needs weights. Nothing bridges them for API consumers.",
+      "falsifier": "A single reproducible result clearing both bars on a public agent benchmark."
     },
     {
       "id": "gap-agent-identity",
@@ -191,7 +196,12 @@
           "claim": "Gap: the delegation problem - how an agent proves which principal it acts for, and how a downstream service bounds that - is being solved in product without a research literature to draw on."
         }
       ],
-      "refreshed": "2026-11-04"
+      "refreshed": "2026-11-04",
+      "confidence": "high",
+      "counter": "This may be an artefact of where the work is published rather than whether it exists. Identity and authorisation are classical systems-security problems with mature literature (OAuth, capabilities, macaroons); practitioners may simply be applying it without writing AI-specific papers. The gap is then in *translation*, not in knowledge.",
+      "closes_when": "Peer-reviewed work defines how an agent proves which principal it acts for across a tool call, and how a downstream service bounds that delegation - with an implementation and a threat model covering a hijacked agent.",
+      "blocked_by": "Vendors are shipping proprietary answers (Entra Agent ID, scoped tokens) faster than anyone is publishing a general model, so there is no shared vocabulary to evaluate them against.",
+      "falsifier": "A venue paper, or an adopted standard, specifying agent-to-service delegation semantics."
     },
     {
       "id": "gap-unlearning-evaluation",
@@ -257,7 +267,12 @@
           "claim": "Gap: no evaluation establishes that unlearned information is gone rather than suppressed - which is precisely the claim a deletion obligation or a capability threshold requires."
         }
       ],
-      "refreshed": "2026-11-04"
+      "refreshed": "2026-11-04",
+      "confidence": "high",
+      "counter": "For the copyright and deletion-request use case, behavioural removal may be all the obligation actually requires - a regulator asking 'does it still emit this text' is asking a behavioural question. The gap bites hard for capability thresholds and only weakly for compliance.",
+      "closes_when": "An evaluation distinguishes removed capability from suppressed capability on a model with a known planted capability - i.e. it detects the Sleeper Agents case without being told the trigger.",
+      "blocked_by": "The detection problem is the same one backdoor detection has not solved. Unlearning evaluation inherits that difficulty rather than having its own.",
+      "falsifier": "A white-box or probing method that recovers unlearned capability the behavioural test scored as gone - which would prove the tests insufficient - or a proof that none exists."
     },
     {
       "id": "gap-supplychain-detection",
@@ -368,7 +383,12 @@
           "claim": "Gap: no published method detects a backdoor without knowing its trigger, so commercial model scanning rests on file-format and known-signature checks rather than on behavioural or mechanistic detection."
         }
       ],
-      "refreshed": "2026-11-04"
+      "refreshed": "2026-11-04",
+      "confidence": "medium",
+      "counter": "Trigger-agnostic backdoor detection may be impossible rather than merely unpublished - the search space over triggers is unbounded. If so this is not a gap in the literature but a limit, and the right response is provenance and attestation, which several groups *are* working on. Scoring this as a research gap may be a category error.",
+      "closes_when": "Either a detection method with a stated false-negative bound under an explicit trigger class, or a published argument that trigger-agnostic detection is infeasible, which would redirect effort to provenance.",
+      "blocked_by": "Nobody has defined the trigger class a detector is responsible for, so no method can state what it misses.",
+      "falsifier": "A detector that finds a planted backdoor in a model it was not told about, on a public benchmark."
     },
     {
       "id": "gap-offence-defence-asymmetry",
@@ -438,7 +458,12 @@
           "claim": "Gap: nothing measures what it costs a defender to withstand the attacks now being benchmarked. A threshold expressed only in attacker capability cannot tell a CISO whether their controls suffice."
         }
       ],
-      "refreshed": "2026-11-04"
+      "refreshed": "2026-11-04",
+      "confidence": "medium",
+      "counter": "Defensive cost is measured constantly - it is just measured commercially, in vendor benchmarks and internal SOC metrics, not in papers. The gap is in public measurement, which may be a disclosure norm rather than a research hole. Attack benchmarks are also easier to publish precisely because they need no defender to consent.",
+      "closes_when": "A benchmark reports defender cost - detection rate, time-to-contain, analyst hours - against the same agentic attacks Cybench measures attacker capability on.",
+      "blocked_by": "Defensive evaluation needs a defended environment and a defender, which is far more expensive to stand up than a CTF task.",
+      "falsifier": "Any paired attack/defence benchmark on a shared scenario set."
     },
     {
       "id": "gap-mcp-ecosystem",
@@ -518,7 +543,12 @@
           "claim": "Gap: tool-server trust, capability declaration, version pinning and revocation are unaddressed in reviewed work - the practical material is vendor blog posts, which this inventory tracks but which carry no review."
         }
       ],
-      "refreshed": "2026-11-04"
+      "refreshed": "2026-11-04",
+      "confidence": "high",
+      "counter": "The ecosystem is young, so a thin literature is expected rather than anomalous; the relevant controls may also be adequately covered by existing package-manager and dependency-security work that simply has not been restated for tool servers. The gap may close on its own without anyone treating it as a research problem.",
+      "closes_when": "Reviewed work addresses tool-server trust establishment, capability declaration and revocation - with a threat model covering a server that turns malicious after adoption.",
+      "blocked_by": "No shared threat model for the ecosystem yet, so each paper would have to define one, which discourages comparison and therefore publication.",
+      "falsifier": "A venue paper on tool-server supply-chain security, or an ecosystem-level security specification."
     },
     {
       "id": "gap-compliance-evidence",
@@ -603,7 +633,12 @@
           "claim": "Gap: no work defines what evidence a model-security claim should consist of, how it is reproduced by an auditor without weight access, or how it maps onto the obligations deployers already carry."
         }
       ],
-      "refreshed": "2026-11-04"
+      "refreshed": "2026-11-04",
+      "confidence": "medium",
+      "counter": "This is arguably a standards-body problem, not a research problem - NIST, ISO and the EU AI Act implementing acts are actively drafting exactly this. Treating it as a research gap may simply mean the inventory is reading the wrong corpus; the work exists as standards drafts rather than papers.",
+      "closes_when": "A published scheme specifies what evidence a model-security claim consists of and how an auditor reproduces it without weight access.",
+      "blocked_by": "Labs will not grant the access an auditor needs, and auditors cannot specify a scheme without knowing what access they will get. Circular, and not resolvable by research alone.",
+      "falsifier": "An adopted assurance scheme, or a structured-access programme with published audit outputs."
     },
     {
       "id": "gap-detection-latency",
@@ -666,7 +701,12 @@
           "claim": "Gap: time-to-detection for a novel attack class in production is neither measured nor optimised in published work, so the response pipeline's binding constraint is the unstudied one."
         }
       ],
-      "refreshed": "2026-11-04"
+      "refreshed": "2026-11-04",
+      "confidence": "medium",
+      "counter": "Detection latency is plausibly measured inside every frontier lab's trust-and-safety function and simply never published, for the obvious reason that publishing it tells attackers the window. Unlike the other gaps here, this one may be deliberately unpublished rather than unstudied - which would make it a transparency gap, not a research gap.",
+      "closes_when": "Any published measurement of time-from-first-exploitation to detection for a novel attack class in a production system, even anonymised or aggregated.",
+      "blocked_by": "Disclosing the number tells an attacker how long a novel technique survives, so the incentive runs against publication.",
+      "falsifier": "A lab or vendor publishing detection-latency distributions, or an incident-reporting regime that requires them."
     }
   ]
 }
