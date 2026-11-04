@@ -22,6 +22,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
   group: ingest
@@ -96,25 +97,55 @@ jobs:
             fi
           } >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Commit the data
+      - name: Open a pull request with the data
         id: commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config user.name  'research-inventory-bot'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          # Separate adds: `git add a b` stages nothing at all if b is missing,
-          # and last_dry_run.json only exists after a --dry-run.
+          # The agent never writes to main. It proposes a branch and a human
+          # merges it, so every commit on main is attributable to a person who
+          # looked at the diff - which is the point of running a security
+          # inventory rather than just accumulating one.
+          git config user.name  'okhomiak'
+          git config user.email 'olegforvisa@gmail.com'
+
           git add docs/data
           if [ -f agent/last_dry_run.json ]; then git add agent/last_dry_run.json; fi
+
           if git diff --cached --quiet; then
             echo 'no data changes'
             echo 'changed=false' >> "$GITHUB_OUTPUT"
-          else
-            added=$(python3 -c "import json;print(json.load(open('docs/data/runs.json'))['latest'].get('added',0))")
-            total=$(python3 -c "import json;print(json.load(open('docs/data/papers.json'))['count'])")
-            git commit -m "data: weekly ingest (+${added} papers, ${total} total)"
-            git push
-            echo 'changed=true' >> "$GITHUB_OUTPUT"
+            exit 0
           fi
+
+          added=$(python3 -c "import json;print(json.load(open('docs/data/runs.json'))['latest'].get('added',0))")
+          queued=$(python3 -c "import json;print(json.load(open('docs/data/runs.json'))['latest'].get('queued',0))")
+          total=$(python3 -c "import json;print(json.load(open('docs/data/papers.json'))['count'])")
+          branch="ingest/$(date -u +%Y-%m-%d)"
+
+          git checkout -b "$branch"
+          git commit -m "data: weekly ingest (+${added} papers, ${total} total)"
+          git push -f origin "$branch"
+          echo 'changed=true' >> "$GITHUB_OUTPUT"
+
+          {
+            echo "Automated weekly ingest. **Review the classifications before merging** - the"
+            echo "agent judged provenance and category, and both are fallible."
+            echo
+            echo "| | |"
+            echo "|---|---|"
+            echo "| Added to the inventory | ${added} |"
+            echo "| Sent to the review queue | ${queued} |"
+            echo "| Total papers | ${total} |"
+            echo
+            echo "Run log is attached as an artifact on the workflow run."
+          } > /tmp/body.md
+
+          gh pr create --base main --head "$branch" \
+            --title "Weekly ingest: +${added} papers" \
+            --body-file /tmp/body.md \
+            --label automated 2>&1 | tail -2 \
+            || gh pr edit "$branch" --body-file /tmp/body.md
 
       - uses: actions/upload-artifact@v7
         if: always()
@@ -122,14 +153,3 @@ jobs:
           name: run-log
           path: run.log
           retention-days: 30
-
-  publish:
-    needs: ingest
-    if: needs.ingest.outputs.changed == 'true'
-    # A push made with GITHUB_TOKEN does not trigger other workflows, so the
-    # deploy is called explicitly rather than left to the push event.
-    uses: ./.github/workflows/pages.yml
-    permissions:
-      contents: read
-      pages: write
-      id-token: write

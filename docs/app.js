@@ -104,6 +104,11 @@ const catLabel = (id) => (TAX[id] ? (TAX[id].parent ? `${TAX[TAX[id].parent].lab
 const branchOf = (id) => id.split('.')[0];
 const tierBadge = (t) => `<span class="badge t-${esc(t)}">${esc(t.replace(/-/g, ' '))}</span>`;
 const newBadge = (p) => (isNew(p) ? '<span class="badge is-new">new</span>' : '');
+/* Threat-intel reports and policy documents are not papers; the inventory holds
+   them because the gap analysis leans on claims about what attackers actually
+   do, and that should not rest on academic threat models alone. */
+const kindBadge = (p) => (p.kind && p.kind !== 'paper'
+  ? `<span class="badge kind-${esc(p.kind)}">${esc(p.kind)}</span>` : '');
 const contribBadge = (t) =>
   `<span class="badge contrib" style="color:${contribVar(t)}">${esc(t)}</span>`;
 
@@ -801,7 +806,7 @@ function treePanel(id) {
     return `<div style="border-top:1px solid var(--grid);padding:10px 0">
       <div><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a></div>
       <div class="sub" style="margin:3px 0 5px">${esc(p.organisations.slice(0, 3).join(', '))} · ${esc(p.venue)} · ${esc(p.date)}
-        ${tierBadge(p.trust.tier)} ${contribBadge(p.contribution_type)} ${newBadge(p)}</div>
+        ${tierBadge(p.trust.tier)} ${contribBadge(p.contribution_type)} ${kindBadge(p)} ${newBadge(p)}</div>
       <div style="font-size:12.5px">${esc(p.what_its_about)}</div></div>`;
   }).join('');
   $('#tree-panel-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -1132,6 +1137,13 @@ function renderPapers() {
     $('#p-tier').append(el('option', { value: t }, esc(t.replace(/-/g, ' ')))));
   [...new Set(papers.map((p) => p.contribution_type))].sort().forEach((t) =>
     $('#p-contrib').append(el('option', { value: t }, esc(t))));
+  const kinds = [...new Set(papers.map((p) => p.kind || 'paper'))].sort();
+  if (kinds.length > 1) {
+    const sel = el('select', { id: 'p-kind' }, '<option value="">Papers and reports</option>'
+      + kinds.map((k) => `<option value="${esc(k)}">${esc(k === 'paper' ? 'papers only' : k + 's only')}</option>`).join(''));
+    $('#p-contrib').after(sel);
+    sel.addEventListener('input', drawPapers);
+  }
 
   $$('#p-table thead th').forEach((th) => th.addEventListener('click', () => {
     const k = th.dataset.sort;
@@ -1150,6 +1162,8 @@ function drawPapers() {
     if (fb && !p.categories.some((c) => branchOf(c) === fb)) return false;
     if (ft && p.trust.tier !== ft) return false;
     if (fc && p.contribution_type !== fc) return false;
+    const fk = $('#p-kind')?.value;
+    if (fk && (p.kind || 'paper') !== fk) return false;
     if (!q) return true;
     return [p.title, p.authors.join(' '), p.organisations.join(' '), p.methods.join(' '),
             p.venue, p.what_its_about, p.threat_model].join(' ').toLowerCase().includes(q);
@@ -1169,7 +1183,7 @@ function drawPapers() {
     const tr = el('tr', { class: 'row' });
     tr.innerHTML = `
       <td class="num">${esc(p.date)}</td>
-      <td><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a> ${newBadge(p)}</td>
+      <td><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a> ${kindBadge(p)} ${newBadge(p)}</td>
       <td class="num">${esc(p.organisations.slice(0, 2).join(', '))}${p.organisations.length > 2 ? ' +' + (p.organisations.length - 2) : ''}</td>
       <td class="num">${esc(p.venue)}<br>${tierBadge(p.trust.tier)}</td>
       <td class="num">${esc(catLabel(p.primary_category))}</td>

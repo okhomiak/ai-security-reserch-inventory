@@ -354,3 +354,8 @@ footer code { font-family: var(--mono); font-size: 11.5px; background: var(--sur
 }
 .crit-toggle:hover { color: var(--ink); border-color: var(--axis); }
 @media (max-width: 720px) { .crit dl { grid-template-columns: 1fr; gap: 2px; } .crit dt { margin-top: 8px; } }
+
+/* Incident and policy records sit beside papers; mark them so a threat-intel
+   report is never mistaken for peer-reviewed work. */
+.badge.kind-incident { border-color: var(--critical); color: var(--critical); }
+.badge.kind-policy   { border-color: var(--benchmark, var(--s7)); color: var(--c-benchmark); }
