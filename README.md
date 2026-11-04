@@ -115,8 +115,11 @@ repository variables.
 ## Running it locally
 
 ```bash
-pip install -r agent/requirements.txt
+# Homebrew/system Pythons are usually "externally managed", so install into a venv.
+python3 -m venv .venv && source .venv/bin/activate
+python3 -m pip install -r agent/requirements.txt
 
+export ANTHROPIC_API_KEY=sk-ant-...        # only the classify step needs this
 python3 agent/pipeline.py --dry-run        # discovery + gate, no API calls
 python3 agent/pipeline.py --limit 5        # classify five, to smoke-test
 python3 agent/pipeline.py --derive-only    # recompute overlaps/coverage/gaps
