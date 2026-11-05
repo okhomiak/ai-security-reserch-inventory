@@ -66,3 +66,6 @@ scratch/
 *.bak
 *.orig
 *.rej
+
+# Skill installers symlink into .claude/; the skill source lives in .agents/
+.claude/skills/

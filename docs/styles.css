@@ -1236,3 +1236,44 @@ tr.grouprow .mix { vertical-align: middle; }
 #card::before, #card::after,
 .cmd-panel::before, .cmd-panel::after,
 .rd-panel::before, .rd-panel::after { content: none !important; }
+
+/* ═══════════════════════════ removing the generated-design tells ═══ */
+/* Applying the frontend-design skill's calibration. It names three things I
+   had done, and it is right about all three.
+
+   1. "fade-and-slide-up entrances on each section and hover transitions on
+      every card ... read as AI-generated." I had a viewIn keyframe on every
+      view and a lift on every tile. Motion now only answers an action - the
+      reader opening, the palette dropping in - where it shows what changed.
+   2. "Using all caps for labels." Kept only where the label is a data key that
+      must not be confused with its value; removed where it was decoration.
+   3. "Adding unnecessary typographic labels above content." The accent rule
+      above every card heading was exactly that.                            */
+
+section.view.active { animation: none; }
+.stat:hover, .hero-link:hover, .navcell:hover { transform: none; }
+.stat, .hero-link { transition: border-color var(--dur) var(--ease); }
+.navcell { transition: border-color var(--dur) var(--ease), filter var(--dur) var(--ease); }
+.card > h2::before, .card.hero > h2::before { content: none; }
+.card > h2 { margin-bottom: var(--sp-1); }
+
+/* Type. system-ui is the default anyone reaches for; this is a catalogue of
+   technical records, so the data wears a tabular face and the prose does not.
+   No webfont: the CSP allows no third-party font host, and shipping one for a
+   dashboard is weight without payoff. */
+:root {
+  --font-data: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
+  --font-ui: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.navhead, .chip-k, .mchip .k, .cmd-item .ci-k, .xq-k, .fw-id,
+tr.grouprow .g-name, table.list th {
+  font-family: var(--font-data); letter-spacing: 0; font-size: 10px;
+}
+.navhead, tr.grouprow .g-name, table.list th { text-transform: none; }
+.navhead { font-weight: 600; color: var(--ink); font-size: 11px; }
+.sub-h { text-transform: none; letter-spacing: 0; font-size: 12.5px; color: var(--ink-2); }
+.rd-h { text-transform: none; letter-spacing: 0; font-size: 11.5px; }
+.news-day { text-transform: none; letter-spacing: 0; font-family: var(--font-data); }
+.stat .v, .nc-v, .fw-score b, #card .nums b, .g-n { font-family: var(--font-data); }
+.rd-kicker, .meta { letter-spacing: 0; }
+/* The gap chains keep their numbers: that content genuinely is a sequence. */
