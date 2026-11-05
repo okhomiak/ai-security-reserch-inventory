@@ -13,6 +13,10 @@ on:
   push:
     tags: ['[0-9]*']          # CalVer: 2026.11.0
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing tag to release (github.ref_name is a branch on manual runs)'
+        required: true
 
 permissions: {}
 
@@ -52,7 +56,7 @@ jobs:
       - name: Build the bundle
         id: bundle
         run: |
-          version="${GITHUB_REF_NAME}"
+          version="${{ inputs.tag || github.ref_name }}"
           name="ai-security-research-inventory-${version}"
           mkdir -p "dist/${name}"
           cp -r docs/data "dist/${name}/data"
@@ -83,8 +87,17 @@ jobs:
             --output-certificate SHA256SUMS.pem
 
       - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3.0.0
+        id: attest
         with:
           subject-path: dist/${{ steps.bundle.outputs.name }}.tar.gz
+
+      - name: Ship the provenance with the artefact
+        # The action files the attestation with GitHub's API, which is fine if
+        # you have the API. It is no use to someone holding the tarball on a
+        # disconnected machine, and Scorecard's Signed-Releases check caps a
+        # release at 8/10 until the provenance is downloadable beside it.
+        run: cp "${{ steps.attest.outputs.bundle-path }}" \
+               "dist/${{ steps.bundle.outputs.name }}.intoto.jsonl"
 
       - name: Release notes from the changelog
         # The footer lives in its own file rather than a heredoc: markdown
@@ -110,4 +123,4 @@ jobs:
           gh release create "${{ steps.bundle.outputs.version }}" \
             --title "${{ steps.bundle.outputs.version }}" \
             --notes-file notes.md \
-            dist/*.tar.gz dist/*.sig dist/*.pem dist/SHA256SUMS
+            dist/*.tar.gz dist/*.sig dist/*.pem dist/*.intoto.jsonl dist/SHA256SUMS

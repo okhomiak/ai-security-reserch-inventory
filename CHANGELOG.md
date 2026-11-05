@@ -9,6 +9,19 @@ not.
 The dashboard itself deploys from `main` on every push, so a release here marks
 a coherent state of the data and tooling, not a separate artefact to download.
 
+## 2026.11.2 — 2026-11-05
+
+- **Provenance ships with the artefact.** `actions/attest-build-provenance`
+  files the attestation with GitHub's API, which is no help to someone holding
+  the tarball on a disconnected machine. The in-toto bundle is now a release
+  asset (`*.intoto.jsonl`), verifiable with `gh attestation verify --bundle`.
+  Scorecard caps a release at 8/10 until the provenance is downloadable beside
+  the thing it describes, which is a fair thing to insist on.
+- **Fixes a latent bug in the release workflow**: a manual run took its version
+  from `github.ref_name`, which on `workflow_dispatch` is a *branch*, so it
+  would have published a bundle named after a branch. Manual runs now take the
+  tag as an explicit input.
+
 ## 2026.11.1 — 2026-11-05
 
 Trust and verifiability. No change to the inventory itself.

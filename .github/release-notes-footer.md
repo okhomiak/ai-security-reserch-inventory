@@ -14,11 +14,16 @@ cosign verify-blob ai-security-research-inventory-VERSION.tar.gz \
   --certificate-oidc-issuer https://token.actions.githubusercontent.com
 ```
 
-`SHA256SUMS` is signed the same way. Build provenance is attached as a GitHub
-attestation:
+`SHA256SUMS` is signed the same way.
+
+Build provenance ships as `ai-security-research-inventory-VERSION.intoto.jsonl`
+— an in-toto attestation recording which workflow, commit and runner produced
+this tarball. It is a release asset rather than only an API record, so it can
+be checked on a machine with no access to GitHub:
 
 ```bash
 gh attestation verify ai-security-research-inventory-VERSION.tar.gz \
+  --bundle ai-security-research-inventory-VERSION.intoto.jsonl \
   --repo okhomiak/ai-security-reserch-inventory
 ```
 
