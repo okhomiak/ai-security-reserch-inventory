@@ -16,7 +16,11 @@ import xml.etree.ElementTree as ET
 
 import atheris
 
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
+# Only meaningful when running from source. Once PyInstaller freezes this
+# target, __file__ points inside the bundle and the modules are frozen in by
+# --paths in build.sh, so inserting a bundle path here would do nothing.
+if not getattr(sys, "frozen", False):
+    sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
 with atheris.instrument_imports():
     import fetch
