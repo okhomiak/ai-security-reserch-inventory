@@ -765,3 +765,115 @@ section.view { padding-top: 0; }
 .pg-row.quiet { opacity: .55; }
 .pg-h { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 13px; margin-bottom: 5px; }
 .pg-row p { margin: 0 0 5px; font-size: 12.5px; color: var(--ink-2); max-width: 88ch; }
+
+/* ═══════════════════════════════════════════════════ design pass 2 ═══ */
+/* The complaint was fair: borders everywhere, tags that were outlines rather
+   than objects, and tables whose columns moved as you filtered. Fixed by
+   deciding things once - a padding scale, a tag that is a filled chip, and
+   fixed column widths - instead of per-component guesses. */
+
+:root {
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 22px; --sp-6: 30px; --sp-7: 42px;
+  --r-sm: 6px; --r-md: 9px; --r-lg: 13px;
+  --tint: color-mix(in srgb, var(--s1) 7%, transparent);
+  --tint-soft: color-mix(in srgb, var(--s1) 4%, transparent);
+}
+
+/* ------------------------------------------------------------ tags/chips */
+.badge {
+  height: 20px; padding: 0 7px; gap: 5px; border-radius: var(--r-sm);
+  background: color-mix(in srgb, currentColor 9%, transparent);
+  border-color: color-mix(in srgb, currentColor 22%, transparent);
+  font-weight: 500; letter-spacing: .005em; line-height: 1;
+}
+.badge.contrib::before { width: 6px; height: 6px; border-radius: 999px; }
+.badge.is-new { height: 18px; padding: 0 6px; }
+.ev a, .ev span, .fw-cats a {
+  height: 21px; display: inline-flex; align-items: center; border-radius: var(--r-sm);
+  background: var(--surface-1);
+}
+
+/* ---------------------------------------------------------------- tables */
+table.list { table-layout: fixed; }
+table.list th {
+  text-transform: uppercase; letter-spacing: .06em; font-size: 10px; font-weight: 600;
+  color: var(--ink-3); padding: var(--sp-2) var(--sp-3); border-bottom: 1px solid var(--axis);
+  vertical-align: bottom; position: relative;
+}
+table.list th[data-sort]::after {
+  content: "↕"; opacity: 0; margin-left: 5px; font-size: 9px;
+  transition: opacity var(--dur) var(--ease);
+}
+table.list th[data-sort]:hover::after { opacity: .5; }
+table.list th[aria-sort]::after { opacity: 1; content: attr(data-arrow); color: var(--s1); }
+table.list td {
+  padding: var(--sp-3); vertical-align: top; font-size: 12.5px; line-height: 1.45;
+  border-bottom: 1px solid var(--grid); overflow: hidden; text-overflow: ellipsis;
+}
+table.list tbody tr:hover td { background: var(--tint-soft); }
+table.list td.num { font-variant-numeric: tabular-nums; }
+/* Numeric columns right-align; text columns never do. */
+table.list td.right, table.list th.right { text-align: right; }
+table.list td .badge { vertical-align: middle; }
+table.list td a { display: inline; }
+
+/* Papers table: fixed widths so columns do not jump as you filter. */
+#p-table { min-width: 940px; }
+#p-table th:nth-child(1), #p-table td:nth-child(1) { width: 104px; white-space: nowrap; }
+#p-table th:nth-child(2), #p-table td:nth-child(2) { width: auto; }
+#p-table th:nth-child(3), #p-table td:nth-child(3) { width: 168px; }
+#p-table th:nth-child(4), #p-table td:nth-child(4) { width: 182px; }
+#p-table th:nth-child(5), #p-table td:nth-child(5) { width: 178px; }
+#p-table th:nth-child(6), #p-table td:nth-child(6) { width: 104px; }
+#p-table td:nth-child(2) { white-space: normal; }
+#p-table td:nth-child(3), #p-table td:nth-child(4), #p-table td:nth-child(5) {
+  color: var(--ink-2); font-size: 12px;
+}
+#p-table td:nth-child(4) .badge { margin-top: 4px; }
+
+/* Pressure + methodology tables */
+#pressure table.list, #meth-body table.list { min-width: 720px; }
+#pressure td:first-child { width: 42%; }
+#pressure td.num { text-align: right; }
+#pressure th:not(:first-child) { text-align: right; }
+#meth-body th:nth-child(1), #meth-body td:nth-child(1) { width: 190px; }
+#meth-body th:nth-child(3), #meth-body td:nth-child(3) { width: 140px; text-align: right; }
+
+#pl-runs table.list { min-width: 880px; }
+#pl-runs th:not(:first-child):not(:last-child), #pl-runs td.num { text-align: right; }
+
+/* ----------------------------------------------------------- card rhythm */
+.card { padding: var(--sp-5); margin-bottom: var(--sp-4); border-radius: var(--r-lg); }
+.card > h2 { margin-bottom: var(--sp-1); }
+.card > .note { margin-bottom: var(--sp-4); line-height: 1.55; }
+.card > .note.tight { margin-bottom: var(--sp-3); }
+.stats { gap: var(--sp-3); margin-bottom: var(--sp-4); }
+.stat { padding: var(--sp-3) var(--sp-4); border-radius: var(--r-md); }
+.toolbar { gap: var(--sp-2); margin-bottom: var(--sp-4); padding-bottom: var(--sp-1); }
+
+/* Section eyebrow above a card title reads as structure rather than more text */
+.card > h2::before {
+  content: ""; display: block; width: 22px; height: 2px; border-radius: 2px;
+  background: var(--s1); margin-bottom: var(--sp-2); opacity: .8;
+}
+.card.hero > h2::before { width: 34px; height: 3px; }
+
+/* ------------------------------------------------------------- scroll fade */
+.scroll-x { position: relative; }
+.scroll-y { border-radius: var(--r-md); }
+
+/* ------------------------------------------------------------ empty state */
+.empty {
+  text-align: center; padding: var(--sp-6) var(--sp-4); border: 1px dashed var(--axis);
+  border-radius: var(--r-md); background: var(--tint-soft); color: var(--ink-3);
+}
+
+/* The date column was clipping its own content: fixed width plus the inherited
+   ellipsis rule. Dates are a known width, so let them be it. */
+#p-table td:nth-child(1) { overflow: visible; }
+#p-table td:nth-child(6) { overflow: visible; }
+
+/* Give the long tables room rather than a 620px letterbox. */
+#view-papers .scroll-y { max-height: calc(100vh - 300px); min-height: 420px; }
+#news-list { max-height: calc(100vh - 340px); min-height: 420px; }

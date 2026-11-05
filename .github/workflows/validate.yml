@@ -65,6 +65,24 @@ jobs:
       - name: Dashboard script parses
         run: node --check docs/app.js
 
+      - name: Every action is pinned to a commit SHA
+        # An unpinned action is a mutable dependency with write access to the
+        # build. This also catches the failure that actually happened here: a
+        # tag-to-SHA lookup returned empty and left a dangling @ in the file.
+        #
+        # Matches only real YAML keys at line start, not prose - an earlier
+        # version of this check matched the example inside its own comment.
+        run: |
+          refs=$(grep -hE '^[[:space:]]*-?[[:space:]]*uses:[[:space:]]*\S+' .github/workflows/*.yml \
+                 | sed -E 's/^[[:space:]]*-?[[:space:]]*uses:[[:space:]]*//; s/[[:space:]]*#.*$//' || true)
+          bad=$(echo "$refs" | grep -v '^\./' | grep -vE '@[0-9a-f]{40}$' || true)
+          if [ -n "$bad" ]; then
+            echo "::error::Not pinned to a full commit SHA:"
+            echo "$bad"
+            exit 1
+          fi
+          echo "$(echo "$refs" | grep -c .) action refs, all SHA-pinned"
+
       - name: No inline style attributes in the page
         # The published CSP forbids them. Catching this here means a future edit
         # cannot silently blank the charts for every visitor.

@@ -30,6 +30,24 @@ const el = (tag, attrs = {}, html = '') => {
   if (html) n.innerHTML = html;
   return n;
 };
+/* SVG has no text wrapping, which is why these labels were being cut off with
+   an ellipsis. Wrap by measuring words against a character budget and emitting
+   one tspan per line, then size a rounded box to the result - so the label is a
+   card that fits its content rather than a string trimmed to fit a gap. */
+function wrapLines(text, maxChars = 30, maxLines = 4) {
+  const words = String(text).split(/\s+/);
+  const lines = [];
+  let cur = '';
+  for (const w of words) {
+    if (!cur) { cur = w; continue; }
+    if ((cur + ' ' + w).length <= maxChars) cur += ' ' + w;
+    else { lines.push(cur); cur = w; if (lines.length === maxLines - 1) break; }
+  }
+  if (cur) lines.push(cur);
+  if (lines.length > maxLines) lines.length = maxLines;
+  return lines;
+}
+
 const svgEl = (tag, attrs = {}) => {
   const n = document.createElementNS('http://www.w3.org/2000/svg', tag);
   for (const [k, v] of Object.entries(attrs)) if (v !== null && v !== undefined) n.setAttribute(k, v);
@@ -419,11 +437,18 @@ function drawOverlapTree() {
     });
   }
 
-  const ROW = 22, X0 = 16, X1 = 250, X2 = 300, BARW = 54, TOP = 24;
-  const rows = [];
-  groups.forEach((g) => { rows.push(g); g.papers.forEach((id) => rows.push(id)); });
-  const H = TOP + rows.length * ROW + 30;
-  const W = 980;
+  const ROW = 22, X0 = 16, X1 = 286, X2 = 336, BARW = 54, TOP = 28;
+  // A two-paper cluster occupies 66px of rows but its label box can be taller,
+  // so each group reserves whichever is larger. Without this the boxes overlap
+  // exactly where the tree is sparsest.
+  const LH = 15, PAD = 9;
+  groups.forEach((g) => {
+    g._lines = wrapLines(g.label, 30, 3);
+    g._boxH = g._lines.length * LH + 16 + PAD;
+    g._need = Math.max(ROW * (g.papers.length + 1), g._boxH + 16);
+  });
+  const H = TOP + groups.reduce((acc, g) => acc + g._need, 0) + 30;
+  const W = 1040;
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
   svg.setAttribute('width', W);
   svg.setAttribute('height', H);
@@ -439,25 +464,47 @@ function drawOverlapTree() {
   let y = TOP;
   const groupY = [];
   groups.forEach((g) => {
-    const first = y + ROW / 2;
+    // centre the paper rows inside the space this group reserved
+    const block = g.papers.length * ROW;
+    const first = y + (g._need - block) / 2 - ROW / 2;
     const childY = g.papers.map((_, i) => first + (i + 1) * ROW);
-    const gy = childY.length ? (childY[0] + childY[childY.length - 1]) / 2 : first;
+    const gy = childY.length ? (childY[0] + childY[childY.length - 1]) / 2 : y + g._need / 2;
     groupY.push(gy);
 
     g.papers.forEach((id, i) => {
       gLink.append(svgEl('path', { d: curve(X1 + 8, gy, X2 - 7, childY[i]), class: 'link' }));
     });
 
-    // cluster node
+    // cluster node: a boxed, wrapped label so the full name is readable
     const cg = svgEl('g', { class: 'node-c' });
     const colour = g.slot ? `var(--s${g.slot})` : 'var(--axis)';
-    cg.append(svgEl('circle', { cx: X1, cy: gy, r: 7, fill: colour, stroke: 'var(--surface-1)', 'stroke-width': 2 }));
-    const lt = svgEl('text', { x: X1 - 13, y: gy + 4, 'text-anchor': 'end', 'font-size': 12.5, 'font-weight': 600, fill: 'var(--ink)' });
-    lt.textContent = g.label.length > 34 ? g.label.slice(0, 33) + '…' : g.label;
-    cg.append(lt);
-    const ct = svgEl('text', { x: X1 - 13, y: gy + 17, 'text-anchor': 'end', 'font-size': 10.5, fill: 'var(--ink-3)' });
+    const lines = g._lines;
+    const BOXW = 250;
+    const boxH = g._boxH;
+    const slotTop = y, slotBot = y + g._need;
+    const boxY = Math.max(slotTop + 6, Math.min(gy - boxH / 2, slotBot - boxH - 6));
+    cg.append(svgEl('rect', {
+      x: X1 - 13 - BOXW, y: boxY, width: BOXW, height: boxH, rx: 9,
+      fill: 'var(--page)', stroke: 'var(--ring)', 'stroke-width': 1,
+    }));
+    cg.append(svgEl('rect', {
+      x: X1 - 13 - BOXW, y: boxY, width: 3, height: boxH, rx: 1.5, fill: colour,
+    }));
+    lines.forEach((ln, i) => {
+      const t = svgEl('text', {
+        x: X1 - 13 - BOXW + 12, y: boxY + PAD + 5 + i * LH + 6,
+        'font-size': 12.5, 'font-weight': 600, fill: 'var(--ink)',
+      });
+      t.textContent = ln;
+      cg.append(t);
+    });
+    const ct = svgEl('text', {
+      x: X1 - 13 - BOXW + 12, y: boxY + PAD + 5 + lines.length * LH + 7,
+      'font-size': 10.5, fill: 'var(--ink-3)',
+    });
     ct.textContent = `${g.papers.length} papers`;
     cg.append(ct);
+    cg.append(svgEl('circle', { cx: X1, cy: gy, r: 7, fill: colour, stroke: 'var(--surface-1)', 'stroke-width': 2 }));
     const members = g.papers.map((id) => PAPER[id]).filter(Boolean);
     bindCard(cg, () => `
       <div class="hd"><h4>${esc(g.label)}</h4><div class="path">research cluster</div></div>
@@ -500,7 +547,7 @@ function drawOverlapTree() {
       bindCard(pg, () => paperCard(p, bound[id] || 0));
       gNode.append(pg);
     });
-    y += ROW * (g.papers.length + 1);
+    y += g._need;
   });
 }
 
@@ -1040,22 +1087,22 @@ function drawPressure() {
   const maxP = Math.max(0.001, ...rows.map((r) => r.pressure));
 
   const t = el('table', { class: 'list' });
-  t.innerHTML = `<thead><tr><th>Need</th><th>Mean demand</th><th class="num">4+ orgs</th>
-    <th class="num">Papers</th><th class="num">Defence</th><th class="num">Attack</th>
-    <th>Demand per paper</th></tr></thead>`;
+  t.innerHTML = `<thead><tr><th>Need</th><th class="right">Mean demand</th><th class="right">4+ orgs</th>
+    <th class="right">Papers</th><th class="right">Defence</th><th class="right">Attack</th>
+    <th class="right">Demand per paper</th></tr></thead>`;
   const tb = el('tbody');
   rows.forEach((r) => {
     const tr = el('tr');
     tr.innerHTML = `
       <td><b>${esc(r.n.label)}</b><div class="sub" data-sty="font-size:11px">${esc(r.n.blurb)}</div></td>
-      <td class="num"><span data-sty="display:inline-flex;align-items:center;gap:7px">
+      <td class="num right"><span data-sty="display:inline-flex;align-items:center;gap:7px;justify-content:flex-end;width:100%">
         ${r.mean_demand.toFixed(2)}
         <i data-sty="display:block;width:${Math.round((r.mean_demand / 5) * 76)}px;height:7px;border-radius:0 3px 3px 0;background:${ramp(r.mean_demand, 5)}"></i></span></td>
-      <td class="num">${r.companies_at_4plus}</td>
-      <td class="num">${r.papers}</td>
-      <td class="num">${r.defensive}</td>
-      <td class="num">${r.offensive}</td>
-      <td class="num"><span data-sty="display:inline-flex;align-items:center;gap:7px">
+      <td class="num right">${r.companies_at_4plus}</td>
+      <td class="num right">${r.papers}</td>
+      <td class="num right">${r.defensive}</td>
+      <td class="num right">${r.offensive}</td>
+      <td class="num right"><span data-sty="display:inline-flex;align-items:center;gap:7px;justify-content:flex-end;width:100%">
         ${r.pressure.toFixed(2)}
         <i data-sty="display:block;width:${Math.round((r.pressure / maxP) * 76)}px;height:7px;border-radius:0 3px 3px 0;background:${ramp(r.pressure, maxP)}"></i></span></td>`;
     tb.append(tr);
@@ -1154,17 +1201,51 @@ function drawGapTree() {
     '<span class="li"><span class="swatch" data-sty="background:var(--critical)"></span>high severity</span>' +
     '<span class="li"><span class="swatch" data-sty="background:var(--serious)"></span>medium</span>' +
     rampLegend('papers under a node', maxN) +
-    '<span class="li"><span class="swatch" data-sty="background:transparent;box-shadow:0 0 0 1.5px var(--axis) inset"></span>empty — missing literature</span>';
+    '<span class="li"><span class="swatch hollow"></span>empty — missing literature</span>';
 
-  const ROW = 21, X0 = 18, X1 = 330, X2 = 392, TOP = 24;
-  const rows = [];
-  gaps.forEach((g) => {
+  const ROW = 21, X1 = 372, X2 = 434, TOP = 30, LH = 15, PAD = 9, BOXW = 336, W = 1040;
+
+  const rows = gaps.map((g) => {
     const cats = (g.categories || []).filter((c) => TAX[c]);
-    rows.push({ g, cats });
+    const lines = wrapLines(g.title, 38, 3);
+    const boxH = lines.length * LH + 16 + PAD;
+    return { g, cats, lines, boxH, need: Math.max(ROW * (cats.length + 1), boxH + 24) };
   });
-  const count = rows.reduce((a, r) => a + 1 + r.cats.length, 0);
-  const H = TOP + count * ROW + 26;
-  const W = 980;
+
+  /* Two passes. The first lays everything out; the second sweeps top to bottom
+     and pushes down any label box that would collide with the one above,
+     moving that gap's whole subtree by the same amount.
+
+     This replaces a single-pass slot calculation that was subtly wrong in a way
+     reading it did not reveal. A layout that is only correct when the
+     arithmetic is correct is the wrong shape for this - a de-collision sweep
+     cannot produce an overlap, whatever feeds it. */
+  let y = TOP;
+  const laid = rows.map((r) => {
+    const block = r.cats.length * ROW;
+    const first = y + (r.need - block) / 2 - ROW / 2;
+    const childY = r.cats.map((_, i) => first + (i + 1) * ROW);
+    const gy = childY.length ? (childY[0] + childY[childY.length - 1]) / 2 : y + r.need / 2;
+    y += r.need;
+    return { ...r, gy, childY, boxY: gy - r.boxH / 2 };
+  });
+
+  const GAPPX = 12;
+  for (let i = 1; i < laid.length; i++) {
+    const shift = (laid[i - 1].boxY + laid[i - 1].boxH + GAPPX) - laid[i].boxY;
+    if (shift > 0) {
+      for (let j = i; j < laid.length; j++) {
+        laid[j].boxY += shift;
+        laid[j].gy += shift;
+        laid[j].childY = laid[j].childY.map((v) => v + shift);
+      }
+    }
+  }
+
+  const H = Math.ceil(Math.max(
+    ...laid.map((r) => r.boxY + r.boxH),
+    ...laid.flatMap((r) => r.childY),
+  )) + 26;
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
   svg.setAttribute('width', W);
   svg.setAttribute('height', H);
@@ -1177,25 +1258,31 @@ function drawGapTree() {
     return `M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`;
   };
 
-  let y = TOP;
-  const anchors = [];
-  rows.forEach(({ g, cats }) => {
-    const first = y + ROW / 2;
-    const childY = cats.map((_, i) => first + (i + 1) * ROW);
-    const gy = childY.length ? (childY[0] + childY[childY.length - 1]) / 2 : first;
-    anchors.push(gy);
+  laid.forEach(({ g, cats, lines, boxH, gy, childY, boxY }) => {
     const sev = g.severity === 'high' ? 'var(--critical)' : 'var(--serious)';
-
     cats.forEach((c, i) => gLink.append(svgEl('path', { d: curve(X1 + 8, gy, X2 - 7, childY[i]), class: 'link' })));
 
     const node = svgEl('g', { class: 'node-c' });
-    node.append(svgEl('circle', { cx: X1, cy: gy, r: 7, fill: sev, stroke: 'var(--surface-1)', 'stroke-width': 2 }));
-    const t = svgEl('text', { x: X1 - 13, y: gy + 4, 'text-anchor': 'end', 'font-size': 12, 'font-weight': 600, fill: 'var(--ink)' });
-    t.textContent = g.title.length > 48 ? g.title.slice(0, 47) + '…' : g.title;
-    node.append(t);
-    const sub = svgEl('text', { x: X1 - 13, y: gy + 16, 'text-anchor': 'end', 'font-size': 10, fill: 'var(--ink-3)' });
+    node.append(svgEl('rect', {
+      x: X1 - 13 - BOXW, y: boxY, width: BOXW, height: boxH, rx: 9,
+      fill: 'var(--page)', stroke: 'var(--ring)', 'stroke-width': 1,
+    }));
+    node.append(svgEl('rect', { x: X1 - 13 - BOXW, y: boxY, width: 3, height: boxH, rx: 1.5, fill: sev }));
+    lines.forEach((ln, i) => {
+      const t = svgEl('text', {
+        x: X1 - 13 - BOXW + 12, y: boxY + PAD + 5 + i * LH + 6,
+        'font-size': 12, 'font-weight': 600, fill: 'var(--ink)',
+      });
+      t.textContent = ln;
+      node.append(t);
+    });
+    const sub = svgEl('text', {
+      x: X1 - 13 - BOXW + 12, y: boxY + PAD + 5 + lines.length * LH + 7,
+      'font-size': 10, fill: 'var(--ink-3)',
+    });
     sub.textContent = `${g.severity} · ${g.confidence || '?'} confidence · ${g.status}`;
     node.append(sub);
+    node.append(svgEl('circle', { cx: X1, cy: gy, r: 7, fill: sev, stroke: 'var(--surface-1)', 'stroke-width': 2 }));
 
     const held = cats.reduce((acc, c) => acc + (total[c] || 0), 0);
     const empties = cats.filter((c) => !(total[c] || 0)).length;
@@ -1212,10 +1299,7 @@ function drawGapTree() {
         <p class="warn"><b>Against:</b> ${esc((g.counter || '').slice(0, 170))}${(g.counter || '').length > 170 ? '…' : ''}</p>
         <div class="hint">Click to jump to the full chain.</div>
       </div>`);
-    node.addEventListener('click', () => {
-      const el2 = document.getElementById(g.id);
-      if (el2) el2.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
+    node.addEventListener('click', () => document.getElementById(g.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
     gNode.append(node);
 
     cats.forEach((c, i) => {
@@ -1243,9 +1327,7 @@ function drawGapTree() {
       cg.addEventListener('click', () => { show('tree'); treePanel(c); });
       bindCard(cg, () => nodeCard(c, Boolean(TAX[c].parent)));
     });
-    y += ROW * (cats.length + 1);
   });
-
 }
 
 function renderGaps() {
@@ -1267,6 +1349,7 @@ function renderGaps() {
 
 /* ===================================================================== PAPERS */
 let P_SORT = { key: 'date', dir: -1 };
+let drawPapers;
 function renderPapers() {
   const papers = D.papers.papers;
   $('#papers-note').textContent = D.papers.note || '';
@@ -1290,12 +1373,25 @@ function renderPapers() {
     P_SORT = { key: k, dir: P_SORT.key === k ? -P_SORT.dir : 1 };
     drawPapers();
   }));
+  // reflect sort state in the header, so the table says how it is ordered
+  const markSort = () => $$('#p-table thead th').forEach((th) => {
+    const on = th.dataset.sort === P_SORT.key;
+    if (on) {
+      th.setAttribute('aria-sort', P_SORT.dir > 0 ? 'ascending' : 'descending');
+      th.dataset.arrow = P_SORT.dir > 0 ? '↑' : '↓';
+    } else {
+      th.removeAttribute('aria-sort');
+      delete th.dataset.arrow;
+    }
+  });
+  const _draw = drawPapers;
+  drawPapers = (...a2) => { _draw(...a2); markSort(); };
   ['#p-q', '#p-branch', '#p-tier', '#p-contrib'].forEach((s) =>
     $(s).addEventListener('input', drawPapers));
   drawPapers();
 }
 
-function drawPapers() {
+drawPapers = function drawPapersImpl() {
   const q = $('#p-q').value.trim().toLowerCase();
   const fb = $('#p-branch').value, ft = $('#p-tier').value, fc = $('#p-contrib').value;
   let rows = D.papers.papers.filter((p) => {
@@ -1324,29 +1420,14 @@ function drawPapers() {
     tr.innerHTML = `
       <td class="num">${esc(p.date)}</td>
       <td><a href="#read" class="plink" data-read="${esc(p.id)}">${esc(p.title)}</a> ${kindBadge(p)} ${newBadge(p)}</td>
-      <td class="num">${esc(p.organisations.slice(0, 2).join(', '))}${p.organisations.length > 2 ? ' +' + (p.organisations.length - 2) : ''}</td>
-      <td class="num">${esc(p.venue)}<br>${tierBadge(p.trust.tier)}</td>
-      <td class="num">${esc(catLabel(p.primary_category))}</td>
-      <td class="num">${contribBadge(p.contribution_type)}</td>`;
-    const det = el('tr', { class: 'detail', hidden: '' });
-    det.innerHTML = `<td colspan="6"><div class="detail-in">
-      <div data-sty="font-size:13px">${esc(p.what_its_about)}</div>
-      <dl>
-        <dt>Threat model</dt><dd>${esc(p.threat_model)}</dd>
-        <dt>Methods</dt><dd>${p.methods.map((m) => `<span class="badge">${esc(m)}</span>`).join(' ')}</dd>
-        <dt>Categories</dt><dd>${p.categories.map((c) => `<span class="badge">${esc(catLabel(c))}</span>`).join(' ')}</dd>
-        <dt>Company needs</dt><dd>${p.addresses_needs.map((n) => `<span class="badge">${esc(NEED[n]?.label || n)}</span>`).join(' ') || '<span class="sub">none recorded</span>'}</dd>
-        <dt>Leaves open</dt><dd>${esc(p.gap_signal || '—')}</dd>
-        <dt>Overlaps</dt><dd>${(p.overlaps_with || []).map((o) =>
-          `<div data-sty="margin-bottom:4px">${paperLink(o.id)}<div class="sub" data-sty="font-size:11.5px">${esc(o.shared)}</div></div>`).join('') || '<span class="sub">none recorded</span>'}</dd>
-        <dt>Provenance</dt><dd>${tierBadge(p.trust.tier)} ${esc(p.trust.justification)}
-          ${p.venue_source === 'curator' ? '<span class="sub">(venue stated by the curator, not read off arXiv)</span>' : ''}</dd>
-        <dt>Authors</dt><dd class="sub">${esc(p.authors.join(', '))}</dd>
-        <dt>Record</dt><dd class="sub">${esc(p.curation)} · classified by ${esc(p.classified_by)} · added ${esc(p.added)}
-          ${p.confidence < 1 ? ` · confidence ${p.confidence}` : ''}</dd>
-      </dl></div></td>`;
+      <td>${esc(p.organisations.slice(0, 2).join(', ')) || '<span class="sub">—</span>'}${p.organisations.length > 2 ? ` <span class="sub">+${p.organisations.length - 2}</span>` : ''}</td>
+      <td>${esc(p.venue)}<br>${tierBadge(p.trust.tier)}</td>
+      <td>${esc(catLabel(p.primary_category))}</td>
+      <td>${contribBadge(p.contribution_type)}</td>`;
+    // The inline expander was replaced by the reader panel; building a hidden
+    // duplicate of every row's detail doubled the DOM for nothing.
     tr.addEventListener('click', (e) => { if (e.target.tagName !== 'A') openReader(p.id); });
-    tb.append(tr, det);
+    tb.append(tr);
   });
   if (!rows.length) tb.innerHTML = '<tr><td colspan="6" class="empty">Nothing matches those filters.</td></tr>';
 }
