@@ -1,5 +1,8 @@
 # AI Security Research Inventory
 
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/16360/badge)](https://www.bestpractices.dev/projects/16360)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/okhomiak/ai-security-reserch-inventory/badge)](https://scorecard.dev/viewer/?uri=github.com/okhomiak/ai-security-reserch-inventory)
+
 A GitHub Pages dashboard over AI-security research, kept current by a weekly agent.
 
 **Dashboard:** https://okhomiak.github.io/ai-security-reserch-inventory/

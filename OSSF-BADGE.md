@@ -2,6 +2,8 @@
 
 Project entry: https://www.bestpractices.dev/en/projects/16360
 
+**Status: passing badge earned, 100%** — submitted 2026-11-05.
+
 The passing-level criteria, the status this project claims for each, and why.
 Kept here so the claims are reviewable in the repository rather than only
 inside a form, and so a future change that invalidates one is visible in a diff.
