@@ -190,3 +190,49 @@ The company demand scores are **editorial estimates**, not measurements. Cells
 anchored to a public source carry a corner tick and link to it; the rest are seed
 estimates, and the heat-map legend says so. The agent only moves a score when it
 can attach evidence.
+
+## Security posture
+
+This repository publishes research about AI security, so its own supply chain is
+part of the argument. What is in place, and why:
+
+| Control | Detail |
+|---|---|
+| **Actions pinned to SHAs** | Every `uses:` is a full commit SHA with a `# vX.Y.Z` comment. A tag is a mutable pointer — whoever controls the action repo can move `v7` and every consumer picks it up silently. Dependabot rewrites the SHA and the comment together. |
+| **Least-privilege tokens** | `permissions: {}` at the top of every workflow; each job widens to the minimum. Nothing has write access to `main`. |
+| **No credential persistence** | `persist-credentials: false` wherever a job does not push, so no token is left in `.git/config`. |
+| **Egress recorded** | `harden-runner` in audit mode. The agent fetches from the open internet by design, so egress cannot be blocked — but a source feed quietly redirecting elsewhere shows up in the run's network log. |
+| **Hash-pinned dependencies** | `agent/requirements.txt` pins the full transitive closure with hashes, installed via `--require-hashes`. A substituted artifact fails closed. |
+| **Static analysis** | CodeQL (`security-extended`) on Python and JavaScript, on push, PR and weekly. |
+| **Secret scanning** | GitHub's own on the default branch, plus gitleaks gating pull requests over full history, plus a pre-commit hook. |
+| **Supply-chain score** | OpenSSF Scorecard publishing to the Security tab. |
+| **Human-only commits** | The weekly agent opens a pull request; it cannot write to `main`. Every commit on `main` is a merge someone reviewed. |
+| **Content-Security-Policy** | The page ships `default-src 'none'` with `script-src`/`style-src` at `'self'` and **no** `unsafe-inline`. It loads nothing third-party — no CDN, no fonts, no analytics. |
+
+### The CSP is the interesting one
+
+The strict policy initially broke every chart, because the templates emit
+`style="background:…"` for data-driven colour and CSP blocks inline style
+attributes. The easy fix was `'unsafe-inline'`. Instead, colour is applied
+through the CSSOM — which CSP does not govern — by a `MutationObserver` that
+turns `data-sty` attributes into real styles as nodes enter the DOM. Verified in
+a browser: zero violations on a clean load.
+
+`frame-ancestors` is deliberately absent. It is inert in a `<meta>` element and
+GitHub Pages cannot set response headers, so clickjacking protection is simply
+unavailable here. The page is read-only with no actions to hijack. Stating that
+is better than shipping a directive that does nothing.
+
+### Still requires a human
+
+Branch protection cannot be set from a file. On
+**Settings → Rules → Rulesets**, for `main`:
+
+- Require a pull request before merging, 1 approval, dismiss stale approvals
+- Require status checks: `CodeQL`, `gitleaks`, `Check data integrity`
+- Require signed commits
+- Block force pushes and deletions
+- Restrict who can push to `okhomiak`
+
+Then **Settings → Actions → General** → allow GitHub Actions to create pull
+requests, or the weekly ingest cannot open one.
