@@ -27,18 +27,54 @@ import fetch  # noqa: E402
 
 SM = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
 
-# Terms that make a lab post security-relevant. Deliberately broader than the
-# paper gate: a news feed should surface the adjacent item, not only the
-# certain one.
-TERMS = [
-    "security", "safety", "misuse", "threat", "attack", "vulnerab", "exploit",
-    "jailbreak", "injection", "red team", "red-team", "adversar", "malware",
-    "phishing", "fraud", "scam", "abuse", "espionage", "incident", "disrupt",
-    "guardrail", "classifier", "alignment", "deception", "sabotage", "interpretab",
-    "evaluation", "eval", "dangerous", "cyber", "bio", "cbrn", "asl-", "safeguard",
-    "privacy", "memoriz", "unlearn", "watermark", "provenance", "agent", "sandbox",
-    "permission", "authoriz", "frontier", "responsible scaling", "bug bounty",
-    "disclosure", "policy", "govern", "transparency", "risk",
+# A post earns a place only if it is about security. The first list is the
+# evidence for that; the second only adds weight once the first has fired.
+#
+# The earlier single broad list let through "named a Leader in the Magic
+# Quadrant", "now available in GovCloud" and "agentic cheminformatics" - because
+# "agent", "policy" and "evaluation" appear in almost every lab post. A term
+# that common cannot be the thing that qualifies a post.
+CORE = [
+    "security", "vulnerab", "exploit", "attack", "attacker", "threat", "malware",
+    "phishing", "ransomware", "jailbreak", "prompt injection", "injection",
+    "adversarial", "breach", "intrusion", "incident", "misuse", "abuse",
+    "red team", "red-team", "backdoor", "poison", "exfiltrat", "espionage",
+    "fraud", "scam", "guardrail", "safeguard", "deception", "sandbagging",
+    "dangerous capability", "cyber", "cve-", "zero-day", "0-day", "botnet",
+    "credential", "unauthoriz", "unauthoris", "compromise", "disclosure",
+    "bug bounty", "penetration test", "threat actor", "nation-state",
+    "jailbreaking", "data leak", "leakage", "memoriz", "extraction attack",
+    "supply chain", "trojan", "sabotage", "harmful", "bioweapon", "cbrn",
+    "privilege escalation", "sandbox escape", "remote code execution",
+    "hardening", "patched", "mitigation", "side channel", "spoofing",
+    "impersonation", "takeover", "hijack",
+]
+SUPPORT = [
+    "agent", "alignment", "interpretab", "evaluation", "eval", "benchmark",
+    "privacy", "unlearn", "watermark", "provenance", "governance", "policy",
+    "frontier", "safety", "robustness", "monitoring", "anomaly", "sandbox",
+    "permission", "authoriz", "authentic", "confidential", "model weights",
+    "refusal", "classifier", "risk", "privilege", "kernel", "patch",
+    "detection", "defence", "defense", "secure", "trust",
+]
+# This is an AI-security inventory, so a post must be about AI as well as about
+# security. Trail of Bits, PortSwigger and Unit 42 publish excellent work on
+# cryptography, firmware and conventional intrusion that simply is not in scope.
+# Short tokens match on word boundaries so "ai" does not fire inside "chain".
+AI_TERMS = [
+    "ai", "llm", "llms", "genai", "ml", "model", "models", "agent", "agents",
+    "agentic", "chatbot", "copilot", "claude", "gpt", "gemini", "llama",
+    "machine learning", "neural", "prompt", "transformer", "inference",
+    "foundation model", "language model", "frontier model", "training data",
+]
+
+# Announcements that mention security in passing but are not security posts.
+EXCLUDE = [
+    "magic quadrant", "named a leader", "now generally available",
+    "is now available", "pricing", "webinar", "we're hiring", "we are hiring",
+    "join us at", "register now", "customer story", "case study",
+    "partnership with", "expands partnership", "funding round", "series ",
+    "earnings", "appoints", "welcomes", "anniversary",
 ]
 
 SITEMAPS = [
@@ -71,9 +107,39 @@ def _page_title(url: str) -> str | None:
     return title or None
 
 
+def _ai_relevant(low: str) -> bool:
+    for t in AI_TERMS:
+        if len(t) <= 3:
+            if re.search(r"(?<![a-z0-9])" + re.escape(t) + r"(?![a-z0-9])", low):
+                return True
+        elif t in low:
+            return True
+    return False
+
+
 def relevant(text: str) -> int:
+    """Security relevance. Zero unless a core security term appears.
+
+    Scoring: a core term is worth 2, a supporting term 1. A post needs at least
+    one core term and a total of 3, so a single passing mention is not enough.
+    """
     low = text.lower()
-    return sum(1 for t in TERMS if t in low)
+    if any(x in low for x in EXCLUDE):
+        return 0
+    core = sum(1 for t in CORE if t in low)
+    if not core:
+        return 0
+    if not _ai_relevant(low):
+        return 0
+    support = sum(1 for t in SUPPORT if t in low)
+    score = core * 2 + support
+
+    # The bar scales with how much text there is to judge. A bare title naming
+    # an attack is a strong signal; a thousand-word post mentioning "threat"
+    # once is not. Sitemap entries have only a title, so a fixed bar of 3 threw
+    # away real security posts purely for being short.
+    bar = 2 if len(low) < 140 else 3
+    return score if score >= bar else 0
 
 
 def from_sitemap(cfg: dict, days: int, fetch_titles: int = 80) -> list[dict]:

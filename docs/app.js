@@ -229,6 +229,7 @@ async function boot() {
   renderGaps();
   renderPapers();
   renderFrameworks();
+  renderExplore();
   renderNews();
   renderPipeline();
   openFromHash();
@@ -274,7 +275,7 @@ function initTheme() {
   });
 }
 
-const VIEWS = ['news', 'overlaps', 'tree', 'demand', 'frameworks', 'gaps', 'papers', 'pipeline'];
+const VIEWS = ['news', 'overlaps', 'explore', 'tree', 'demand', 'frameworks', 'gaps', 'papers', 'pipeline'];
 
 function initTabs() {
   $$('#tabs .nav').forEach((t) => t.addEventListener('click', () => show(t.dataset.view)));
@@ -297,7 +298,7 @@ function initTabs() {
     if (e.key === 'Escape') { closeKeys(); hideTip(); hideCard(); document.activeElement?.blur?.(); return; }
     if (typing) return;
 
-    if (e.key >= '1' && e.key <= '8') { show(VIEWS[+e.key - 1]); e.preventDefault(); return; }
+    if (e.key >= '1' && e.key <= '9') { show(VIEWS[+e.key - 1]); e.preventDefault(); return; }
     if (e.key === '/') {
       const box = $('section.view.active input[type="search"]');
       if (box) { box.focus(); box.select(); e.preventDefault(); }
@@ -332,6 +333,7 @@ function redrawCanvases() {
   }
   if ($('#view-tree').classList.contains('active')) drawTree();
   if ($('#view-gaps').classList.contains('active')) drawGapTree();
+  if ($('#view-explore').classList.contains('active')) drawExplore();
 }
 let resizeT;
 addEventListener('resize', () => { clearTimeout(resizeT); resizeT = setTimeout(redrawCanvases, 180); });
@@ -1690,6 +1692,272 @@ function initReader() {
   addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && document.body.classList.contains('rd-open')) closeReader();
   });
+}
+
+/* ==================================================================== EXPLORE
+   A typed relationship graph over everything: papers, categories,
+   organisations, company needs, gaps and frameworks.
+
+   Deliberately focus-and-pivot rather than one picture of ~300 entities. A
+   force layout of the whole thing is a hairball that answers nothing; the
+   useful question is always "what touches THIS", so one entity sits at the
+   centre with its neighbours grouped by what the relationship actually is, and
+   clicking a neighbour walks there. A trail records the path.                */
+
+const XTYPE = {
+  paper:     { label: 'paper',        colour: 'var(--s1)' },
+  category:  { label: 'category',     colour: 'var(--c-defence)' },
+  org:       { label: 'organisation', colour: 'var(--c-analysis)' },
+  need:      { label: 'company need', colour: 'var(--c-framework)' },
+  gap:       { label: 'gap',          colour: 'var(--critical)' },
+  framework: { label: 'framework',    colour: 'var(--c-benchmark)' },
+};
+let XFOCUS = null, XTRAIL = [], XINDEX = null;
+
+function xIndex() {
+  if (XINDEX) return XINDEX;
+  const E = new Map();
+  const add = (id, type, label, extra = {}) => E.set(id, { id, type, label, ...extra });
+
+  D.papers.papers.forEach((p) => add(`p:${p.id}`, 'paper', p.short || shortTitle(p.title, 60), { ref: p }));
+  Object.values(LEAF).forEach((n) => add(`c:${n.id}`, 'category', n.label, { ref: n }));
+  D.companies.needs.forEach((n) => add(`n:${n.id}`, 'need', n.label, { ref: n }));
+  D.companies.companies.forEach((c) => add(`o:${c.id}`, 'org', c.label, { ref: c }));
+  (D.gaps.gaps || []).forEach((g) => add(`g:${g.id}`, 'gap', g.title, { ref: g }));
+  (D.frameworks.frameworks || []).forEach((f) => add(`f:${f.id}`, 'framework', f.short || f.name, { ref: f }));
+  // organisations that publish but are not tracked as buyers
+  D.papers.papers.forEach((p) => (p.organisations || []).forEach((o) => {
+    const id = `o:lab:${o.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+    if (!E.has(id)) add(id, 'org', o, { publisher: true });
+  }));
+  XINDEX = E;
+  return E;
+}
+
+/* Neighbours of one entity, grouped by what the relationship is. */
+function xNeighbours(id) {
+  const E = xIndex();
+  const self = E.get(id);
+  if (!self) return [];
+  const g = [];
+  const push = (rel, ids) => {
+    const seen = new Set();
+    const list = ids.filter((x) => E.has(x) && x !== id && !seen.has(x) && seen.add(x));
+    if (list.length) g.push({ rel, ids: list });
+  };
+  const [kind, ...rest] = id.split(':');
+  const key = rest.join(':');
+
+  if (kind === 'p') {
+    const p = self.ref;
+    push('argues with', (p.overlaps_with || []).map((o) => `p:${o.id}`));
+    push('filed under', p.categories.map((c) => `c:${c}`));
+    push('addresses', (p.addresses_needs || []).map((n) => `n:${n}`));
+    push('published by', (p.organisations || []).map((o) => `o:lab:${o.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`));
+    push('cited by gap', (D.gaps.gaps || []).filter((x) =>
+      (x.papers || []).includes(p.id) ||
+      (x.chain || []).some((s) => (s.evidence || []).some((e) => e.id === p.id))).map((x) => `g:${x.id}`));
+  } else if (kind === 'c') {
+    const cid = key;
+    push('papers here', ((D.derived.tree.paper_ids || {})[cid] || []).map((x) => `p:${x}`));
+    push('serves need', D.companies.needs.filter((n) => n.categories.includes(cid)).map((n) => `n:${n.id}`));
+    push('named by gap', (D.gaps.gaps || []).filter((x) => (x.categories || []).includes(cid)).map((x) => `g:${x.id}`));
+    push('required by', (D.frameworks.frameworks || []).filter((f) =>
+      f.elements.some((e) => e.cats.includes(cid))).map((f) => `f:${f.id}`));
+  } else if (kind === 'n') {
+    const nid = key, need = self.ref;
+    push('wanted by', D.companies.companies
+      .filter((c) => (c.cells[nid]?.score || 0) >= 4).map((c) => `o:${c.id}`));
+    push('covered by', need.categories.map((c) => `c:${c}`));
+    push('addressed by', D.papers.papers.filter((p) => (p.addresses_needs || []).includes(nid)).map((p) => `p:${p.id}`));
+    push('gap names it', (D.gaps.gaps || []).filter((x) => (x.needs || []).includes(nid)).map((x) => `g:${x.id}`));
+  } else if (kind === 'o') {
+    if (self.publisher) {
+      const name = self.label;
+      push('published', D.papers.papers.filter((p) => (p.organisations || []).includes(name)).map((p) => `p:${p.id}`));
+    } else {
+      const c = self.ref;
+      push('wants most', D.companies.needs
+        .filter((n) => (c.cells[n.id]?.score || 0) >= 4)
+        .sort((x, y) => c.cells[y.id].score - c.cells[x.id].score).map((n) => `n:${n.id}`));
+    }
+  } else if (kind === 'g') {
+    const gp = self.ref;
+    push('sits across', (gp.categories || []).map((c) => `c:${c}`));
+    push('evidenced by', [...new Set([...(gp.papers || []),
+      ...(gp.chain || []).flatMap((s) => (s.evidence || []).filter((e) => e.type === 'paper').map((e) => e.id))])]
+      .map((x) => `p:${x}`));
+    push('demand from', (gp.needs || []).map((n) => `n:${n}`));
+  } else if (kind === 'f') {
+    const fw = self.ref;
+    push('requires', [...new Set(fw.elements.flatMap((e) => e.cats))].map((c) => `c:${c}`));
+  }
+  return g;
+}
+
+function xFocus(id, pushTrail = true) {
+  if (!xIndex().has(id)) return;
+  if (pushTrail && XFOCUS && XFOCUS !== id) {
+    XTRAIL = [...XTRAIL.filter((x) => x !== XFOCUS), XFOCUS].slice(-6);
+  }
+  XFOCUS = id;
+  drawExplore();
+}
+
+function renderExplore() {
+  const E = xIndex();
+  $('[data-count="explore"]').textContent = E.size;
+  $('#x-legend').innerHTML = Object.entries(XTYPE).map(([k, v]) =>
+    `<span class="li"><span class="swatch" data-sty="background:${v.colour}"></span>${esc(v.label)}</span>`).join('');
+
+  const box = $('#x-q');
+  const draw = () => {
+    const q = box.value.trim().toLowerCase();
+    if (!q) { $('#x-results').innerHTML = ''; return; }
+    const hits = [...E.values()].filter((e) => e.label.toLowerCase().includes(q)).slice(0, 10);
+    $('#x-results').innerHTML = hits.map((e) =>
+      `<button class="xq" data-id="${esc(e.id)}">
+         <span class="xq-t" data-sty="background:${XTYPE[e.type].colour}"></span>
+         <span class="xq-l">${esc(e.label)}</span>
+         <span class="xq-k">${esc(XTYPE[e.type].label)}</span></button>`).join('')
+      || '<div class="cmd-empty">Nothing matches.</div>';
+    $$('#x-results .xq').forEach((b) => b.addEventListener('click', () => {
+      box.value = ''; $('#x-results').innerHTML = ''; xFocus(b.dataset.id);
+    }));
+  };
+  box.addEventListener('input', draw);
+
+  if (!XFOCUS) {
+    // open on the most connected paper - the one the graph is most about
+    const best = D.papers.papers
+      .map((p) => [p.id, (p.overlaps_with || []).length])
+      .sort((a, b) => b[1] - a[1])[0];
+    XFOCUS = best ? `p:${best[0]}` : [...E.keys()][0];
+  }
+  drawExplore();
+}
+
+/* The renderer. Focus at the centre; each relationship gets an angular sector;
+   neighbours sit on an arc inside it. Groups are sized by how many neighbours
+   they hold, so a paper with twenty overlaps and one publisher does not give
+   each the same half of the circle. */
+function drawExplore() {
+  const svg = $('#xgraph');
+  const E = xIndex();
+  const self = E.get(XFOCUS);
+  if (!self) return;
+
+  const groups = xNeighbours(XFOCUS);
+  const total = groups.reduce((a2, g) => a2 + Math.min(g.ids.length, 9), 0) || 1;
+  const W = 1040, H = 620, CX = W / 2, CY = H / 2;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.removeAttribute('width'); svg.removeAttribute('height');
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+  svg.textContent = '';
+
+  const gLink = svgEl('g'), gNode = svgEl('g');
+  svg.append(gLink, gNode);
+
+  $('#x-count').textContent =
+    `${groups.reduce((a2, g) => a2 + g.ids.length, 0)} connections across ${groups.length} relationship${groups.length === 1 ? '' : 's'}`;
+
+  // trail
+  $('#x-trail').innerHTML = XTRAIL.length
+    ? XTRAIL.map((t) => `<button class="tr" data-id="${esc(t)}">${esc(E.get(t)?.label || t)}</button>`).join('<i>›</i>')
+      + `<i>›</i><span class="tr now">${esc(self.label)}</span>`
+    : `<span class="tr now">${esc(self.label)}</span>`;
+  $$('#x-trail .tr[data-id]').forEach((b) =>
+    b.addEventListener('click', () => xFocus(b.dataset.id, false)));
+
+  let angle = -Math.PI / 2;            // start at the top
+  const GAP = 0.18;                    // breathing room between sectors
+
+  groups.forEach((grp) => {
+    const shown = grp.ids.slice(0, 9);
+    const span = (Math.min(grp.ids.length, 9) / total) * (Math.PI * 2) - GAP;
+    const start = angle, mid = start + span / 2;
+
+    shown.forEach((nid, i) => {
+      const t = shown.length === 1 ? 0.5 : i / (shown.length - 1);
+      const a2 = start + span * t;
+      // alternate radius so long labels in a dense sector do not collide
+      const r = 168 + (i % 2) * 54 + (shown.length > 5 ? 10 : 0);
+      const x = CX + Math.cos(a2) * r, y = CY + Math.sin(a2) * r * 0.78;
+      const ent = E.get(nid);
+      const col = XTYPE[ent.type].colour;
+
+      gLink.append(svgEl('line', {
+        x1: CX, y1: CY, x2: x, y2: y, stroke: col,
+        'stroke-width': 1.2, 'stroke-opacity': 0.34,
+      }));
+
+      const g2 = svgEl('g', { class: 'node-c' });
+      g2.append(svgEl('circle', { cx: x, cy: y, r: 6, fill: col, stroke: 'var(--surface-1)', 'stroke-width': 2 }));
+      const right = x >= CX;
+      const label = svgEl('text', {
+        x: x + (right ? 11 : -11), y: y + 4, 'text-anchor': right ? 'start' : 'end',
+        'font-size': 11, fill: 'var(--ink)',
+        stroke: 'var(--surface-1)', 'stroke-width': 3, 'paint-order': 'stroke', 'stroke-linejoin': 'round',
+      });
+      label.textContent = ent.label.length > 30 ? ent.label.slice(0, 29) + '…' : ent.label;
+      g2.append(label);
+      g2.addEventListener('click', () => xFocus(nid));
+      bindCard(g2, () => xCard(ent, grp.rel));
+      gNode.append(g2);
+    });
+
+    // relationship label, outside the ring at the sector's midpoint
+    const lr = 268;
+    const lx = CX + Math.cos(mid) * lr, ly = CY + Math.sin(mid) * lr * 0.80;
+    const rel = svgEl('text', {
+      x: lx, y: ly, 'text-anchor': 'middle', 'font-size': 10,
+      fill: 'var(--ink-3)', 'letter-spacing': '.06em',
+      stroke: 'var(--surface-1)', 'stroke-width': 3, 'paint-order': 'stroke',
+    });
+    rel.textContent = grp.rel.toUpperCase() + (grp.ids.length > 9 ? ` +${grp.ids.length - 9}` : '');
+    gNode.append(rel);
+
+    angle = start + span + GAP;
+  });
+
+  // the focus, drawn last so it sits above every edge
+  const fc = svgEl('g');
+  const fcol = XTYPE[self.type].colour;
+  fc.append(svgEl('circle', { cx: CX, cy: CY, r: 46, fill: 'var(--surface-1)', stroke: fcol, 'stroke-width': 2 }));
+  fc.append(svgEl('circle', { cx: CX, cy: CY, r: 7, fill: fcol }));
+  wrapLines(self.label, 22, 3).forEach((ln, i, arr) => {
+    const t = svgEl('text', {
+      x: CX, y: CY + 26 + i * 14 - (arr.length - 1) * 0, 'text-anchor': 'middle',
+      'font-size': 12, 'font-weight': 600, fill: 'var(--ink)',
+      stroke: 'var(--surface-1)', 'stroke-width': 4, 'paint-order': 'stroke',
+    });
+    t.textContent = ln;
+    fc.append(t);
+  });
+  const kind = svgEl('text', {
+    x: CX, y: CY - 22, 'text-anchor': 'middle', 'font-size': 9.5,
+    fill: fcol, 'letter-spacing': '.08em',
+  });
+  kind.textContent = XTYPE[self.type].label.toUpperCase();
+  fc.append(kind);
+  gNode.append(fc);
+}
+
+function xCard(ent, rel) {
+  const r = ent.ref || {};
+  const bits = {
+    paper: () => `${esc(r.organisations?.slice(0, 2).join(', ') || r.source || '')} · ${esc(r.date || '')}
+      <p>${esc((r.what_its_about || '').slice(0, 180))}…</p>`,
+    category: () => `<p>${esc(r.means || r.blurb || '')}</p>`,
+    need: () => `<p>${esc(r.blurb || '')}</p>`,
+    org: () => `<p>${esc(r.type ? `${r.type} · ${r.region}` : 'publisher')}</p>`,
+    gap: () => `<p>${esc(r.severity || '')} severity · ${esc(r.status || '')}</p>
+      <p>${esc((r.closes_when || '').slice(0, 160))}</p>`,
+    framework: () => `<p>${esc(r.blurb || '')}</p>`,
+  }[ent.type] || (() => '');
+  return `<div class="hd"><h4>${esc(ent.label)}</h4>
+      <div class="path">${esc(XTYPE[ent.type].label)} · ${esc(rel)}</div></div>
+    <div class="bd">${bits()}<div class="hint">Click to centre the graph here.</div></div>`;
 }
 
 /* ================================================================= FRAMEWORKS

@@ -56,6 +56,10 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM15 9a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg>
         <span class="nav-l">Overlaps</span><span class="nav-n" data-count="overlaps"></span>
       </button>
+      <button class="nav" role="tab" data-view="explore" aria-selected="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM5 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM19 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM5 16a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM19 16a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM6.5 7.5l3.2 3.2M17.5 7.5l-3.2 3.2M6.5 16.5l3.2-3.2M17.5 16.5l-3.2-3.2"/></svg>
+        <span class="nav-l">Explore</span><span class="nav-n" data-count="explore"></span>
+      </button>
       <button class="nav" role="tab" data-view="tree" aria-selected="false">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4v16M5 8h6M5 16h6M11 5h8M11 8h8M11 13h8M11 16h8"/></svg>
         <span class="nav-l">Research tree</span><span class="nav-n" data-count="tree"></span>
@@ -143,6 +147,27 @@
         <label class="sub"><input type="checkbox" id="pair-declared"> stated only</label>
       </div>
       <ul class="pairs" id="ov-pairs"></ul>
+    </div>
+  </section>
+
+  <!-- ============================================================= EXPLORE -->
+  <section class="view" id="view-explore" role="tabpanel">
+    <div class="card">
+      <h2>How everything connects</h2>
+      <p class="note">Every paper, category, organisation, company need, gap and framework as one graph.
+        Pick anything and it moves to the centre with everything it touches arranged around it, grouped by
+        what the relationship actually is. Click a neighbour to walk there. This is deliberately not a
+        picture of all 300-odd entities at once — that is a hairball nobody can read. One thing at a time,
+        and a trail of where you have been.</p>
+      <div class="toolbar">
+        <input type="search" id="x-q" placeholder="focus on a paper, category, organisation, gap…" autocomplete="off">
+        <span class="spacer"></span>
+        <span class="sub" id="x-count"></span>
+      </div>
+      <div class="xq-results" id="x-results"></div>
+      <nav class="trail" id="x-trail"></nav>
+      <div class="legend" id="x-legend"></div>
+      <div class="scroll-x"><svg id="xgraph" role="img" aria-label="Relationship graph"></svg></div>
     </div>
   </section>
 

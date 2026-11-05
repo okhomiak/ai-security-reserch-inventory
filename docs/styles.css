@@ -1089,3 +1089,32 @@ tr.grouprow .g-n {
 }
 tr.grouprow .mix { vertical-align: middle; }
 .toolbar .spacer { flex: 1; }
+
+/* ═════════════════════════════════════════════════ explore graph ═══ */
+.xq-results { display: flex; flex-direction: column; gap: 2px; margin: 0 0 var(--sp-3); }
+.xq-results:empty { display: none; }
+.xq {
+  display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
+  border: 1px solid var(--ring); background: var(--page); color: var(--ink);
+  border-radius: var(--r-sm); padding: 7px 10px; font: inherit; font-size: 12.5px; cursor: pointer;
+}
+.xq:hover { border-color: var(--s1); background: var(--accent-wash); }
+.xq-t { width: 8px; height: 8px; border-radius: 999px; flex: 0 0 auto; }
+.xq-l { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.xq-k { font-size: 10px; color: var(--ink-3); text-transform: uppercase; letter-spacing: .05em; }
+
+.trail { display: flex; flex-wrap: wrap; align-items: center; gap: 2px; margin: 0 0 var(--sp-3); font-size: 11.5px; }
+.trail i { font-style: normal; color: var(--ink-3); margin: 0 3px; }
+.trail .tr {
+  border: 0; background: none; font: inherit; font-size: 11.5px; color: var(--s1);
+  cursor: pointer; padding: 2px 5px; border-radius: var(--r-sm);
+}
+.trail .tr:hover { background: var(--accent-wash); }
+.trail .tr.now {
+  color: var(--ink); font-weight: 600; background: var(--page);
+  border: 1px solid var(--ring); cursor: default;
+}
+#xgraph .node-c:hover circle { r: 8; }
+#xgraph text { pointer-events: none; }
+
+#xgraph { width: 100%; height: auto; max-height: min(66vh, 620px); }
