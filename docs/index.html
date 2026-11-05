@@ -406,6 +406,16 @@
     <p>Data lives in <code>docs/data/*.json</code> and is the only thing the weekly job writes.
       The page is static — no build step. <a href="https://github.com/okhomiak/ai-security-reserch-inventory">Source and pipeline on GitHub</a>.</p>
     <p id="foot-updated"></p>
+    <!-- The badge is vendored, not hot-linked. img-src is 'self' data:, so an
+         external image would be blocked outright - and loosening the CSP to
+         allow one would hand every visitor's IP to a third party for the sake
+         of a 1 KB graphic. Re-download it from the project page if the badge
+         status ever changes. -->
+    <p class="badges">
+      <a href="https://www.bestpractices.dev/projects/16360" rel="noopener noreferrer" target="_blank">
+        <img src="assets/ossf-badge.svg" width="184" height="20"
+             alt="OpenSSF Best Practices: passing"></a>
+    </p>
   </footer>
   </div>
 </main>
