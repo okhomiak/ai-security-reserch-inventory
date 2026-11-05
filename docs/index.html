@@ -288,8 +288,17 @@
         <select id="p-branch"><option value="">All branches</option></select>
         <select id="p-tier"><option value="">All provenance tiers</option></select>
         <select id="p-contrib"><option value="">All contribution types</option></select>
+        <select id="p-group" title="Group rows">
+          <option value="">No grouping</option>
+          <option value="branch">Group by branch</option>
+          <option value="tier">Group by provenance</option>
+          <option value="contribution_type">Group by contribution</option>
+          <option value="year">Group by year</option>
+        </select>
+        <span class="spacer"></span>
         <span class="sub" id="p-count"></span>
       </div>
+      <div class="chips" id="p-chips"></div>
       <div class="legend" id="contrib-legend"></div>
       <div class="scroll-y">
         <table class="list" id="p-table">

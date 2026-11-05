@@ -1031,3 +1031,61 @@ table.list td a { display: inline; }
 @media (max-width: 900px) {
   .nav[aria-selected="true"] { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--s1) 34%, transparent); }
 }
+
+/* ═════════════════════════════ security-console patterns ═══ */
+/* Borrowed from the pattern language these tools converge on (Wiz, Orca,
+   Snyk): applied filters stated as removable chips, rows led by a severity
+   edge, and a group-by that turns a long flat list into something you can
+   reason about. Not copied from any one product - these are the conventions
+   that survive because they answer "why am I seeing these rows". */
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 var(--sp-3); }
+.chips:empty { display: none; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px; height: 24px;
+  padding: 0 8px; border-radius: 999px; cursor: pointer; font: inherit; font-size: 11.5px;
+  border: 1px solid color-mix(in srgb, var(--s1) 32%, transparent);
+  background: color-mix(in srgb, var(--s1) 12%, transparent); color: var(--ink);
+  transition: background var(--dur) var(--ease);
+}
+.chip:hover { background: color-mix(in srgb, var(--s1) 20%, transparent); }
+.chip-k {
+  font-size: 9.5px; text-transform: uppercase; letter-spacing: .05em;
+  color: var(--ink-3); font-weight: 600;
+}
+.chip i { font-style: normal; font-size: 10px; color: var(--ink-3); margin-left: 1px; }
+.chip:hover i { color: var(--ink); }
+.chip-all {
+  background: none; border-color: var(--ring); color: var(--ink-2);
+}
+.chip-all:hover { background: var(--page); color: var(--ink); }
+
+/* A row's provenance is the first thing to read, so it is an edge, not a cell
+   you have to find. */
+#p-table tbody tr.row td:first-child { position: relative; }
+#p-table tbody tr.row td:first-child::before {
+  content: ""; position: absolute; left: 0; top: 6px; bottom: 6px; width: 3px; border-radius: 2px;
+}
+tr.tier-peer-reviewed td:first-child::before     { background: var(--s1); }
+tr.tier-frontier-lab td:first-child::before      { background: var(--s3); }
+tr.tier-industry-research td:first-child::before { background: var(--s2); }
+tr.tier-top-institution td:first-child::before   { background: var(--axis); }
+#p-table tbody td:first-child { padding-left: var(--sp-4); }
+
+/* Group headers: sticky, with the composition of the group beside the count. */
+tr.grouprow td {
+  position: sticky; top: 30px; z-index: 1;
+  background: var(--page); border-bottom: 1px solid var(--axis);
+  padding: 7px var(--sp-3); font-size: 11.5px;
+}
+tr.grouprow .g-name {
+  font-weight: 600; text-transform: uppercase; letter-spacing: .05em;
+  font-size: 10.5px; color: var(--ink-2); margin-right: 8px;
+}
+tr.grouprow .g-n {
+  display: inline-block; min-width: 20px; text-align: center; padding: 0 6px;
+  border-radius: 999px; background: var(--surface-1); border: 1px solid var(--ring);
+  font-size: 10.5px; font-variant-numeric: tabular-nums; margin-right: 10px;
+}
+tr.grouprow .mix { vertical-align: middle; }
+.toolbar .spacer { flex: 1; }

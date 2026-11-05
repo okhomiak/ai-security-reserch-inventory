@@ -1414,10 +1414,42 @@ function renderPapers() {
   });
   const _draw = drawPapers;
   drawPapers = (...a2) => { _draw(...a2); markSort(); };
-  ['#p-q', '#p-branch', '#p-tier', '#p-contrib'].forEach((s) =>
+  ['#p-q', '#p-branch', '#p-tier', '#p-contrib', '#p-group'].forEach((s) =>
     $(s).addEventListener('input', drawPapers));
   drawPapers();
 }
+
+/* Applied filters are shown as removable chips rather than left implicit in
+   four dropdowns. On a table this size, "why am I seeing 12 rows" has to be
+   answerable at a glance - the pattern every security console settles on. */
+function filterChips() {
+  const defs = [
+    ['#p-q', 'search', (v) => `“${v}”`],
+    ['#p-branch', 'branch', (v) => TAX[v]?.label || v],
+    ['#p-tier', 'provenance', (v) => v.replace(/-/g, ' ')],
+    ['#p-contrib', 'type', (v) => v],
+    ['#p-kind', 'record', (v) => v],
+  ];
+  const active = defs.filter(([sel]) => $(sel)?.value);
+  $('#p-chips').innerHTML = active.length
+    ? active.map(([sel, label, fmt]) =>
+        `<button class="chip" data-clear="${esc(sel)}">
+           <span class="chip-k">${esc(label)}</span>${esc(fmt($(sel).value))}<i>✕</i></button>`).join('')
+      + (active.length > 1 ? '<button class="chip chip-all" data-clear="*">Clear all</button>' : '')
+    : '';
+  $$('#p-chips .chip').forEach((b) => b.addEventListener('click', () => {
+    if (b.dataset.clear === '*') defs.forEach(([sel]) => { if ($(sel)) $(sel).value = ''; });
+    else $(b.dataset.clear).value = '';
+    drawPapers();
+  }));
+}
+
+const GROUPERS = {
+  branch: (p) => TAX[branchOf(p.primary_category)]?.label || '—',
+  tier: (p) => p.trust.tier.replace(/-/g, ' '),
+  contribution_type: (p) => p.contribution_type,
+  year: (p) => p.date.slice(0, 4),
+};
 
 drawPapers = function drawPapersImpl() {
   const q = $('#p-q').value.trim().toLowerCase();
@@ -1441,10 +1473,14 @@ drawPapers = function drawPapersImpl() {
   rows.sort((a, b) => (key(a) > key(b) ? 1 : key(a) < key(b) ? -1 : 0) * P_SORT.dir);
 
   $('#p-count').textContent = `${rows.length} of ${D.papers.papers.length}`;
+  filterChips();
+
   const tb = $('#p-table tbody');
   tb.innerHTML = '';
-  rows.forEach((p) => {
-    const tr = el('tr', { class: 'row' });
+
+  const groupKey = $('#p-group')?.value;
+  const emit = (p) => {
+    const tr = el('tr', { class: `row tier-${p.trust.tier}` });
     tr.innerHTML = `
       <td class="num">${esc(p.date)}</td>
       <td><a href="#read" class="plink" data-read="${esc(p.id)}">${esc(p.title)}</a> ${kindBadge(p)} ${newBadge(p)}</td>
@@ -1456,7 +1492,29 @@ drawPapers = function drawPapersImpl() {
     // duplicate of every row's detail doubled the DOM for nothing.
     tr.addEventListener('click', (e) => { if (e.target.tagName !== 'A') openReader(p.id); });
     tb.append(tr);
-  });
+  };
+
+  if (groupKey && GROUPERS[groupKey]) {
+    const buckets = new Map();
+    rows.forEach((p) => {
+      const k = GROUPERS[groupKey](p);
+      if (!buckets.has(k)) buckets.set(k, []);
+      buckets.get(k).push(p);
+    });
+    [...buckets.entries()]
+      .sort((a, b) => b[1].length - a[1].length || String(a[0]).localeCompare(String(b[0])))
+      .forEach(([name, group]) => {
+        const hr = el('tr', { class: 'grouprow' });
+        hr.innerHTML = `<td colspan="6">
+          <span class="g-name">${esc(name)}</span>
+          <span class="g-n">${group.length}</span>
+          ${mixBar(group, 120)}</td>`;
+        tb.append(hr);
+        group.forEach(emit);
+      });
+  } else {
+    rows.forEach(emit);
+  }
   if (!rows.length) tb.innerHTML = '<tr><td colspan="6" class="empty">Nothing matches those filters.</td></tr>';
 }
 
