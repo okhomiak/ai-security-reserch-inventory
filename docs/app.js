@@ -1,7 +1,7 @@
 /* AI Security Research Inventory - static dashboard over docs/data/*.json.
    No framework, no build. Everything here reads committed JSON and draws it. */
 
-const FILES = ['papers', 'taxonomy', 'companies', 'gaps', 'derived', 'runs', 'review_queue', 'news', 'frameworks'];
+const FILES = ['papers', 'taxonomy', 'companies', 'gaps', 'derived', 'runs', 'review_queue', 'news', 'frameworks', 'tools'];
 
 /* Contribution types on the eight categorical slots, in the order that clears
    every adjacent-pair CVD gate in both modes. Render legends and stacks in THIS
@@ -225,6 +225,7 @@ async function boot() {
   D.review_queue = D.review_queue || { items: [] };
   D.news = D.news || { items: [] };
   D.frameworks = D.frameworks || { frameworks: [] };
+  D.tools = D.tools || { tools: [] };
 
   D.taxonomy.nodes.forEach((n) => { TAX[n.id] = n; (n.parent ? LEAF : BRANCH)[n.id] = n; });
   D.papers.papers.forEach((p) => { PAPER[p.id] = p; });
@@ -252,6 +253,7 @@ async function boot() {
   renderGaps();
   renderPapers();
   renderFrameworks();
+  renderTools();
   renderExplore();
   renderNews();
   renderPipeline();
@@ -298,7 +300,7 @@ function initTheme() {
   });
 }
 
-const VIEWS = ['news', 'overlaps', 'explore', 'tree', 'demand', 'frameworks', 'gaps', 'papers', 'pipeline'];
+const VIEWS = ['news', 'overlaps', 'explore', 'tree', 'demand', 'frameworks', 'gaps', 'tools', 'papers', 'pipeline'];
 
 function initTabs() {
   $$('#tabs .nav').forEach((t) => t.addEventListener('click', () => show(t.dataset.view)));
@@ -322,6 +324,7 @@ function initTabs() {
     if (typing) return;
 
     if (e.key >= '1' && e.key <= '9') { show(VIEWS[+e.key - 1]); e.preventDefault(); return; }
+    if (e.key === '0') { show(VIEWS[9]); e.preventDefault(); return; }
     if (e.key === '/') {
       const box = $('section.view.active input[type="search"]');
       if (box) { box.focus(); box.select(); e.preventDefault(); }
@@ -379,6 +382,7 @@ function renderHead() {
     demand: D.companies.companies.length,
     frameworks: (D.frameworks.frameworks || []).length,
     gaps: (D.gaps.gaps || []).length,
+    tools: (D.tools.tools || []).length,
     papers: D.papers.papers.length,
     pipeline: (D.runs?.runs || []).length,
   };
@@ -2211,6 +2215,51 @@ function drawFrameworks() {
 
   $$('#fw-list .catlink').forEach((a2) => a2.addEventListener('click', (ev) => {
     ev.preventDefault(); show('tree'); treePanel(a2.dataset.cat);
+  }));
+}
+
+/* ====================================================================== TOOLS
+   Working code rather than papers. The useful thing is not the list - that
+   exists in a dozen awesome-lists - but saying when you would reach for each,
+   because most of these overlap and choosing between them is the actual work. */
+function renderTools() {
+  const tools = D.tools.tools || [];
+  $('#tools-note').textContent = D.tools.note || '';
+  [...new Set(tools.map((t) => t.role))].sort().forEach((r) =>
+    $('#t-role').append(el('option', { value: r }, esc(r))));
+  [...new Set(tools.flatMap((t) => t.cats.map(branchOf)))].sort().forEach((b) =>
+    $('#t-cat').append(el('option', { value: b }, esc(TAX[b]?.label || b))));
+  ['#t-q', '#t-role', '#t-cat'].forEach((sel) => $(sel).addEventListener('input', drawTools));
+  drawTools();
+}
+
+function drawTools() {
+  const q = $('#t-q').value.trim().toLowerCase();
+  const role = $('#t-role').value, cat = $('#t-cat').value;
+  const rows = (D.tools.tools || []).filter((t) => {
+    if (role && t.role !== role) return false;
+    if (cat && !t.cats.some((c) => branchOf(c) === cat)) return false;
+    if (!q) return true;
+    return `${t.name} ${t.org} ${t.what} ${t.when} ${t.role}`.toLowerCase().includes(q);
+  });
+  $('#t-count').textContent = `${rows.length} of ${(D.tools.tools || []).length}`;
+
+  $('#tool-list').innerHTML = rows.map((t) => `
+    <article class="tool">
+      <header>
+        <a href="${esc(t.url)}" target="_blank" rel="noopener noreferrer" class="tool-name">${esc(t.name)}</a>
+        <span class="mchip m-org"><span class="d"></span>${esc(t.org)}</span>
+        <span class="mchip m-venue">${esc(t.role)}</span>
+      </header>
+      <p class="tool-what">${esc(t.what)}</p>
+      <p class="tool-when"><b>Reach for it when</b> ${esc(t.when)}</p>
+      ${t.note ? `<p class="tool-note">${esc(t.note)}</p>` : ''}
+      <div class="ev">${t.cats.map((c) =>
+        `<a href="#tree" class="catlink" data-cat="${esc(c)}">${esc(catLabel(c))}</a>`).join('')}</div>
+    </article>`).join('') || '<p class="empty">Nothing matches those filters.</p>';
+
+  $$('#tool-list .catlink').forEach((a2) => a2.addEventListener('click', (e) => {
+    e.preventDefault(); show('tree'); treePanel(a2.dataset.cat);
   }));
 }
 

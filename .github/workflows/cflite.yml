@@ -1,0 +1,41 @@
+name: ClusterFuzzLite
+
+# Scorecard's Fuzzing check looks for a real fuzzing integration, and my own
+# harness in agent/fuzz.py - useful as a regression net - is not one. This runs
+# the atheris targets on pull requests and on a schedule, with a corpus that
+# carries over between runs.
+
+on:
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '53 3 * * 4'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  fuzz:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    permissions:
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        sanitizer: [address]
+    steps:
+      - name: Build fuzzers
+        uses: google/clusterfuzzlite/actions/build_fuzzers@884713a6c30a92e5e8544c39945cd7cb630abcd1 # v1
+        with:
+          sanitizer: ${{ matrix.sanitizer }}
+          language: python
+      - name: Run fuzzers
+        uses: google/clusterfuzzlite/actions/run_fuzzers@884713a6c30a92e5e8544c39945cd7cb630abcd1 # v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          fuzz-seconds: 300
+          mode: ${{ github.event_name == 'pull_request' && 'code-change' || 'batch' }}
+          sanitizer: ${{ matrix.sanitizer }}
+          output-sarif: true

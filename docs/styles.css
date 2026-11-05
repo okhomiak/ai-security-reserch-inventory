@@ -1381,3 +1381,13 @@ table.list th { font-size: 11px; font-weight: 600; letter-spacing: 0; color: var
 .side-meta .mchip { margin-right: 3px; }
 .side-when { margin-top: 4px; color: var(--ink-3); }
 .fw-meta.meta { gap: 5px; }
+
+/* ─────────────────────────────────────────────────────────────── tools */
+.tool { padding: var(--sp-4) 0; border-bottom: 1px solid var(--grid); }
+.tool:last-child { border-bottom: 0; }
+.tool header { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; margin-bottom: 7px; }
+.tool-name { font-size: 14px; font-weight: 600; }
+.tool-what { margin: 0 0 6px; font-size: 13px; max-width: 80ch; }
+.tool-when { margin: 0 0 7px; font-size: 12.5px; color: var(--ink-2); max-width: 80ch; }
+.tool-when b { color: var(--ink); font-weight: 600; }
+.tool-note { margin: 0 0 7px; font-size: 11.5px; color: var(--ink-3); }

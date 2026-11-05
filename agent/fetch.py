@@ -61,12 +61,14 @@ def _get(url: str, retries: int = 3, timeout: int = 45) -> bytes:
     for attempt in range(retries):
         req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
         try:
-            # nosemgrep: python.lang.security.audit.dynamic-urllib-use-detected
-            # Fetching URLs that vary is this module's entire purpose. The real
-            # exposure - urllib honouring file:// and ftp:// - is closed by the
-            # scheme check above, and every URL originates in the sources.json
-            # allowlist rather than in fetched content.
-            with urllib.request.urlopen(req, timeout=timeout) as resp:
+            # Fetching URLs that vary is this module's entire purpose, so the
+            # rule fires by design. The exposure it warns about - urllib
+            # honouring file:// and ftp:// - is closed by the scheme check at
+            # the top of this function, and every URL originates in the
+            # sources.json allowlist rather than in fetched content.
+            # The suppression is end-of-line because that is the placement
+            # semgrep honours; above the statement it is ignored.
+            with urllib.request.urlopen(req, timeout=timeout) as resp:  # nosemgrep
                 return resp.read()
         except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as exc:
             last = exc

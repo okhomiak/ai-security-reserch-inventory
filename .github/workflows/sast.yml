@@ -50,7 +50,8 @@ jobs:
         with:
           python-version: '3.12'
 
-      - run: pip install semgrep==1.183.0
+      - name: Install semgrep (hash-verified)
+        run: pip install --require-hashes -r .github/semgrep-requirements.txt
 
       - name: Scan
         run: |

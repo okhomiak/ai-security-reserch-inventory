@@ -76,6 +76,10 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v9M12 17v2M5 20h14a1 1 0 0 0 .9-1.5l-7-12a1 1 0 0 0-1.8 0l-7 12A1 1 0 0 0 5 20z"/></svg>
         <span class="nav-l">Gaps</span><span class="nav-n" data-count="gaps"></span>
       </button>
+      <button class="nav" role="tab" data-view="tools" aria-selected="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 1-5 5L5 16v3h3l4.7-4.7a4 4 0 0 1 5-5l1.6-1.6-2.4-2.4z"/></svg>
+        <span class="nav-l">Tools</span><span class="nav-n" data-count="tools"></span>
+      </button>
       <button class="nav" role="tab" data-view="papers" aria-selected="false">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6zM15 3v4h4M9 12h7M9 16h7"/></svg>
         <span class="nav-l">Papers</span><span class="nav-n" data-count="papers"></span>
@@ -316,6 +320,22 @@
       </div>
       <div class="legend" id="news-legend"></div>
       <div class="scroll-y" id="news-list"></div>
+    </div>
+  </section>
+
+  <!-- =============================================================== TOOLS -->
+  <section class="view" id="view-tools" role="tabpanel">
+    <div class="card">
+      <h2>Tools you can actually run</h2>
+      <p class="note" id="tools-note"></p>
+      <div class="toolbar">
+        <input type="search" id="t-q" placeholder="search tools, what they do, when to use them…">
+        <select id="t-role"><option value="">Every role</option></select>
+        <select id="t-cat"><option value="">Every category</option></select>
+        <span class="spacer"></span>
+        <span class="sub" id="t-count"></span>
+      </div>
+      <div id="tool-list"></div>
     </div>
   </section>
 

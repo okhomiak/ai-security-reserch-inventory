@@ -1,0 +1,142 @@
+{
+  "schema": 1,
+  "updated": "2026-11-05",
+  "note": "Working code, not papers. Every URL was fetched and returned 200. Each entry says what the tool does and - more usefully - when you would actually reach for it, because most of these overlap and the choice between them is the hard part.",
+  "tools": [
+    { "id": "garak", "name": "NVIDIA/garak", "url": "https://github.com/NVIDIA/garak",
+      "org": "NVIDIA", "role": "scanner", "cats": ["eval.redteam", "attack.jailbreak", "attack.injection"],
+      "what": "An LLM vulnerability scanner in the nmap tradition: point it at a model and it runs a few dozen probe families — jailbreaks, prompt injection, toxicity, data leakage, package hallucination — and reports what landed.",
+      "when": "First thing to run against a model you have not tested. Broad rather than deep, so treat the output as a map of where to look, not a verdict.",
+      "note": "Formerly leondz/garak; that URL still resolves and redirects." },
+
+    { "id": "pyrit", "name": "Azure/PyRIT", "url": "https://github.com/Azure/PyRIT",
+      "org": "Microsoft", "role": "red team framework", "cats": ["eval.redteam", "attack.jailbreak"],
+      "what": "Microsoft's AI red-teaming framework. Orchestrators drive multi-turn attacks, converters mutate prompts, scorers judge the responses, and the whole thing is scriptable.",
+      "when": "When you need repeatable, multi-turn attack campaigns rather than one-shot probes. Steeper than garak and more powerful once you are past the first pass." },
+
+    { "id": "inspect", "name": "UKGovernmentBEIS/inspect_ai", "url": "https://github.com/UKGovernmentBEIS/inspect_ai",
+      "org": "UK AI Security Institute", "role": "eval framework", "cats": ["eval.benchmark", "eval.dangercap", "eval.audit"],
+      "what": "The UK institute's evaluation framework: solvers, scorers, tool sandboxing and an agentic harness, with a viewer for inspecting individual samples.",
+      "when": "Writing your own evaluations that someone else needs to reproduce. It has become the common substrate for a large share of published safety evals." },
+
+    { "id": "harmbench", "name": "centerforaisafety/HarmBench", "url": "https://github.com/centerforaisafety/HarmBench",
+      "org": "Center for AI Safety", "role": "benchmark", "cats": ["eval.benchmark", "eval.redteam", "defense.robust"],
+      "what": "A standardised harness for comparing automated red-teaming attacks and defences on equal terms, plus an adversarial-training baseline.",
+      "when": "Claiming one attack or defence beats another. Without a shared harness those numbers are not comparable." },
+
+    { "id": "jailbreakbench", "name": "JailbreakBench/jailbreakbench", "url": "https://github.com/JailbreakBench/jailbreakbench",
+      "org": "academic consortium", "role": "benchmark", "cats": ["eval.benchmark", "attack.jailbreak"],
+      "what": "An open leaderboard with versioned attack artefacts and a fixed evaluation pipeline.",
+      "when": "You want reproducibility and a public baseline. Be aware a public leaderboard invites tuning against it." },
+
+    { "id": "agentdojo", "name": "ethz-spylab/agentdojo", "url": "https://github.com/ethz-spylab/agentdojo",
+      "org": "ETH Zurich", "role": "agent benchmark", "cats": ["agent.hijack", "attack.injection", "eval.benchmark"],
+      "what": "A dynamic environment for agent prompt injection: realistic tasks with real tools, scoring utility and attack success together.",
+      "when": "Evaluating an injection defence for an agent. It is the one benchmark that measures what the defence costs you in usefulness." },
+
+    { "id": "llm-attacks", "name": "llm-attacks/llm-attacks", "url": "https://github.com/llm-attacks/llm-attacks",
+      "org": "CMU / CAIS", "role": "attack", "cats": ["attack.jailbreak", "attack.adversarial"],
+      "what": "Reference implementation of GCG — gradient-optimised adversarial suffixes that transfer from open weights to closed chat APIs.",
+      "when": "Baselining robustness. Almost every jailbreak-defence paper reports GCG numbers, so you need it to compare." },
+
+    { "id": "purplellama", "name": "meta-llama/PurpleLlama", "url": "https://github.com/meta-llama/PurpleLlama",
+      "org": "Meta", "role": "safeguards + benchmark", "cats": ["defense.guardrails", "eval.benchmark", "cyber.vulndiscovery"],
+      "what": "Meta's umbrella for Llama Guard (an open input/output safety classifier) and CyberSecEval (insecure-code generation and attacker-helpfulness benchmarks).",
+      "when": "You need a deployable open guardrail, or you are release-gating a coding model on security behaviour." },
+
+    { "id": "nemo-guardrails", "name": "NVIDIA/NeMo-Guardrails", "url": "https://github.com/NVIDIA/NeMo-Guardrails",
+      "org": "NVIDIA", "role": "guardrails", "cats": ["defense.guardrails", "defense.constrained"],
+      "what": "Programmable conversational rails defined in a modelling language, covering topic, safety and execution constraints.",
+      "when": "You want dialogue flow constrained declaratively rather than by prompt text. Heavier than a classifier; more expressive." },
+
+    { "id": "llm-guard", "name": "protectai/llm-guard", "url": "https://github.com/protectai/llm-guard",
+      "org": "Protect AI (Palo Alto Networks)", "role": "guardrails", "cats": ["defense.guardrails", "attack.extraction", "attack.injection"],
+      "what": "A toolkit of input and output scanners — prompt injection, PII, secrets, toxicity, relevance — you compose into a pipeline.",
+      "when": "Putting a filter in front of a production LLM endpoint quickly, without training anything." },
+
+    { "id": "rebuff", "name": "protectai/rebuff", "url": "https://github.com/protectai/rebuff",
+      "org": "Protect AI", "role": "injection defence", "cats": ["attack.injection", "defense.provenance"],
+      "what": "Layered prompt-injection detection: heuristics, an LLM judge, a vector store of known attacks, and canary tokens that reveal leakage.",
+      "when": "You want defence in depth on injection specifically, and canaries to tell you when your prompt has leaked." },
+
+    { "id": "modelscan", "name": "protectai/modelscan", "url": "https://github.com/protectai/modelscan",
+      "org": "Protect AI", "role": "supply chain", "cats": ["supply.deps", "supply.provenance"],
+      "what": "Scans serialised model files for code that executes on load — the pickle problem, across formats.",
+      "when": "Before loading any model you did not train. This is the single cheapest control in the list." },
+
+    { "id": "fickling", "name": "trailofbits/fickling", "url": "https://github.com/trailofbits/fickling",
+      "org": "Trail of Bits", "role": "supply chain", "cats": ["supply.deps", "supply.backdoor"],
+      "what": "A decompiler and static analyser for Python pickle files; shows you what a pickle will actually do before you unpickle it.",
+      "when": "Investigating a suspicious artifact, or when you need to explain to someone why pickle is not a data format." },
+
+    { "id": "safetensors", "name": "huggingface/safetensors", "url": "https://github.com/huggingface/safetensors",
+      "org": "Hugging Face", "role": "supply chain", "cats": ["supply.deps", "supply.provenance"],
+      "what": "A tensor serialisation format with no code execution on load, and zero-copy reads.",
+      "when": "The structural fix rather than the scanner: publish and consume this instead of pickle and the class of attack disappears." },
+
+    { "id": "promptfoo", "name": "promptfoo/promptfoo", "url": "https://github.com/promptfoo/promptfoo",
+      "org": "promptfoo", "role": "eval + red team", "cats": ["eval.benchmark", "eval.redteam", "defense.guardrails"],
+      "what": "Developer-facing evaluation and red-teaming that runs in CI, with a large library of security plugins.",
+      "when": "You want security evals gating a pull request rather than run by hand before a release." },
+
+    { "id": "agentic-security", "name": "msoedov/agentic_security", "url": "https://github.com/msoedov/agentic_security",
+      "org": "community", "role": "scanner", "cats": ["agent.hijack", "attack.jailbreak", "eval.redteam"],
+      "what": "An open fuzzer and scanner aimed at agent and LLM endpoints, with multi-modal and multi-step attack support.",
+      "when": "Scanning an agent endpoint you own. Less mature than garak or PyRIT; useful as a second opinion." },
+
+    { "id": "counterfit", "name": "Azure/counterfit", "url": "https://github.com/Azure/counterfit",
+      "org": "Microsoft", "role": "attack harness", "cats": ["attack.adversarial", "eval.redteam"],
+      "what": "A CLI that wraps adversarial-ML attack libraries behind one interface for assessing deployed models.",
+      "when": "Classical adversarial-example work against vision or tabular models. Predates the LLM wave and shows it." },
+
+    { "id": "art", "name": "Trusted-AI/adversarial-robustness-toolbox", "url": "https://github.com/Trusted-AI/adversarial-robustness-toolbox",
+      "org": "IBM / LF AI", "role": "attack + defence library", "cats": ["attack.adversarial", "defense.robust", "supply.poisoning", "attack.privacy"],
+      "what": "The broadest adversarial-ML library: evasion, poisoning, extraction and inference attacks plus defences, across frameworks.",
+      "when": "Anything beyond text — vision, audio, tabular. Still the reference implementation for most classical attacks." },
+
+    { "id": "textattack", "name": "QData/TextAttack", "url": "https://github.com/QData/TextAttack",
+      "org": "University of Virginia", "role": "NLP attacks", "cats": ["attack.adversarial", "defense.robust"],
+      "what": "A framework for adversarial attacks, data augmentation and adversarial training on NLP models.",
+      "when": "Robustness work on classifiers rather than generative models." },
+
+    { "id": "cleverhans", "name": "cleverhans-lab/cleverhans", "url": "https://github.com/cleverhans-lab/cleverhans",
+      "org": "CleverHans Lab", "role": "attack library", "cats": ["attack.adversarial", "defense.robust"],
+      "what": "The original adversarial-example library; benchmarks model vulnerability to evasion attacks.",
+      "when": "Mostly historical now, but it is the reference many older results were produced against." },
+
+    { "id": "llm-security", "name": "greshake/llm-security", "url": "https://github.com/greshake/llm-security",
+      "org": "Greshake et al.", "role": "attack demos", "cats": ["attack.injection", "agent.hijack"],
+      "what": "Working demonstrations from the paper that named indirect prompt injection — data theft, worming, availability attacks against real applications.",
+      "when": "Explaining indirect injection to someone who does not believe it is real. The demos do that faster than the paper." },
+
+    { "id": "jailbreak-llms", "name": "verazuo/jailbreak_llms", "url": "https://github.com/verazuo/jailbreak_llms",
+      "org": "CISPA", "role": "dataset", "cats": ["attack.jailbreak", "eval.benchmark"],
+      "what": "A large collected dataset of in-the-wild jailbreak prompts gathered from public communities over time.",
+      "when": "You want real attacker behaviour rather than researcher-generated attacks — the distributions differ." },
+
+    { "id": "atlas-data", "name": "mitre-atlas/atlas-navigator-data", "url": "https://github.com/mitre-atlas/atlas-navigator-data",
+      "org": "MITRE", "role": "threat matrix data", "cats": ["eval.redteam", "defense.monitoring"],
+      "what": "The machine-readable data behind the ATLAS matrix — tactics, techniques, mitigations and case studies.",
+      "when": "Mapping your own findings onto a shared vocabulary, or building tooling over the matrix." },
+
+    { "id": "deepeval", "name": "confident-ai/deepeval", "url": "https://github.com/confident-ai/deepeval",
+      "org": "Confident AI", "role": "eval framework", "cats": ["eval.benchmark", "defense.guardrails"],
+      "what": "A unit-test-shaped evaluation framework for LLM applications, including safety and red-teaming metrics.",
+      "when": "Your team already thinks in pytest and you want evals to live beside the rest of the suite." },
+
+    { "id": "lm-eval-harness", "name": "EleutherAI/lm-evaluation-harness", "url": "https://github.com/EleutherAI/lm-evaluation-harness",
+      "org": "EleutherAI", "role": "eval framework", "cats": ["eval.benchmark", "eval.dangercap"],
+      "what": "The standard harness for few-shot evaluation across hundreds of tasks; the substrate many capability and some safety benchmarks ship on.",
+      "when": "Running a published benchmark exactly as its authors specified it." },
+
+    { "id": "guardrails", "name": "guardrails-ai/guardrails", "url": "https://github.com/guardrails-ai/guardrails",
+      "org": "Guardrails AI", "role": "output validation", "cats": ["defense.constrained", "defense.guardrails"],
+      "what": "Validates and structures model output against declared schemas and validators, with automatic re-asking on failure.",
+      "when": "The risk is malformed or unsafe output reaching downstream code, rather than the prompt being attacked." },
+
+    { "id": "openai-evals", "name": "openai/evals", "url": "https://github.com/openai/evals",
+      "org": "OpenAI", "role": "eval framework", "cats": ["eval.benchmark"],
+      "what": "A framework and registry for writing and running model evaluations.",
+      "when": "Historical reference and a large public registry; most new safety-eval work has moved to Inspect." }
+  ]
+}
