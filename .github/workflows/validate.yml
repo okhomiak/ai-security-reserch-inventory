@@ -1,0 +1,76 @@
+name: Validate
+
+# This is the workflow that makes "the data is not broken" a *requireable* status
+# check. The weekly ingest runs check.py too, but it only fires on a schedule, so
+# it can never gate a pull request - which is exactly when a human is about to
+# merge an agent's classifications.
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: validate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+
+      - name: Data files are valid JSON
+        run: |
+          for f in docs/data/*.json agent/sources.json; do
+            python3 -c "import json,sys; json.load(open('$f'))" || { echo "invalid JSON: $f"; exit 1; }
+          done
+
+      - name: Referential integrity
+        run: python3 agent/check.py
+
+      - name: Derived data is current
+        # A hand-edited papers.json with stale derived.json renders a dashboard
+        # that quietly disagrees with itself. Recompute and fail if the result
+        # differs from what was committed.
+        run: |
+          python3 agent/pipeline.py --derive-only >/dev/null
+          if ! git diff --quiet -- docs/data/derived.json docs/data/gaps.json; then
+            echo "::error::Derived data is stale. Run: python3 agent/pipeline.py --derive-only"
+            git diff --stat -- docs/data/derived.json docs/data/gaps.json
+            exit 1
+          fi
+
+      - name: Agent modules parse
+        run: python3 -m compileall -q agent/
+
+      - name: Dashboard script parses
+        run: node --check docs/app.js
+
+      - name: No inline style attributes in the page
+        # The published CSP forbids them. Catching this here means a future edit
+        # cannot silently blank the charts for every visitor.
+        run: |
+          if grep -n 'style="' docs/index.html docs/app.js; then
+            echo "::error::Inline style attributes are blocked by the page CSP - use data-sty instead."
+            exit 1
+          fi
+          echo "none found"

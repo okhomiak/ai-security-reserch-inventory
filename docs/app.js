@@ -87,7 +87,8 @@ function bindTip(node, html) {
 
    The page ships `style-src 'self'` with no 'unsafe-inline'. That blocks inline
    style attributes, which is exactly what a template emitting
-   `style="background:${colour}"` produces - verified in a browser, not assumed.
+   a template interpolating a colour into a style attribute produces - verified
+   in a browser, not assumed.
 
    Weakening the policy to 'unsafe-inline' would have been the easy fix. Instead
    templates emit `data-sty` and this observer applies it through the CSSOM,
