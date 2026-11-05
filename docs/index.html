@@ -36,30 +36,59 @@
 </head>
 <body>
 
-<header>
-  <div class="head-in">
-    <div class="head-top">
-      <h1><span class="mark" aria-hidden="true"></span>AI Security Research Inventory</h1>
-      <span class="sub" id="head-sub">loading…</span>
-      <span id="new-pill"></span>
-      <span class="spacer"></span>
-      <button class="icon-btn" id="keys-btn" title="Keyboard shortcuts (press ?)">⌘ keys</button>
-      <button class="icon-btn" id="theme-btn" title="Toggle light / dark (press t)">◐ theme</button>
-    </div>
-    <nav class="tabs" role="tablist" id="tabs">
-      <button class="tab" role="tab" data-view="news"      aria-selected="true">News<span class="key">1</span></button>
-      <button class="tab" role="tab" data-view="overlaps"  aria-selected="false">Overlaps<span class="key">2</span></button>
-      <button class="tab" role="tab" data-view="tree"      aria-selected="false">Research tree<span class="key">3</span></button>
-      <button class="tab" role="tab" data-view="demand"    aria-selected="false">What companies want<span class="key">4</span></button>
-      <button class="tab" role="tab" data-view="frameworks" aria-selected="false">Frameworks<span class="key">5</span></button>
-      <button class="tab" role="tab" data-view="gaps"      aria-selected="false">Gaps<span class="key">6</span></button>
-      <button class="tab" role="tab" data-view="papers"    aria-selected="false">Papers<span class="key">7</span></button>
-      <button class="tab" role="tab" data-view="pipeline"  aria-selected="false">Pipeline<span class="key">8</span></button>
-    </nav>
+<div class="app">
+<nav class="side" id="side" aria-label="Views">
+  <div class="side-top">
+    <span class="mark" aria-hidden="true"></span>
+    <span class="side-title">AI Security<b>Research Inventory</b></span>
   </div>
-</header>
+  <button class="cmd-open" id="cmd-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4"/></svg>Search<kbd>⌘K</kbd></button>
+  <div class="side-nav" id="tabs" role="tablist">
+      <button class="nav" role="tab" data-view="news" aria-selected="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM7 9h10M7 13h7"/></svg>
+        <span class="nav-l">News</span><span class="nav-n" data-count="news"></span>
+      </button>
+      <button class="nav" role="tab" data-view="overlaps" aria-selected="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM15 9a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg>
+        <span class="nav-l">Overlaps</span><span class="nav-n" data-count="overlaps"></span>
+      </button>
+      <button class="nav" role="tab" data-view="tree" aria-selected="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4v16M5 8h6M5 16h6M11 5h8M11 8h8M11 13h8M11 16h8"/></svg>
+        <span class="nav-l">Research tree</span><span class="nav-n" data-count="tree"></span>
+      </button>
+      <button class="nav" role="tab" data-view="demand" aria-selected="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19h16M6 16V9M10 16V5M14 16v-6M18 16v-9"/></svg>
+        <span class="nav-l">Companies</span><span class="nav-n" data-count="demand"></span>
+      </button>
+      <button class="nav" role="tab" data-view="frameworks" aria-selected="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16M8 3v18"/></svg>
+        <span class="nav-l">Frameworks</span><span class="nav-n" data-count="frameworks"></span>
+      </button>
+      <button class="nav" role="tab" data-view="gaps" aria-selected="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v9M12 17v2M5 20h14a1 1 0 0 0 .9-1.5l-7-12a1 1 0 0 0-1.8 0l-7 12A1 1 0 0 0 5 20z"/></svg>
+        <span class="nav-l">Gaps</span><span class="nav-n" data-count="gaps"></span>
+      </button>
+      <button class="nav" role="tab" data-view="papers" aria-selected="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6zM15 3v4h4M9 12h7M9 16h7"/></svg>
+        <span class="nav-l">Papers</span><span class="nav-n" data-count="papers"></span>
+      </button>
+      <button class="nav" role="tab" data-view="pipeline" aria-selected="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h6a3 3 0 0 1 3 3v4a3 3 0 0 0 3 3h4M17 4l3 3-3 3M17 14l3 3-3 3"/></svg>
+        <span class="nav-l">Pipeline</span><span class="nav-n" data-count="pipeline"></span>
+      </button>
+  </div>
+  <div class="side-foot">
+    <div class="side-meta" id="head-sub">loading…</div>
+    <div class="side-new"><span id="new-pill"></span></div>
+    <div class="side-btns">
+      <button class="icon-btn" id="theme-btn" title="Light / dark (t)">◐</button>
+      <button class="icon-btn" id="keys-btn" title="Keyboard (?)">⌘</button>
+    </div>
+  </div>
+</nav>
+<main class="main">
 
-<div class="wrap">
+  <div class="wrap">
 
   <!-- ============================================================ OVERLAPS -->
   <section class="view" id="view-overlaps" role="tabpanel">
@@ -304,6 +333,8 @@
       The page is static — no build step. <a href="https://github.com/okhomiak/ai-security-reserch-inventory">Source and pipeline on GitHub</a>.</p>
     <p id="foot-updated"></p>
   </footer>
+  </div>
+</main>
 </div>
 
 <div id="tip" role="tooltip"></div>
@@ -328,6 +359,13 @@
     </div>
   </div>
 </aside>
+<div id="cmdk" aria-hidden="true">
+  <div class="cmd-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <input type="search" id="cmd-q" placeholder="Search papers, categories, frameworks, organisations…" autocomplete="off" spellcheck="false">
+    <div class="cmd-results" id="cmd-res"></div>
+    <div class="cmd-foot"><kbd>↑</kbd><kbd>↓</kbd> move · <kbd>↵</kbd> open · <kbd>esc</kbd> close</div>
+  </div>
+</div>
 <div id="keys" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts">
   <div class="panel">
     <h3>Keyboard</h3>

@@ -231,14 +231,12 @@ function initTheme() {
 const VIEWS = ['news', 'overlaps', 'tree', 'demand', 'frameworks', 'gaps', 'papers', 'pipeline'];
 
 function initTabs() {
-  $$('#tabs .tab').forEach((t) => t.addEventListener('click', () => show(t.dataset.view)));
+  $$('#tabs .nav').forEach((t) => t.addEventListener('click', () => show(t.dataset.view)));
   addEventListener('hashchange', openFromHash);
+  initPalette();
 
   // The header condenses once you leave the top, so the tab bar stays reachable
   // without the title block eating the viewport.
-  const onScroll = () => document.querySelector('header').classList.toggle('scrolled', scrollY > 8);
-  addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
 
   const keys = $('#keys');
   const closeKeys = () => keys.removeAttribute('open');
@@ -247,6 +245,7 @@ function initTabs() {
 
   // Anyone who reads a dashboard twice wants to stop reaching for the mouse.
   addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { openPalette(); e.preventDefault(); return; }
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName || '');
     if (e.key === 'Escape') { closeKeys(); hideTip(); hideCard(); document.activeElement?.blur?.(); return; }
@@ -260,6 +259,7 @@ function initTabs() {
     }
     if (e.key === 't') { $('#theme-btn').click(); return; }
     if (e.key === '?') { keys.toggleAttribute('open'); return; }
+    if (e.key === 'k' && !typing) { openPalette(); e.preventDefault(); return; }
     if (e.key === 'g' && $('#view-overlaps').classList.contains('active')) {
       const [tree, graph] = $$('#ov-mode button');
       ($('#ov-tree-wrap').hidden ? tree : graph).click();
@@ -270,7 +270,7 @@ function initTabs() {
   addEventListener('keyup', (e) => { if (e.key === 'Alt') document.body.classList.remove('keys'); });
 }
 function show(view) {
-  $$('#tabs .tab').forEach((t) => t.setAttribute('aria-selected', String(t.dataset.view === view)));
+  $$('#tabs .nav').forEach((t) => t.setAttribute('aria-selected', String(t.dataset.view === view)));
   $$('section.view').forEach((s) => s.classList.toggle('active', s.id === `view-${view}`));
   if (location.hash.slice(1) !== view) history.replaceState(null, '', `#${view}`);
   redrawCanvases();
@@ -295,14 +295,26 @@ function renderHead() {
   const latest = D.runs?.latest;
   const when = latest?.finished?.slice(0, 10) || D.papers.updated;
   $('#head-sub').innerHTML = `${n} papers · ${D.derived.pairs.length} overlapping pairs · ${Object.keys(LEAF).length} categories · updated ${esc(when)}`;
-  $('#foot-updated').innerHTML = `Inventory updated ${esc(D.papers.updated)}. Derived figures generated ${esc(D.derived.generated || '—')}.`;
+  if ($('#foot-updated')) $('#foot-updated').innerHTML = `Inventory updated ${esc(D.papers.updated)}. Derived figures generated ${esc(D.derived.generated || '—')}.`;
+
+  const counts = {
+    news: (D.news.items || []).length,
+    overlaps: D.derived.pairs.length,
+    tree: Object.keys(LEAF).length,
+    demand: D.companies.companies.length,
+    frameworks: (D.frameworks.frameworks || []).length,
+    gaps: (D.gaps.gaps || []).length,
+    papers: D.papers.papers.length,
+    pipeline: (D.runs?.runs || []).length,
+  };
+  $$('[data-count]').forEach((el2) => { el2.textContent = counts[el2.dataset.count] ?? ''; });
 
   const fresh = D.papers.papers.filter(isNew);
-  $('#new-pill').innerHTML = fresh.length
+  if ($('#new-pill')) $('#new-pill').innerHTML = fresh.length
     ? `${fresh.length} new since ${esc(NEW_SINCE)}`
     : '';
 
-  $('#contrib-legend').innerHTML = CONTRIB.map((t) => {
+  if ($('#contrib-legend')) $('#contrib-legend').innerHTML = CONTRIB.map((t) => {
     const n = D.papers.papers.filter((p) => p.contribution_type === t).length;
     return n ? `<span class="li"><span class="swatch" data-sty="background:${contribVar(t)}"></span>${esc(t)} <span class="sub">${n}</span></span>` : '';
   }).join('');
@@ -853,7 +865,8 @@ function nodeCard(id, isLeaf) {
       <div class="path">${esc(node.parent ? `${TAX[node.parent].label} › leaf` : 'branch')}</div>
     </div>
     <div class="bd">
-      <p>${esc(node.blurb || '')}</p>
+      ${node.means ? `<p class="nc-means">${esc(node.means)}</p>` : `<p>${esc(node.blurb || '')}</p>`}
+      ${node.example ? `<p class="nc-eg"><b>For example</b> ${esc(node.example)}</p>` : ''}
       <div class="nums">
         <div><b>${papers.length}</b><span>papers${isLeaf ? '' : ' in branch'}</span></div>
         <div><b>${demand ? demand.toFixed(1) : '—'}</b><span>peak demand /5</span></div>
@@ -878,11 +891,17 @@ function treePanel(id) {
   const n = TAX[id];
   $('#tree-panel-h').innerHTML = `${esc(n.parent ? catLabel(id) : n.label)} <span class="sub">${ids.length} paper${ids.length === 1 ? '' : 's'}</span>`;
   if (!ids.length) {
-    $('#tree-panel').innerHTML = `<p class="note">${esc(n.blurb || '')}</p>
+    $('#tree-panel').innerHTML = `
+      ${n.means ? `<p class="cat-means">${esc(n.means)}</p>` : ''}
+      ${n.example ? `<p class="cat-eg"><b>For example</b> ${esc(n.example)}</p>` : ''}
+      <p class="note">${esc(n.blurb || '')}</p>
       <p class="empty">Nothing filed here yet — an empty leaf is a coverage hole, not a mistake in the tree.</p>`;
     return;
   }
-  $('#tree-panel').innerHTML = `<p class="note">${esc(n.blurb || '')}</p>` + ids.map((pid) => {
+  $('#tree-panel').innerHTML = `
+    ${n.means ? `<p class="cat-means">${esc(n.means)}</p>` : ''}
+    ${n.example ? `<p class="cat-eg"><b>For example</b> ${esc(n.example)}</p>` : ''}
+    <p class="note">${esc(n.blurb || '')}</p>` + ids.map((pid) => {
     const p = PAPER[pid];
     if (!p) return '';
     return `<div data-sty="border-top:1px solid var(--grid);padding:10px 0">
@@ -1332,6 +1351,90 @@ function drawPapers() {
   if (!rows.length) tb.innerHTML = '<tr><td colspan="6" class="empty">Nothing matches those filters.</td></tr>';
 }
 
+/* ============================================================ command palette
+   Everything in the inventory is reachable in two keystrokes. On a dataset this
+   shape - a hundred papers, forty categories, seven frameworks, twenty-eight
+   organisations - navigation by clicking through tabs is the slow path. */
+let CMD_ROWS = [], CMD_SEL = 0;
+
+function paletteIndex() {
+  const rows = [];
+  VIEWS.forEach((v) => rows.push({ kind: 'view', t: $(`.nav[data-view="${v}"] .nav-l`)?.textContent || v,
+                                   s: 'view', go: () => show(v) }));
+  D.papers.papers.forEach((p) => rows.push({
+    kind: p.kind && p.kind !== 'paper' ? p.kind : 'paper',
+    t: p.title, s: `${p.organisations[0] || p.source} · ${p.date.slice(0, 4)}`,
+    hay: `${p.title} ${p.short || ''} ${p.organisations.join(' ')} ${p.methods.join(' ')}`,
+    go: () => openReader(p.id) }));
+  Object.values(LEAF).forEach((n) => rows.push({
+    kind: 'category', t: `${TAX[n.parent].label} › ${n.label}`, s: `${(D.derived.tree.total || {})[n.id] || 0} papers`,
+    hay: `${n.label} ${n.blurb || ''} ${n.means || ''}`,
+    go: () => { show('tree'); treePanel(n.id); } }));
+  (D.frameworks.frameworks || []).forEach((f) => rows.push({
+    kind: 'framework', t: f.name, s: f.org, hay: `${f.name} ${f.org} ${f.short}`,
+    go: () => { show('frameworks'); document.getElementById(`fw-${f.id}`)?.scrollIntoView({ behavior: 'smooth' }); } }));
+  (D.gaps.gaps || []).forEach((g) => rows.push({
+    kind: 'gap', t: g.title, s: `${g.severity} severity`, hay: `${g.title} ${g.closes_when || ''}`,
+    go: () => { show('gaps'); document.getElementById(g.id)?.scrollIntoView({ behavior: 'smooth' }); } }));
+  D.companies.companies.forEach((c) => rows.push({
+    kind: 'org', t: c.label, s: `${c.type} · ${c.region}`, hay: `${c.label} ${c.type} ${c.region}`,
+    go: () => show('demand') }));
+  return rows;
+}
+
+function openPalette() {
+  if (!CMD_ROWS.length) CMD_ROWS = paletteIndex();
+  $('#cmdk').setAttribute('aria-hidden', 'false');
+  const q = $('#cmd-q');
+  q.value = ''; q.focus();
+  drawPalette('');
+}
+const closePalette = () => $('#cmdk').setAttribute('aria-hidden', 'true');
+
+function drawPalette(query) {
+  const q = query.trim().toLowerCase();
+  const hits = (q
+    ? CMD_ROWS.filter((r) => (r.hay || r.t).toLowerCase().includes(q))
+    : CMD_ROWS.filter((r) => r.kind === 'view')).slice(0, 40);
+  CMD_SEL = 0;
+  $('#cmd-res').innerHTML = hits.length
+    ? hits.map((r, i) => `<div class="cmd-item" role="option" data-i="${i}" aria-selected="${i === 0}">
+        <span class="ci-k">${esc(r.kind)}</span>
+        <span class="ci-t">${esc(r.t)}</span>
+        <span class="ci-s">${esc(r.s || '')}</span></div>`).join('')
+    : '<div class="cmd-empty">Nothing matches that.</div>';
+  $('#cmd-res').dataset.hits = hits.length;
+  CMD_HITS = hits;
+  $$('#cmd-res .cmd-item').forEach((el2) => {
+    el2.addEventListener('mouseenter', () => selectPalette(+el2.dataset.i));
+    el2.addEventListener('click', () => runPalette());
+  });
+}
+let CMD_HITS = [];
+function selectPalette(i) {
+  CMD_SEL = Math.max(0, Math.min(CMD_HITS.length - 1, i));
+  $$('#cmd-res .cmd-item').forEach((el2, j) => el2.setAttribute('aria-selected', String(j === CMD_SEL)));
+  $$('#cmd-res .cmd-item')[CMD_SEL]?.scrollIntoView({ block: 'nearest' });
+}
+function runPalette() {
+  const r = CMD_HITS[CMD_SEL];
+  if (!r) return;
+  closePalette();
+  r.go();
+}
+
+function initPalette() {
+  $('#cmd-btn').addEventListener('click', openPalette);
+  $('#cmdk').addEventListener('click', (e) => { if (e.target.id === 'cmdk') closePalette(); });
+  $('#cmd-q').addEventListener('input', (e) => drawPalette(e.target.value));
+  $('#cmd-q').addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') { selectPalette(CMD_SEL + 1); e.preventDefault(); }
+    else if (e.key === 'ArrowUp') { selectPalette(CMD_SEL - 1); e.preventDefault(); }
+    else if (e.key === 'Enter') { runPalette(); e.preventDefault(); }
+    else if (e.key === 'Escape') { closePalette(); }
+  });
+}
+
 /* ===================================================================== READER
    Everything the inventory holds about one record, plus the paper itself.
 
@@ -1363,7 +1466,7 @@ function openReader(id, pane) {
       ${row('Leaves open', p.gap_signal ? `<span class="rd-gap">${esc(p.gap_signal)}</span>` : '')}
       ${row('Methods', (p.methods || []).map((m) => `<span class="badge">${esc(m)}</span>`).join(' '))}
       ${row('Filed under', p.categories.map((c) =>
-          `<a href="#tree" class="catlink" data-cat="${esc(c)}">${esc(catLabel(c))}</a>`).join(''))}
+          `<a href="#tree" class="catlink" data-cat="${esc(c)}" title="${esc(TAX[c]?.means || '')}">${esc(catLabel(c))}</a>`).join(''))}
       ${row('Company needs', (p.addresses_needs || []).map((n) =>
           `<span class="badge">${esc(NEED[n]?.label || n)}</span>`).join(' '))}
       ${row('Provenance', `${esc(p.trust.justification)}${

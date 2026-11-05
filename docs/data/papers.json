@@ -662,6 +662,62 @@
       "validation_warnings": []
     },
     {
+      "id": "arxiv:2502.05209",
+      "title": "Model Tampering Attacks Enable More Rigorous Evaluations of LLM Capabilities",
+      "short": "Tampering evals",
+      "url": "https://arxiv.org/abs/2502.05209",
+      "pdf": "https://arxiv.org/pdf/2502.05209",
+      "date": "2025-02-03",
+      "authors": [
+        "Zora Che",
+        "Stephen Casper",
+        "Robert Kirk",
+        "Anirudh Satheesh",
+        "Stewart Slocum",
+        "Lev McKinney"
+      ],
+      "organisations": [
+        "MIT",
+        "UK AI Security Institute"
+      ],
+      "venue": "Trans. Mach. Learn. Res.",
+      "venue_source": "semantic-scholar",
+      "citations": 48,
+      "kind": "paper",
+      "trust": {
+        "tier": "frontier-lab",
+        "justification": "Trans. Mach. Learn. Res.; 48 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Argues input-space evaluation underestimates capability, and that tampering with weights or activations gives a better worst-case estimate. A direct answer to the suppressed-versus-removed problem.",
+      "primary_category": "eval.dangercap",
+      "categories": [
+        "eval.dangercap",
+        "defense.unlearning",
+        "eval.audit"
+      ],
+      "contribution_type": "evaluation",
+      "methods": [
+        "latent-space tampering",
+        "worst-case capability estimation"
+      ],
+      "threat_model": "Evaluating what a model could do, not what it does when asked politely.",
+      "addresses_needs": [
+        "n.evals",
+        "n.interp"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Requires weight access, so the strongest evaluation method is unavailable to exactly the third-party auditors who need it.",
+      "confidence": 1.0,
+      "abstract": "Evaluations of large language model (LLM) risks and capabilities are increasingly being incorporated into AI risk management and governance frameworks. Currently, most risk evaluations are conducted by designing inputs that elicit harmful behaviors from the system. However, this approach suffers from two limitations. First, input-output evaluations cannot fully evaluate realistic risks from open-weight models. Second, the behaviors identified during any particular input-output evaluation can only lower-bound the model's worst-possible-case input-output behavior. As a complementary method for eliciting harmful behaviors, we propose evaluating LLMs with model tampering attacks which allow for modifications to latent activations or weights. We pit state-of-the-art techniques for removing harmful LLM capabilities against a suite of 5 input-space and 6 model tampering attacks. In addition to benchmarking these methods against each other, we show that (1) model resilience to capability elicitation attacks lies on a low-dimensional robustness subspace; (2) the success rate of model tampering attacks can empirically predict and offer conservative estimates for the success of held-out input-space attacks; and (3) state-of-the-art unlearning methods can easily be undone within 16 steps of fine-tuning. Together, these results highlight the difficulty of suppressing harmful LLM capabilities and show that model tampering attacks enable substantially more rigorous evaluations than input-sp",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
       "id": "arxiv:2502.01822",
       "title": "Firewalls to Secure Dynamic LLM Agentic Networks",
       "short": "Agent firewalls",
@@ -717,55 +773,54 @@
       "validation_warnings": []
     },
     {
-      "id": "arxiv:2502.05209",
-      "title": "Model Tampering Attacks Enable More Rigorous Evaluations of LLM Capabilities",
-      "short": "Tampering evals",
-      "url": "https://arxiv.org/abs/2502.05209",
-      "pdf": "https://arxiv.org/pdf/2502.05209",
-      "date": "2025-02-03",
+      "id": "arxiv:2501.18841",
+      "title": "Trading Inference-Time Compute for Adversarial Robustness",
+      "short": "Compute for robustness",
+      "url": "https://arxiv.org/abs/2501.18841",
+      "pdf": "https://arxiv.org/pdf/2501.18841",
+      "date": "2025-01-31",
       "authors": [
-        "Zora Che",
-        "Stephen Casper",
-        "Robert Kirk",
-        "Anirudh Satheesh",
-        "Stewart Slocum",
-        "Lev McKinney"
+        "Wojciech Zaremba",
+        "Evgenia Nitishinskaya",
+        "Boaz Barak",
+        "Stephanie L. Lin",
+        "S. Toyer",
+        "Yaodong Yu"
       ],
       "organisations": [
-        "MIT",
-        "UK AI Security Institute"
+        "OpenAI"
       ],
-      "venue": "Trans. Mach. Learn. Res.",
+      "venue": "preprint",
       "venue_source": "semantic-scholar",
-      "citations": 48,
+      "citations": 64,
       "kind": "paper",
       "trust": {
         "tier": "frontier-lab",
-        "justification": "Trans. Mach. Learn. Res.; 48 citations",
+        "justification": "preprint; 64 citations",
         "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
       },
       "source": "arXiv",
-      "what_its_about": "Argues input-space evaluation underestimates capability, and that tampering with weights or activations gives a better worst-case estimate. A direct answer to the suppressed-versus-removed problem.",
-      "primary_category": "eval.dangercap",
+      "what_its_about": "Shows attack success often falls as a model is given more reasoning time, without adversarial training. Robustness becomes partly a compute dial rather than purely a training property.",
+      "primary_category": "defense.robust",
       "categories": [
-        "eval.dangercap",
-        "defense.unlearning",
-        "eval.audit"
+        "defense.robust",
+        "attack.jailbreak",
+        "attack.adversarial"
       ],
-      "contribution_type": "evaluation",
+      "contribution_type": "analysis",
       "methods": [
-        "latent-space tampering",
-        "worst-case capability estimation"
+        "inference-compute scaling",
+        "attack success vs compute"
       ],
-      "threat_model": "Evaluating what a model could do, not what it does when asked politely.",
+      "threat_model": "Adversarial pressure against a model that can think longer.",
       "addresses_needs": [
-        "n.evals",
-        "n.interp"
+        "n.guardrails",
+        "n.redteam"
       ],
       "overlaps_with": [],
-      "gap_signal": "Requires weight access, so the strongest evaluation method is unavailable to exactly the third-party auditors who need it.",
+      "gap_signal": "Identifies attack classes where more compute does not help, and those are the ones a defender cannot buy their way out of.",
       "confidence": 1.0,
-      "abstract": "Evaluations of large language model (LLM) risks and capabilities are increasingly being incorporated into AI risk management and governance frameworks. Currently, most risk evaluations are conducted by designing inputs that elicit harmful behaviors from the system. However, this approach suffers from two limitations. First, input-output evaluations cannot fully evaluate realistic risks from open-weight models. Second, the behaviors identified during any particular input-output evaluation can only lower-bound the model's worst-possible-case input-output behavior. As a complementary method for eliciting harmful behaviors, we propose evaluating LLMs with model tampering attacks which allow for modifications to latent activations or weights. We pit state-of-the-art techniques for removing harmful LLM capabilities against a suite of 5 input-space and 6 model tampering attacks. In addition to benchmarking these methods against each other, we show that (1) model resilience to capability elicitation attacks lies on a low-dimensional robustness subspace; (2) the success rate of model tampering attacks can empirically predict and offer conservative estimates for the success of held-out input-space attacks; and (3) state-of-the-art unlearning methods can easily be undone within 16 steps of fine-tuning. Together, these results highlight the difficulty of suppressing harmful LLM capabilities and show that model tampering attacks enable substantially more rigorous evaluations than input-sp",
+      "abstract": "We conduct experiments on the impact of increasing inference-time compute in reasoning models (specifically OpenAI o1-preview and o1-mini) on their robustness to adversarial attacks. We find that across a variety of attacks, increased inference-time compute leads to improved robustness. In many cases (with important exceptions), the fraction of model samples where the attack succeeds tends to zero as the amount of test-time compute grows. We perform no adversarial training for the tasks we study, and we increase inference-time compute by simply allowing the models to spend more compute on reasoning, independently of the form of attack. Our results suggest that inference-time compute has the potential to improve adversarial robustness for Large Language Models. We also explore new attacks directed at reasoning models, as well as settings where inference-time compute does not improve reliability, and speculate on the reasons for these as well as ways to address them.",
       "added": "2026-11-05",
       "classified_by": "curated-seed",
       "curation": "human",
@@ -848,61 +903,6 @@
       "validation_warnings": [],
       "short": "Constitutional classifiers",
       "citations": 219
-    },
-    {
-      "id": "arxiv:2501.18841",
-      "title": "Trading Inference-Time Compute for Adversarial Robustness",
-      "short": "Compute for robustness",
-      "url": "https://arxiv.org/abs/2501.18841",
-      "pdf": "https://arxiv.org/pdf/2501.18841",
-      "date": "2025-01-31",
-      "authors": [
-        "Wojciech Zaremba",
-        "Evgenia Nitishinskaya",
-        "Boaz Barak",
-        "Stephanie L. Lin",
-        "S. Toyer",
-        "Yaodong Yu"
-      ],
-      "organisations": [
-        "OpenAI"
-      ],
-      "venue": "preprint",
-      "venue_source": "semantic-scholar",
-      "citations": 64,
-      "kind": "paper",
-      "trust": {
-        "tier": "frontier-lab",
-        "justification": "preprint; 64 citations",
-        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
-      },
-      "source": "arXiv",
-      "what_its_about": "Shows attack success often falls as a model is given more reasoning time, without adversarial training. Robustness becomes partly a compute dial rather than purely a training property.",
-      "primary_category": "defense.robust",
-      "categories": [
-        "defense.robust",
-        "attack.jailbreak",
-        "attack.adversarial"
-      ],
-      "contribution_type": "analysis",
-      "methods": [
-        "inference-compute scaling",
-        "attack success vs compute"
-      ],
-      "threat_model": "Adversarial pressure against a model that can think longer.",
-      "addresses_needs": [
-        "n.guardrails",
-        "n.redteam"
-      ],
-      "overlaps_with": [],
-      "gap_signal": "Identifies attack classes where more compute does not help, and those are the ones a defender cannot buy their way out of.",
-      "confidence": 1.0,
-      "abstract": "We conduct experiments on the impact of increasing inference-time compute in reasoning models (specifically OpenAI o1-preview and o1-mini) on their robustness to adversarial attacks. We find that across a variety of attacks, increased inference-time compute leads to improved robustness. In many cases (with important exceptions), the fraction of model samples where the attack succeeds tends to zero as the amount of test-time compute grows. We perform no adversarial training for the tasks we study, and we increase inference-time compute by simply allowing the models to spend more compute on reasoning, independently of the form of attack. Our results suggest that inference-time compute has the potential to improve adversarial robustness for Large Language Models. We also explore new attacks directed at reasoning models, as well as settings where inference-time compute does not improve reliability, and speculate on the reasons for these as well as ways to address them.",
-      "added": "2026-11-05",
-      "classified_by": "curated-seed",
-      "curation": "human",
-      "notes": "",
-      "validation_warnings": []
     },
     {
       "id": "web:gtig-adversarial-misuse-2025",
@@ -1243,6 +1243,59 @@
       "citations": 368
     },
     {
+      "id": "arxiv:2411.07781",
+      "title": "RedCode: Risky Code Execution and Generation Benchmark for Code Agents",
+      "short": "RedCode",
+      "url": "https://arxiv.org/abs/2411.07781",
+      "pdf": "https://arxiv.org/pdf/2411.07781",
+      "date": "2024-11-12",
+      "authors": [
+        "Cheng-Quan Guo",
+        "Xun Liu",
+        "Chulin Xie",
+        "Andy Zhou",
+        "Yi Zeng",
+        "Zinan Lin"
+      ],
+      "organisations": [],
+      "venue": "Neural Information Processing Systems",
+      "venue_source": "semantic-scholar",
+      "citations": 118,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "Neural Information Processing Systems; 118 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Evaluates whether code agents recognise and refuse risky operations, finding they frequently execute destructive commands when asked indirectly.",
+      "primary_category": "agent.sandbox",
+      "categories": [
+        "agent.sandbox",
+        "eval.benchmark",
+        "cyber.malware"
+      ],
+      "contribution_type": "benchmark",
+      "methods": [
+        "risky code execution",
+        "sandboxed evaluation"
+      ],
+      "threat_model": "A code agent executing or generating dangerous code.",
+      "addresses_needs": [
+        "n.agent_sec",
+        "n.evals"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Code agents have execution capability and weak judgement about it, and sandboxing is treated as the deployer's problem.",
+      "confidence": 1.0,
+      "abstract": "With the rapidly increasing capabilities and adoption of code agents for AI-assisted coding, safety concerns, such as generating or executing risky code, have become significant barriers to the real-world deployment of these agents. To provide comprehensive and practical evaluations on the safety of code agents, we propose RedCode, a benchmark for risky code execution and generation: (1) RedCode-Exec provides challenging prompts that could lead to risky code execution, aiming to evaluate code agents' ability to recognize and handle unsafe code. We provide a total of 4,050 risky test cases in Python and Bash tasks with diverse input formats including code snippets and natural text. They covers 25 types of critical vulnerabilities spanning 8 domains (e.g., websites, file systems). We provide Docker environments and design corresponding evaluation metrics to assess their execution results. (2) RedCode-Gen provides 160 prompts with function signatures and docstrings as input to assess whether code agents will follow instructions to generate harmful code or software. Our empirical findings, derived from evaluating three agent frameworks based on 19 LLMs, provide insights into code agents' vulnerabilities. For instance, evaluations on RedCode-Exec show that agents are more likely to reject executing risky operations on the operating system, but are less likely to reject executing technically buggy code, indicating high risks. Risky operations described in natural text lead to a low",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
       "id": "arxiv:2411.07494",
       "title": "Rapid Response: Mitigating LLM Jailbreaks with a Few Examples",
       "url": "https://arxiv.org/abs/2411.07494",
@@ -1310,59 +1363,6 @@
       "validation_warnings": [],
       "short": "Rapid response",
       "citations": 16
-    },
-    {
-      "id": "arxiv:2411.07781",
-      "title": "RedCode: Risky Code Execution and Generation Benchmark for Code Agents",
-      "short": "RedCode",
-      "url": "https://arxiv.org/abs/2411.07781",
-      "pdf": "https://arxiv.org/pdf/2411.07781",
-      "date": "2024-11-12",
-      "authors": [
-        "Cheng-Quan Guo",
-        "Xun Liu",
-        "Chulin Xie",
-        "Andy Zhou",
-        "Yi Zeng",
-        "Zinan Lin"
-      ],
-      "organisations": [],
-      "venue": "Neural Information Processing Systems",
-      "venue_source": "semantic-scholar",
-      "citations": 118,
-      "kind": "paper",
-      "trust": {
-        "tier": "peer-reviewed",
-        "justification": "Neural Information Processing Systems; 118 citations",
-        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
-      },
-      "source": "arXiv",
-      "what_its_about": "Evaluates whether code agents recognise and refuse risky operations, finding they frequently execute destructive commands when asked indirectly.",
-      "primary_category": "agent.sandbox",
-      "categories": [
-        "agent.sandbox",
-        "eval.benchmark",
-        "cyber.malware"
-      ],
-      "contribution_type": "benchmark",
-      "methods": [
-        "risky code execution",
-        "sandboxed evaluation"
-      ],
-      "threat_model": "A code agent executing or generating dangerous code.",
-      "addresses_needs": [
-        "n.agent_sec",
-        "n.evals"
-      ],
-      "overlaps_with": [],
-      "gap_signal": "Code agents have execution capability and weak judgement about it, and sandboxing is treated as the deployer's problem.",
-      "confidence": 1.0,
-      "abstract": "With the rapidly increasing capabilities and adoption of code agents for AI-assisted coding, safety concerns, such as generating or executing risky code, have become significant barriers to the real-world deployment of these agents. To provide comprehensive and practical evaluations on the safety of code agents, we propose RedCode, a benchmark for risky code execution and generation: (1) RedCode-Exec provides challenging prompts that could lead to risky code execution, aiming to evaluate code agents' ability to recognize and handle unsafe code. We provide a total of 4,050 risky test cases in Python and Bash tasks with diverse input formats including code snippets and natural text. They covers 25 types of critical vulnerabilities spanning 8 domains (e.g., websites, file systems). We provide Docker environments and design corresponding evaluation metrics to assess their execution results. (2) RedCode-Gen provides 160 prompts with function signatures and docstrings as input to assess whether code agents will follow instructions to generate harmful code or software. Our empirical findings, derived from evaluating three agent frameworks based on 19 LLMs, provide insights into code agents' vulnerabilities. For instance, evaluations on RedCode-Exec show that agents are more likely to reject executing risky operations on the operating system, but are less likely to reject executing technically buggy code, indicating high risks. Risky operations described in natural text lead to a low",
-      "added": "2026-11-05",
-      "classified_by": "curated-seed",
-      "curation": "human",
-      "notes": "",
-      "validation_warnings": []
     },
     {
       "id": "arxiv:2411.02391",
@@ -1699,6 +1699,61 @@
       "validation_warnings": []
     },
     {
+      "id": "arxiv:2410.13886",
+      "title": "Refusal-Trained LLMs Are Easily Jailbroken As Browser Agents",
+      "short": "Browser agent jailbreaks",
+      "url": "https://arxiv.org/abs/2410.13886",
+      "pdf": "https://arxiv.org/pdf/2410.13886",
+      "date": "2024-10-11",
+      "authors": [
+        "Priyanshu Kumar",
+        "Elaine Lau",
+        "Saranya Vijayakumar",
+        "Tu Trinh",
+        "Scale Red Team",
+        "Elaine T. Chang"
+      ],
+      "organisations": [
+        "Scale AI"
+      ],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 82,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "preprint; 82 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Refusal training that holds in chat largely fails when the same model drives a browser. Safety does not transfer across deployment surfaces.",
+      "primary_category": "agent.computeruse",
+      "categories": [
+        "agent.computeruse",
+        "attack.jailbreak",
+        "agent.hijack"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "browser-agent harness",
+        "refusal transfer measurement"
+      ],
+      "threat_model": "The same model acting as an agent rather than a chatbot.",
+      "addresses_needs": [
+        "n.agent_sec",
+        "n.guardrails"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Safety is evaluated in chat and deployed in agents - the gap is structural, not incidental.",
+      "confidence": 1.0,
+      "abstract": "For safety reasons, large language models (LLMs) are trained to refuse harmful user instructions, such as assisting dangerous activities. We study an open question in this work: does the desired safety refusal, typically enforced in chat contexts, generalize to non-chat and agentic use cases? Unlike chatbots, LLM agents equipped with general-purpose tools, such as web browsers and mobile devices, can directly influence the real world, making it even more crucial to refuse harmful instructions. In this work, we primarily focus on red-teaming browser agents, LLMs that manipulate information via web browsers. To this end, we introduce Browser Agent Red teaming Toolkit (BrowserART), a comprehensive test suite designed specifically for red-teaming browser agents. BrowserART is consist of 100 diverse browser-related harmful behaviors (including original behaviors and ones sourced from HarmBench [Mazeika et al., 2024] and AirBench 2024 [Zeng et al., 2024b]) across both synthetic and real websites. Our empirical study on state-of-the-art browser agents reveals that, while the backbone LLM refuses harmful instructions as a chatbot, the corresponding agent does not. Moreover, attack methods designed to jailbreak refusal-trained LLMs in the chat settings transfer effectively to browser agents. With human rewrites, GPT-4o and o1-preview-based browser agents attempted 98 and 63 harmful behaviors (out of 100), respectively. We publicly release BrowserART and call on LLM developers, policym",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
       "id": "arxiv:2410.09024",
       "title": "AgentHarm: A Benchmark for Measuring Harmfulness of LLM Agents",
       "short": "AgentHarm",
@@ -1749,61 +1804,6 @@
       "confidence": 1.0,
       "abstract": "The robustness of LLMs to jailbreak attacks, where users design prompts to circumvent safety measures and misuse model capabilities, has been studied primarily for LLMs acting as simple chatbots. Meanwhile, LLM agents -- which use external tools and can execute multi-stage tasks -- may pose a greater risk if misused, but their robustness remains underexplored. To facilitate research on LLM agent misuse, we propose a new benchmark called AgentHarm. The benchmark includes a diverse set of 110 explicitly malicious agent tasks (440 with augmentations), covering 11 harm categories including fraud, cybercrime, and harassment. In addition to measuring whether models refuse harmful agentic requests, scoring well on AgentHarm requires jailbroken agents to maintain their capabilities following an attack to complete a multi-step task. We evaluate a range of leading LLMs, and find (1) leading LLMs are surprisingly compliant with malicious agent requests without jailbreaking, (2) simple universal jailbreak templates can be adapted to effectively jailbreak agents, and (3) these jailbreaks enable coherent and malicious multi-step agent behavior and retain model capabilities. To enable simple and reliable evaluation of attacks and defenses for LLM-based agents, we publicly release AgentHarm at https://huggingface.co/datasets/ai-safety-institute/AgentHarm.",
       "added": "2026-11-04",
-      "classified_by": "curated-seed",
-      "curation": "human",
-      "notes": "",
-      "validation_warnings": []
-    },
-    {
-      "id": "arxiv:2410.13886",
-      "title": "Refusal-Trained LLMs Are Easily Jailbroken As Browser Agents",
-      "short": "Browser agent jailbreaks",
-      "url": "https://arxiv.org/abs/2410.13886",
-      "pdf": "https://arxiv.org/pdf/2410.13886",
-      "date": "2024-10-11",
-      "authors": [
-        "Priyanshu Kumar",
-        "Elaine Lau",
-        "Saranya Vijayakumar",
-        "Tu Trinh",
-        "Scale Red Team",
-        "Elaine T. Chang"
-      ],
-      "organisations": [
-        "Scale AI"
-      ],
-      "venue": "preprint",
-      "venue_source": "semantic-scholar",
-      "citations": 82,
-      "kind": "paper",
-      "trust": {
-        "tier": "top-institution",
-        "justification": "preprint; 82 citations",
-        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
-      },
-      "source": "arXiv",
-      "what_its_about": "Refusal training that holds in chat largely fails when the same model drives a browser. Safety does not transfer across deployment surfaces.",
-      "primary_category": "agent.computeruse",
-      "categories": [
-        "agent.computeruse",
-        "attack.jailbreak",
-        "agent.hijack"
-      ],
-      "contribution_type": "attack",
-      "methods": [
-        "browser-agent harness",
-        "refusal transfer measurement"
-      ],
-      "threat_model": "The same model acting as an agent rather than a chatbot.",
-      "addresses_needs": [
-        "n.agent_sec",
-        "n.guardrails"
-      ],
-      "overlaps_with": [],
-      "gap_signal": "Safety is evaluated in chat and deployed in agents - the gap is structural, not incidental.",
-      "confidence": 1.0,
-      "abstract": "For safety reasons, large language models (LLMs) are trained to refuse harmful user instructions, such as assisting dangerous activities. We study an open question in this work: does the desired safety refusal, typically enforced in chat contexts, generalize to non-chat and agentic use cases? Unlike chatbots, LLM agents equipped with general-purpose tools, such as web browsers and mobile devices, can directly influence the real world, making it even more crucial to refuse harmful instructions. In this work, we primarily focus on red-teaming browser agents, LLMs that manipulate information via web browsers. To this end, we introduce Browser Agent Red teaming Toolkit (BrowserART), a comprehensive test suite designed specifically for red-teaming browser agents. BrowserART is consist of 100 diverse browser-related harmful behaviors (including original behaviors and ones sourced from HarmBench [Mazeika et al., 2024] and AirBench 2024 [Zeng et al., 2024b]) across both synthetic and real websites. Our empirical study on state-of-the-art browser agents reveals that, while the backbone LLM refuses harmful instructions as a chatbot, the corresponding agent does not. Moreover, attack methods designed to jailbreak refusal-trained LLMs in the chat settings transfer effectively to browser agents. With human rewrites, GPT-4o and o1-preview-based browser agents attempted 98 and 63 harmful behaviors (out of 100), respectively. We publicly release BrowserART and call on LLM developers, policym",
-      "added": "2026-11-05",
       "classified_by": "curated-seed",
       "curation": "human",
       "notes": "",
