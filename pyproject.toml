@@ -49,6 +49,7 @@ ignore = [
 "agent/fuzz_targets/*.py" = ["SLF001", "N802"]  # TestOneInput is atheris's API
 "agent/selftest.py" = ["BLE001", "S603", "SLF001", "PLC0415"]
 "agent/pipeline.py" = ["PLC0415"]   # the SDK import is deliberately lazy
+"agent/badges.py" = ["PLC0415"]     # check.py is imported after sys.path is set
 "agent/classify.py" = ["PLC0415"]   # so SCHEMA/validate work without the SDK
 # The test suite runs the three agent scripts in a child interpreter (fixed
 # argv, no untrusted input) and calls the private parser on purpose - that

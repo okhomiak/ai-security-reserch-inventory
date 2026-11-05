@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: >-
+  If you use this inventory in academic work, please cite it. The data is a
+  curated reading of a field, not a systematic review - cite it as a dataset
+  you consulted, and check any individual classification against the paper
+  itself before relying on it.
+title: AI Security Research Inventory
+abstract: >-
+  A living inventory of AI-security research: 169 papers mapped across a
+  41-category taxonomy, 386 measured overlaps between them, 8 documented open
+  gaps, 7 security frameworks scored on their weakest mapped category, and the
+  stated security priorities of 28 organisations. Published as a static
+  dashboard and re-scanned weekly by a scheduled agent that classifies new work
+  from peer-reviewed venues and frontier labs. Demand scores are editorial
+  estimates of visible investment, not measurements; the published methodology
+  names six biases they carry.
+type: dataset
+authors:
+  - alias: okhomiak
+    name: okhomiak
+repository-code: https://github.com/okhomiak/ai-security-reserch-inventory
+url: https://okhomiak.github.io/ai-security-reserch-inventory/
+license: MIT
+version: 2026.11.0
+date-released: '2026-11-05'
+keywords:
+  - AI security
+  - LLM security
+  - prompt injection
+  - agent security
+  - adversarial machine learning
+  - research taxonomy
+  - literature inventory

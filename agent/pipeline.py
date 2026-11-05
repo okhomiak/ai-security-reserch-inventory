@@ -22,6 +22,7 @@ from datetime import UTC, datetime
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 
+import badges
 import derive
 import fetch
 import gapagent
@@ -253,6 +254,10 @@ def main() -> int:
     save(DATA / "papers.json", papers_doc)
     save(DATA / "gaps.json", gaps_doc)
     save(DATA / "derived.json", derived)
+
+    # Badges are generated from what was just written, not maintained by hand,
+    # so a stale "169 papers" cannot outlive the number being true.
+    badges.main()
 
     run["finished"] = datetime.now(UTC).isoformat(timespec="seconds")
     run["seconds"] = round((datetime.now(UTC) - started).total_seconds(), 1)

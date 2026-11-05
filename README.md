@@ -1,7 +1,20 @@
 # AI Security Research Inventory
 
+[![Validate](https://github.com/okhomiak/ai-security-reserch-inventory/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/okhomiak/ai-security-reserch-inventory/actions/workflows/validate.yml)
+[![SAST](https://github.com/okhomiak/ai-security-reserch-inventory/actions/workflows/sast.yml/badge.svg?branch=main)](https://github.com/okhomiak/ai-security-reserch-inventory/actions/workflows/sast.yml)
+[![Secret scan](https://github.com/okhomiak/ai-security-reserch-inventory/actions/workflows/secret-scan.yml/badge.svg?branch=main)](https://github.com/okhomiak/ai-security-reserch-inventory/actions/workflows/secret-scan.yml)
+[![ClusterFuzzLite](https://github.com/okhomiak/ai-security-reserch-inventory/actions/workflows/cflite.yml/badge.svg?branch=main)](https://github.com/okhomiak/ai-security-reserch-inventory/actions/workflows/cflite.yml)
+
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/16360/badge)](https://www.bestpractices.dev/projects/16360)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/okhomiak/ai-security-reserch-inventory/badge)](https://scorecard.dev/viewer/?uri=github.com/okhomiak/ai-security-reserch-inventory)
+
+![Papers](docs/assets/badge-papers.svg)
+![Measured overlaps](docs/assets/badge-overlaps.svg)
+![Data integrity](docs/assets/badge-integrity.svg)
+![Inventory updated](docs/assets/badge-updated.svg)
+
+The bottom row is generated from `docs/data/` on every derive and checked in CI,
+so it cannot drift from what it claims. The badges above it can go red.
 
 A GitHub Pages dashboard over AI-security research, kept current by a weekly agent.
 

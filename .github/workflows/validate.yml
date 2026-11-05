@@ -61,12 +61,15 @@ jobs:
       - name: Derived data is current
         # A hand-edited papers.json with stale derived.json renders a dashboard
         # that quietly disagrees with itself. Recompute and fail if the result
-        # differs from what was committed.
+        # differs from what was committed. The badges are in this check too:
+        # a badge claiming "169 papers" is a factual assertion on a public page,
+        # so it is not allowed to outlive the number being true.
         run: |
           python3 agent/pipeline.py --derive-only >/dev/null
-          if ! git diff --quiet -- docs/data/derived.json docs/data/gaps.json; then
-            echo "::error::Derived data is stale. Run: python3 agent/pipeline.py --derive-only"
-            git diff --stat -- docs/data/derived.json docs/data/gaps.json
+          paths="docs/data/derived.json docs/data/gaps.json docs/assets"
+          if ! git diff --quiet -- $paths; then
+            echo "::error::Derived data or badges are stale. Run: python3 agent/pipeline.py --derive-only"
+            git diff --stat -- $paths
             exit 1
           fi
 

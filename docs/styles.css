@@ -1395,7 +1395,7 @@ table.list th { font-size: 11px; font-weight: 600; letter-spacing: 0; color: var
 
 /* Footer badge. Sized in the markup so it reserves its space before the SVG
    loads and the footer does not jump. */
-.badges { margin-top: 12px; line-height: 0; }
-.badges a { display: inline-block; border: 0; }
+.badges { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.badges a { display: inline-flex; border: 0; }
 .badges img { display: block; opacity: .85; transition: opacity .15s ease; }
 .badges a:hover img, .badges a:focus-visible img { opacity: 1; }
