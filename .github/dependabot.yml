@@ -5,6 +5,10 @@ updates:
     schedule:
       interval: weekly
       day: tuesday
+    # Do not adopt a release the day it ships. A compromised version is most
+    # dangerous in its first days, before anyone has looked at it.
+    cooldown:
+      default-days: 7
     open-pull-requests-limit: 5
     commit-message:
       prefix: "ci"
@@ -15,6 +19,9 @@ updates:
     schedule:
       interval: weekly
       day: tuesday
+    cooldown:
+      default-days: 7
+      semver-major-days: 14
     open-pull-requests-limit: 5
     commit-message:
       prefix: "deps"

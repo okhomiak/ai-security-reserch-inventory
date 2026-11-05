@@ -64,15 +64,21 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           CLASSIFIER_MODEL: ${{ vars.CLASSIFIER_MODEL || 'claude-opus-5' }}
           CLASSIFIER_EFFORT: ${{ vars.CLASSIFIER_EFFORT || 'medium' }}
+          # Dispatch inputs arrive through env, never through ${{ }} inside the
+          # script. Expression substitution happens before bash parses the line,
+          # so an interpolated input is shell *source*; an env var is just data.
+          IN_DAYS: ${{ inputs.days }}
+          IN_LIMIT: ${{ inputs.limit }}
+          IN_DRY: ${{ inputs.dry_run }}
         run: |
           # GitHub runs `run:` under `bash -eo pipefail`, so a bare `[ ... ] && ...`
           # guard aborts the step whenever the test is false - which is every
           # scheduled run, where the dispatch inputs are empty. Use if-blocks.
-          args=""
-          if [ -n "${{ inputs.days }}" ];  then args="$args --days ${{ inputs.days }}"; fi
-          if [ -n "${{ inputs.limit }}" ]; then args="$args --limit ${{ inputs.limit }}"; fi
-          if [ "${{ inputs.dry_run }}" = "true" ]; then args="$args --dry-run"; fi
-          python3 agent/pipeline.py $args 2>&1 | tee run.log
+          args=()
+          if [ -n "$IN_DAYS" ];  then args+=(--days "$IN_DAYS"); fi
+          if [ -n "$IN_LIMIT" ]; then args+=(--limit "$IN_LIMIT"); fi
+          if [ "$IN_DRY" = "true" ]; then args+=(--dry-run); fi
+          python3 agent/pipeline.py "${args[@]}" 2>&1 | tee run.log
 
       - name: Check data integrity
         # Refuse to commit a broken inventory: a dangling id renders as a silently

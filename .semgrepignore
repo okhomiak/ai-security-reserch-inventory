@@ -1,0 +1,4 @@
+# Generated data - the agent writes these and check.py validates them.
+docs/data/
+agent/last_dry_run.json
+.venv/

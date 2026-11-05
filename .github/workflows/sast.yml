@@ -1,0 +1,73 @@
+name: SAST
+
+# Semgrep, not CodeQL. The repo uses CodeQL *default setup* (configured in
+# repo settings), which scans Python and Actions but cannot coexist with a
+# CodeQL workflow - default setup rejects an advanced workflow's upload. That
+# leaves two holes this fills:
+#
+#   1. docs/app.js is ~1,600 lines rendering text the agent fetched off the open
+#      internet, and default setup's language list does not include JavaScript.
+#   2. OpenSSF Scorecard reads workflow files, not repo settings, so with no
+#      SAST workflow present it scores the repo as having no SAST at all.
+#
+# Findings go to the Security tab. The job does not fail on findings - the
+# branch ruleset's "require code scanning results" rule decides what blocks a
+# merge, so severity policy lives in one place rather than two.
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  schedule:
+    - cron: '37 4 * * 3'
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: sast-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  semgrep:
+    name: semgrep
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      security-events: write   # upload SARIF
+    steps:
+      - uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+
+      - run: pip install semgrep==1.183.0
+
+      - name: Scan
+        run: |
+          semgrep scan \
+            --config=p/default \
+            --config=p/javascript \
+            --config=p/python \
+            --config=p/secrets \
+            --config=p/github-actions \
+            --sarif --output=semgrep.sarif \
+            --metrics=off \
+            --no-error
+        # --metrics=off: this repo's filenames and findings are nobody else's
+        # business, least of all for a tool auditing its security posture.
+
+      - uses: github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
+        if: always()
+        with:
+          sarif_file: semgrep.sarif
+          category: semgrep

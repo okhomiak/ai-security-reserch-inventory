@@ -50,10 +50,22 @@ class Candidate:
 
 
 def _get(url: str, retries: int = 3, timeout: int = 45) -> bytes:
+    # urllib handles file:// and ftp:// as happily as https. Every URL here
+    # comes from the sources.json allowlist, but a bad edit to that file should
+    # not become local file disclosure - so the scheme is checked, not assumed.
+    scheme = urllib.parse.urlsplit(url).scheme.lower()
+    if scheme not in ("http", "https"):
+        raise ValueError(f"refusing to fetch non-HTTP(S) URL: {url[:80]}")
+
     last = None
     for attempt in range(retries):
         req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
         try:
+            # nosemgrep: python.lang.security.audit.dynamic-urllib-use-detected
+            # Fetching URLs that vary is this module's entire purpose. The real
+            # exposure - urllib honouring file:// and ftp:// - is closed by the
+            # scheme check above, and every URL originates in the sources.json
+            # allowlist rather than in fetched content.
             with urllib.request.urlopen(req, timeout=timeout) as resp:
                 return resp.read()
         except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as exc:
