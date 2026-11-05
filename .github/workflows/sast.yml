@@ -60,10 +60,15 @@ jobs:
         env:
           SEMGREP_IMAGE: semgrep/semgrep@sha256:2e45517a85e13a9cca14a2a00df6bb48affd66b8ebfae1b0991cd57578362fb0 # 1.183.0
         run: |
+          # Runs as the image's own user, not --user $(id -u): semgrep writes a
+          # settings file to $HOME and a mapped-in uid has no home inside the
+          # image. The SARIF lands in the mounted workspace as 0644, which is
+          # all upload-sarif needs. --network host because the p/ configs are
+          # fetched from the registry, and it keeps egress visible to
+          # harden-runner instead of hiding it behind docker's NAT.
           docker run --rm \
             --network host \
             -v "$PWD":/src --workdir /src \
-            -u "$(id -u):$(id -g)" \
             "$SEMGREP_IMAGE" \
             semgrep scan \
             --config=p/default \
