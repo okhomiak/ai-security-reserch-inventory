@@ -42,6 +42,10 @@
     <span class="mark" aria-hidden="true"></span>
     <span class="side-title">AI Security<b>Research Inventory</b></span>
   </div>
+  <div class="side-btns">
+    <button class="icon-btn" id="theme-btn" title="Light / dark (t)">◐</button>
+    <button class="icon-btn" id="keys-btn" title="Keyboard (?)">⌘</button>
+  </div>
   <button class="cmd-open" id="cmd-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4"/></svg>Search<kbd>⌘K</kbd></button>
   <div class="side-nav" id="tabs" role="tablist">
       <button class="nav" role="tab" data-view="news" aria-selected="true">
@@ -80,10 +84,6 @@
   <div class="side-foot">
     <div class="side-meta" id="head-sub">loading…</div>
     <div class="side-new"><span id="new-pill"></span></div>
-    <div class="side-btns">
-      <button class="icon-btn" id="theme-btn" title="Light / dark (t)">◐</button>
-      <button class="icon-btn" id="keys-btn" title="Keyboard (?)">⌘</button>
-    </div>
   </div>
 </nav>
 <main class="main">
@@ -258,7 +258,8 @@
         that reads new work and files it. <b>This page is the week's signal;</b> the rest is the standing
         picture.</p>
       <div class="stats" id="hero-stats"></div>
-      <nav class="hero-links" id="hero-links"></nav>
+      <p class="signposts" id="hero-links"></p>
+      <button class="hero-x" id="hero-x" title="Hide this intro">✕</button>
     </div>
     <div class="card">
       <h2>Latest from the labs</h2>

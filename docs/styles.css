@@ -875,5 +875,159 @@ table.list td a { display: inline; }
 #p-table td:nth-child(6) { overflow: visible; }
 
 /* Give the long tables room rather than a 620px letterbox. */
-#view-papers .scroll-y { max-height: calc(100vh - 300px); min-height: 420px; }
-#news-list { max-height: calc(100vh - 340px); min-height: 420px; }
+/* No forced floors. A min-height taller than the viewport inserts dead space
+   you have to scroll past, which is exactly what it did at 345px tall. */
+#view-papers .scroll-y { max-height: min(72vh, 760px); }
+#news-list { max-height: min(72vh, 760px); }
+.scroll-y { max-height: min(70vh, 700px); }
+
+/* ═══════════════════════════════════════ density: data before prose ═══ */
+/* Every card led with a three-line paragraph of my reasoning, which pushed the
+   actual content below the fold - on a short viewport, below two folds. The
+   explanation still matters, so it is clamped to its first lines with a toggle
+   rather than deleted. Data first; the argument one click away. */
+.note.clamped {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;
+  overflow: hidden; margin-bottom: var(--sp-2);
+}
+.note-more {
+  border: 0; background: none; padding: 0; margin: 0 0 var(--sp-3);
+  font: inherit; font-size: 11.5px; color: var(--s1); cursor: pointer;
+}
+.note-more:hover { text-decoration: underline; }
+
+/* --------------------------------------------------------------- hero */
+.card.hero { padding: var(--sp-4) var(--sp-5); }
+.card.hero > h2 { font-size: clamp(17px, 2.6vw, 25px); line-height: 1.15; }
+.card.hero .note { font-size: 13px; }
+.card.hero .stats { margin: var(--sp-3) 0 var(--sp-3); gap: var(--sp-2); }
+.card.hero .stat { padding: var(--sp-2) var(--sp-3); }
+.card.hero .stat .v { font-size: 20px; }
+.card.hero .stat .k { font-size: 10.5px; }
+.hero-links { gap: var(--sp-2); }
+.hero-link { padding: var(--sp-2) var(--sp-3); }
+
+/* ------------------------------------- narrow: labels, not bare numbers */
+@media (max-width: 900px) {
+  .side { padding: var(--sp-2) var(--sp-3); gap: var(--sp-2); }
+  .side-nav { flex-wrap: wrap; overflow: visible; row-gap: 2px; }
+  .nav { padding: 6px 9px; font-size: 12px; }
+  .nav-l { display: inline; }          /* a count with no label is meaningless */
+  .nav svg { width: 14px; height: 14px; }
+  .nav-n {
+    background: var(--page); border-radius: 999px; padding: 0 5px;
+    font-size: 9.5px; line-height: 15px;
+  }
+  .card { padding: var(--sp-4); }
+  .card.hero > h2 { font-size: 18px; }
+  .stats { grid-template-columns: repeat(auto-fit, minmax(104px, 1fr)); }
+  .stat .v { font-size: 19px; }
+}
+@media (max-width: 560px) {
+  .nav-l { display: none; }
+  .nav[aria-selected="true"] .nav-l { display: inline; }
+}
+
+/* Short viewports: the vertical budget is the scarce resource. */
+@media (max-height: 620px) {
+  .card.hero .note { -webkit-line-clamp: 2; }
+  .card.hero > h2 { font-size: 17px; margin-bottom: 2px; }
+  .card.hero .stats { margin: var(--sp-2) 0; }
+  .card { padding: var(--sp-3) var(--sp-4); margin-bottom: var(--sp-3); }
+  .card > h2::before { margin-bottom: 5px; }
+  .toolbar { margin-bottom: var(--sp-2); }
+}
+
+/* ═══════════════════════════════ narrow + short: the real fixes ═══ */
+/* .nav inherits width:100% from the sidebar layout. In the horizontal row that
+   made every item claim a full line, so the nav ate the entire viewport. */
+@media (max-width: 900px) {
+  .side-nav { flex: 1 0 100%; }
+  .nav { width: auto; flex: 0 0 auto; }
+  .side-top { flex: 0 0 auto; }
+  .cmd-open { flex: 1 1 200px; width: auto; }
+}
+
+/* The hero is orientation, not content. It gets a fixed small budget: one
+   headline, the numbers, the ways in. The paragraph is one line with a toggle,
+   because on a 345px-tall viewport an intro that fills the screen means the
+   data is never the first thing you see. */
+.card.hero { padding: var(--sp-3) var(--sp-4); }
+.card.hero > h2 { font-size: clamp(16px, 2.2vw, 21px); margin-bottom: 3px; }
+.card.hero > h2::before { width: 26px; height: 2px; margin-bottom: 6px; }
+.card.hero .note.clamped { -webkit-line-clamp: 1; font-size: 12.5px; margin-bottom: 2px; }
+.card.hero .stats {
+  display: flex; flex-wrap: wrap; gap: var(--sp-2); margin: var(--sp-3) 0;
+}
+.card.hero .stat {
+  flex: 1 1 auto; min-width: 0; display: flex; align-items: baseline; gap: 6px;
+  padding: 5px var(--sp-3); border-radius: 999px; background: var(--page);
+}
+.card.hero .stat .v { font-size: 15px; line-height: 1.2; }
+.card.hero .stat .k { font-size: 10.5px; margin: 0; white-space: nowrap; }
+.card.hero .stat:hover { transform: none; }
+.hero-links { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.hero-link { padding: 7px var(--sp-3); border-left-width: 2px; }
+.hero-link b { font-size: 12px; }
+.hero-link span { font-size: 10.5px; }
+
+/* Signpost line replaces four cards that duplicated the sidebar. */
+.signposts { margin: 0; font-size: 12px; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 6px 0; align-items: center; }
+.signposts a { color: var(--s1); }
+.signposts i { font-style: normal; color: var(--ink-3); margin: 0 8px; }
+
+.card.hero { position: relative; }
+.hero-x {
+  position: absolute; top: 10px; right: 10px; width: 24px; height: 24px;
+  border: 1px solid var(--ring); background: var(--page); color: var(--ink-3);
+  border-radius: var(--r-sm); font-size: 11px; cursor: pointer; line-height: 1;
+}
+.hero-x:hover { color: var(--ink); border-color: var(--axis); }
+.card.hero.tucked > h2 { font-size: 14px; margin: 0; }
+.card.hero.tucked > h2::before,
+.card.hero.tucked .note,
+.card.hero.tucked .note-more,
+.card.hero.tucked .signposts { display: none; }
+.card.hero.tucked { padding: var(--sp-3) var(--sp-4); }
+.card.hero.tucked .stats { margin: var(--sp-2) 0 0; }
+.card.hero.tucked .hero-x::after { content: ""; }
+
+.side-btns { display: flex; gap: 6px; }
+.side-btns .icon-btn { padding: 5px 9px; }
+@media (min-width: 901px) { .side-btns { order: 3; } }
+
+/* On a short viewport every card's explanation drops to one line. The toggle
+   is still there; the vertical budget simply is not. */
+@media (max-height: 620px) {
+  .card > .note.clamped { -webkit-line-clamp: 1; }
+  .legend { margin: 2px 0 8px; gap: 10px; font-size: 11.5px; }
+  .card > h2 { font-size: 14px; }
+}
+/* Toolbars stay one row until they genuinely cannot. */
+.toolbar { row-gap: var(--sp-2); }
+.toolbar input[type="search"] { min-width: 170px; flex: 1 1 170px; max-width: 320px; }
+.toolbar select { flex: 0 1 auto; max-width: 190px; }
+
+/* #meth-body holds a 720px-min table with no scroll container, so it pushed its
+   section wide. Wide content scrolls inside itself; the page never does. */
+#meth-body { overflow-x: auto; }
+#meth-body > table.list { margin-top: var(--sp-2); }
+
+/* Selection must read louder than hover. It did not: the hover wash and the
+   selected wash were close enough that a hovered item looked chosen - and in
+   the horizontal layout the left accent bar is hidden, so the tint was doing
+   the work alone. */
+.nav[aria-selected="true"] {
+  background: color-mix(in srgb, var(--s1) 14%, transparent);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--s1) 28%, transparent);
+}
+.nav:hover:not([aria-selected="true"]) {
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+}
+.nav[aria-selected="true"] .nav-n {
+  background: var(--s1); color: #fff; border-radius: 999px; padding: 0 6px;
+}
+@media (max-width: 900px) {
+  .nav[aria-selected="true"] { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--s1) 34%, transparent); }
+}

@@ -220,6 +220,7 @@ async function boot() {
 
   initTheme();
   initTabs();
+  initDensity();
   initReader();
   renderHead();
   renderOverlaps();
@@ -231,6 +232,33 @@ async function boot() {
   renderNews();
   renderPipeline();
   openFromHash();
+}
+
+/* Clamp long card explanations and give each a toggle. Applied after render so
+   it catches every view, including the ones drawn lazily. */
+function initDensity() {
+  const apply = () => {
+    $$('.card > .note').forEach((n) => {
+      if (n.dataset.clamp === 'on') return;
+      // Do NOT mark an empty note as skipped: several are filled by their
+      // render function after this first pass, and a permanent skip meant they
+      // never clamped. Only a note that actually has short content is skipped.
+      const len = n.textContent.trim().length;
+      if (len === 0) return;
+      if (len < 150) { n.dataset.clamp = 'skip'; return; }
+      n.dataset.clamp = 'on';
+      n.classList.add('clamped');
+      const btn = el('button', { class: 'note-more', type: 'button' }, 'Why this view →');
+      btn.addEventListener('click', () => {
+        const open = !n.classList.toggle('clamped');
+        btn.textContent = open ? 'Show less' : 'Why this view →';
+      });
+      n.after(btn);
+    });
+  };
+  apply();
+  // views render on demand; re-apply when one is shown
+  new MutationObserver(apply).observe($('.main'), { childList: true, subtree: true });
 }
 
 function initTheme() {
@@ -1728,16 +1756,27 @@ function renderNews() {
     [week, 'lab posts in the last 7 days'],
   ].map(([v, k]) => `<div class="stat"><div class="v">${esc(v)}</div><div class="k">${esc(k)}</div></div>`).join('');
 
+  // The four link cards repeated the sidebar, which already lists every view
+  // with its count. One line of signposts carries what they actually added.
   $('#hero-links').innerHTML = [
-    ['overlaps', 'Where the work overlaps', `${D.derived.clusters.length} research conversations`],
-    ['tree', 'The research tree', `${emptyLeaves} categor${emptyLeaves === 1 ? 'y' : 'ies'} with nothing in them`],
-    ['demand', 'What companies want', hottest ? `most under-served: ${esc(NEED[hottest[0]]?.label || '')}` : ''],
-    ['gaps', 'The gaps', 'what the literature has not answered'],
-  ].map(([v, t, sub]) =>
-    `<a href="#${v}" class="hero-link" data-go="${v}"><b>${esc(t)}</b><span>${sub}</span></a>`).join('');
+    `<a href="#overlaps" data-go="overlaps">${D.derived.clusters.length} research conversations</a>`,
+    `<a href="#tree" data-go="tree">${emptyLeaves} categor${emptyLeaves === 1 ? 'y' : 'ies'} with nothing published</a>`,
+    hottest ? `<a href="#demand" data-go="demand">most under-served: ${esc(NEED[hottest[0]]?.label || '')}</a>` : '',
+    `<a href="#gaps" data-go="gaps">${(D.gaps.gaps || []).length} open gaps</a>`,
+  ].filter(Boolean).join('<i>·</i>');
 
-  $$('#hero-links .hero-link').forEach((el2) =>
+  $$('#hero-links a').forEach((el2) =>
     el2.addEventListener('click', (e) => { e.preventDefault(); show(el2.dataset.go); }));
+
+  // Orientation is a first-visit need. Once you know what this is, it is in
+  // the way - so it can be dismissed, and that choice sticks.
+  const hero = $('.card.hero'), x = $('#hero-x');
+  const hidden = (() => { try { return localStorage.getItem('aisec-hero') === 'off'; } catch { return false; } })();
+  if (hidden) hero.classList.add('tucked');
+  x.addEventListener('click', () => {
+    const off = hero.classList.toggle('tucked');
+    try { localStorage.setItem('aisec-hero', off ? 'off' : 'on'); } catch { /* private mode */ }
+  });
 
   const orgs = [...new Set(items.map((i) => i.org))].sort();
   orgs.forEach((o) => $('#n-org').append(el('option', { value: o },
@@ -1746,8 +1785,8 @@ function renderNews() {
   const tiers = [...new Set(items.map((i) => i.tier))];
   $('#news-legend').innerHTML = tiers.map((t) =>
     `<span class="li">${tierBadge(t)}${items.filter((i) => i.tier === t).length}</span>`).join('')
-    + `<span class="li sub">${items.filter((i) => i.title_source === 'slug').length} titles derived from the URL
-       (marked <span class="badge">approx</span>) because the publisher offers no feed and the page was not fetched.</span>`;
+    + `<span class="li sub" title="Those publishers offer no feed, and the page was not fetched within the per-run budget, so the title comes from the URL slug.">`
+    + `<span class="badge">approx</span> ${items.filter((i) => i.title_source === 'slug').length} titles from the URL</span>`;
 
   $$('#n-sort button').forEach((b) => b.addEventListener('click', () => {
     $$('#n-sort button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
