@@ -55,8 +55,21 @@ jobs:
 
       - name: Build the bundle
         id: bundle
+        # Every ${{ }} here goes through env, never into the script text. A tag
+        # is attacker-supplied on a workflow_dispatch run, and interpolation
+        # happens BEFORE the shell sees the line - so a tag containing shell
+        # metacharacters would execute as code on a runner holding a token with
+        # contents:write. This is the same mistake that was fixed in
+        # weekly-ingest.yml and reintroduced here; semgrep caught it.
+        env:
+          TAG_INPUT: ${{ inputs.tag }}
+          REF_NAME: ${{ github.ref_name }}
         run: |
-          version="${{ inputs.tag || github.ref_name }}"
+          version="${TAG_INPUT:-$REF_NAME}"
+          case "$version" in
+            [0-9]*) ;;
+            *) echo "::error::Refusing to release a version that is not CalVer: $version"; exit 1 ;;
+          esac
           name="ai-security-research-inventory-${version}"
           mkdir -p "dist/${name}"
           cp -r docs/data "dist/${name}/data"
@@ -77,11 +90,12 @@ jobs:
         # the release notes.
         env:
           COSIGN_YES: "true"
+          NAME: ${{ steps.bundle.outputs.name }}
         run: |
           cd dist
-          cosign sign-blob "${{ steps.bundle.outputs.name }}.tar.gz" \
-            --output-signature "${{ steps.bundle.outputs.name }}.tar.gz.sig" \
-            --output-certificate "${{ steps.bundle.outputs.name }}.tar.gz.pem"
+          cosign sign-blob "${NAME}.tar.gz" \
+            --output-signature "${NAME}.tar.gz.sig" \
+            --output-certificate "${NAME}.tar.gz.pem"
           cosign sign-blob SHA256SUMS \
             --output-signature SHA256SUMS.sig \
             --output-certificate SHA256SUMS.pem
@@ -96,15 +110,19 @@ jobs:
         # you have the API. It is no use to someone holding the tarball on a
         # disconnected machine, and Scorecard's Signed-Releases check caps a
         # release at 8/10 until the provenance is downloadable beside it.
-        run: cp "${{ steps.attest.outputs.bundle-path }}" \
-               "dist/${{ steps.bundle.outputs.name }}.intoto.jsonl"
+        env:
+          BUNDLE_PATH: ${{ steps.attest.outputs.bundle-path }}
+          NAME: ${{ steps.bundle.outputs.name }}
+        run: cp "$BUNDLE_PATH" "dist/${NAME}.intoto.jsonl"
 
       - name: Release notes from the changelog
         # The footer lives in its own file rather than a heredoc: markdown
         # inside a YAML block scalar is one stray column-1 '---' away from
         # silently becoming a second YAML document.
+        env:
+          VERSION: ${{ steps.bundle.outputs.version }}
         run: |
-          v="${{ steps.bundle.outputs.version }}"
+          v="$VERSION"
           awk -v v="$v" '
             $0 == "## " v || index($0, "## " v " ") == 1 {f=1; next}
             f && /^## / {exit}
@@ -119,8 +137,9 @@ jobs:
       - name: Create the release
         env:
           GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.bundle.outputs.version }}
         run: |
-          gh release create "${{ steps.bundle.outputs.version }}" \
-            --title "${{ steps.bundle.outputs.version }}" \
+          gh release create "$VERSION" \
+            --title "$VERSION" \
             --notes-file notes.md \
             dist/*.tar.gz dist/*.sig dist/*.pem dist/*.intoto.jsonl dist/SHA256SUMS
