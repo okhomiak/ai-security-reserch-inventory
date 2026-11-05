@@ -9,6 +9,25 @@ not.
 The dashboard itself deploys from `main` on every push, so a release here marks
 a coherent state of the data and tooling, not a separate artefact to download.
 
+## 2026.11.1 — 2026-11-05
+
+Trust and verifiability. No change to the inventory itself.
+
+- **Signed releases.** A release workflow builds the data as a checksummed
+  tarball and signs it with cosign keyless signing, so a third party can verify
+  they hold the same bytes this repository published. Build provenance is
+  attached as a GitHub attestation. This closes the Scorecard `Signed-Releases`
+  check, which previously read "no releases found" — there was a tag, but a tag
+  is not a release and nothing was signed.
+- **Status badges.** Workflow badges that can go red, plus badges generated
+  from the project's own data (paper count, measured overlaps, referential
+  integrity, inventory date). The generated ones are rebuilt on every derive
+  and checked in CI, so a badge cannot outlive the number it claims.
+- **`CITATION.cff`**, giving GitHub's native "Cite this repository" button.
+- **OpenSSF Best Practices passing badge** earned: 51 criteria Met, 15 N/A,
+  1 Unmet (`test_most` — `docs/app.js` has no automated tests, which is
+  recorded rather than claimed).
+
 ## 2026.11.0 — 2026-11-05
 
 First tagged release.
