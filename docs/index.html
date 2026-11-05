@@ -5,8 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- GitHub Pages cannot set response headers, so the policy is declared here.
      The page loads no third-party anything: no CDN, no fonts, no analytics, no
-     frames. default-src 'none' and widen only where this page actually needs
-     it, which makes any future external dependency a deliberate edit.
+     frames except arXiv PDFs, which the in-page reader embeds on demand.
+     default-src 'none' and widen only where this page actually needs it, which
+     makes any future external dependency a deliberate edit. The reader sets the
+     iframe src only when someone opens a paper, so no request reaches arXiv
+     unless a reader asked for one.
 
      style-src deliberately omits 'unsafe-inline'. Data-driven colour is applied
      through the CSSOM instead (see applySty in app.js) - verified in a browser
@@ -17,7 +20,7 @@
      only works as a response header, which GitHub Pages does not let us set.
      Clickjacking protection therefore is not available here; the page is
      read-only and has no actions to hijack. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; frame-src https://arxiv.org; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>AI Security Research Inventory</title>
 <meta name="description" content="Overlaps, taxonomy and company-demand map across AI security research, refreshed weekly by an agent.">
@@ -305,6 +308,26 @@
 
 <div id="tip" role="tooltip"></div>
 <div id="card" role="tooltip"></div>
+<aside id="reader" aria-hidden="true">
+  <div class="rd-panel" role="dialog" aria-modal="true" aria-labelledby="rd-title">
+    <header class="rd-head">
+      <div class="rd-head-main">
+        <div class="rd-kicker" id="rd-kicker"></div>
+        <h2 id="rd-title"></h2>
+        <div class="rd-meta" id="rd-meta"></div>
+      </div>
+      <button class="icon-btn" id="rd-close" title="Close (Esc)">✕</button>
+    </header>
+    <nav class="rd-tabs" id="rd-tabs">
+      <button data-p="summary" aria-pressed="true">What we hold</button>
+      <button data-p="pdf" aria-pressed="false">Full paper</button>
+    </nav>
+    <div class="rd-body">
+      <div class="rd-pane" id="rd-summary"></div>
+      <div class="rd-pane" id="rd-pdf" hidden></div>
+    </div>
+  </div>
+</aside>
 <div id="keys" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts">
   <div class="panel">
     <h3>Keyboard</h3>

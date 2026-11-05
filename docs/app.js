@@ -155,10 +155,16 @@ function mixBar(papers, width = 86) {
     `<i data-sty="width:${Math.max(3, (n / total) * width)}px;background:${contribVar(t)}" title="${n} ${t}"></i>`).join('');
   return `<span class="mix" data-sty="width:${width}px">${segs}</span>`;
 }
+/* Every reference to a paper opens the reader. Reaching the source is one more
+   click from there, but the thing the inventory knows comes first. */
 const paperLink = (id) => {
   const p = PAPER[id];
-  return p ? `<a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(shortTitle(p.title, 84))}</a>` : esc(id);
+  return p ? `<a href="#read" class="plink" data-read="${esc(id)}">${esc(shortTitle(p.title, 84))}</a>` : esc(id);
 };
+document.addEventListener('click', (e) => {
+  const a2 = e.target.closest?.('.plink');
+  if (a2) { e.preventDefault(); openReader(a2.dataset.read); }
+});
 
 /* ------------------------------------------------------------------- boot */
 async function boot() {
@@ -196,6 +202,7 @@ async function boot() {
 
   initTheme();
   initTabs();
+  initReader();
   renderHead();
   renderOverlaps();
   renderTree();
@@ -477,7 +484,7 @@ function drawOverlapTree() {
         nt.textContent = 'NEW';
         pg.append(nt);
       }
-      pg.addEventListener('click', () => window.open(p.url, '_blank', 'noopener'));
+      pg.addEventListener('click', () => openReader(p.id));
       bindCard(pg, () => paperCard(p, bound[id] || 0));
       gNode.append(pg);
     });
@@ -500,7 +507,7 @@ function paperCard(p, boundScore) {
       <div>${contribBadge(p.contribution_type)} ${esc(p.organisations.slice(0, 2).join(', '))}</div>
       ${overlaps.length ? `<ul>${overlaps.map((o) =>
         `<li><b>${esc(shortTitle(PAPER[o.id]?.short || PAPER[o.id]?.title || o.id, 42))}</b><br>${esc(o.shared)}</li>`).join('')}</ul>` : ''}
-      <div class="hint">Click to open on arXiv.</div>
+      <div class="hint">Click to read it here.</div>
     </div>`;
 }
 
@@ -613,7 +620,7 @@ function drawGraph() {
       fill, stroke: 'var(--surface-1)', 'stroke-width': 2,
     });
     g.append(c);
-    g.addEventListener('click', () => window.open(n.p.url, '_blank', 'noopener'));
+    g.addEventListener('click', () => openReader(n.p.id));
     bindTip(g, `<b>${esc(shortTitle(n.p.title, 92))}</b>
       <span class="r">${esc(n.p.organisations.slice(0, 3).join(', '))} · ${esc(n.p.date)}</span>
       <span class="r">${esc(catLabel(n.p.primary_category))} · ${deg[n.id] || 0} overlaps</span>
@@ -879,7 +886,7 @@ function treePanel(id) {
     const p = PAPER[pid];
     if (!p) return '';
     return `<div data-sty="border-top:1px solid var(--grid);padding:10px 0">
-      <div><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a></div>
+      <div><a href="#read" class="plink" data-read="${esc(p.id)}">${esc(p.title)}</a></div>
       <div class="sub" data-sty="margin:3px 0 5px">${esc(p.organisations.slice(0, 3).join(', '))} · ${esc(p.venue)} · ${esc(p.date)}
         ${tierBadge(p.trust.tier)} ${contribBadge(p.contribution_type)} ${kindBadge(p)} ${newBadge(p)}</div>
       <div data-sty="font-size:12.5px">${esc(p.what_its_about)}</div></div>`;
@@ -1043,7 +1050,7 @@ function drawPressure() {
 function evChip(e) {
   if (e.type === 'paper') {
     const p = PAPER[e.id];
-    return p ? `<a href="${esc(p.url)}" target="_blank" rel="noopener" title="${esc(p.title)}">${esc(shortTitle(p.title, 44))}</a>`
+    return p ? `<a href="#read" class="plink" data-read="${esc(p.id)}" title="${esc(p.title)}">${esc(shortTitle(p.title, 44))}</a>`
              : `<span>${esc(e.id)}</span>`;
   }
   if (e.type === 'company') {
@@ -1297,7 +1304,7 @@ function drawPapers() {
     const tr = el('tr', { class: 'row' });
     tr.innerHTML = `
       <td class="num">${esc(p.date)}</td>
-      <td><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a> ${kindBadge(p)} ${newBadge(p)}</td>
+      <td><a href="#read" class="plink" data-read="${esc(p.id)}">${esc(p.title)}</a> ${kindBadge(p)} ${newBadge(p)}</td>
       <td class="num">${esc(p.organisations.slice(0, 2).join(', '))}${p.organisations.length > 2 ? ' +' + (p.organisations.length - 2) : ''}</td>
       <td class="num">${esc(p.venue)}<br>${tierBadge(p.trust.tier)}</td>
       <td class="num">${esc(catLabel(p.primary_category))}</td>
@@ -1319,10 +1326,100 @@ function drawPapers() {
         <dt>Record</dt><dd class="sub">${esc(p.curation)} · classified by ${esc(p.classified_by)} · added ${esc(p.added)}
           ${p.confidence < 1 ? ` · confidence ${p.confidence}` : ''}</dd>
       </dl></div></td>`;
-    tr.addEventListener('click', (e) => { if (e.target.tagName !== 'A') det.hidden = !det.hidden; });
+    tr.addEventListener('click', (e) => { if (e.target.tagName !== 'A') openReader(p.id); });
     tb.append(tr, det);
   });
   if (!rows.length) tb.innerHTML = '<tr><td colspan="6" class="empty">Nothing matches those filters.</td></tr>';
+}
+
+/* ===================================================================== READER
+   Everything the inventory holds about one record, plus the paper itself.
+
+   arXiv's /abs/ pages set X-Frame-Options and frame-ancestors 'none', so they
+   cannot be embedded - but /pdf/ sets neither, so the PDF can. The CSP is
+   widened to exactly that one host and the iframe src is assigned only when
+   someone opens the Full paper pane, so no request reaches arXiv unless a
+   reader asked for one. */
+let RD_LAST = null;
+
+function openReader(id, pane) {
+  const p = PAPER[id];
+  if (!p) return;
+  RD_LAST = document.activeElement;
+  const rd = $('#reader');
+
+  $('#rd-kicker').innerHTML = `${tierBadge(p.trust.tier)} ${kindBadge(p)} ${contribBadge(p.contribution_type)} ${newBadge(p)}`;
+  $('#rd-title').textContent = p.title;
+  $('#rd-meta').innerHTML =
+    `${esc(p.organisations.join(', ') || p.source)} · ${esc(p.venue)} · ${esc(p.date)}`
+    + (p.citations ? ` · ${p.citations} citations` : '')
+    + ` · <a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">open at source ↗</a>`;
+
+  const row = (k, v) => v ? `<div class="rd-row"><dt>${esc(k)}</dt><dd>${v}</dd></div>` : '';
+  $('#rd-summary').innerHTML = `
+    <p class="rd-lead">${esc(p.what_its_about)}</p>
+    <dl class="rd-dl">
+      ${row('Threat model', esc(p.threat_model))}
+      ${row('Leaves open', p.gap_signal ? `<span class="rd-gap">${esc(p.gap_signal)}</span>` : '')}
+      ${row('Methods', (p.methods || []).map((m) => `<span class="badge">${esc(m)}</span>`).join(' '))}
+      ${row('Filed under', p.categories.map((c) =>
+          `<a href="#tree" class="catlink" data-cat="${esc(c)}">${esc(catLabel(c))}</a>`).join(''))}
+      ${row('Company needs', (p.addresses_needs || []).map((n) =>
+          `<span class="badge">${esc(NEED[n]?.label || n)}</span>`).join(' '))}
+      ${row('Provenance', `${esc(p.trust.justification)}${
+          p.venue_source === 'curator' ? ' <span class="sub">(venue stated by the curator, not verified)</span>' : ''}`)}
+      ${row('Authors', p.authors.length ? `<span class="sub">${esc(p.authors.join(', '))}</span>` : '')}
+    </dl>
+    ${p.abstract ? `<h4 class="rd-h">Abstract</h4><p class="rd-abs">${esc(p.abstract)}</p>` : ''}
+    ${(p.overlaps_with || []).length ? `<h4 class="rd-h">Argues with</h4>
+      <ul class="rd-ov">${p.overlaps_with.map((o) => {
+        const q = PAPER[o.id];
+        return `<li><button class="rd-jump" data-id="${esc(o.id)}">${esc(q ? (q.short || shortTitle(q.title, 54)) : o.id)}</button>
+                <span>${esc(o.shared)}</span></li>`;
+      }).join('')}</ul>` : ''}
+    <div class="rd-foot sub">${esc(p.curation)} record · classified by ${esc(p.classified_by)} · added ${esc(p.added)}</div>`;
+
+  const m = /arxiv\.org\/abs\/([0-9.]+)/.exec(p.url || '');
+  $('#rd-pdf').innerHTML = m
+    ? `<iframe title="${esc(p.title)}" src="https://arxiv.org/pdf/${esc(m[1])}" loading="lazy"></iframe>`
+    : `<div class="rd-nopdf">
+         <p>No embeddable PDF for this record — it is ${esc(p.kind || 'a page')} published by ${esc(p.organisations[0] || p.source)}.</p>
+         <p><a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">Read it at ${esc(new URL(p.url).hostname)} ↗</a></p>
+       </div>`;
+  $$('#rd-tabs button').forEach((b) => b.disabled = false);
+
+  readerPane(pane || 'summary');
+  rd.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('rd-open');
+  $('#rd-close').focus();
+
+  $$('#rd-summary .catlink').forEach((el2) => el2.addEventListener('click', (e) => {
+    e.preventDefault(); closeReader(); show('tree'); treePanel(el2.dataset.cat);
+  }));
+  $$('#rd-summary .rd-jump').forEach((el2) =>
+    el2.addEventListener('click', () => openReader(el2.dataset.id)));
+}
+
+function readerPane(which) {
+  $$('#rd-tabs button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.p === which)));
+  $('#rd-summary').hidden = which !== 'summary';
+  $('#rd-pdf').hidden = which !== 'pdf';
+}
+
+function closeReader() {
+  $('#reader').setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('rd-open');
+  $('#rd-pdf').innerHTML = '';   // stop the embed when the reader closes
+  RD_LAST?.focus?.();
+}
+
+function initReader() {
+  $('#rd-close').addEventListener('click', closeReader);
+  $('#reader').addEventListener('click', (e) => { if (e.target.id === 'reader') closeReader(); });
+  $$('#rd-tabs button').forEach((b) => b.addEventListener('click', () => readerPane(b.dataset.p)));
+  addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.body.classList.contains('rd-open')) closeReader();
+  });
 }
 
 /* ================================================================= FRAMEWORKS
@@ -1548,7 +1645,7 @@ function renderPipeline() {
 
   $('#pl-queue').innerHTML = q.length ? q.slice().reverse().map((p) => `
     <div data-sty="border-top:1px solid var(--grid);padding:10px 0">
-      <div><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a></div>
+      <div><a href="#read" class="plink" data-read="${esc(p.id)}">${esc(p.title)}</a></div>
       <div class="sub" data-sty="margin:3px 0">${esc(p.date)} · ${esc((p.organisations || []).join(', ') || 'organisations unknown')}
         ${p.agent_verdict ? `<span class="badge">tier ${esc(p.agent_verdict.tier)}</span>
         <span class="badge">confidence ${esc(p.agent_verdict.confidence)}</span>` : ''}</div>
