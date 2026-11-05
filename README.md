@@ -217,6 +217,32 @@ Everything is plain JSON and is meant to be edited.
 Run `python3 agent/check.py` after any hand edit, then
 `python3 agent/pipeline.py --derive-only` if you touched `papers.json`.
 
+## Releases
+
+Each tag publishes a signed bundle of the data — the thing worth citing or
+mirroring, as opposed to the dashboard that renders it. Verify it rather than
+trust it:
+
+```bash
+gh release download 2026.11.1 -R okhomiak/ai-security-reserch-inventory
+shasum -a 256 -c SHA256SUMS
+```
+
+The signature is [cosign](https://docs.sigstore.dev/) keyless, so there is no
+public key to distribute or protect. The signing identity is this repository's
+release workflow at that tag, recorded in the Rekor transparency log:
+
+```bash
+base64 -d < ai-security-research-inventory-2026.11.1.tar.gz.pem > cert.pem
+openssl x509 -in cert.pem -noout -ext subjectAltName
+# URI:https://github.com/okhomiak/ai-security-reserch-inventory/.github/workflows/release.yml@refs/tags/2026.11.1
+```
+
+or, properly, with cosign — the command is in each release's notes. The
+certificate is valid for ten minutes by design; what proves the signature was
+made while it was valid is the transparency-log timestamp, not the certificate
+itself.
+
 ## Known limits
 
 - The classification path has not been exercised against the live API from this
