@@ -1711,6 +1711,74 @@ function drawNews() {
 /* =================================================================== PIPELINE */
 function renderPipeline() {
   const r = D.runs?.latest;
+
+  // Describe what the pipeline actually did, not what the schedule says it does.
+  // A run someone started by hand five minutes ago should not be reported as
+  // "every Monday".
+  const nextMonday = () => {
+    const d = new Date();
+    d.setUTCDate(d.getUTCDate() + ((8 - d.getUTCDay()) % 7 || 7));
+    return d.toISOString().slice(0, 10);
+  };
+  $('#pl-intro').innerHTML =
+    'The agent queries arXiv and ten lab and security-research feeds, drops anything off-topic with a '
+    + 'mechanical gate, then asks Claude what each surviving paper is about, which branch of the tree it '
+    + 'belongs on, whether its provenance meets the inclusion bar, what it overlaps, and what it leaves '
+    + 'unresolved. It then re-reads the gaps against whatever it just added. Work that clears the bar is '
+    + 'proposed in a pull request; the rest goes to the review queue. '
+    + `Scheduled for <b>Mondays 06:17 UTC</b> — next ${esc(nextMonday())} — and runnable on demand.`;
+
+  if (r) {
+    const how = { scheduled: 'on schedule', manual: 'manually', local: 'locally' }[r.trigger];
+    const when = (r.finished || r.started || '').replace('T', ' ').slice(0, 16);
+    // Runs recorded before the trigger field existed say so, rather than
+    // claiming an "unknown trigger" as though something went wrong.
+    const discovery = r.mode === 'derive-only';
+    const bits = [
+      `Last run <b>${esc(when)} UTC</b>`
+        + (how ? `, triggered <b>${esc(how)}</b>${r.actor ? ` by ${esc(r.actor)}` : ''}`
+               : ' <span class="sub">(trigger not recorded — predates that field)</span>'),
+      `mode ${esc(r.mode)}`,
+      !discovery && r.discovered !== undefined ? `${r.discovered} found` : null,
+      !discovery && r.added !== undefined ? `${r.added} added` : null,
+      !discovery && r.queued ? `${r.queued} queued for review` : null,
+      r.gaps_flagged ? `${r.gaps_flagged} gap(s) flagged` : null,
+      r.news_items ? `${r.news_items} news items` : null,
+      r.errors?.length ? `<span class="rd-gap">${r.errors.length} error(s)</span>` : null,
+    ].filter(Boolean);
+    $('#pl-last').innerHTML = bits.join(' · ') + '.';
+  } else {
+    $('#pl-last').innerHTML = '<span class="sub">No run recorded yet.</span>';
+  }
+
+  // the agent's standing advisory on the gaps
+  const la = D.gaps.last_assessment;
+  const assessed = (D.gaps.gaps || []).filter((g) => g.agent_assessment);
+  const proposals = D.gaps.proposed_gaps || [];
+  $('#pl-gaps').innerHTML = (la || assessed.length || proposals.length) ? `
+    ${la ? `<p class="claim">${esc(la.summary || '')} <span class="sub">— assessed ${esc(la.date)}</span></p>` : ''}
+    ${assessed.map((g) => {
+      const a2 = g.agent_assessment;
+      return `<div class="pg-row${a2.verdict === 'no change' ? ' quiet' : ''}">
+        <div class="pg-h"><b>${esc(g.title)}</b>
+          <span class="badge">${esc(a2.verdict)}</span>
+          ${a2.suggested_status ? `<span class="badge sev-medium">${esc(a2.current_status)} → ${esc(a2.suggested_status)}</span>` : ''}
+          <span class="sub">${esc(a2.date)}</span></div>
+        ${a2.reasoning ? `<p>${esc(a2.reasoning)}</p>` : ''}
+        ${a2.papers?.length ? `<div class="ev">${a2.papers.map((id) =>
+          `<a href="#read" class="plink" data-read="${esc(id)}">${esc(PAPER[id]?.short || shortTitle(PAPER[id]?.title || id, 40))}</a>`).join('')}</div>` : ''}
+      </div>`;
+    }).join('')}
+    ${proposals.length ? `<h3 class="sub-h">Proposed gaps, unreviewed</h3>${proposals.map((p) => `
+      <div class="pg-row">
+        <div class="pg-h"><b>${esc(p.title)}</b><span class="badge">proposed ${esc(p.proposed)}</span></div>
+        <p>${esc(p.why_now)}</p>
+        <p class="sub"><b>Would close when:</b> ${esc(p.closes_when)}</p>
+        <p class="sub"><b>Against it:</b> ${esc(p.counter)}</p>
+        <div class="ev">${(p.supporting_papers || []).map((id) =>
+          `<a href="#read" class="plink" data-read="${esc(id)}">${esc(PAPER[id]?.short || id)}</a>`).join('')}</div>
+      </div>`).join('')}` : ''}`
+    : '<p class="empty">No reassessment yet — it runs after an ingest that adds something.</p>';
   const q = D.review_queue.items || [];
   $('#pl-stats').innerHTML = [
     [r?.finished?.slice(0, 10) || '—', 'last run'],

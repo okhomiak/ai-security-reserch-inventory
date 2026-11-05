@@ -70,6 +70,7 @@ jobs:
           IN_DAYS: ${{ inputs.days }}
           IN_LIMIT: ${{ inputs.limit }}
           IN_DRY: ${{ inputs.dry_run }}
+          GAP_MODEL: ${{ vars.GAP_MODEL || '' }}
         run: |
           # GitHub runs `run:` under `bash -eo pipefail`, so a bare `[ ... ] && ...`
           # guard aborts the step whenever the test is false - which is every

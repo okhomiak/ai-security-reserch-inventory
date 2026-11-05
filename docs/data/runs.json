@@ -1,6 +1,29 @@
 {
   "runs": [
     {
+      "started": "2026-11-05T00:58:13+00:00",
+      "trigger": "local",
+      "actor": "",
+      "mode": "derive-only",
+      "discovered": 0,
+      "gated_out": 0,
+      "considered": 0,
+      "classified": 0,
+      "added": 0,
+      "queued": 0,
+      "errors": [],
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cache_read": 0,
+        "cache_write": 0
+      },
+      "proposed_leaves": [],
+      "finished": "2026-11-05T00:58:13+00:00",
+      "seconds": 0.1,
+      "total_papers": 118
+    },
+    {
       "started": "2026-11-05T00:51:10+00:00",
       "mode": "derive-only",
       "discovered": 0,
@@ -346,7 +369,9 @@
     }
   ],
   "latest": {
-    "started": "2026-11-05T00:51:10+00:00",
+    "started": "2026-11-05T00:58:13+00:00",
+    "trigger": "local",
+    "actor": "",
     "mode": "derive-only",
     "discovered": 0,
     "gated_out": 0,
@@ -362,7 +387,7 @@
       "cache_write": 0
     },
     "proposed_leaves": [],
-    "finished": "2026-11-05T00:51:11+00:00",
+    "finished": "2026-11-05T00:58:13+00:00",
     "seconds": 0.1,
     "total_papers": 118
   }

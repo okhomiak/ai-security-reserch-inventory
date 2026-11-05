@@ -25,6 +25,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent))
 import derive  # noqa: E402
 import fetch  # noqa: E402
 import news  # noqa: E402
+import gapagent  # noqa: E402
 import gate  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -101,8 +102,12 @@ def main() -> int:
 
     papers = papers_doc.get("papers", [])
     started = datetime.now(timezone.utc)
+    trigger = os.environ.get("GITHUB_EVENT_NAME") or "local"
     run = {
         "started": started.isoformat(timespec="seconds"),
+        "trigger": {"schedule": "scheduled", "workflow_dispatch": "manual",
+                    "local": "local"}.get(trigger, trigger),
+        "actor": os.environ.get("GITHUB_ACTOR", ""),
         "mode": "derive-only" if args.derive_only else ("dry-run" if args.dry_run else "full"),
         "discovered": 0, "gated_out": 0, "considered": 0,
         "classified": 0, "added": 0, "queued": 0, "errors": [],
@@ -205,6 +210,25 @@ def main() -> int:
         queue["items"] = queue["items"][-300:]
         queue["updated"] = started.date().isoformat()
         save(DATA / "review_queue.json", queue)
+
+    if run["added"] and not args.dry_run and not args.derive_only:
+        print("== reassess gaps")
+        try:
+            fresh = papers[-run["added"]:]
+            result = gapagent.assess(client, gaps_doc, fresh, taxonomy)
+            leaf_ids = {n["id"] for n in taxonomy["nodes"] if n["parent"]}
+            gaps_doc, flagged = gapagent.apply(
+                gaps_doc, result, {p["id"] for p in papers}, leaf_ids)
+            run["gaps_flagged"] = flagged
+            run["gaps_proposed"] = len(gaps_doc.get("proposed_gaps", []))
+            for k, v in result.get("_usage", {}).items():
+                run["usage"][k] = run["usage"].get(k, 0) + v
+            print(f"   {flagged} gap(s) flagged for review, "
+                  f"{run['gaps_proposed']} proposal(s) outstanding")
+            print(f"   {result.get('summary','')[:160]}")
+        except Exception as exc:  # noqa: BLE001 - advisory step, never fatal
+            run["errors"].append(f"gap assessment: {exc}")
+            print(f"   ! gap assessment failed: {exc}")
 
     if not args.derive_only:
         try:

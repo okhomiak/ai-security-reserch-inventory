@@ -307,17 +307,20 @@
   <section class="view" id="view-pipeline" role="tabpanel">
     <div class="card">
       <h2>The weekly agent</h2>
-      <p class="note">Every Monday a GitHub Action queries arXiv and a list of lab and security-research
-        feeds, drops anything off-topic with a mechanical gate, then asks Claude what each surviving paper is
-        about, which branch of the tree it belongs on, whether its provenance meets the inclusion bar, what
-        it overlaps, and what it leaves unresolved. Papers that clear the bar are appended to the inventory;
-        the rest go to a review queue rather than being dropped silently. Overlaps, coverage and the gap
-        figures are then recomputed and committed, which republishes this page.</p>
+      <p class="note" id="pl-intro"></p>
+      <p class="note tight" id="pl-last"></p>
       <div class="stats" id="pl-stats"></div>
     </div>
     <div class="card">
       <h2>Run history</h2>
       <div class="scroll-x" id="pl-runs"></div>
+    </div>
+    <div class="card">
+      <h2>Gap reassessment</h2>
+      <p class="note tight">After every ingest the agent re-reads the gaps against whatever was just
+        catalogued and says whether anything moved. It writes an advisory beside the authored argument —
+        it never edits a claim, never changes a status, and never deletes a gap. A human decides.</p>
+      <div id="pl-gaps"></div>
     </div>
     <div class="card">
       <h2>Review queue</h2>
