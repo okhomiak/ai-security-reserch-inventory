@@ -38,6 +38,17 @@ jobs:
         with:
           persist-credentials: false   # nothing here pushes; don't leave a token in .git/config
 
+      - name: Stamp assets with the commit SHA
+        # GitHub Pages serves styles.css and app.js from the same URL on every
+        # deploy, so a browser that cached them keeps the old ones - which is
+        # exactly how a fixed CSS bug kept appearing unfixed. Stamping the
+        # query string makes each deploy a new URL.
+        run: |
+          sha="${GITHUB_SHA::12}"
+          sed -i "s|href=\"styles.css\"|href=\"styles.css?v=$sha\"|; s|src=\"app.js\"|src=\"app.js?v=$sha\"|" docs/index.html
+          grep -o 'styles.css?v=[a-f0-9]*' docs/index.html
+          grep -o 'app.js?v=[a-f0-9]*' docs/index.html
+
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:

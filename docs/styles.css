@@ -1184,26 +1184,17 @@ tr.grouprow .mix { vertical-align: middle; }
 }
 .card {
   position: relative;
-  background: linear-gradient(180deg, var(--sheen-soft), transparent 42%), var(--surface-1);
-  border-color: color-mix(in srgb, var(--ring) 150%, transparent);
+  background: var(--surface-1);
+  border-color: var(--ring);
 }
-.card::before {
-  content: ""; position: absolute; inset: 0 0 auto; height: 1px; border-radius: var(--r-lg) var(--r-lg) 0 0;
-  background: linear-gradient(90deg, transparent, var(--sheen), transparent); pointer-events: none;
-}
+
 #tip, #card, .cmd-panel, .rd-panel, #keys .panel {
   background: var(--glass-strong);
   backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
   border-color: color-mix(in srgb, var(--axis) 70%, transparent);
 }
-#card, .cmd-panel, .rd-panel { position: relative; }
-#card::after, .cmd-panel::after, .rd-panel::after {
-  content: ""; position: absolute; inset: 0 0 auto; height: 1px;
-  background: linear-gradient(90deg, transparent, var(--sheen), transparent); pointer-events: none;
-}
-.stat, .hero-link, .fw, .gap, .cl {
-  background: linear-gradient(180deg, var(--sheen-soft), transparent 50%), var(--page);
-}
+
+
 .navcell { backdrop-filter: saturate(140%); -webkit-backdrop-filter: saturate(140%); }
 @media (prefers-reduced-transparency: reduce) {
   .side, #tip, #card, .cmd-panel, .rd-panel, #keys .panel {
@@ -1237,3 +1228,11 @@ tr.grouprow .mix { vertical-align: middle; }
 .rd-src { display: inline-block; margin-top: 7px; font-size: 11.5px; }
 .tp-meta { margin: 5px 0 6px; }
 #rd-kicker .meta { gap: 4px; }
+
+/* No drawn highlight lines. Depth is the surface plus its shadow; a 1px white
+   edge on every box reads as an outline, not as light. */
+.card { position: relative; }
+.card::before, .card::after,
+#card::before, #card::after,
+.cmd-panel::before, .cmd-panel::after,
+.rd-panel::before, .rd-panel::after { content: none !important; }
