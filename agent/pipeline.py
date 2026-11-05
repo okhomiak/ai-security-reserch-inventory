@@ -24,6 +24,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent))
 
 import derive  # noqa: E402
 import fetch  # noqa: E402
+import news  # noqa: E402
 import gate  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -204,6 +205,15 @@ def main() -> int:
         queue["items"] = queue["items"][-300:]
         queue["updated"] = started.date().isoformat()
         save(DATA / "review_queue.json", queue)
+
+    if not args.derive_only:
+        try:
+            news_doc = news.build(sources, days=150)
+            save(DATA / "news.json", news_doc)
+            run["news_items"] = news_doc["count"]
+        except Exception as exc:  # noqa: BLE001 - news is secondary to the inventory
+            run["errors"].append(f"news: {exc}")
+            print(f"   ! news collection failed: {exc}")
 
     print("== derive")
     papers.sort(key=lambda p: (p.get("date", ""), p["id"]), reverse=True)

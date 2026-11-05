@@ -47,6 +47,7 @@
       <button class="tab" role="tab" data-view="tree"      aria-selected="false">Research tree</button>
       <button class="tab" role="tab" data-view="demand"    aria-selected="false">What companies want</button>
       <button class="tab" role="tab" data-view="gaps"      aria-selected="false">Gaps</button>
+      <button class="tab" role="tab" data-view="news"      aria-selected="false">News</button>
       <button class="tab" role="tab" data-view="papers"    aria-selected="false">Papers</button>
       <button class="tab" role="tab" data-view="pipeline"  aria-selected="false">Pipeline</button>
     </nav>
@@ -149,6 +150,13 @@
       </div>
       <div class="scroll-x" id="heatmap"></div>
     </div>
+    <div class="card" id="methodology">
+      <h2>How to read this, and how it could be wrong</h2>
+      <p class="note tight">A heat map invites more confidence than editorial estimates deserve. This panel
+        states what a score rests on, the biases pushing it around, and the test that would show the whole
+        map is decorative.</p>
+      <div id="meth-body"></div>
+    </div>
     <div class="card">
       <h2>Demand against coverage</h2>
       <p class="note tight">The same twelve needs, with mean demand beside how many papers the inventory
@@ -182,6 +190,25 @@
       <p class="note tight">Not authored — these fall out of the demand-versus-coverage arithmetic each run.
         They are the candidates for a written chain above.</p>
       <div id="gap-derived"></div>
+    </div>
+  </section>
+
+  <!-- ================================================================ NEWS -->
+  <section class="view" id="view-news" role="tabpanel">
+    <div class="card">
+      <h2>Latest from the labs</h2>
+      <p class="note" id="news-note"></p>
+      <div class="toolbar">
+        <input type="search" id="n-q" placeholder="search headlines…">
+        <select id="n-org"><option value="">All organisations</option></select>
+        <div class="seg" id="n-sort">
+          <button data-s="date" aria-pressed="true">Newest</button>
+          <button data-s="relevance" aria-pressed="false">Most security-relevant</button>
+        </div>
+        <span class="sub" id="n-count"></span>
+      </div>
+      <div class="legend" id="news-legend"></div>
+      <div class="scroll-y" id="news-list"></div>
     </div>
   </section>
 

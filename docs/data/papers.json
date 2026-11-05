@@ -1,7 +1,7 @@
 {
   "schema": 2,
-  "updated": "2026-11-04",
-  "count": 92,
+  "updated": "2026-11-05",
+  "count": 100,
   "note": "Seed set: landmark AI-security work, every id/title/date/author verified against the live arXiv API. The weekly agent appends to this file; `curation` says whether a record was hand-written or agent-classified.",
   "papers": [
     {
@@ -1703,6 +1703,54 @@
       "citations": 225
     },
     {
+      "id": "web:nist-ai-600-1",
+      "title": "NIST AI 600-1: Artificial Intelligence Risk Management Framework — Generative AI Profile",
+      "short": "NIST GenAI Profile",
+      "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf",
+      "pdf": "",
+      "date": "2024-07-26",
+      "authors": [],
+      "organisations": [
+        "NIST"
+      ],
+      "venue": "NIST publication",
+      "venue_source": "publisher",
+      "kind": "policy",
+      "trust": {
+        "tier": "industry-research",
+        "justification": "NIST publication — NIST",
+        "gate_reason": "seed entry, curated; URL verified"
+      },
+      "source": "NIST",
+      "what_its_about": "The generative-AI companion to the NIST AI RMF: twelve risk categories, each with suggested actions mapped onto Govern, Map, Measure and Manage. The document US enterprise compliance programmes are usually built against.",
+      "primary_category": "gov.regulation",
+      "categories": [
+        "gov.regulation",
+        "gov.frameworks",
+        "eval.audit",
+        "gov.transparency"
+      ],
+      "contribution_type": "framework",
+      "methods": [
+        "risk taxonomy",
+        "suggested actions mapped to AI RMF functions"
+      ],
+      "threat_model": "Organisational failure to govern generative AI risk in a way an auditor can check.",
+      "addresses_needs": [
+        "n.compliance",
+        "n.evals"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Suggests actions without acceptance criteria - it tells an organisation what to do and not how to demonstrate it was done well, which is the compliance-evidence gap in another form.",
+      "confidence": 1.0,
+      "abstract": "",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
       "id": "arxiv:2407.17915",
       "title": "The Dark Side of Function Calling: Pathways to Jailbreaking Large Language Models",
       "short": "Function-call jailbreak",
@@ -2096,6 +2144,56 @@
       "validation_warnings": [],
       "short": "Multi-agent zero-days",
       "citations": 160
+    },
+    {
+      "id": "web:aisi-inspect",
+      "title": "Inspect: an open-source framework for large language model evaluations",
+      "short": "Inspect",
+      "url": "https://inspect.aisi.org.uk/",
+      "pdf": "",
+      "date": "2024-05-10",
+      "authors": [],
+      "organisations": [
+        "UK AI Security Institute"
+      ],
+      "venue": "UK AISI",
+      "venue_source": "publisher",
+      "kind": "framework",
+      "trust": {
+        "tier": "frontier-lab",
+        "justification": "UK AISI — UK AI Security Institute",
+        "gate_reason": "seed entry, curated; URL verified"
+      },
+      "source": "UK AI Security Institute",
+      "what_its_about": "The UK institute's open evaluation framework, now the common substrate for a large share of published safety evaluations. Matters less as research than as infrastructure: it makes evaluations reproducible by someone other than their author.",
+      "primary_category": "eval.benchmark",
+      "categories": [
+        "eval.benchmark",
+        "eval.redteam",
+        "eval.audit",
+        "eval.dangercap"
+      ],
+      "contribution_type": "framework",
+      "methods": [
+        "solver/scorer architecture",
+        "agentic eval harness",
+        "tool sandboxing"
+      ],
+      "threat_model": "Evaluations that are not reproducible, and therefore not evidence.",
+      "addresses_needs": [
+        "n.evals",
+        "n.redteam",
+        "n.compliance"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Standardises how an evaluation runs, not what counts as passing. Thresholds remain per-lab and per-release.",
+      "confidence": 1.0,
+      "abstract": "",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2405.04760",
@@ -4246,6 +4344,59 @@
       "validation_warnings": []
     },
     {
+      "id": "web:owasp-llm-top10",
+      "title": "OWASP Top 10 for Large Language Model Applications",
+      "short": "OWASP LLM Top 10",
+      "url": "https://genai.owasp.org/llm-top-10/",
+      "pdf": "",
+      "date": "2023-08-01",
+      "authors": [],
+      "organisations": [
+        "OWASP"
+      ],
+      "venue": "OWASP project",
+      "venue_source": "publisher",
+      "kind": "framework",
+      "trust": {
+        "tier": "industry-research",
+        "justification": "OWASP project — OWASP",
+        "gate_reason": "seed entry, curated; URL verified"
+      },
+      "source": "OWASP",
+      "what_its_about": "The consensus risk list for LLM applications - prompt injection at number one, through insecure output handling, supply chain, excessive agency and more. Its real function is organisational: it is the artefact a security team can hand a product team.",
+      "primary_category": "attack.injection",
+      "categories": [
+        "attack.injection",
+        "supply.deps",
+        "defense.guardrails",
+        "attack.extraction",
+        "agent.authz",
+        "supply.poisoning"
+      ],
+      "contribution_type": "framework",
+      "methods": [
+        "community consensus ranking",
+        "risk descriptions",
+        "prevention guidance"
+      ],
+      "threat_model": "The risks most likely to appear in an LLM application built by an ordinary engineering team.",
+      "addresses_needs": [
+        "n.guardrails",
+        "n.compliance",
+        "n.agent_sec",
+        "n.supplychain"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Ranked by practitioner consensus rather than incident data, so the ordering reflects what the community discusses rather than what is exploited.",
+      "confidence": 1.0,
+      "abstract": "",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
       "id": "arxiv:2307.15043",
       "title": "Universal and Transferable Adversarial Attacks on Aligned Language Models",
       "url": "https://arxiv.org/abs/2307.15043",
@@ -4650,6 +4801,57 @@
       "validation_warnings": []
     },
     {
+      "id": "web:google-saif",
+      "title": "Secure AI Framework (SAIF)",
+      "short": "Google SAIF",
+      "url": "https://saif.google/",
+      "pdf": "",
+      "date": "2023-06-08",
+      "authors": [],
+      "organisations": [
+        "Google"
+      ],
+      "venue": "Google framework",
+      "venue_source": "publisher",
+      "kind": "framework",
+      "trust": {
+        "tier": "frontier-lab",
+        "justification": "Google framework — Google",
+        "gate_reason": "seed entry, curated; URL verified"
+      },
+      "source": "Google",
+      "what_its_about": "Google's conceptual framework for extending existing security controls to AI systems - supply chain, detection and response, automated defences, platform-level controls - with a self-assessment that turns it into something a team can act on.",
+      "primary_category": "gov.frameworks",
+      "categories": [
+        "gov.frameworks",
+        "supply.provenance",
+        "infra.serving",
+        "defense.monitoring",
+        "agent.authz"
+      ],
+      "contribution_type": "framework",
+      "methods": [
+        "six core elements",
+        "risk self-assessment",
+        "control mapping"
+      ],
+      "threat_model": "AI systems deployed outside the reach of an organisation's existing security controls.",
+      "addresses_needs": [
+        "n.compliance",
+        "n.secure_infra",
+        "n.supplychain"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Vendor-authored and vendor-shaped. Nothing independent validates that an organisation scoring well on SAIF is measurably harder to attack.",
+      "confidence": 1.0,
+      "abstract": "",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
       "id": "arxiv:2306.05499",
       "title": "Prompt Injection attack against LLM-integrated Applications",
       "url": "https://arxiv.org/abs/2306.05499",
@@ -4711,6 +4913,55 @@
       "validation_warnings": [],
       "short": "HouYi",
       "citations": 960
+    },
+    {
+      "id": "web:apollo-research",
+      "title": "Apollo Research: evaluations for deceptive alignment",
+      "short": "Apollo Research",
+      "url": "https://www.apolloresearch.ai/research",
+      "pdf": "",
+      "date": "2023-05-01",
+      "authors": [],
+      "organisations": [
+        "Apollo Research"
+      ],
+      "venue": "Apollo Research",
+      "venue_source": "publisher",
+      "kind": "incident",
+      "trust": {
+        "tier": "industry-research",
+        "justification": "Apollo Research — Apollo Research",
+        "gate_reason": "seed entry, curated; URL verified"
+      },
+      "source": "Apollo Research",
+      "what_its_about": "The evaluation organisation specialising in deceptive alignment and scheming - behavioural evals, model organisms of misalignment, and pre-deployment testing for several frontier labs. Its in-context scheming results are the empirical basis for treating deception as measurable.",
+      "primary_category": "interp.deception",
+      "categories": [
+        "interp.deception",
+        "eval.dangercap",
+        "eval.audit",
+        "interp.probes"
+      ],
+      "contribution_type": "evaluation",
+      "methods": [
+        "scheming evaluations",
+        "deception benchmarks",
+        "model organism construction"
+      ],
+      "threat_model": "A model that behaves well under evaluation precisely because it is being evaluated.",
+      "addresses_needs": [
+        "n.evals",
+        "n.interp"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Evaluations detect scheming when a model reasons about it legibly. Nothing establishes detection when the reasoning is not externalised, which is the case that matters.",
+      "confidence": 1.0,
+      "abstract": "",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2305.00944",
@@ -5028,6 +5279,106 @@
       "citations": 1156
     },
     {
+      "id": "web:ncsc-ml-principles",
+      "title": "NCSC: Principles for the security of machine learning",
+      "short": "NCSC ML principles",
+      "url": "https://www.ncsc.gov.uk/collection/machine-learning",
+      "pdf": "",
+      "date": "2022-08-31",
+      "authors": [],
+      "organisations": [
+        "UK NCSC"
+      ],
+      "venue": "UK NCSC guidance",
+      "venue_source": "publisher",
+      "kind": "policy",
+      "trust": {
+        "tier": "industry-research",
+        "justification": "UK NCSC guidance — UK NCSC",
+        "gate_reason": "seed entry, curated; URL verified"
+      },
+      "source": "UK NCSC",
+      "what_its_about": "National technical authority guidance covering the ML lifecycle from design to decommissioning. Useful here as the baseline a UK organisation is expected to have considered, and as a contrast with the US NIST framing.",
+      "primary_category": "gov.frameworks",
+      "categories": [
+        "gov.frameworks",
+        "supply.poisoning",
+        "supply.provenance",
+        "infra.serving"
+      ],
+      "contribution_type": "framework",
+      "methods": [
+        "lifecycle principles",
+        "threat enumeration",
+        "design guidance"
+      ],
+      "threat_model": "ML-specific failure modes that conventional security engineering does not cover.",
+      "addresses_needs": [
+        "n.compliance",
+        "n.supplychain",
+        "n.secure_infra"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Predates the generative and agentic shift; the principles hold but the threat enumeration is built around classifiers rather than agents.",
+      "confidence": 1.0,
+      "abstract": "",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "web:metr",
+      "title": "METR: Model Evaluation and Threat Research",
+      "short": "METR",
+      "url": "https://metr.org/",
+      "pdf": "",
+      "date": "2022-06-01",
+      "authors": [],
+      "organisations": [
+        "METR"
+      ],
+      "venue": "METR",
+      "venue_source": "publisher",
+      "kind": "incident",
+      "trust": {
+        "tier": "industry-research",
+        "justification": "METR — METR",
+        "gate_reason": "seed entry, curated; URL verified"
+      },
+      "source": "METR",
+      "what_its_about": "The independent organisation evaluating frontier models for autonomous capability, and the source of the task-horizon measure that frames capability as the length of task a model can complete unaided. One of very few third parties with pre-deployment access.",
+      "primary_category": "eval.dangercap",
+      "categories": [
+        "eval.dangercap",
+        "cyber.exploit",
+        "gov.frameworks",
+        "eval.audit"
+      ],
+      "contribution_type": "evaluation",
+      "methods": [
+        "autonomous capability evaluations",
+        "task-horizon measurement",
+        "third-party pre-deployment testing"
+      ],
+      "threat_model": "A model capable of autonomous replication, resource acquisition, or long-horizon operation without oversight.",
+      "addresses_needs": [
+        "n.evals",
+        "n.offensive",
+        "n.compliance"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Third-party evaluation depends on access granted voluntarily by the lab being evaluated - the structural dependency the audit literature keeps naming and nobody has resolved.",
+      "confidence": 1.0,
+      "abstract": "",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
       "id": "arxiv:2202.07646",
       "title": "Quantifying Memorization Across Neural Language Models",
       "short": "Memorisation scaling",
@@ -5175,6 +5526,58 @@
       "confidence": 1.0,
       "abstract": "While recent works have indicated that federated learning (FL) may be vulnerable to poisoning attacks by compromised clients, their real impact on production FL systems is not fully understood. In this work, we aim to develop a comprehensive systemization for poisoning attacks on FL by enumerating all possible threat models, variations of poisoning, and adversary capabilities. We specifically put our focus on un-targeted poisoning attacks, as we argue that they are significantly relevant to production FL deployments. We present a critical analysis of untargeted poisoning attacks under practical, production FL environments by carefully characterizing the set of realistic threat models and adversarial capabilities. Our findings are rather surprising: contrary to the established belief, we show that FL is highly robust in practice even when using simple, low-cost defenses. We go even further and propose novel, state-of-the-art data and model poisoning attacks, and show via an extensive set of experiments across three benchmark datasets how (in)effective poisoning attacks are in the presence of simple defense mechanisms. We aim to correct previous misconceptions and offer concrete guidelines to conduct more accurate (and more realistic) research on this topic.",
       "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "web:mitre-atlas",
+      "title": "MITRE ATLAS: Adversarial Threat Landscape for AI Systems",
+      "short": "MITRE ATLAS",
+      "url": "https://atlas.mitre.org/",
+      "pdf": "",
+      "date": "2021-06-22",
+      "authors": [],
+      "organisations": [
+        "MITRE"
+      ],
+      "venue": "MITRE knowledge base",
+      "venue_source": "publisher",
+      "kind": "framework",
+      "trust": {
+        "tier": "industry-research",
+        "justification": "MITRE knowledge base — MITRE",
+        "gate_reason": "seed entry, curated; URL verified"
+      },
+      "source": "MITRE",
+      "what_its_about": "The ATT&CK equivalent for AI systems: a living matrix of adversary tactics and techniques against ML, grounded in observed incidents and red-team exercises, with mitigations mapped to each. The shared vocabulary most enterprise AI threat modelling is written in.",
+      "primary_category": "eval.redteam",
+      "categories": [
+        "eval.redteam",
+        "supply.poisoning",
+        "attack.adversarial",
+        "attack.model_theft",
+        "defense.monitoring",
+        "agent.hijack"
+      ],
+      "contribution_type": "framework",
+      "methods": [
+        "ATT&CK-style tactic/technique matrix",
+        "real-world case studies",
+        "mitigation mapping"
+      ],
+      "threat_model": "The full adversary lifecycle against a deployed ML system, from reconnaissance to impact.",
+      "addresses_needs": [
+        "n.redteam",
+        "n.monitoring",
+        "n.compliance"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Techniques are catalogued without prevalence data - nothing says which are actually common, so a defender cannot prioritise from the matrix alone.",
+      "confidence": 1.0,
+      "abstract": "",
+      "added": "2026-11-05",
       "classified_by": "curated-seed",
       "curation": "human",
       "notes": "",

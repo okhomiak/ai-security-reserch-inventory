@@ -95,7 +95,7 @@
             "need": "n.guardrails"
           },
           "computed": {
-            "papers": 18,
+            "papers": 19,
             "paper_ids": [
               "web:gtig-ai-threat-tracker-2025-11",
               "web:anthropic-asl3",
@@ -109,7 +109,7 @@
           }
         }
       ],
-      "refreshed": "2026-11-04",
+      "refreshed": "2026-11-05",
       "confidence": "high",
       "counter": "Production systems do ship injection defences that users tolerate, so 'no defence works' overstates it. The honest claim is narrower: no defence has been *measured* to hold attack-generality and utility simultaneously on a shared benchmark. Vendors do not publish utility-under-attack numbers, so absence of evidence is doing some of the work here.",
       "closes_when": "A defence reports >90% attack prevention and <5% utility loss on AgentDojo or a successor, against an adaptive attacker, without requiring weight access.",
@@ -170,7 +170,7 @@
             "need": "n.identity"
           },
           "computed": {
-            "papers": 9,
+            "papers": 11,
             "paper_ids": [
               "web:anthropic-espionage-2025-11",
               "arxiv:2506.08837",
@@ -202,7 +202,7 @@
           "claim": "Gap: the delegation problem - how an agent proves which principal it acts for, and how a downstream service bounds that - is being solved in product without a research literature to draw on."
         }
       ],
-      "refreshed": "2026-11-04",
+      "refreshed": "2026-11-05",
       "confidence": "high",
       "counter": "This may be an artefact of where the work is published rather than whether it exists. Identity and authorisation are classical systems-security problems with mature literature (OAuth, capabilities, macaroons); practitioners may simply be applying it without writing AI-specific papers. The gap is then in *translation*, not in knowledge.",
       "closes_when": "Peer-reviewed work defines how an agent proves which principal it acts for across a tool call, and how a downstream service bounds that delegation - with an implementation and a threat model covering a hijacked agent.",
@@ -273,7 +273,7 @@
           "claim": "Gap: no evaluation establishes that unlearned information is gone rather than suppressed - which is precisely the claim a deletion obligation or a capability threshold requires."
         }
       ],
-      "refreshed": "2026-11-04",
+      "refreshed": "2026-11-05",
       "confidence": "high",
       "counter": "For the copyright and deletion-request use case, behavioural removal may be all the obligation actually requires - a regulator asking 'does it still emit this text' is asking a behavioural question. The gap bites hard for capability thresholds and only weakly for compliance.",
       "closes_when": "An evaluation distinguishes removed capability from suppressed capability on a model with a known planted capability - i.e. it detects the Sleeper Agents case without being told the trigger.",
@@ -356,7 +356,7 @@
             "need": "n.supplychain"
           },
           "computed": {
-            "papers": 14,
+            "papers": 18,
             "paper_ids": [
               "web:gtig-ai-threat-tracker-2025-11",
               "arxiv:2504.03767",
@@ -377,7 +377,7 @@
             "need": "n.supplychain"
           },
           "computed": {
-            "defensive": 1,
+            "defensive": 5,
             "offensive": 6,
             "by_contribution": {
               "analysis": 4,
@@ -385,7 +385,7 @@
               "benchmark": 1,
               "evaluation": 1,
               "position": 1,
-              "framework": 1
+              "framework": 5
             }
           }
         },
@@ -394,7 +394,7 @@
           "claim": "Gap: no published method detects a backdoor without knowing its trigger, so commercial model scanning rests on file-format and known-signature checks rather than on behavioural or mechanistic detection."
         }
       ],
-      "refreshed": "2026-11-04",
+      "refreshed": "2026-11-05",
       "confidence": "medium",
       "counter": "Trigger-agnostic backdoor detection may be impossible rather than merely unpublished - the search space over triggers is unbounded. If so this is not a gap in the literature but a limit, and the right response is provenance and attestation, which several groups *are* working on. Scoring this as a research gap may be a category error.",
       "closes_when": "Either a detection method with a stated false-negative bound under an explicit trigger class, or a published argument that trigger-agnostic detection is infeasible, which would redirect effort to provenance.",
@@ -458,7 +458,7 @@
             "need": "n.monitoring"
           },
           "computed": {
-            "papers": 10,
+            "papers": 12,
             "paper_ids": [
               "web:gtig-ai-threat-tracker-2025-11",
               "web:anthropic-misuse-2025-08",
@@ -476,7 +476,7 @@
           "claim": "Gap: nothing measures what it costs a defender to withstand the attacks now being benchmarked. A threshold expressed only in attacker capability cannot tell a CISO whether their controls suffice."
         }
       ],
-      "refreshed": "2026-11-04",
+      "refreshed": "2026-11-05",
       "confidence": "medium",
       "counter": "Defensive cost is measured constantly - it is just measured commercially, in vendor benchmarks and internal SOC metrics, not in papers. The gap is in public measurement, which may be a disclosure norm rather than a research hole. Attack benchmarks are also easier to publish precisely because they need no defender to consent.",
       "closes_when": "A benchmark reports defender cost - detection rate, time-to-contain, analyst hours - against the same agentic attacks Cybench measures attacker capability on.",
@@ -543,7 +543,7 @@
             "need": "n.agent_sec"
           },
           "computed": {
-            "papers": 24,
+            "papers": 27,
             "paper_ids": [
               "web:anthropic-espionage-2025-11",
               "arxiv:2506.14866",
@@ -561,7 +561,7 @@
           "claim": "Gap: tool-server trust, capability declaration, version pinning and revocation are unaddressed in reviewed work - the practical material is vendor blog posts, which this inventory tracks but which carry no review."
         }
       ],
-      "refreshed": "2026-11-04",
+      "refreshed": "2026-11-05",
       "confidence": "high",
       "counter": "The ecosystem is young, so a thin literature is expected rather than anomalous; the relevant controls may also be adequately covered by existing package-manager and dependency-security work that simply has not been restated for tool servers. The gap may close on its own without anyone treating it as a research problem.",
       "closes_when": "Reviewed work addresses tool-server trust establishment, capability declaration and revocation - with a threat model covering a server that turns malicious after adoption.",
@@ -638,16 +638,16 @@
             "need": "n.compliance"
           },
           "computed": {
-            "papers": 18,
+            "papers": 24,
             "paper_ids": [
               "web:anthropic-asl3",
               "arxiv:2504.01849",
               "arxiv:2503.10965",
               "arxiv:2501.04952",
               "arxiv:2410.21514",
-              "arxiv:2403.13793",
-              "arxiv:2403.04893",
-              "arxiv:2402.16835"
+              "web:nist-ai-600-1",
+              "web:aisi-inspect",
+              "arxiv:2403.13793"
             ]
           }
         },
@@ -656,7 +656,7 @@
           "claim": "Gap: no work defines what evidence a model-security claim should consist of, how it is reproduced by an auditor without weight access, or how it maps onto the obligations deployers already carry."
         }
       ],
-      "refreshed": "2026-11-04",
+      "refreshed": "2026-11-05",
       "confidence": "medium",
       "counter": "This is arguably a standards-body problem, not a research problem - NIST, ISO and the EU AI Act implementing acts are actively drafting exactly this. Treating it as a research gap may simply mean the inventory is reading the wrong corpus; the work exists as standards drafts rather than papers.",
       "closes_when": "A published scheme specifies what evidence a model-security claim consists of and how an auditor reproduces it without weight access.",
@@ -713,7 +713,7 @@
             "need": "n.monitoring"
           },
           "computed": {
-            "papers": 10,
+            "papers": 12,
             "paper_ids": [
               "web:gtig-ai-threat-tracker-2025-11",
               "web:anthropic-misuse-2025-08",
@@ -731,7 +731,7 @@
           "claim": "Gap: time-to-detection for a novel attack class in production is neither measured nor optimised in published work, so the response pipeline's binding constraint is the unstudied one."
         }
       ],
-      "refreshed": "2026-11-04",
+      "refreshed": "2026-11-05",
       "confidence": "medium",
       "counter": "Detection latency is plausibly measured inside every frontier lab's trust-and-safety function and simply never published, for the obvious reason that publishing it tells attackers the window. Unlike the other gaps here, this one may be deliberately unpublished rather than unstudied - which would make it a transparency gap, not a research gap.",
       "closes_when": "Any published measurement of time-from-first-exploitation to detection for a novel attack class in a production system, even anonymised or aggregated.",

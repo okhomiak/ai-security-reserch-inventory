@@ -1,7 +1,7 @@
 /* AI Security Research Inventory - static dashboard over docs/data/*.json.
    No framework, no build. Everything here reads committed JSON and draws it. */
 
-const FILES = ['papers', 'taxonomy', 'companies', 'gaps', 'derived', 'runs', 'review_queue'];
+const FILES = ['papers', 'taxonomy', 'companies', 'gaps', 'derived', 'runs', 'review_queue', 'news'];
 
 /* Contribution types on the eight categorical slots, in the order that clears
    every adjacent-pair CVD gate in both modes. Render legends and stacks in THIS
@@ -138,6 +138,8 @@ const newBadge = (p) => (isNew(p) ? '<span class="badge is-new">new</span>' : ''
 /* Threat-intel reports and policy documents are not papers; the inventory holds
    them because the gap analysis leans on claims about what attackers actually
    do, and that should not rest on academic threat models alone. */
+/* 'policys' is not a word. */
+const plural = (w) => (w.endsWith('y') ? w.slice(0, -1) + 'ies' : w + 's');
 const kindBadge = (p) => (p.kind && p.kind !== 'paper'
   ? `<span class="badge kind-${esc(p.kind)}">${esc(p.kind)}</span>` : '');
 const contribBadge = (t) =>
@@ -173,6 +175,7 @@ async function boot() {
   D.gaps = D.gaps || { gaps: [] };
   D.companies = D.companies || { needs: [], companies: [] };
   D.review_queue = D.review_queue || { items: [] };
+  D.news = D.news || { items: [] };
 
   D.taxonomy.nodes.forEach((n) => { TAX[n.id] = n; (n.parent ? LEAF : BRANCH)[n.id] = n; });
   D.papers.papers.forEach((p) => { PAPER[p.id] = p; });
@@ -197,6 +200,7 @@ async function boot() {
   renderDemand();
   renderGaps();
   renderPapers();
+  renderNews();
   renderPipeline();
   openFromHash();
 }
@@ -845,13 +849,51 @@ function treePanel(id) {
 
 /* ===================================================================== DEMAND */
 function renderDemand() {
-  $('#demand-basis').textContent = D.companies.basis || '';
+  $('#demand-basis').innerHTML = esc(D.companies.basis || '')
+    + ' <a href="#methodology" class="jump">Methodology and limitations &darr;</a>';
   $$('#hm-sort button').forEach((b) => b.addEventListener('click', () => {
     $$('#hm-sort button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
     drawHeatmap(b.dataset.s);
   }));
   drawHeatmap('demand');
   drawPressure();
+  drawMethodology();
+}
+
+/* A heat map is a persuasive object. If the numbers behind it are judgements,
+   the artefact has to say so somewhere a reader will actually look - including
+   the test that would prove it worthless. */
+function drawMethodology() {
+  const m = D.companies.methodology;
+  if (!m) { $('#meth-body').innerHTML = ''; return; }
+  const order = { high: 0, medium: 1, low: 2 };
+  const conf = (c) => `<span class="badge conf-${esc(c)}">${esc(c)} confidence</span>`;
+  $('#meth-body').innerHTML = `
+    <p class="claim">${esc(m.what_a_score_is)}</p>
+
+    <h3 class="sub-h">The scale</h3>
+    <ul class="plain">${m.how_scored.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
+
+    <h3 class="sub-h">Biases pushing these numbers around</h3>
+    <dl class="biases">${m.biases_to_hold_in_mind.map((b) =>
+      `<dt>${esc(b.bias)}</dt><dd>${esc(b.effect)}</dd>`).join('')}</dl>
+
+    <h3 class="sub-h">What it cannot tell you</h3>
+    <ul class="plain">${m.what_it_cannot_tell_you.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
+
+    <h3 class="sub-h">How to use it</h3>
+    <p class="claim">${esc(m.how_to_use_it)}</p>
+
+    <h3 class="sub-h">What would prove it wrong</h3>
+    <p class="claim">${esc(m.falsification)}</p>
+
+    <h3 class="sub-h">What each row rests on</h3>
+    <table class="list"><thead><tr><th>Organisation</th><th>Evidence behind its scores</th><th>Confidence</th></tr></thead>
+      <tbody>${[...D.companies.companies]
+        .sort((x, y) => (order[x.confidence] - order[y.confidence]) || x.label.localeCompare(y.label))
+        .map((c) => `<tr><td><b>${esc(c.label)}</b><div class="sub">${esc(c.type)}</div></td>
+          <td>${esc(c.basis || '')}</td><td class="num">${conf(c.confidence || 'low')}</td></tr>`).join('')}
+      </tbody></table>`;
 }
 
 function drawHeatmap(sort) {
@@ -882,7 +924,8 @@ function drawHeatmap(sort) {
     const showType = sort === 'type' && c.type !== lastType;
     lastType = c.type;
     tr.append(el('th', { class: 'rowh' },
-      `${esc(c.label)}<div class="sub" data-sty="font-size:10.5px;font-weight:400">${showType || sort !== 'type' ? esc(c.region) : esc(c.type)}</div>`));
+      `${esc(c.label)}<div class="sub rowh-sub">${showType || sort !== 'type' ? esc(c.region) : esc(c.type)}`
+      + `${c.confidence ? ` <span class="dot conf-${esc(c.confidence)}" title="${esc(c.confidence)} confidence: ${esc(c.basis || '')}"></span>` : ''}</div>`));
     cols.forEach((n) => {
       const cell = c.cells[n.id] || { score: 0, evidence: [] };
       const ev = cell.evidence || [];
@@ -1171,7 +1214,7 @@ function renderPapers() {
   const kinds = [...new Set(papers.map((p) => p.kind || 'paper'))].sort();
   if (kinds.length > 1) {
     const sel = el('select', { id: 'p-kind' }, '<option value="">Papers and reports</option>'
-      + kinds.map((k) => `<option value="${esc(k)}">${esc(k === 'paper' ? 'papers only' : k + 's only')}</option>`).join(''));
+      + kinds.map((k) => `<option value="${esc(k)}">${esc(plural(k) + ' only')}</option>`).join(''));
     $('#p-contrib').after(sel);
     sel.addEventListener('input', drawPapers);
   }
@@ -1240,6 +1283,66 @@ function drawPapers() {
     tb.append(tr, det);
   });
   if (!rows.length) tb.innerHTML = '<tr><td colspan="6" class="empty">Nothing matches those filters.</td></tr>';
+}
+
+/* ======================================================================= NEWS
+   The early-signal layer. A lab post is not a paper - it is unreviewed, often
+   the first public word on an incident, and it dates fast. Keeping it in its own
+   tab is what lets the inventory hold a strict provenance bar without going
+   blind to what happened this week. */
+let N_SORT = 'date';
+function renderNews() {
+  const items = D.news.items || [];
+  $('#news-note').textContent = D.news.note || '';
+
+  const orgs = [...new Set(items.map((i) => i.org))].sort();
+  orgs.forEach((o) => $('#n-org').append(el('option', { value: o },
+    `${esc(o)} (${items.filter((i) => i.org === o).length})`)));
+
+  const tiers = [...new Set(items.map((i) => i.tier))];
+  $('#news-legend').innerHTML = tiers.map((t) =>
+    `<span class="li">${tierBadge(t)}${items.filter((i) => i.tier === t).length}</span>`).join('')
+    + `<span class="li sub">${items.filter((i) => i.title_source === 'slug').length} titles derived from the URL
+       (marked <span class="badge">approx</span>) because the publisher offers no feed and the page was not fetched.</span>`;
+
+  $$('#n-sort button').forEach((b) => b.addEventListener('click', () => {
+    $$('#n-sort button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    N_SORT = b.dataset.s;
+    drawNews();
+  }));
+  ['#n-q', '#n-org'].forEach((sel) => $(sel).addEventListener('input', drawNews));
+  drawNews();
+}
+
+function drawNews() {
+  const q = $('#n-q').value.trim().toLowerCase();
+  const org = $('#n-org').value;
+  let rows = (D.news.items || []).filter((i) => {
+    if (org && i.org !== org) return false;
+    if (!q) return true;
+    return `${i.title} ${i.summary} ${i.org}`.toLowerCase().includes(q);
+  });
+  rows = rows.slice().sort((a, b) => N_SORT === 'date'
+    ? b.date.localeCompare(a.date) || b.relevance - a.relevance
+    : b.relevance - a.relevance || b.date.localeCompare(a.date));
+
+  $('#n-count').textContent = `${rows.length} of ${(D.news.items || []).length}`;
+
+  const today = (D.news.updated || '').slice(0, 10);
+  let lastDate = null;
+  $('#news-list').innerHTML = rows.map((i) => {
+    const head = i.date !== lastDate ? `<div class="news-day">${esc(i.date)}${i.date === today ? ' <span class="sub">today</span>' : ''}</div>` : '';
+    lastDate = i.date;
+    return head + `
+      <article class="news">
+        <div class="news-src">${tierBadge(i.tier)}<span>${esc(i.org)}</span></div>
+        <div>
+          <a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.title)}</a>
+          ${i.title_source === 'slug' ? '<span class="badge" title="Derived from the URL - the publisher offers no feed">approx</span>' : ''}
+          ${i.summary ? `<p class="news-sum">${esc(i.summary.slice(0, 260))}${i.summary.length > 260 ? '…' : ''}</p>` : ''}
+        </div>
+      </article>`;
+  }).join('') || '<p class="empty">Nothing matches that filter.</p>';
 }
 
 /* =================================================================== PIPELINE */

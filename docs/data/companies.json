@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "updated": "2026-11-04",
-  "basis": "Editorial demand estimates (0-5) for what each organisation is visibly investing in or hiring for in AI security. A cell with a corner tick is anchored to a published source and opens it on click; the rest are seed estimates. The weekly agent raises or lowers a score only when it can attach evidence.",
+  "basis": "Editorial 0-5 estimates of visible investment, not measurements. A cell with a corner tick is anchored to a published source and opens it on click; the rest are judgements. Read the columns rather than the cells — see the methodology and its biases below.",
   "scale": [
     {
       "v": 0,
@@ -239,7 +239,9 @@
             }
           ]
         }
-      }
+      },
+      "basis": "Published research, model cards, an explicit scaling policy and threat-intelligence reports.",
+      "confidence": "high"
     },
     {
       "id": "openai",
@@ -310,7 +312,9 @@
           "score": 3,
           "evidence": []
         }
-      }
+      },
+      "basis": "Published preparedness framework, threat reports and product documentation.",
+      "confidence": "high"
     },
     {
       "id": "gdm",
@@ -371,7 +375,9 @@
           "score": 4,
           "evidence": []
         }
-      }
+      },
+      "basis": "Frontier safety framework, published research and product security documentation.",
+      "confidence": "high"
     },
     {
       "id": "uk_aisi",
@@ -442,7 +448,9 @@
           "score": 3,
           "evidence": []
         }
-      }
+      },
+      "basis": "Published evaluations, an open-source eval framework and a stated remit.",
+      "confidence": "high"
     },
     {
       "id": "microsoft",
@@ -513,7 +521,9 @@
           "score": 2,
           "evidence": []
         }
-      }
+      },
+      "basis": "Product documentation, open-source tooling and a named AI red team.",
+      "confidence": "high"
     },
     {
       "id": "nvidia",
@@ -579,7 +589,9 @@
           "score": 1,
           "evidence": []
         }
-      }
+      },
+      "basis": "Open-source tooling (NeMo Guardrails, garak) and platform documentation.",
+      "confidence": "high"
     },
     {
       "id": "aws",
@@ -640,7 +652,9 @@
           "score": 1,
           "evidence": []
         }
-      }
+      },
+      "basis": "Product documentation for Bedrock Guardrails and platform security services.",
+      "confidence": "medium"
     },
     {
       "id": "paloalto",
@@ -706,7 +720,9 @@
           "score": 1,
           "evidence": []
         }
-      }
+      },
+      "basis": "Product lines and the Protect AI acquisition; vendor marketing is a large share of the signal.",
+      "confidence": "medium"
     },
     {
       "id": "crowdstrike",
@@ -762,7 +778,9 @@
           "score": 0,
           "evidence": []
         }
-      }
+      },
+      "basis": "Product positioning and threat-intelligence publishing; inferred for the AI-specific columns.",
+      "confidence": "low"
     },
     {
       "id": "lakera",
@@ -823,7 +841,9 @@
           "score": 1,
           "evidence": []
         }
-      }
+      },
+      "basis": "Product focus and public datasets. A small company's scores are dominated by its single product.",
+      "confidence": "medium"
     },
     {
       "id": "hiddenlayer",
@@ -884,7 +904,9 @@
           "score": 1,
           "evidence": []
         }
-      }
+      },
+      "basis": "Product focus on model scanning; the remaining columns are inferred from sector.",
+      "confidence": "low"
     },
     {
       "id": "darktrace",
@@ -940,7 +962,9 @@
           "score": 1,
           "evidence": []
         }
-      }
+      },
+      "basis": "Product positioning. AI-specific security columns are largely inferred rather than evidenced.",
+      "confidence": "low"
     },
     {
       "id": "cloudflare",
@@ -1001,7 +1025,9 @@
           "score": 0,
           "evidence": []
         }
-      }
+      },
+      "basis": "Product documentation for AI Gateway and Firewall for AI.",
+      "confidence": "medium"
     },
     {
       "id": "jpmorgan",
@@ -1057,7 +1083,9 @@
           "score": 2,
           "evidence": []
         }
-      }
+      },
+      "basis": "Inferred from sector regulatory obligations and public hiring. No AI-security publications to read.",
+      "confidence": "low"
     },
     {
       "id": "revolut",
@@ -1113,7 +1141,9 @@
           "score": 1,
           "evidence": []
         }
-      }
+      },
+      "basis": "Inferred from sector and public hiring. Among the weakest-evidenced rows here.",
+      "confidence": "low"
     },
     {
       "id": "palantir",
@@ -1169,7 +1199,9 @@
           "score": 2,
           "evidence": []
         }
-      }
+      },
+      "basis": "Product positioning for government deployment; most columns inferred.",
+      "confidence": "low"
     },
     {
       "id": "meta",
@@ -1235,7 +1267,9 @@
           "score": 2,
           "evidence": []
         }
-      }
+      },
+      "basis": "Open-source safeguards and a published benchmark suite.",
+      "confidence": "high"
     },
     {
       "id": "faculty",
@@ -1291,7 +1325,50 @@
           "score": 3,
           "evidence": []
         }
-      }
+      },
+      "basis": "Public positioning as an assurance consultancy; most columns inferred from that.",
+      "confidence": "low"
     }
-  ]
+  ],
+  "methodology": {
+    "what_a_score_is": "A 0-5 judgement of how visibly an organisation is investing in a need, read off public evidence: shipped products, published research, named teams, acquisitions, and stated priorities. It is a measure of visible commitment, not of spend, headcount, or competence.",
+    "how_scored": [
+      "5 — a core strategic bet: a named product line or research programme the organisation leads with.",
+      "4 — a dedicated team or shipped product, but not the thing they are known for.",
+      "3 — a named priority in public material, without a dedicated product behind it.",
+      "2 — some visible investment: a blog series, a feature, a conference talk.",
+      "1 — mentioned in passing.",
+      "0 — no public signal found. NOT evidence of absence."
+    ],
+    "biases_to_hold_in_mind": [
+      {
+        "bias": "Publication bias",
+        "effect": "Organisations that market loudly score higher than quiet ones doing more. A bank with a serious internal AI-security function and no blog scores below a startup with a landing page."
+      },
+      {
+        "bias": "Vendor-product conflation",
+        "effect": "For security vendors, a high score may reflect what they sell rather than what they have solved. Selling an agent-security product is evidence of market demand, not of the problem being addressed."
+      },
+      {
+        "bias": "Recency",
+        "effect": "Scores track what has been published lately. A team that did foundational work three years ago and moved on will read as less committed than one that shipped a blog post last month."
+      },
+      {
+        "bias": "Geographic and linguistic skew",
+        "effect": "Sources are English-language and the company list leans US/UK. Chinese, Japanese and European labs are under-represented, so the map is not a picture of global demand."
+      },
+      {
+        "bias": "Curator framing",
+        "effect": "The twelve needs were chosen by one person and determine what can be measured. A demand that does not map onto a column is invisible here, which is the hardest bias to see from inside the artefact."
+      }
+    ],
+    "what_it_cannot_tell_you": [
+      "Whether an organisation is good at the thing it scores highly on.",
+      "How much is actually being spent, or how many people work on it.",
+      "What they are working on and have not announced — which, for security teams, is most of it.",
+      "Whether demand is growing or shrinking; every score is a single point in time with no trend behind it."
+    ],
+    "how_to_use_it": "Read the columns, not the cells. A single company-need score is a weak signal and may simply be wrong. The column totals — how many organisations rate a need highly — are more robust, because an error in one cell does not move them much. That is why the gap analysis uses mean demand across organisations and never a single company's score.",
+    "falsification": "If this map is useful, needs with high mean demand and thin research coverage should attract disproportionate new work over the following year. If the pressure ranking does not predict where new papers appear, the map is decorative and should be rebuilt from hiring data rather than published material."
+  }
 }
