@@ -61,13 +61,15 @@ def _get(url: str, retries: int = 3, timeout: int = 45) -> bytes:
     for attempt in range(retries):
         req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
         try:
-            # Fetching URLs that vary is this module's entire purpose, so the
-            # rule fires by design. The exposure it warns about - urllib
-            # honouring file:// and ftp:// - is closed by the scheme check at
-            # the top of this function, and every URL originates in the
-            # sources.json allowlist rather than in fetched content.
-            # The suppression is end-of-line because that is the placement
-            # semgrep honours; above the statement it is ignored.
+            # Fetching URLs that vary is this module's entire purpose, so
+            # semgrep's dynamic-urllib rule fires by design. What it warns
+            # about - urllib honouring file:// and ftp:// - is closed by the
+            # scheme check at the top of this function, and every URL comes
+            # from the sources.json allowlist, never from fetched content.
+            # fuzz.py asserts the refusal on 7 schemes on each CI run.
+            # Suppressed end-of-line (the only placement semgrep honours) and
+            # again by --exclude-rule in sast.yml, because GitHub reopened the
+            # alert even on a SARIF that marked this result suppressed.
             with urllib.request.urlopen(req, timeout=timeout) as resp:  # nosemgrep
                 return resp.read()
         except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as exc:

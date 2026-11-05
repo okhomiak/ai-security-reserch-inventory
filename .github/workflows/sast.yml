@@ -1,5 +1,15 @@
 name: SAST
 
+# Semgrep runs from its own digest-pinned image, NOT pip-installed.
+#
+# Hash-pinning `pip install semgrep` satisfied Scorecard's pinned-dependencies
+# check and then did something worse: it wrote semgrep's 66-package transitive
+# closure into this repo's dependency graph, where Dependabot correctly flagged
+# CVEs in mcp and opentelemetry-api. Those are the security scanner's own
+# dependencies, not this project's - nothing here imports them, and they are
+# not part of what ships. A container keeps the scanner's supply chain out of
+# the repo's, and a digest is a stronger pin than a hash list anyway.
+#
 # Semgrep, not CodeQL. The repo uses CodeQL *default setup* (configured in
 # repo settings), which scans Python and Actions but cannot coexist with a
 # CodeQL workflow - default setup rejects an advanced workflow's upload. That
@@ -46,24 +56,32 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
-        with:
-          python-version: '3.12'
-
-      - name: Install semgrep (hash-verified)
-        run: pip install --require-hashes -r .github/semgrep-requirements.txt
-
       - name: Scan
+        env:
+          SEMGREP_IMAGE: semgrep/semgrep@sha256:2e45517a85e13a9cca14a2a00df6bb48affd66b8ebfae1b0991cd57578362fb0 # 1.183.0
         run: |
-          semgrep scan \
+          docker run --rm \
+            --network host \
+            -v "$PWD":/src --workdir /src \
+            -u "$(id -u):$(id -g)" \
+            "$SEMGREP_IMAGE" \
+            semgrep scan \
             --config=p/default \
             --config=p/javascript \
             --config=p/python \
             --config=p/secrets \
             --config=p/github-actions \
+            --exclude-rule=python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected \
             --sarif --output=semgrep.sarif \
             --metrics=off \
             --no-error
+        # The excluded rule fires on agent/fetch.py, which exists to fetch URLs
+        # that vary - it cannot not fire. What it warns about, urllib honouring
+        # file:// and ftp://, is closed by an explicit scheme check in _get(),
+        # and agent/fuzz.py asserts every non-HTTP scheme is refused on each CI
+        # run. The in-source suppression showed as suppressed locally but still
+        # surfaced as an alert, so the exclusion is declared here where it is
+        # visible in review rather than buried in a comment.
         # --metrics=off: this repo's filenames and findings are nobody else's
         # business, least of all for a tool auditing its security posture.
 
