@@ -9,6 +9,19 @@ not.
 The dashboard itself deploys from `main` on every push, so a release here marks
 a coherent state of the data and tooling, not a separate artefact to download.
 
+## 2026.11.3 — 2026-11-05
+
+- **The 2026.11.2 release did not publish.** A line-continuation backslash
+  inside an unquoted YAML scalar: YAML folds the newline to a space, so the
+  shell received `cp "src" \ "dest"` and read `\ ` as an escaped space,
+  giving `cp` a destination path with a leading space. The step was correct;
+  the quoting was not. Already fixed on main as a side effect of moving every
+  interpolation into `env`.
+- **A failed release can now be re-run.** `workflow_dispatch` checked out the
+  default branch rather than the tag, so re-running a release would have built
+  `main` and labelled it with the tag's version — publishing something that is
+  not what the tag claims. Manual runs now check out the tag they are given.
+
 ## 2026.11.2 — 2026-11-05
 
 - **Provenance ships with the artefact.** `actions/attest-build-provenance`
