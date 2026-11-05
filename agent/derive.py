@@ -14,7 +14,7 @@ from __future__ import annotations
 import itertools
 import re
 from collections import Counter, defaultdict
-from datetime import date
+from datetime import UTC, datetime
 
 PAIR_THRESHOLD = 0.34       # below this a pair is adjacency, not overlap
 CLUSTER_THRESHOLD = 0.45    # edges that form clusters are held to a higher bar
@@ -140,7 +140,7 @@ def cooccurrence(papers: list[dict], taxonomy: dict) -> dict:
     """Category x category co-occurrence - the overlap matrix."""
     leaves = [n["id"] for n in taxonomy["nodes"] if n["parent"]]
     present = [c for c in leaves if any(c in p.get("categories", []) for p in papers)]
-    counts = {a: {b: 0 for b in present} for a in present}
+    counts = {a: dict.fromkeys(present, 0) for a in present}
     for p in papers:
         cats = [c for c in p.get("categories", []) if c in counts]
         for a in cats:
@@ -187,7 +187,7 @@ def coverage(papers: list[dict], companies: dict) -> dict:
     return out
 
 
-def derived_gaps(cov: dict, companies: dict, papers: list[dict]) -> list[dict]:
+def derived_gaps(cov: dict, companies: dict, papers: list[dict]) -> list[dict]:  # noqa: ARG001
     """Gaps the numbers assert on their own, independent of the authored chains."""
     needs = {n["id"]: n for n in companies["needs"]}
     ranked = sorted(cov.items(), key=lambda kv: kv[1]["pressure"], reverse=True)
@@ -204,7 +204,8 @@ def derived_gaps(cov: dict, companies: dict, papers: list[dict]) -> list[dict]:
                 "chain": [
                     {
                         "step": 1,
-                        "claim": f"{c['companies_at_4plus']} of {len(companies['companies'])} tracked organisations rate "
+                        "claim": f"{c['companies_at_4plus']} of "
+                                 f"{len(companies['companies'])} tracked organisations rate "
                                  f"{needs[need_id]['label'].lower()} at 4+ (mean {c['mean_demand']}/5).",
                         "metric": {"kind": "demand", "need": need_id},
                     },
@@ -217,7 +218,8 @@ def derived_gaps(cov: dict, companies: dict, papers: list[dict]) -> list[dict]:
                     },
                     {
                         "step": 3,
-                        "claim": f"Of those, {c['defensive']} propose a defence and {c['offensive']} are attacks - "
+                        "claim": f"Of those, {c['defensive']} propose a defence "
+                                 f"and {c['offensive']} are attacks - "
                                  "so the demand is for mitigation the literature has not supplied.",
                         "metric": {"kind": "balance", "need": need_id},
                     },
@@ -262,7 +264,7 @@ def refresh_chains(gaps: dict, cov: dict, companies: dict, papers: list[dict]) -
                 }
         # Keep the paper list on each gap honest about what still exists.
         gap["papers"] = [pid for pid in gap.get("papers", []) if pid in by_id]
-        gap["refreshed"] = date.today().isoformat()
+        gap["refreshed"] = datetime.now(UTC).date().isoformat()
     return gaps
 
 
@@ -310,7 +312,7 @@ def run(papers: list[dict], taxonomy: dict, companies: dict, gaps: dict) -> tupl
     pairs = overlap_pairs(papers)
     cov = coverage(papers, companies)
     derived = {
-        "generated": date.today().isoformat(),
+        "generated": datetime.now(UTC).date().isoformat(),
         "paper_count": len(papers),
         "pairs": pairs,
         "clusters": clusters(papers, pairs, taxonomy),

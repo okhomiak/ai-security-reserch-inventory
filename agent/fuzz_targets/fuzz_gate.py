@@ -6,8 +6,8 @@ fetched from the open internet. It must return a verdict for any input rather
 than raise, because one malformed record should not end the run.
 """
 
-import sys
 import pathlib
+import sys
 
 import atheris
 

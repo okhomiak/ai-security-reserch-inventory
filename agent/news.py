@@ -18,12 +18,11 @@ import json
 import pathlib
 import re
 import sys
-import urllib.request
 import xml.etree.ElementTree as ET
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-import fetch  # noqa: E402
+import fetch
 
 SM = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
 
@@ -95,10 +94,10 @@ def _page_title(url: str) -> str | None:
     """Fetch a page only to read its <title>. Used sparingly, for the few recent
     sitemap entries that make the cut."""
     try:
-        raw = fetch._get(url, retries=1, timeout=20)
+        raw = fetch.get(url, retries=1, timeout=20)
     except Exception:  # noqa: BLE001
         return None
-    m = re.search(rb"<title[^>]*>(.*?)</title>", raw, re.S | re.I)
+    m = re.search(rb"<title[^>]*>(.*?)</title>", raw, re.DOTALL | re.IGNORECASE)
     if not m:
         return None
     title = re.sub(r"\s+", " ", m.group(1).decode("utf-8", "replace")).strip()
@@ -144,13 +143,13 @@ def relevant(text: str) -> int:
 
 def from_sitemap(cfg: dict, days: int, fetch_titles: int = 80) -> list[dict]:
     try:
-        raw = fetch._get(cfg["url"], timeout=50)
+        raw = fetch.get(cfg["url"], timeout=50)
         root = ET.fromstring(raw)
     except Exception as exc:  # noqa: BLE001
         print(f"  ! sitemap unreachable: {cfg['name']} ({exc})")
         return []
 
-    cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).date().isoformat()
+    cutoff = (datetime.now(UTC) - timedelta(days=days)).date().isoformat()
     rows = []
     for u in root.findall(f"{SM}url"):
         loc = u.findtext(f"{SM}loc") or ""
@@ -220,7 +219,7 @@ def build(sources: dict, days: int = 120, keep: int = 160) -> dict:
 
     return {
         "schema": 1,
-        "updated": datetime.now(timezone.utc).date().isoformat(),
+        "updated": datetime.now(UTC).date().isoformat(),
         "window_days": days,
         "note": ("Security-relevant posts from frontier labs and security research groups. "
                  "Not peer-reviewed and not part of the paper inventory - this is the early "

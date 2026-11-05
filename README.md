@@ -2,17 +2,29 @@
 
 A GitHub Pages dashboard over AI-security research, kept current by a weekly agent.
 
-**Dashboard:** https://okhomiak.github.io/ai-security-reserch-inventory/ *(after Pages is enabled — see Setup)*
+**Dashboard:** https://okhomiak.github.io/ai-security-reserch-inventory/
 
-Three views answer three questions:
+It answers one question — *where is the work, and where isn't it* — over
+**169 papers**, **386 measured overlaps**, **28 organisations** and **8 open gaps**.
+Three views carry most of the weight:
 
 | View | Question |
 |---|---|
-| **Overlaps** | Which pieces of work are arguing with each other? A force-directed graph of every paper, joined where two share a real object of study, plus the clusters those joins form, a branch co-occurrence matrix, and the ranked pair list. |
+| **Overlaps** | Which pieces of work are arguing with each other? A force-directed graph of every paper, joined where two share a real object of study, plus the 20 clusters those joins form, a branch co-occurrence matrix, and the ranked pair list. |
 | **Research tree** | What is the shape of the field, and where is nothing? A taxonomy of 9 branches and 41 leaves, each node filled by how many papers sit under it. A hollow dashed leaf is a coverage hole you can see in the shape of the tree. |
-| **What companies want** | Where is the demand? An 18 × 12 heat map of organisation against need, with research coverage along the bottom so demand and supply are read together. |
+| **What companies want** | Where is the demand? A 28 × 12 heat map of organisation against need, with research coverage along the bottom so demand and supply are read together. Scores are editorial estimates of *visible investment*, not measurements — the view states its own six biases. |
 
-Plus **Gaps** — each one a numbered chain of claims with its evidence attached — and **Papers**, the inventory itself.
+Alongside those: **Gaps** (each a numbered chain of claims carrying its own
+counter-argument and falsifier), **Frameworks** (7, scored on their weakest
+mapped category), **Tools** (27 verified repositories), **News**
+(security-filtered lab output) and **Papers**, the inventory itself.
+
+| | |
+|---|---|
+| **Contributing** | [CONTRIBUTING.md](CONTRIBUTING.md) — how to report a wrong classification, and what makes a change acceptable |
+| **Interface reference** | [INTERFACE.md](INTERFACE.md) — the CLI, the environment, and every field of the published JSON |
+| **Security policy** | [SECURITY.md](SECURITY.md) — threat model and private reporting |
+| **Releases** | [CHANGELOG.md](CHANGELOG.md) |
 
 ## How a gap works
 
@@ -103,7 +115,7 @@ repository variables.
 
 ## Setup
 
-1. **Settings → Pages → Source: GitHub Actions.**
+1. **Settings → Pages → Source: GitHub Actions.** *(already enabled on this repository)*
 2. **Settings → Secrets and variables → Actions → New repository secret:**
    `ANTHROPIC_API_KEY`. Without it the pipeline still discovers and gates, logs
    that it skipped classification, and recomputes derived data.
@@ -126,6 +138,30 @@ python3 agent/pipeline.py --derive-only    # recompute overlaps/coverage/gaps
 python3 agent/check.py                     # referential integrity over docs/data
 python3 -m http.server 8711 --directory docs
 ```
+
+## Tests
+
+Invocable the standard way for Python:
+
+```bash
+python3 -m pip install -r agent/dev-requirements.txt
+python3 -m pytest
+```
+
+That runs the three suites below plus unit tests on the gate and the fetch
+boundary. The suites also run standalone, which is how CI calls them:
+
+```bash
+python3 agent/check.py                      # referential integrity
+python3 agent/selftest.py --offline         # the whole ingest path, model stubbed
+python3 agent/fuzz.py 4000                  # the untrusted-input parsers
+python3 -m ruff check agent/ tests/         # lint; config selects ALL, then excludes with reasons
+node --check docs/app.js
+```
+
+New functionality comes with a test in the same pull request — see
+[CONTRIBUTING.md](CONTRIBUTING.md#the-policy-on-adding-tests) for the three
+areas where that is strict.
 
 The dashboard is static: `fetch` over the JSON in `docs/data/`, no build step. It
 needs to be served over HTTP, not opened as a `file://` URL.
@@ -162,7 +198,8 @@ Everything is plain JSON and is meant to be edited.
   current; its categories also feed the gate's gap vocabulary, so writing a gap makes
   the pipeline hunt for work that fills it.
 
-Run `python3 agent/check.py` after any hand edit.
+Run `python3 agent/check.py` after any hand edit, then
+`python3 agent/pipeline.py --derive-only` if you touched `papers.json`.
 
 ## Known limits
 

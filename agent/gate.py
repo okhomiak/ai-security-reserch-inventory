@@ -22,7 +22,7 @@ UNVOUCHED_MIN_RELEVANCE = 4
 
 # Phrases that precede a venue name in an arXiv comment.
 _ACCEPTED = re.compile(
-    r"\b(accepted|to appear|camera[- ]ready|published|appears?)\b", re.I
+    r"\b(accepted|to appear|camera[- ]ready|published|appears?)\b", re.IGNORECASE
 )
 
 # Topic relevance: a candidate must look like AI *security* work, not generic ML.
@@ -48,7 +48,7 @@ def _venue_hit(text: str, venues: list[str]) -> str | None:
         # Short all-caps acronyms need tight boundaries so "CCS" does not match
         # inside another word and "S&P" survives regex escaping.
         pattern = r"(?<![A-Za-z])" + re.escape(venue) + r"(?![A-Za-z])"
-        if re.search(pattern, text, re.I):
+        if re.search(pattern, text, re.IGNORECASE):
             return venue
     return None
 
@@ -95,8 +95,8 @@ def gap_terms(taxonomy: dict, gaps: dict) -> dict[str, int]:
         if not node:
             continue
         put(_fold(cid.split(".")[-1].replace("_", " ")), 2)
-        for phrase in _fold(node["label"]).split("&"):
-            phrase = phrase.strip(" .,;:()-")
+        for raw_phrase in _fold(node["label"]).split("&"):
+            phrase = raw_phrase.strip(" .,;:()-")
             if " " in phrase:
                 put(phrase, 2)
             elif len(phrase) >= 9:

@@ -1,0 +1,61 @@
+# Tooling config only. The agent itself is a set of scripts run by a workflow,
+# not an installable package, so there is no [project] table and nothing to
+# build - which is why the badge's `build` criteria are N/A.
+
+[tool.ruff]
+target-version = "py312"
+line-length = 110
+src = ["agent", "tests"]
+
+[tool.ruff.lint]
+# Maximally strict as a starting position: enable the lot, then remove only
+# what is wrong for this codebase and say why. A short ignore list with
+# reasons is honest; a short select list quietly skips most of the checks.
+select = ["ALL"]
+ignore = [
+  "D",       # docstring style - this code explains itself in prose comments
+  "ANN",     # annotations are present where they carry information, not everywhere
+  "T201",    # print() is the agent's actual output; it runs in a CI log
+  "S101",    # assert is how the fuzzer and tests state their invariants
+  "COM812",  # trailing-comma rule fights the formatter
+  "ISC001",  # same
+  "EM",      # exception messages inline are more readable than assigned first
+  "TRY003",  # ditto - long messages at the raise site
+  "PLR2004", # magic numbers in scoring thresholds are the domain, not a smell
+  "C901",    # a few pipeline functions are legitimately long and linear
+  "PLR0911", "PLR0912", "PLR0913", "PLR0915",  # same
+  "ERA001",  # commented-out code detection false-positives on prose comments
+  "RUF003",  # em dashes in comments are deliberate
+  "CPY001",  # the licence lives in LICENSE, not repeated atop 12 files
+  "EXE001",  # shebangs are documentation; these run as `python3 agent/x.py`
+  "PERF401", # the append loops here are guarded by ifs and read better as loops
+  "FBT001",  # boolean positional args in internal helpers are fine
+]
+
+[tool.ruff.lint.per-file-ignores]
+# fetch.py is the untrusted-input boundary, so the rules that fire here are the
+# ones this module exists to handle. Each is closed in code, not waved away:
+#   S310 - get() rejects any non-HTTP(S) scheme before urlopen; fuzz.py proves
+#          it on seven schemes every CI run.
+#   S314 - ElementTree is kept instead of defusedxml, and the one XML attack
+#          that applies (internal entity expansion) is refused by the DTD check
+#          in _parse_xml, with the download capped at MAX_RESPONSE_BYTES.
+"agent/fetch.py" = ["S310", "S314"]
+"agent/news.py" = ["S314", "SLF001"]
+# A fuzzer breaks most of these rules by definition: it catches everything,
+# seeds a non-crypto PRNG for reproducibility, and calls private parsers on
+# purpose - those parsers are the attack surface being tested.
+"agent/fuzz.py" = ["BLE001", "S311", "SLF001", "ARG005", "S314"]
+"agent/fuzz_targets/*.py" = ["SLF001", "N802"]  # TestOneInput is atheris's API
+"agent/selftest.py" = ["BLE001", "S603", "SLF001", "PLC0415"]
+"agent/pipeline.py" = ["PLC0415"]   # the SDK import is deliberately lazy
+"agent/classify.py" = ["PLC0415"]   # so SCHEMA/validate work without the SDK
+# The test suite runs the three agent scripts in a child interpreter (fixed
+# argv, no untrusted input) and calls the private parser on purpose - that
+# parser is the boundary being tested.
+"tests/*" = ["INP001", "S603", "SLF001"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# -q because the suites print their own structured output
+addopts = "-q"

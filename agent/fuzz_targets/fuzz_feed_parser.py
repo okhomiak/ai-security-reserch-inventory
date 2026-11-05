@@ -10,8 +10,8 @@ Only exceptions the caller already handles are acceptable; anything else is a
 finding.
 """
 
-import sys
 import pathlib
+import sys
 import xml.etree.ElementTree as ET
 
 import atheris

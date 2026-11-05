@@ -1,0 +1,11 @@
+# Test and lint tooling only. Kept separate from agent/requirements.txt because
+# nothing here runs in the weekly job.
+#
+# Hash-pinned, unlike the SAST scanner: this closure is five packages with no
+# network clients and no telemetry stack in it. Vendoring semgrep's 66-package
+# closure the same way is what dragged `mcp` and `opentelemetry-api` advisories
+# into this repo's dependency graph, so semgrep runs from a digest-pinned image
+# instead. The rule of thumb: pin a tool's closure only when the closure is
+# small enough that you would read it.
+pytest
+ruff

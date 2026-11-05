@@ -18,15 +18,15 @@ import os
 import pathlib
 import sys
 import traceback
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 
-import derive  # noqa: E402
-import fetch  # noqa: E402
-import news  # noqa: E402
-import gapagent  # noqa: E402
-import gate  # noqa: E402
+import derive
+import fetch
+import gapagent
+import gate
+import news
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DATA = ROOT / "docs" / "data"
@@ -77,7 +77,7 @@ def to_record(candidate, verdict: dict, result: dict) -> dict:
         "gap_signal": result.get("gap_signal"),
         "confidence": result["confidence"],
         "abstract": candidate.abstract[:1500],
-        "added": datetime.now(timezone.utc).date().isoformat(),
+        "added": datetime.now(UTC).date().isoformat(),
         "classified_by": result.get("_model", "unknown"),
         "curation": "agent",
         "notes": result.get("notes", ""),
@@ -101,7 +101,7 @@ def main() -> int:
     runs = load(DATA / "runs.json", {"runs": []})
 
     papers = papers_doc.get("papers", [])
-    started = datetime.now(timezone.utc)
+    started = datetime.now(UTC)
     trigger = os.environ.get("GITHUB_EVENT_NAME") or "local"
     run = {
         "started": started.isoformat(timespec="seconds"),
@@ -149,6 +149,7 @@ def main() -> int:
             print("   dry run: wrote agent/last_dry_run.json, no API calls made")
         elif keep:
             import anthropic
+
             import classify
 
             if not (os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_AUTH_TOKEN")
@@ -253,10 +254,10 @@ def main() -> int:
     save(DATA / "gaps.json", gaps_doc)
     save(DATA / "derived.json", derived)
 
-    run["finished"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
-    run["seconds"] = round((datetime.now(timezone.utc) - started).total_seconds(), 1)
+    run["finished"] = datetime.now(UTC).isoformat(timespec="seconds")
+    run["seconds"] = round((datetime.now(UTC) - started).total_seconds(), 1)
     run["total_papers"] = len(papers)
-    runs["runs"] = ([run] + runs.get("runs", []))[:40]
+    runs["runs"] = ([run, *runs.get("runs", [])])[:40]
     runs["latest"] = run
     save(DATA / "runs.json", runs)
 
@@ -277,6 +278,6 @@ def main() -> int:
 if __name__ == "__main__":
     try:
         sys.exit(main())
-    except Exception:
+    except Exception:  # noqa: BLE001 - top-level handler: print the trace, exit 1
         traceback.print_exc()
         sys.exit(1)

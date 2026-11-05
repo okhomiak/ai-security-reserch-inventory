@@ -38,6 +38,17 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install test and lint tooling (hash-verified)
+        # A six-package closure: pytest, ruff and their three dependencies.
+        # Small enough to read, which is the test for whether pinning a tool's
+        # closure is worth the dependency surface it brings with it.
+        run: pip install --require-hashes -r agent/dev-requirements.txt
+
+      - name: Lint
+        # ruff's config selects ALL and then removes specific rules with a
+        # written reason each, so a new warning here is genuinely new.
+        run: python3 -m ruff check agent/ tests/
+
       - name: Data files are valid JSON
         run: |
           for f in docs/data/*.json agent/sources.json; do
@@ -65,16 +76,18 @@ jobs:
       - name: Dashboard script parses
         run: node --check docs/app.js
 
-      - name: End-to-end onboarding path
-        # Drives discovery, the gate, validation, merge, derive and the gap
-        # reassessment with a stubbed model response. The expensive part of the
-        # weekly job is everything AFTER the model answers, and that had never
-        # been exercised without spending an API call.
-        run: python3 agent/selftest.py --offline
+      - name: Test suite
+        # Runs the end-to-end onboarding path (discovery, gate, validation,
+        # merge, derive, gap reassessment - all with the model stubbed), the
+        # parser fuzzer, and unit tests on the gate and the fetch boundary.
+        # The expensive part of the weekly job is everything AFTER the model
+        # answers, and this is what exercises it without spending a call.
+        run: python3 -m pytest
 
-      - name: Fuzz the untrusted-input parsers
-        # The feed parser eats XML from the open internet. An unhandled
-        # exception there means no ingest and no deploy that week.
+      - name: Fuzz the untrusted-input parsers, harder
+        # pytest runs 1200 cases to keep the suite quick; this is the deeper
+        # run. The feed parser eats XML from the open internet, and an
+        # unhandled exception there means no ingest and no deploy that week.
         run: python3 agent/fuzz.py 4000
 
       - name: Every action is pinned to a commit SHA

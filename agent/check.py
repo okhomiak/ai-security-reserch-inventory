@@ -122,12 +122,15 @@ def main() -> int:
             for e in step.get("evidence", []):
                 pool = paper_ids if e["type"] == "paper" else company_ids
                 if e["id"] not in pool:
-                    errors.append(f"gaps: {g['id']} step {step.get('step')} cites unknown {e['type']} {e['id']!r}")
+                    errors.append(f"gaps: {g['id']} step {step.get('step')} "
+                                  f"cites unknown {e['type']} {e['id']!r}")
             m = step.get("metric")
             if m and m.get("need") not in needs:
-                errors.append(f"gaps: {g['id']} step {step.get('step')} metric targets unknown need {m.get('need')!r}")
+                errors.append(f"gaps: {g['id']} step {step.get('step')} "
+                              f"metric targets unknown need {m.get('need')!r}")
             if m and m.get("kind") not in ("demand", "coverage", "balance"):
-                errors.append(f"gaps: {g['id']} step {step.get('step')} has unknown metric kind {m.get('kind')!r}")
+                errors.append(f"gaps: {g['id']} step {step.get('step')} "
+                              f"has unknown metric kind {m.get('kind')!r}")
 
     # derived must match what it was derived from
     if derived:

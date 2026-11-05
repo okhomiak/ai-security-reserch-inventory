@@ -25,7 +25,7 @@ from __future__ import annotations
 
 import json
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 MODEL = os.environ.get("GAP_MODEL", os.environ.get("CLASSIFIER_MODEL", "claude-opus-5"))
 EFFORT = os.environ.get("GAP_EFFORT", "high")
@@ -63,7 +63,10 @@ SCHEMA = {
                 "properties": {
                     "gap_id": {"type": "string"},
                     "changed": {"type": "boolean"},
-                    "suggested_status": {"type": "string", "enum": ["open", "partial", "closed", "unchanged"]},
+                    "suggested_status": {
+                        "type": "string",
+                        "enum": ["open", "partial", "closed", "unchanged"],
+                    },
                     "reasoning": {"type": "string"},
                     "relevant_new_papers": {"type": "array", "items": {"type": "string"}},
                     "closes_when_progress": {"type": "string"},
@@ -104,7 +107,8 @@ def _gap_digest(gaps: dict) -> str:
         out.append(
             f"- id: {g['id']}\n"
             f"  title: {g['title']}\n"
-            f"  status: {g.get('status')} | severity: {g.get('severity')} | confidence: {g.get('confidence')}\n"
+            f"  status: {g.get('status')} | severity: {g.get('severity')} "
+            f"| confidence: {g.get('confidence')}\n"
             f"  closes_when: {g.get('closes_when', '-')}\n"
             f"  argument: {steps[:900]}"
         )
@@ -152,7 +156,7 @@ def assess(client, gaps: dict, new_papers: list[dict], taxonomy: dict) -> dict:
 
 def apply(gaps: dict, result: dict, known_ids: set[str], leaves: set[str]) -> tuple[dict, int]:
     """Attach advisory blocks. Never edits an authored claim or a status."""
-    today = datetime.now(timezone.utc).date().isoformat()
+    today = datetime.now(UTC).date().isoformat()
     by_id = {g["id"]: g for g in gaps.get("gaps", [])}
     touched = 0
 

@@ -17,14 +17,21 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
-from dataclasses import dataclass, field, asdict
-from datetime import datetime, timedelta, timezone
+from dataclasses import asdict, dataclass, field
+from datetime import UTC, datetime, timedelta
 
 USER_AGENT = (
     "ai-security-research-inventory/1.0 "
     "(+https://github.com/okhomiak/ai-security-reserch-inventory)"
 )
-ARXIV_API = "http://export.arxiv.org/api/query"
+
+# A feed that will not fit in memory is not a feed we want. Caps the download so
+# a hijacked or broken source cannot OOM the weekly job.
+MAX_RESPONSE_BYTES = 8 * 1024 * 1024
+
+# https, not http: the arXiv API serves both and there is no reason to hand a
+# network observer the ability to rewrite what the classifier reads.
+ARXIV_API = "https://export.arxiv.org/api/query"
 ATOM = "{http://www.w3.org/2005/Atom}"
 ARXIV_NS = "{http://arxiv.org/schemas/atom}"
 
@@ -49,7 +56,7 @@ class Candidate:
         return asdict(self)
 
 
-def _get(url: str, retries: int = 3, timeout: int = 45) -> bytes:
+def get(url: str, retries: int = 3, timeout: int = 45) -> bytes:
     # urllib handles file:// and ftp:// as happily as https. Every URL here
     # comes from the sources.json allowlist, but a bad edit to that file should
     # not become local file disclosure - so the scheme is checked, not assumed.
@@ -71,7 +78,7 @@ def _get(url: str, retries: int = 3, timeout: int = 45) -> bytes:
             # again by --exclude-rule in sast.yml, because GitHub reopened the
             # alert even on a SARIF that marked this result suppressed.
             with urllib.request.urlopen(req, timeout=timeout) as resp:  # nosemgrep
-                return resp.read()
+                return resp.read(MAX_RESPONSE_BYTES)
         except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as exc:
             last = exc
             time.sleep(2 * (attempt + 1))
@@ -95,8 +102,8 @@ def fetch_arxiv(query: str, max_results: int = 60, window_days: int = 10) -> lis
             "sortOrder": "descending",
         }
     )
-    root = ET.fromstring(_get(f"{ARXIV_API}?{params}"))
-    cutoff = datetime.now(timezone.utc) - timedelta(days=window_days)
+    root = ET.fromstring(get(f"{ARXIV_API}?{params}"))
+    cutoff = datetime.now(UTC) - timedelta(days=window_days)
     out: list[Candidate] = []
 
     for entry in root.findall(f"{ATOM}entry"):
@@ -108,7 +115,7 @@ def fetch_arxiv(query: str, max_results: int = 60, window_days: int = 10) -> lis
 
         published = _clean(entry.findtext(f"{ATOM}published"))
         try:
-            when = datetime.fromisoformat(published.replace("Z", "+00:00"))
+            when = datetime.fromisoformat(published)
         except ValueError:
             continue
         if when < cutoff:
@@ -173,8 +180,14 @@ def _parse_xml(raw: bytes) -> ET.Element:
     """Parse a feed, retrying leniently. Several publishers emit XML containing
     bare ampersands or HTML entities that are undeclared in XML; losing the whole
     feed over one of those is not worth it."""
+    prolog = raw[:4096].lower()
+    if b"<!entity" in prolog or (b"<!doctype" in prolog and b"[" in prolog):
+        # ElementTree expands internal entities, so a nested-entity feed can
+        # blow up memory during parse. No real feed needs a DTD; refuse it
+        # rather than reach for a defusedxml dependency.
+        raise ValueError("feed declares a DTD or entity - refusing to parse")
     head = raw[:400].lstrip().lower()
-    if head.startswith(b"<!doctype html") or head.startswith(b"<html"):
+    if head.startswith((b"<!doctype html", b"<html")):
         raise ValueError("served an HTML page, not a feed - the URL is probably wrong")
     try:
         return ET.fromstring(raw)
@@ -188,21 +201,21 @@ def _parse_xml(raw: bytes) -> ET.Element:
 def fetch_feed(feed: dict, window_days: int = 10) -> list[Candidate]:
     """One Atom or RSS feed. Failures are non-fatal - a dead feed must not kill the run."""
     try:
-        root = _parse_xml(_get(feed["url"]))
+        root = _parse_xml(get(feed["url"]))
     except Exception as exc:  # noqa: BLE001 - feeds break; the run continues
         print(f"  ! feed unreachable: {feed['name']} ({exc})")
         return []
 
-    cutoff = datetime.now(timezone.utc) - timedelta(days=window_days)
+    cutoff = datetime.now(UTC) - timedelta(days=window_days)
     out: list[Candidate] = []
 
     for entry in _feed_entries(root):
         title = _feed_field(entry, "title", "title")
         link = entry.findtext("link") or ""
         if not link:
-            for l in entry.findall(f"{ATOM}link"):
-                if l.get("rel") in (None, "alternate"):
-                    link = l.get("href", "")
+            for ln in entry.findall(f"{ATOM}link"):
+                if ln.get("rel") in (None, "alternate"):
+                    link = ln.get("href", "")
                     break
         link = _clean(link)
         if not title or not link:
@@ -214,10 +227,10 @@ def fetch_feed(feed: dict, window_days: int = 10) -> list[Candidate]:
         )
         when = None
         for parse in (
-            lambda s: datetime.fromisoformat(s.replace("Z", "+00:00")),
+            datetime.fromisoformat,
             lambda s: datetime.strptime(s, "%a, %d %b %Y %H:%M:%S %z"),
             lambda s: datetime.strptime(s, "%a, %d %b %Y %H:%M:%S %Z").replace(
-                tzinfo=timezone.utc
+                tzinfo=UTC
             ),
         ):
             try:

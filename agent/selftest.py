@@ -24,16 +24,17 @@ import argparse
 import json
 import pathlib
 import shutil
+import subprocess
 import sys
 import tempfile
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 
-import classify  # noqa: E402  (schema + validate only; no client is built)
-import derive  # noqa: E402
-import fetch  # noqa: E402
-import gapagent  # noqa: E402
-import gate  # noqa: E402
+import classify
+import derive
+import fetch
+import gapagent
+import gate
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DATA = ROOT / "docs" / "data"
@@ -167,17 +168,21 @@ def main() -> int:
         check("reassessment counted", flagged == 1)
 
         print("== 6. integrity of the resulting inventory")
-        out = json.loads(json.dumps(papers_doc)); out["papers"] = papers; out["count"] = len(papers)
+        out = json.loads(json.dumps(papers_doc))
+        out["papers"] = papers
+        out["count"] = len(papers)
         (tmpdata / "papers.json").write_text(json.dumps(out, indent=2))
         (tmpdata / "derived.json").write_text(json.dumps(derived, indent=2))
         (tmpdata / "gaps.json").write_text(json.dumps(gaps3, indent=2))
-        import subprocess
+        # check.py reads a module-level DATA path, so point it at the temp copy
+        # in a child interpreter rather than mutating this one's import state.
+        probe = (
+            "import sys,pathlib;sys.path.insert(0,'agent');"
+            "import check as c;c.DATA=pathlib.Path(sys.argv[1]);sys.exit(c.main())"
+        )
         env_check = subprocess.run(
-            [sys.executable, "-c",
-             "import sys,pathlib;sys.path.insert(0,'agent');"
-             "import check as c;c.DATA=pathlib.Path(sys.argv[1]);sys.exit(c.main())",
-             str(tmpdata)],
-            capture_output=True, text=True, cwd=str(ROOT))
+            [sys.executable, "-c", probe, str(tmpdata)],
+            capture_output=True, text=True, cwd=str(ROOT), check=False)
         check("check.py passes on the merged data", env_check.returncode == 0,
               env_check.stdout.strip().splitlines()[-1] if env_check.stdout else "")
 

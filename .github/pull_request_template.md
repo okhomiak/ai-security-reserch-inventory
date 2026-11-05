@@ -2,8 +2,16 @@
 
 <!-- One or two lines. -->
 
+Please read [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) first — in
+particular [what makes a change acceptable](../blob/main/CONTRIBUTING.md#what-makes-a-change-acceptable)
+and [the policy on adding tests](../blob/main/CONTRIBUTING.md#the-policy-on-adding-tests).
+
 ## Checklist
 
+- [ ] `python3 -m pytest` passes
+- [ ] `python3 -m ruff check agent/ tests/` is clean
+- [ ] New functionality comes with a test in this pull request — and that test
+      was checked to fail when the thing it covers is removed
 - [ ] `python3 agent/check.py` passes (no dangling ids)
 - [ ] `python3 agent/pipeline.py --derive-only` run if `docs/data/*.json` changed
 - [ ] New paper records carry a verified URL and a provenance tier with a justification
