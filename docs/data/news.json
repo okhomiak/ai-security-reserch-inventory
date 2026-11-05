@@ -90,6 +90,18 @@
       "title_source": "feed"
     },
     {
+      "id": "news:deepmind-google-blog-agentic-cheminformatics-with-google-antigravity",
+      "title": "Agentic cheminformatics with Google Antigravity",
+      "url": "https://deepmind.google/blog/agentic-cheminformatics-with-google-antigravity/",
+      "date": "2026-11-03",
+      "org": "Google DeepMind",
+      "source": "Google DeepMind blog",
+      "tier": "frontier-lab",
+      "summary": "Learn how Google Antigravity and our Cheminformatics Skills accelerate drug discovery workflows, search compounds, and propose novel rigidified macrocycles.",
+      "relevance": 1,
+      "title_source": "feed"
+    },
+    {
       "id": "news:blog-google-company-news-inside-google-around-the-globe-google-asia-fight-against-apac-scams",
       "title": "Working collaboratively to fight scams in Asia Pacific",
       "url": "https://blog.google/company-news/inside-google/around-the-globe/google-asia/fight-against-apac-scams/",
@@ -234,6 +246,18 @@
       "title_source": "page"
     },
     {
+      "id": "news:deepmind-google-blog-speeding-up-planning-decisions-with-ai",
+      "title": "Speeding up planning decisions with AI",
+      "url": "https://deepmind.google/blog/speeding-up-planning-decisions-with-ai/",
+      "date": "2026-10-30",
+      "org": "Google DeepMind",
+      "source": "Google DeepMind blog",
+      "tier": "frontier-lab",
+      "summary": "Google DeepMind and UK government work together to reduce planning assessment times",
+      "relevance": 1,
+      "title_source": "feed"
+    },
+    {
       "id": "news:blog-google-innovation-and-ai-technology-safety-security-google-security-checkup",
       "title": "See who has access to your Gmail inbox in 2 minutes.",
       "url": "https://blog.google/innovation-and-ai/technology/safety-security/google-security-checkup/",
@@ -362,6 +386,18 @@
       "source": "OpenAI news",
       "tier": "frontier-lab",
       "summary": "See how Legora uses OpenAI models, ChatGPT, and Codex to accelerate legal workflows, expand contract analysis, and free lawyers to focus on higher-value work.",
+      "relevance": 1,
+      "title_source": "feed"
+    },
+    {
+      "id": "news:deepmind-google-blog-gemini-4-carbon-our-next-frontier-model",
+      "title": "Gemini 4 Carbon: Our next frontier model",
+      "url": "https://deepmind.google/blog/gemini-4-carbon-our-next-frontier-model/",
+      "date": "2026-10-28",
+      "org": "Google DeepMind",
+      "source": "Google DeepMind blog",
+      "tier": "frontier-lab",
+      "summary": "",
       "relevance": 1,
       "title_source": "feed"
     },
@@ -1338,18 +1374,6 @@
       "title_source": "feed"
     },
     {
-      "id": "news:openai-com-index-grupo-boticario",
-      "title": "How Grupo Boticário uses AI to strengthen human connections",
-      "url": "https://openai.com/index/grupo-boticario",
-      "date": "2026-10-16",
-      "org": "OpenAI",
-      "source": "OpenAI news",
-      "tier": "frontier-lab",
-      "summary": "Almost 50 years after starting in a compounding pharmacy in Paraná, the group operates a proprietary agent platform that autonomously resolves up to 80% of resellers’ operational requests—enabling the sales force to take on an advisory role.",
-      "relevance": 1,
-      "title_source": "feed"
-    },
-    {
       "id": "news:openai-com-index-localiza-generative-ai",
       "title": "How Localiza reorganized work around generative AI",
       "url": "https://openai.com/index/localiza-generative-ai",
@@ -1358,6 +1382,18 @@
       "source": "OpenAI news",
       "tier": "frontier-lab",
       "summary": "See how Localiza uses ChatGPT Enterprise, the OpenAI API, Codex, and 60+ specialized agents to reorganize work and build AI-native mobility experiences.",
+      "relevance": 1,
+      "title_source": "feed"
+    },
+    {
+      "id": "news:openai-com-index-grupo-boticario",
+      "title": "How Grupo Boticário uses AI to strengthen human connections",
+      "url": "https://openai.com/index/grupo-boticario",
+      "date": "2026-10-16",
+      "org": "OpenAI",
+      "source": "OpenAI news",
+      "tier": "frontier-lab",
+      "summary": "Almost 50 years after starting in a compounding pharmacy in Paraná, the group operates a proprietary agent platform that autonomously resolves up to 80% of resellers’ operational requests—enabling the sales force to take on an advisory role.",
       "relevance": 1,
       "title_source": "feed"
     },
@@ -1550,6 +1586,18 @@
       "source": "OpenAI news",
       "tier": "frontier-lab",
       "summary": "Block is building AI-powered security with OpenAI. Its security team investigates threats faster and proposes patches in minutes.",
+      "relevance": 2,
+      "title_source": "feed"
+    },
+    {
+      "id": "news:deepmind-google-blog-on-device-ai-scam-detection-mddi",
+      "title": "Google DeepMind and Singapore Government collaborate to build fine-tuned AI model for scam detection",
+      "url": "https://deepmind.google/blog/on-device-ai-scam-detection-mddi/",
+      "date": "2026-10-14",
+      "org": "Google DeepMind",
+      "source": "Google DeepMind blog",
+      "tier": "frontier-lab",
+      "summary": "Learn how Google DeepMind and GovTech Singapore uses lightweight on-device Gemma models to intercept conversational scams in private chats with zero cloud data egress.",
       "relevance": 2,
       "title_source": "feed"
     },
@@ -1876,54 +1924,6 @@
       "summary": "A . is all you need! Today Microsoft shipped the patch for a vulnerability in Visual Studio Copilot that I reported in August. Microsoft classified it as Important severity Remote Code Execution vulnerability. At the root cause it allows Copilot in Visual Studio or SQL Server Management Studio to bypass a path validation check and write to its own settings and configuration files . This allows Copilot to escape conta",
       "relevance": 1,
       "title_source": "feed"
-    },
-    {
-      "id": "news:www-anthropic-com-news-anthropic-cyber-mission",
-      "title": "Anthropic cyber mission",
-      "url": "https://www.anthropic.com/news/anthropic-cyber-mission",
-      "date": "2026-10-13",
-      "org": "Anthropic",
-      "source": "Anthropic",
-      "tier": "frontier-lab",
-      "summary": "",
-      "relevance": 1,
-      "title_source": "slug"
-    },
-    {
-      "id": "news:www-anthropic-com-news-claude-frontier-academy",
-      "title": "Claude frontier academy",
-      "url": "https://www.anthropic.com/news/claude-frontier-academy",
-      "date": "2026-10-13",
-      "org": "Anthropic",
-      "source": "Anthropic",
-      "tier": "frontier-lab",
-      "summary": "",
-      "relevance": 1,
-      "title_source": "slug"
-    },
-    {
-      "id": "news:www-anthropic-com-research-features-as-classifiers",
-      "title": "Features as classifiers",
-      "url": "https://www.anthropic.com/research/features-as-classifiers",
-      "date": "2026-10-13",
-      "org": "Anthropic",
-      "source": "Anthropic",
-      "tier": "frontier-lab",
-      "summary": "",
-      "relevance": 1,
-      "title_source": "slug"
-    },
-    {
-      "id": "news:www-anthropic-com-research-statistical-approach-to-model-evals",
-      "title": "Statistical approach to model evals",
-      "url": "https://www.anthropic.com/research/statistical-approach-to-model-evals",
-      "date": "2026-10-13",
-      "org": "Anthropic",
-      "source": "Anthropic",
-      "tier": "frontier-lab",
-      "summary": "",
-      "relevance": 1,
-      "title_source": "slug"
     }
   ]
 }

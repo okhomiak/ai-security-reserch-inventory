@@ -95,16 +95,16 @@
             "need": "n.guardrails"
           },
           "computed": {
-            "papers": 19,
+            "papers": 28,
             "paper_ids": [
               "web:gtig-ai-threat-tracker-2025-11",
               "web:anthropic-asl3",
+              "arxiv:2501.18841",
               "arxiv:2501.18837",
+              "arxiv:2412.16339",
               "arxiv:2411.07494",
-              "arxiv:2410.09024",
-              "arxiv:2407.17915",
-              "arxiv:2406.11717",
-              "arxiv:2406.04313"
+              "arxiv:2410.13886",
+              "arxiv:2410.09024"
             ]
           }
         }
@@ -170,7 +170,7 @@
             "need": "n.identity"
           },
           "computed": {
-            "papers": 11,
+            "papers": 12,
             "paper_ids": [
               "web:anthropic-espionage-2025-11",
               "arxiv:2506.08837",
@@ -178,8 +178,8 @@
               "arxiv:2504.03767",
               "arxiv:2504.01849",
               "arxiv:2502.01822",
-              "arxiv:2407.17915",
-              "arxiv:2312.06942"
+              "arxiv:2410.14923",
+              "arxiv:2407.17915"
             ]
           }
         },
@@ -356,16 +356,16 @@
             "need": "n.supplychain"
           },
           "computed": {
-            "papers": 18,
+            "papers": 19,
             "paper_ids": [
               "web:gtig-ai-threat-tracker-2025-11",
               "arxiv:2504.03767",
               "arxiv:2410.13722",
               "arxiv:2410.02644",
+              "arxiv:2407.12784",
               "arxiv:2401.05566",
               "arxiv:2311.14455",
-              "arxiv:2310.12941",
-              "arxiv:2311.09227"
+              "arxiv:2310.12941"
             ]
           }
         },
@@ -378,10 +378,10 @@
           },
           "computed": {
             "defensive": 5,
-            "offensive": 6,
+            "offensive": 7,
             "by_contribution": {
               "analysis": 4,
-              "attack": 6,
+              "attack": 7,
               "benchmark": 1,
               "evaluation": 1,
               "position": 1,
@@ -543,16 +543,16 @@
             "need": "n.agent_sec"
           },
           "computed": {
-            "papers": 27,
+            "papers": 35,
             "paper_ids": [
               "web:anthropic-espionage-2025-11",
               "arxiv:2506.14866",
               "arxiv:2506.08837",
+              "arxiv:2504.18575",
               "arxiv:2504.03767",
               "arxiv:2504.01849",
               "arxiv:2502.01822",
-              "arxiv:2412.14470",
-              "arxiv:2412.04984"
+              "arxiv:2412.14470"
             ]
           }
         },
@@ -638,16 +638,16 @@
             "need": "n.compliance"
           },
           "computed": {
-            "papers": 24,
+            "papers": 27,
             "paper_ids": [
               "web:anthropic-asl3",
               "arxiv:2504.01849",
               "arxiv:2503.10965",
+              "arxiv:2502.05209",
               "arxiv:2501.04952",
               "arxiv:2410.21514",
-              "web:nist-ai-600-1",
-              "web:aisi-inspect",
-              "arxiv:2403.13793"
+              "arxiv:2410.08827",
+              "arxiv:2409.18025"
             ]
           }
         },
