@@ -95,16 +95,16 @@
             "need": "n.guardrails"
           },
           "computed": {
-            "papers": 28,
+            "papers": 45,
             "paper_ids": [
               "web:gtig-ai-threat-tracker-2025-11",
               "web:anthropic-asl3",
               "arxiv:2501.18841",
               "arxiv:2501.18837",
               "arxiv:2412.16339",
+              "arxiv:2412.03556",
               "arxiv:2411.07494",
-              "arxiv:2410.13886",
-              "arxiv:2410.09024"
+              "arxiv:2410.13886"
             ]
           }
         }
@@ -170,7 +170,7 @@
             "need": "n.identity"
           },
           "computed": {
-            "papers": 12,
+            "papers": 20,
             "paper_ids": [
               "web:anthropic-espionage-2025-11",
               "arxiv:2506.08837",
@@ -356,16 +356,16 @@
             "need": "n.supplychain"
           },
           "computed": {
-            "papers": 19,
+            "papers": 29,
             "paper_ids": [
               "web:gtig-ai-threat-tracker-2025-11",
+              "arxiv:2504.07096",
               "arxiv:2504.03767",
+              "arxiv:2411.14738",
               "arxiv:2410.13722",
               "arxiv:2410.02644",
               "arxiv:2407.12784",
-              "arxiv:2401.05566",
-              "arxiv:2311.14455",
-              "arxiv:2310.12941"
+              "arxiv:2406.05946"
             ]
           }
         },
@@ -377,15 +377,16 @@
             "need": "n.supplychain"
           },
           "computed": {
-            "defensive": 5,
-            "offensive": 7,
+            "defensive": 7,
+            "offensive": 11,
             "by_contribution": {
-              "analysis": 4,
-              "attack": 7,
+              "analysis": 7,
+              "framework": 6,
+              "attack": 11,
               "benchmark": 1,
-              "evaluation": 1,
-              "position": 1,
-              "framework": 5
+              "defence": 1,
+              "position": 2,
+              "evaluation": 1
             }
           }
         },
@@ -458,16 +459,16 @@
             "need": "n.monitoring"
           },
           "computed": {
-            "papers": 12,
+            "papers": 14,
             "paper_ids": [
+              "web:anthropic-llm-attack-navigator",
               "web:gtig-ai-threat-tracker-2025-11",
               "web:anthropic-misuse-2025-08",
               "web:openai-disrupting-malicious-uses",
               "arxiv:2504.01849",
               "web:gtig-adversarial-misuse-2025",
               "arxiv:2411.07494",
-              "arxiv:2403.04893",
-              "arxiv:2402.07039"
+              "arxiv:2403.04893"
             ]
           }
         },
@@ -543,16 +544,16 @@
             "need": "n.agent_sec"
           },
           "computed": {
-            "papers": 35,
+            "papers": 49,
             "paper_ids": [
+              "web:anthropic-llm-attack-navigator",
               "web:anthropic-espionage-2025-11",
               "arxiv:2506.14866",
               "arxiv:2506.08837",
               "arxiv:2504.18575",
               "arxiv:2504.03767",
               "arxiv:2504.01849",
-              "arxiv:2502.01822",
-              "arxiv:2412.14470"
+              "arxiv:2502.01822"
             ]
           }
         },
@@ -638,16 +639,16 @@
             "need": "n.compliance"
           },
           "computed": {
-            "papers": 27,
+            "papers": 46,
             "paper_ids": [
+              "arxiv:2508.03153",
               "web:anthropic-asl3",
+              "arxiv:2504.07096",
               "arxiv:2504.01849",
               "arxiv:2503.10965",
               "arxiv:2502.05209",
               "arxiv:2501.04952",
-              "arxiv:2410.21514",
-              "arxiv:2410.08827",
-              "arxiv:2409.18025"
+              "arxiv:2410.21514"
             ]
           }
         },
@@ -713,16 +714,16 @@
             "need": "n.monitoring"
           },
           "computed": {
-            "papers": 12,
+            "papers": 14,
             "paper_ids": [
+              "web:anthropic-llm-attack-navigator",
               "web:gtig-ai-threat-tracker-2025-11",
               "web:anthropic-misuse-2025-08",
               "web:openai-disrupting-malicious-uses",
               "arxiv:2504.01849",
               "web:gtig-adversarial-misuse-2025",
               "arxiv:2411.07494",
-              "arxiv:2403.04893",
-              "arxiv:2402.07039"
+              "arxiv:2403.04893"
             ]
           }
         },

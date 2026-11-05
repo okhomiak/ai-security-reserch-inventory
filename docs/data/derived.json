@@ -1,7 +1,23 @@
 {
   "generated": "2026-11-05",
-  "paper_count": 118,
+  "paper_count": 169,
   "pairs": [
+    {
+      "a": "arxiv:2310.17688",
+      "b": "doi:10.1126-science.adn0117",
+      "score": 0.9,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks",
+        "gov.regulation"
+      ],
+      "shared_methods": [
+        "R&D and governance priorities",
+        "consensus statement"
+      ],
+      "note": "",
+      "declared": false
+    },
     {
       "a": "arxiv:2403.02691",
       "b": "arxiv:2406.13352",
@@ -37,6 +53,20 @@
       ],
       "shared_methods": [],
       "note": "both demonstrate injection against real deployed LLM applications",
+      "declared": true
+    },
+    {
+      "a": "web:anthropic-llm-attack-navigator",
+      "b": "web:anthropic-misuse-2025-08",
+      "score": 0.827,
+      "shared_categories": [
+        "cyber.exploit",
+        "cyber.malware",
+        "defense.monitoring",
+        "gov.disclosure"
+      ],
+      "shared_methods": [],
+      "note": "same programme; the Navigator report aggregates a full year",
       "declared": true
     },
     {
@@ -347,6 +377,32 @@
       "declared": true
     },
     {
+      "a": "web:anthropic-espionage-2025-11",
+      "b": "web:anthropic-llm-attack-navigator",
+      "score": 0.666,
+      "shared_categories": [
+        "cyber.exploit",
+        "cyber.malware",
+        "eval.dangercap"
+      ],
+      "shared_methods": [],
+      "note": "scored within a year-long population distribution by this analysis",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2501.04952",
+      "b": "arxiv:2508.03153",
+      "score": 0.65,
+      "shared_categories": [
+        "defense.unlearning",
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2309.00614",
       "b": "arxiv:2412.16339",
       "score": 0.65,
@@ -354,6 +410,19 @@
         "attack.jailbreak",
         "defense.guardrails",
         "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2307.15043",
+      "b": "arxiv:2412.03556",
+      "score": 0.65,
+      "shared_categories": [
+        "attack.adversarial",
+        "attack.jailbreak",
+        "eval.redteam"
       ],
       "shared_methods": [],
       "note": "",
@@ -411,6 +480,42 @@
       "declared": false
     },
     {
+      "a": "arxiv:2312.02119",
+      "b": "arxiv:2409.00137",
+      "score": 0.65,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.08419",
+      "b": "arxiv:2409.00137",
+      "score": 0.65,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2309.10253",
+      "b": "arxiv:2409.00137",
+      "score": 0.65,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2406.05590",
       "b": "arxiv:2408.08926",
       "score": 0.65,
@@ -418,6 +523,43 @@
         "cyber.exploit",
         "eval.benchmark",
         "eval.dangercap"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.03693",
+      "b": "arxiv:2406.05946",
+      "score": 0.65,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust",
+        "supply.poisoning"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2404.16014",
+      "b": "arxiv:2406.04093",
+      "score": 0.65,
+      "shared_categories": [
+        "interp.circuits",
+        "interp.probes"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2309.08600",
+      "b": "arxiv:2406.04093",
+      "score": 0.65,
+      "shared_categories": [
+        "interp.circuits",
+        "interp.probes"
       ],
       "shared_methods": [],
       "note": "",
@@ -437,6 +579,79 @@
       "declared": false
     },
     {
+      "a": "arxiv:2309.08600",
+      "b": "arxiv:2404.16014",
+      "score": 0.65,
+      "shared_categories": [
+        "interp.circuits",
+        "interp.probes"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2312.02119",
+      "b": "arxiv:2404.01833",
+      "score": 0.65,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.08419",
+      "b": "arxiv:2404.01833",
+      "score": 0.65,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2309.10253",
+      "b": "arxiv:2404.01833",
+      "score": 0.65,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2311.09227",
+      "b": "arxiv:2403.07918",
+      "score": 0.65,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks",
+        "supply.provenance"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2211.03540",
+      "b": "arxiv:2402.06782",
+      "score": 0.65,
+      "shared_categories": [
+        "eval.audit",
+        "interp.deception"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2310.03684",
       "b": "arxiv:2401.17263",
       "score": 0.65,
@@ -449,7 +664,7 @@
       "declared": false
     },
     {
-      "a": "arxiv:2307.02483",
+      "a": "arxiv:2310.04451",
       "b": "arxiv:2401.17263",
       "score": 0.65,
       "shared_categories": [
@@ -462,7 +677,115 @@
     },
     {
       "a": "arxiv:2307.02483",
+      "b": "arxiv:2401.17263",
+      "score": 0.65,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2311.09096",
+      "b": "arxiv:2401.06561",
+      "score": 0.65,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.guardrails"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.02446",
+      "b": "arxiv:2401.06561",
+      "score": 0.65,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.guardrails"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.08419",
+      "b": "arxiv:2312.02119",
+      "score": 0.65,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2309.10253",
+      "b": "arxiv:2312.02119",
+      "score": 0.65,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.02446",
+      "b": "arxiv:2311.09096",
+      "score": 0.65,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.guardrails"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2309.10253",
+      "b": "arxiv:2310.08419",
+      "score": 0.65,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.03684",
+      "b": "arxiv:2310.04451",
+      "score": 0.65,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2307.02483",
       "b": "arxiv:2310.03684",
+      "score": 0.65,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2307.02483",
+      "b": "arxiv:2310.04451",
       "score": 0.65,
       "shared_categories": [
         "attack.jailbreak",
@@ -641,6 +964,18 @@
       ],
       "shared_methods": [],
       "note": "both explain why safety training fails under optimised adversarial pressure",
+      "declared": true
+    },
+    {
+      "a": "web:anthropic-llm-attack-navigator",
+      "b": "web:gtig-ai-threat-tracker-2025-11",
+      "score": 0.566,
+      "shared_categories": [
+        "cyber.malware",
+        "defense.monitoring"
+      ],
+      "shared_methods": [],
+      "note": "independent measurement of the same tradecraft shift",
       "declared": true
     },
     {
@@ -837,6 +1172,30 @@
       "declared": true
     },
     {
+      "a": "web:anthropic-llm-attack-navigator",
+      "b": "web:mitre-atlas",
+      "score": 0.493,
+      "shared_categories": [
+        "defense.monitoring"
+      ],
+      "shared_methods": [],
+      "note": "the Navigator supplies the prevalence data a technique matrix lacks",
+      "declared": true
+    },
+    {
+      "a": "arxiv:2404.16244",
+      "b": "arxiv:2504.01849",
+      "score": 0.488,
+      "shared_categories": [
+        "agent.authz",
+        "gov.frameworks",
+        "interp.deception"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2403.14720",
       "b": "arxiv:2406.13352",
       "score": 0.488,
@@ -844,6 +1203,45 @@
         "agent.hijack",
         "attack.injection",
         "defense.provenance"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2312.14197",
+      "b": "arxiv:2406.13352",
+      "score": 0.488,
+      "shared_categories": [
+        "attack.injection",
+        "defense.provenance",
+        "eval.benchmark"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2312.09390",
+      "b": "arxiv:2404.09932",
+      "score": 0.488,
+      "shared_categories": [
+        "eval.audit",
+        "gov.frameworks",
+        "interp.deception"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2401.13138",
+      "b": "doi:10.2139-ssrn.4772956",
+      "score": 0.488,
+      "shared_categories": [
+        "agent.authz",
+        "gov.regulation",
+        "infra.identity"
       ],
       "shared_methods": [],
       "note": "",
@@ -876,6 +1274,43 @@
       "declared": false
     },
     {
+      "a": "arxiv:2305.15324",
+      "b": "web:metr",
+      "score": 0.479,
+      "shared_categories": [
+        "eval.audit",
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2402.06782",
+      "b": "arxiv:2503.10965",
+      "score": 0.467,
+      "shared_categories": [
+        "eval.audit",
+        "interp.deception"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2211.03540",
+      "b": "arxiv:2503.10965",
+      "score": 0.467,
+      "shared_categories": [
+        "eval.audit",
+        "interp.deception"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2401.17263",
       "b": "arxiv:2501.18841",
       "score": 0.467,
@@ -889,6 +1324,18 @@
     },
     {
       "a": "arxiv:2310.03684",
+      "b": "arxiv:2501.18841",
+      "score": 0.467,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.04451",
       "b": "arxiv:2501.18841",
       "score": 0.467,
       "shared_categories": [
@@ -936,6 +1383,18 @@
       "declared": false
     },
     {
+      "a": "arxiv:2401.06561",
+      "b": "arxiv:2412.16339",
+      "score": 0.467,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.guardrails"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2311.09096",
       "b": "arxiv:2412.16339",
       "score": 0.467,
@@ -960,6 +1419,30 @@
       "declared": false
     },
     {
+      "a": "arxiv:2310.04451",
+      "b": "arxiv:2412.16339",
+      "score": 0.467,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.02446",
+      "b": "arxiv:2412.16339",
+      "score": 0.467,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.guardrails"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2307.02483",
       "b": "arxiv:2412.16339",
       "score": 0.467,
@@ -972,7 +1455,91 @@
       "declared": false
     },
     {
+      "a": "arxiv:2409.00137",
+      "b": "arxiv:2412.03556",
+      "score": 0.467,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2404.01833",
+      "b": "arxiv:2412.03556",
+      "score": 0.467,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2312.02119",
+      "b": "arxiv:2412.03556",
+      "score": 0.467,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.08419",
+      "b": "arxiv:2412.03556",
+      "score": 0.467,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2309.10253",
+      "b": "arxiv:2412.03556",
+      "score": 0.467,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2401.06561",
+      "b": "arxiv:2411.07494",
+      "score": 0.467,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.guardrails"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2311.09096",
+      "b": "arxiv:2411.07494",
+      "score": 0.467,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.guardrails"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.02446",
       "b": "arxiv:2411.07494",
       "score": 0.467,
       "shared_categories": [
@@ -1044,6 +1611,30 @@
       "declared": false
     },
     {
+      "a": "arxiv:2309.00614",
+      "b": "arxiv:2401.06561",
+      "score": 0.467,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.guardrails"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2307.15043",
+      "b": "arxiv:2312.02119",
+      "score": 0.467,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2302.00539",
       "b": "arxiv:2311.17035",
       "score": 0.467,
@@ -1092,12 +1683,60 @@
       "declared": false
     },
     {
+      "a": "arxiv:2307.15043",
+      "b": "arxiv:2310.08419",
+      "score": 0.467,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2309.00614",
       "b": "arxiv:2310.03684",
       "score": 0.467,
       "shared_categories": [
         "attack.jailbreak",
         "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2309.00614",
+      "b": "arxiv:2310.04451",
+      "score": 0.467,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2309.00614",
+      "b": "arxiv:2310.02446",
+      "score": 0.467,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.guardrails"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2307.15043",
+      "b": "arxiv:2309.10253",
+      "score": 0.467,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
       ],
       "shared_methods": [],
       "note": "",
@@ -1153,6 +1792,18 @@
       "declared": false
     },
     {
+      "a": "arxiv:2301.10226",
+      "b": "arxiv:2504.07096",
+      "score": 0.433,
+      "shared_categories": [
+        "gov.transparency",
+        "supply.provenance"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2409.00137",
       "b": "arxiv:2501.18837",
       "score": 0.433,
@@ -1177,12 +1828,84 @@
       "declared": false
     },
     {
+      "a": "arxiv:2401.06561",
+      "b": "arxiv:2501.18837",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.guardrails"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2312.02119",
+      "b": "arxiv:2501.18837",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2311.09096",
       "b": "arxiv:2501.18837",
       "score": 0.433,
       "shared_categories": [
         "attack.jailbreak",
         "defense.guardrails"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.08419",
+      "b": "arxiv:2501.18837",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.02446",
+      "b": "arxiv:2501.18837",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.guardrails"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2309.10253",
+      "b": "arxiv:2501.18837",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2202.03286",
+      "b": "arxiv:2501.18837",
+      "score": 0.433,
+      "shared_categories": [
+        "defense.guardrails",
+        "eval.redteam"
       ],
       "shared_methods": [],
       "note": "",
@@ -1225,12 +1948,60 @@
       "declared": false
     },
     {
+      "a": "arxiv:2312.02119",
+      "b": "arxiv:2408.15221",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.08419",
+      "b": "arxiv:2408.15221",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2310.03684",
       "b": "arxiv:2408.15221",
       "score": 0.433,
       "shared_categories": [
         "attack.jailbreak",
         "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.04451",
+      "b": "arxiv:2408.15221",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2309.10253",
+      "b": "arxiv:2408.15221",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
       ],
       "shared_methods": [],
       "note": "",
@@ -1249,6 +2020,18 @@
       "declared": false
     },
     {
+      "a": "arxiv:2311.04235",
+      "b": "arxiv:2406.14598",
+      "score": 0.433,
+      "shared_categories": [
+        "defense.guardrails",
+        "eval.benchmark"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2310.02238",
       "b": "arxiv:2406.11717",
       "score": 0.433,
@@ -1256,6 +2039,66 @@
       "shared_methods": [],
       "note": "removal vs suppression - the refusal-direction result undermines behavioural unlearning tests",
       "declared": true
+    },
+    {
+      "a": "arxiv:2401.17263",
+      "b": "arxiv:2406.05946",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.03684",
+      "b": "arxiv:2406.05946",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.04451",
+      "b": "arxiv:2406.05946",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2307.02483",
+      "b": "arxiv:2406.05946",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2312.17673",
+      "b": "arxiv:2404.13208",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.injection",
+        "defense.provenance"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
     },
     {
       "a": "arxiv:2312.17673",
@@ -1270,7 +2113,31 @@
       "declared": false
     },
     {
+      "a": "arxiv:2401.06561",
+      "b": "arxiv:2403.04783",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.guardrails"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2311.09096",
+      "b": "arxiv:2403.04783",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.guardrails"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.02446",
       "b": "arxiv:2403.04783",
       "score": 0.433,
       "shared_categories": [
@@ -1294,12 +2161,147 @@
       "declared": false
     },
     {
+      "a": "arxiv:2312.17673",
+      "b": "arxiv:2402.07867",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.injection",
+        "defense.provenance"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2312.09390",
+      "b": "arxiv:2402.06782",
+      "score": 0.433,
+      "shared_categories": [
+        "eval.audit",
+        "interp.deception"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.03693",
+      "b": "arxiv:2401.17263",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2312.14197",
+      "b": "arxiv:2312.17673",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.injection",
+        "defense.provenance"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2211.03540",
+      "b": "arxiv:2312.09390",
+      "score": 0.433,
+      "shared_categories": [
+        "eval.audit",
+        "interp.deception"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.03684",
+      "b": "arxiv:2310.03693",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.03693",
+      "b": "arxiv:2310.04451",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2307.02483",
+      "b": "arxiv:2310.03693",
+      "score": 0.433,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2202.03286",
+      "b": "arxiv:2209.07858",
+      "score": 0.433,
+      "shared_categories": [
+        "defense.guardrails",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:1706.06083",
       "b": "arxiv:1905.02175",
       "score": 0.433,
       "shared_categories": [
         "attack.adversarial",
         "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2312.11671",
+      "b": "web:anthropic-espionage-2025-11",
+      "score": 0.43,
+      "shared_categories": [
+        "agent.authz",
+        "cyber.exploit",
+        "eval.dangercap"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "web:anthropic-llm-attack-navigator",
+      "b": "web:openai-disrupting-malicious-uses",
+      "score": 0.427,
+      "shared_categories": [
+        "cyber.exploit",
+        "cyber.malware",
+        "defense.monitoring",
+        "gov.disclosure"
       ],
       "shared_methods": [],
       "note": "",
@@ -1338,6 +2340,18 @@
     {
       "a": "arxiv:2407.16686",
       "b": "arxiv:2501.18841",
+      "score": 0.417,
+      "shared_categories": [
+        "attack.adversarial",
+        "attack.jailbreak"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2407.16686",
+      "b": "arxiv:2412.03556",
       "score": 0.417,
       "shared_categories": [
         "attack.adversarial",
@@ -1408,12 +2422,84 @@
       "declared": false
     },
     {
+      "a": "arxiv:2406.04093",
+      "b": "arxiv:2408.05147",
+      "score": 0.417,
+      "shared_categories": [
+        "interp.circuits",
+        "interp.probes"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2404.16014",
+      "b": "arxiv:2408.05147",
+      "score": 0.417,
+      "shared_categories": [
+        "interp.circuits",
+        "interp.probes"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2309.08600",
+      "b": "arxiv:2408.05147",
+      "score": 0.417,
+      "shared_categories": [
+        "interp.circuits",
+        "interp.probes"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2307.15043",
       "b": "arxiv:2407.16686",
       "score": 0.417,
       "shared_categories": [
         "attack.adversarial",
         "attack.jailbreak"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2306.13213",
+      "b": "arxiv:2407.16686",
+      "score": 0.417,
+      "shared_categories": [
+        "attack.adversarial",
+        "attack.jailbreak"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2406.04093",
+      "b": "arxiv:2406.11717",
+      "score": 0.417,
+      "shared_categories": [
+        "interp.circuits",
+        "interp.probes"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2404.16014",
+      "b": "arxiv:2406.11717",
+      "score": 0.417,
+      "shared_categories": [
+        "interp.circuits",
+        "interp.probes"
       ],
       "shared_methods": [],
       "note": "",
@@ -1432,12 +2518,48 @@
       "declared": false
     },
     {
+      "a": "arxiv:2305.00944",
+      "b": "arxiv:2406.03007",
+      "score": 0.417,
+      "shared_categories": [
+        "supply.backdoor",
+        "supply.poisoning"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2112.02125",
       "b": "arxiv:2405.04760",
       "score": 0.417,
       "shared_categories": [
         "cyber.defense",
         "cyber.vulndiscovery"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2402.04249",
+      "b": "arxiv:2402.10260",
+      "score": 0.417,
+      "shared_categories": [
+        "eval.benchmark",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2305.00944",
+      "b": "doi:10.48550-arXiv.2402.13532",
+      "score": 0.417,
+      "shared_categories": [
+        "supply.backdoor",
+        "supply.poisoning"
       ],
       "shared_methods": [],
       "note": "",
@@ -1625,6 +2747,18 @@
       "declared": false
     },
     {
+      "a": "arxiv:2408.05147",
+      "b": "arxiv:2503.10965",
+      "score": 0.375,
+      "shared_categories": [
+        "eval.audit",
+        "interp.probes"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2403.03218",
       "b": "arxiv:2502.05209",
       "score": 0.375,
@@ -1685,6 +2819,18 @@
       "declared": false
     },
     {
+      "a": "arxiv:2310.13548",
+      "b": "arxiv:2412.14093",
+      "score": 0.375,
+      "shared_categories": [
+        "defense.robust",
+        "interp.deception"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2309.00614",
       "b": "arxiv:2411.07494",
       "score": 0.375,
@@ -1721,12 +2867,36 @@
       "declared": false
     },
     {
+      "a": "arxiv:2306.13213",
+      "b": "arxiv:2411.02391",
+      "score": 0.375,
+      "shared_categories": [
+        "agent.computeruse",
+        "attack.adversarial"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:1906.08935",
       "b": "arxiv:2410.22884",
       "score": 0.375,
       "shared_categories": [
         "attack.extraction",
         "attack.privacy"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2312.09390",
+      "b": "arxiv:2410.21514",
+      "score": 0.375,
+      "shared_categories": [
+        "gov.frameworks",
+        "interp.deception"
       ],
       "shared_methods": [],
       "note": "",
@@ -1769,6 +2939,18 @@
       "declared": false
     },
     {
+      "a": "arxiv:2405.15556",
+      "b": "arxiv:2410.13722",
+      "score": 0.375,
+      "shared_categories": [
+        "defense.robust",
+        "supply.poisoning"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2409.11295",
       "b": "arxiv:2410.13886",
       "score": 0.375,
@@ -1799,6 +2981,18 @@
       "shared_categories": [
         "agent.computeruse",
         "agent.hijack"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2306.13213",
+      "b": "arxiv:2410.13886",
+      "score": 0.375,
+      "shared_categories": [
+        "agent.computeruse",
+        "attack.jailbreak"
       ],
       "shared_methods": [],
       "note": "",
@@ -1841,6 +3035,42 @@
       "declared": false
     },
     {
+      "a": "arxiv:2401.14446",
+      "b": "arxiv:2407.21792",
+      "score": 0.375,
+      "shared_categories": [
+        "eval.audit",
+        "gov.transparency"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2406.03007",
+      "b": "arxiv:2407.12784",
+      "score": 0.375,
+      "shared_categories": [
+        "agent.hijack",
+        "supply.poisoning"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2402.11208",
+      "b": "arxiv:2407.12784",
+      "score": 0.375,
+      "shared_categories": [
+        "agent.hijack",
+        "agent.multiagent"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2312.04724",
       "b": "arxiv:2406.05590",
       "score": 0.375,
@@ -1859,6 +3089,54 @@
       "shared_categories": [
         "cyber.exploit",
         "eval.benchmark"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2402.11208",
+      "b": "arxiv:2406.03007",
+      "score": 0.375,
+      "shared_categories": [
+        "agent.hijack",
+        "supply.backdoor"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2312.11671",
+      "b": "arxiv:2406.01637",
+      "score": 0.375,
+      "shared_categories": [
+        "cyber.exploit",
+        "eval.dangercap"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2306.17194",
+      "b": "arxiv:2405.15556",
+      "score": 0.375,
+      "shared_categories": [
+        "defense.robust",
+        "supply.poisoning"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2402.10260",
+      "b": "web:aisi-inspect",
+      "score": 0.375,
+      "shared_categories": [
+        "eval.benchmark",
+        "eval.redteam"
       ],
       "shared_methods": [],
       "note": "",
@@ -1889,12 +3167,84 @@
       "declared": false
     },
     {
+      "a": "arxiv:2403.14720",
+      "b": "arxiv:2404.13208",
+      "score": 0.375,
+      "shared_categories": [
+        "attack.injection",
+        "defense.provenance"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2403.04957",
+      "b": "arxiv:2403.14720",
+      "score": 0.375,
+      "shared_categories": [
+        "agent.hijack",
+        "attack.injection"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2402.07039",
       "b": "arxiv:2403.04893",
       "score": 0.375,
       "shared_categories": [
         "eval.redteam",
         "gov.disclosure"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2402.06782",
+      "b": "web:apollo-research",
+      "score": 0.375,
+      "shared_categories": [
+        "eval.audit",
+        "interp.deception"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2312.11671",
+      "b": "arxiv:2402.06664",
+      "score": 0.375,
+      "shared_categories": [
+        "cyber.exploit",
+        "eval.dangercap"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2306.13213",
+      "b": "doi:10.48550-arXiv.2410.17401",
+      "score": 0.375,
+      "shared_categories": [
+        "agent.computeruse",
+        "attack.adversarial"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2311.14455",
+      "b": "doi:10.48550-arXiv.2402.13532",
+      "score": 0.375,
+      "shared_categories": [
+        "supply.backdoor",
+        "supply.poisoning"
       ],
       "shared_methods": [],
       "note": "",
@@ -1914,6 +3264,54 @@
     },
     {
       "a": "doi:10.1126-science.adn0117",
+      "b": "web:anthropic-rsp",
+      "score": 0.375,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2305.15324",
+      "b": "doi:10.1126-science.adn0117",
+      "score": 0.375,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.17688",
+      "b": "web:anthropic-rsp",
+      "score": 0.375,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2305.15324",
+      "b": "arxiv:2310.17688",
+      "score": 0.375,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2305.15324",
       "b": "web:anthropic-rsp",
       "score": 0.375,
       "shared_categories": [
@@ -1949,12 +3347,96 @@
       "declared": false
     },
     {
+      "a": "arxiv:2211.03540",
+      "b": "web:apollo-research",
+      "score": 0.375,
+      "shared_categories": [
+        "eval.audit",
+        "interp.deception"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:1708.06733",
       "b": "arxiv:2302.10149",
       "score": 0.375,
       "shared_categories": [
         "supply.poisoning",
         "supply.provenance"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2502.05209",
+      "b": "arxiv:2508.03153",
+      "score": 0.342,
+      "shared_categories": [
+        "defense.unlearning",
+        "eval.dangercap"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2403.03218",
+      "b": "arxiv:2508.03153",
+      "score": 0.342,
+      "shared_categories": [
+        "defense.unlearning",
+        "eval.dangercap"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2508.03153",
+      "b": "doi:10.1126-science.adn0117",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.17688",
+      "b": "arxiv:2508.03153",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2508.03153",
+      "b": "web:anthropic-rsp",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2305.15324",
+      "b": "arxiv:2508.03153",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
       ],
       "shared_methods": [],
       "note": "",
@@ -1985,12 +3467,36 @@
       "declared": false
     },
     {
+      "a": "arxiv:2310.12941",
+      "b": "arxiv:2504.07096",
+      "score": 0.342,
+      "shared_categories": [
+        "gov.transparency",
+        "supply.provenance"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2410.08827",
       "b": "arxiv:2503.10965",
       "score": 0.342,
       "shared_categories": [
         "eval.audit",
         "interp.probes"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2312.09390",
+      "b": "arxiv:2503.10965",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.audit",
+        "interp.deception"
       ],
       "shared_methods": [],
       "note": "",
@@ -2045,7 +3551,43 @@
       "declared": false
     },
     {
+      "a": "arxiv:2404.13208",
+      "b": "arxiv:2502.01822",
+      "score": 0.342,
+      "shared_categories": [
+        "agent.authz",
+        "defense.provenance"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2408.15221",
+      "b": "arxiv:2501.18841",
+      "score": 0.342,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2406.05946",
+      "b": "arxiv:2501.18841",
+      "score": 0.342,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.03693",
       "b": "arxiv:2501.18841",
       "score": 0.342,
       "shared_categories": [
@@ -2075,6 +3617,18 @@
       "shared_categories": [
         "attack.jailbreak",
         "defense.guardrails"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2412.03556",
+      "b": "arxiv:2501.18837",
+      "score": 0.342,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
       ],
       "shared_methods": [],
       "note": "",
@@ -2117,8 +3671,32 @@
       "declared": false
     },
     {
+      "a": "arxiv:2310.17688",
+      "b": "arxiv:2501.04952",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2501.04952",
       "b": "web:anthropic-rsp",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2305.15324",
+      "b": "arxiv:2501.04952",
       "score": 0.342,
       "shared_categories": [
         "eval.dangercap",
@@ -2141,12 +3719,36 @@
       "declared": false
     },
     {
+      "a": "arxiv:2406.05946",
+      "b": "arxiv:2412.16339",
+      "score": 0.342,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2403.04783",
       "b": "arxiv:2412.16339",
       "score": 0.342,
       "shared_categories": [
         "attack.jailbreak",
         "defense.guardrails"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.03693",
+      "b": "arxiv:2412.16339",
+      "score": 0.342,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
       ],
       "shared_methods": [],
       "note": "",
@@ -2177,6 +3779,102 @@
       "declared": false
     },
     {
+      "a": "arxiv:2212.09251",
+      "b": "arxiv:2412.14093",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.dangercap",
+        "interp.deception"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2212.09251",
+      "b": "arxiv:2412.04984",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.dangercap",
+        "interp.deception"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2408.15221",
+      "b": "arxiv:2412.03556",
+      "score": 0.342,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2410.14923",
+      "b": "arxiv:2411.14738",
+      "score": 0.342,
+      "shared_categories": [
+        "agent.hijack",
+        "attack.injection"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2410.07283",
+      "b": "arxiv:2411.14738",
+      "score": 0.342,
+      "shared_categories": [
+        "agent.hijack",
+        "attack.injection"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2406.03007",
+      "b": "arxiv:2411.14738",
+      "score": 0.342,
+      "shared_categories": [
+        "agent.hijack",
+        "supply.backdoor"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2402.11208",
+      "b": "arxiv:2411.14738",
+      "score": 0.342,
+      "shared_categories": [
+        "agent.hijack",
+        "supply.backdoor"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2302.12173",
+      "b": "arxiv:2411.14738",
+      "score": 0.342,
+      "shared_categories": [
+        "agent.hijack",
+        "attack.injection"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2403.04783",
       "b": "arxiv:2411.07494",
       "score": 0.342,
@@ -2189,8 +3887,32 @@
       "declared": false
     },
     {
+      "a": "arxiv:2403.09572",
+      "b": "arxiv:2411.02391",
+      "score": 0.342,
+      "shared_categories": [
+        "agent.computeruse",
+        "attack.adversarial"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2410.21514",
       "b": "doi:10.1126-science.adn0117",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.17688",
+      "b": "arxiv:2410.21514",
       "score": 0.342,
       "shared_categories": [
         "eval.dangercap",
@@ -2213,7 +3935,55 @@
       "declared": false
     },
     {
+      "a": "arxiv:2305.15324",
+      "b": "arxiv:2410.21514",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2212.09251",
+      "b": "arxiv:2410.21514",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.dangercap",
+        "interp.deception"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2404.13208",
+      "b": "arxiv:2410.14923",
+      "score": 0.342,
+      "shared_categories": [
+        "agent.authz",
+        "attack.injection"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2403.14720",
+      "b": "arxiv:2410.14923",
+      "score": 0.342,
+      "shared_categories": [
+        "agent.hijack",
+        "attack.injection"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2403.04957",
       "b": "arxiv:2410.14923",
       "score": 0.342,
       "shared_categories": [
@@ -2237,7 +4007,67 @@
       "declared": false
     },
     {
+      "a": "arxiv:2406.05946",
+      "b": "arxiv:2410.13722",
+      "score": 0.342,
+      "shared_categories": [
+        "defense.robust",
+        "supply.poisoning"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.03693",
+      "b": "arxiv:2410.13722",
+      "score": 0.342,
+      "shared_categories": [
+        "defense.robust",
+        "supply.poisoning"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2404.01318",
+      "b": "arxiv:2410.09024",
+      "score": 0.342,
+      "shared_categories": [
+        "attack.jailbreak",
+        "eval.benchmark"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2408.05147",
+      "b": "arxiv:2410.08827",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.audit",
+        "interp.probes"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2403.14720",
+      "b": "arxiv:2410.07283",
+      "score": 0.342,
+      "shared_categories": [
+        "agent.hijack",
+        "attack.injection"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2403.04957",
       "b": "arxiv:2410.07283",
       "score": 0.342,
       "shared_categories": [
@@ -2255,6 +4085,54 @@
       "shared_categories": [
         "agent.hijack",
         "attack.injection"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2404.13208",
+      "b": "arxiv:2410.05451",
+      "score": 0.342,
+      "shared_categories": [
+        "attack.injection",
+        "defense.provenance"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2403.04957",
+      "b": "arxiv:2410.05451",
+      "score": 0.342,
+      "shared_categories": [
+        "attack.injection",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2402.07867",
+      "b": "arxiv:2410.05451",
+      "score": 0.342,
+      "shared_categories": [
+        "attack.injection",
+        "defense.provenance"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2312.14197",
+      "b": "arxiv:2410.05451",
+      "score": 0.342,
+      "shared_categories": [
+        "attack.injection",
+        "defense.provenance"
       ],
       "shared_methods": [],
       "note": "",
@@ -2267,6 +4145,18 @@
       "shared_categories": [
         "attack.extraction",
         "eval.audit"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2402.04249",
+      "b": "arxiv:2408.15221",
+      "score": 0.342,
+      "shared_categories": [
+        "defense.robust",
+        "eval.redteam"
       ],
       "shared_methods": [],
       "note": "",
@@ -2291,6 +4181,66 @@
       "shared_categories": [
         "attack.jailbreak",
         "eval.redteam"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2312.11671",
+      "b": "arxiv:2408.08926",
+      "score": 0.342,
+      "shared_categories": [
+        "cyber.exploit",
+        "eval.dangercap"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2405.15556",
+      "b": "arxiv:2406.05946",
+      "score": 0.342,
+      "shared_categories": [
+        "defense.robust",
+        "supply.poisoning"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2311.14455",
+      "b": "arxiv:2406.05946",
+      "score": 0.342,
+      "shared_categories": [
+        "attack.jailbreak",
+        "supply.poisoning"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2309.00614",
+      "b": "arxiv:2406.05946",
+      "score": 0.342,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2306.17194",
+      "b": "arxiv:2406.05946",
+      "score": 0.342,
+      "shared_categories": [
+        "defense.robust",
+        "supply.poisoning"
       ],
       "shared_methods": [],
       "note": "",
@@ -2333,8 +4283,56 @@
       "declared": false
     },
     {
+      "a": "arxiv:2312.11671",
+      "b": "arxiv:2406.05590",
+      "score": 0.342,
+      "shared_categories": [
+        "cyber.exploit",
+        "eval.dangercap"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.03693",
+      "b": "arxiv:2405.15556",
+      "score": 0.342,
+      "shared_categories": [
+        "defense.robust",
+        "supply.poisoning"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2402.06363",
+      "b": "arxiv:2404.13208",
+      "score": 0.342,
+      "shared_categories": [
+        "attack.injection",
+        "defense.provenance"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2403.13793",
       "b": "doi:10.1126-science.adn0117",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.17688",
+      "b": "arxiv:2403.13793",
       "score": 0.342,
       "shared_categories": [
         "eval.dangercap",
@@ -2351,6 +4349,54 @@
       "shared_categories": [
         "eval.dangercap",
         "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2305.15324",
+      "b": "arxiv:2403.13793",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2403.09572",
+      "b": "doi:10.48550-arXiv.2410.17401",
+      "score": 0.342,
+      "shared_categories": [
+        "agent.computeruse",
+        "attack.adversarial"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2306.13213",
+      "b": "arxiv:2403.09572",
+      "score": 0.342,
+      "shared_categories": [
+        "agent.computeruse",
+        "attack.adversarial"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2302.12173",
+      "b": "arxiv:2403.04957",
+      "score": 0.342,
+      "shared_categories": [
+        "agent.hijack",
+        "attack.injection"
       ],
       "shared_methods": [],
       "note": "",
@@ -2369,12 +4415,144 @@
       "declared": false
     },
     {
+      "a": "arxiv:2403.07918",
+      "b": "doi:10.1126-science.adn0117",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.17688",
+      "b": "arxiv:2403.07918",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2403.07918",
+      "b": "web:anthropic-rsp",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2305.15324",
+      "b": "arxiv:2403.07918",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2310.16789",
       "b": "arxiv:2402.16835",
       "score": 0.342,
       "shared_categories": [
         "attack.extraction",
         "eval.audit"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2402.06363",
+      "b": "arxiv:2402.07867",
+      "score": 0.342,
+      "shared_categories": [
+        "attack.injection",
+        "defense.provenance"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2209.07858",
+      "b": "arxiv:2402.07039",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.redteam",
+        "gov.transparency"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2312.14197",
+      "b": "arxiv:2402.06363",
+      "score": 0.342,
+      "shared_categories": [
+        "attack.injection",
+        "defense.provenance"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.13548",
+      "b": "arxiv:2402.04249",
+      "score": 0.342,
+      "shared_categories": [
+        "defense.robust",
+        "eval.benchmark"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2201.05159",
+      "b": "arxiv:2401.14446",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.audit",
+        "gov.regulation"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2305.15324",
+      "b": "arxiv:2312.09390",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.audit",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2310.03693",
+      "b": "arxiv:2311.14455",
+      "score": 0.342,
+      "shared_categories": [
+        "attack.jailbreak",
+        "supply.poisoning"
       ],
       "shared_methods": [],
       "note": "",
@@ -2393,8 +4571,68 @@
       "declared": false
     },
     {
+      "a": "arxiv:2310.17688",
+      "b": "arxiv:2311.09227",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2212.09251",
+      "b": "arxiv:2310.13548",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.benchmark",
+        "interp.deception"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2309.00614",
+      "b": "arxiv:2310.03693",
+      "score": 0.342,
+      "shared_categories": [
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2306.17194",
+      "b": "arxiv:2310.03693",
+      "score": 0.342,
+      "shared_categories": [
+        "defense.robust",
+        "supply.poisoning"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
       "a": "arxiv:2311.09227",
       "b": "web:anthropic-rsp",
+      "score": 0.342,
+      "shared_categories": [
+        "eval.dangercap",
+        "gov.frameworks"
+      ],
+      "shared_methods": [],
+      "note": "",
+      "declared": false
+    },
+    {
+      "a": "arxiv:2305.15324",
+      "b": "arxiv:2311.09227",
       "score": 0.342,
       "shared_categories": [
         "eval.dangercap",
@@ -2418,6 +4656,7 @@
         "arxiv:2501.18841",
         "arxiv:2501.18837",
         "arxiv:2412.16339",
+        "arxiv:2412.03556",
         "arxiv:2411.07494",
         "arxiv:2410.22884",
         "arxiv:2409.00137",
@@ -2426,10 +4665,16 @@
         "arxiv:2404.01833",
         "arxiv:2403.06634",
         "arxiv:2401.17263",
+        "arxiv:2401.06561",
         "arxiv:2312.06674",
+        "arxiv:2312.02119",
         "arxiv:2311.17035",
         "arxiv:2311.09096",
+        "arxiv:2310.08419",
         "arxiv:2310.03684",
+        "arxiv:2310.04451",
+        "arxiv:2310.02446",
+        "arxiv:2309.10253",
         "arxiv:2309.05610",
         "arxiv:2309.00614",
         "arxiv:2307.15043",
@@ -2439,8 +4684,8 @@
         "arxiv:2012.07805",
         "arxiv:1706.06083"
       ],
-      "size": 23,
-      "mean_score": 0.575,
+      "size": 30,
+      "mean_score": 0.567,
       "shared": [
         "attack.adversarial",
         "attack.extraction",
@@ -2459,7 +4704,7 @@
       "categories": [
         "eval.dangercap",
         "cyber.exploit",
-        "eval.benchmark"
+        "gov.frameworks"
       ],
       "papers": [
         "arxiv:2412.04984",
@@ -2475,15 +4720,17 @@
         "arxiv:2311.14455",
         "arxiv:2310.12941",
         "arxiv:2310.02238",
+        "arxiv:2305.15324",
         "arxiv:2302.10149",
         "arxiv:2301.10226",
         "web:metr"
       ],
-      "size": 16,
-      "mean_score": 0.632,
+      "size": 17,
+      "mean_score": 0.624,
       "shared": [
         "cyber.exploit",
         "defense.unlearning",
+        "eval.audit",
         "eval.benchmark",
         "eval.dangercap",
         "gov.frameworks",
@@ -2511,13 +4758,14 @@
         "arxiv:2403.02691",
         "arxiv:2402.06363",
         "arxiv:2312.17673",
+        "arxiv:2312.14197",
         "arxiv:2311.04235",
         "arxiv:2311.01011",
         "arxiv:2306.05499",
         "arxiv:2302.12173"
       ],
-      "size": 12,
-      "mean_score": 0.649,
+      "size": 13,
+      "mean_score": 0.642,
       "shared": [
         "agent.authz",
         "agent.hijack",
@@ -2529,28 +4777,55 @@
     },
     {
       "id": "cluster-4",
-      "label": "Malware & social engineering + Autonomous exploitation",
+      "label": "Malware & social engineering + Runtime monitoring",
       "categories": [
         "cyber.malware",
-        "cyber.exploit",
-        "defense.monitoring"
+        "defense.monitoring",
+        "cyber.exploit"
       ],
       "papers": [
+        "web:anthropic-llm-attack-navigator",
+        "web:anthropic-espionage-2025-11",
+        "web:gtig-ai-threat-tracker-2025-11",
         "web:anthropic-misuse-2025-08",
         "web:openai-disrupting-malicious-uses",
-        "web:gtig-adversarial-misuse-2025"
+        "web:gtig-adversarial-misuse-2025",
+        "web:mitre-atlas"
       ],
-      "size": 3,
-      "mean_score": 0.553,
+      "size": 7,
+      "mean_score": 0.601,
       "shared": [
         "cyber.exploit",
         "cyber.malware",
         "defense.monitoring",
+        "eval.dangercap",
         "gov.disclosure"
       ]
     },
     {
       "id": "cluster-5",
+      "label": "Audit & certification + Deception & sandbagging",
+      "categories": [
+        "eval.audit",
+        "interp.deception",
+        "interp.probes"
+      ],
+      "papers": [
+        "arxiv:2503.10965",
+        "arxiv:2402.06782",
+        "web:apollo-research",
+        "arxiv:2211.03540"
+      ],
+      "size": 4,
+      "mean_score": 0.524,
+      "shared": [
+        "eval.audit",
+        "interp.deception",
+        "interp.probes"
+      ]
+    },
+    {
+      "id": "cluster-6",
       "label": "Regulation & compliance + Transparency & documentation",
       "categories": [
         "gov.regulation",
@@ -2572,27 +4847,66 @@
       ]
     },
     {
-      "id": "cluster-6",
-      "label": "Audit & certification + Deception & sandbagging",
+      "id": "cluster-7",
+      "label": "Probes & attribution + Circuits of harmful behaviour",
       "categories": [
-        "eval.audit",
-        "interp.deception",
-        "interp.probes"
+        "interp.probes",
+        "interp.circuits"
       ],
       "papers": [
-        "arxiv:2503.10965",
-        "web:apollo-research"
+        "arxiv:2406.04093",
+        "arxiv:2404.16014",
+        "arxiv:2309.08600"
       ],
-      "size": 2,
-      "mean_score": 0.513,
+      "size": 3,
+      "mean_score": 0.65,
       "shared": [
-        "eval.audit",
-        "interp.deception",
+        "interp.circuits",
         "interp.probes"
       ]
     },
     {
-      "id": "cluster-7",
+      "id": "cluster-8",
+      "label": "Dangerous-capability evals + Frontier safety frameworks",
+      "categories": [
+        "eval.dangercap",
+        "gov.frameworks",
+        "defense.unlearning"
+      ],
+      "papers": [
+        "arxiv:2508.03153",
+        "arxiv:2501.04952"
+      ],
+      "size": 2,
+      "mean_score": 0.65,
+      "shared": [
+        "defense.unlearning",
+        "eval.dangercap",
+        "gov.frameworks"
+      ]
+    },
+    {
+      "id": "cluster-9",
+      "label": "Frontier safety frameworks + Authorisation & least privilege",
+      "categories": [
+        "gov.frameworks",
+        "agent.authz",
+        "interp.deception"
+      ],
+      "papers": [
+        "arxiv:2504.01849",
+        "arxiv:2404.16244"
+      ],
+      "size": 2,
+      "mean_score": 0.488,
+      "shared": [
+        "agent.authz",
+        "gov.frameworks",
+        "interp.deception"
+      ]
+    },
+    {
+      "id": "cluster-10",
       "label": "Computer & browser use + Agent hijacking",
       "categories": [
         "agent.computeruse",
@@ -2612,7 +4926,7 @@
       ]
     },
     {
-      "id": "cluster-8",
+      "id": "cluster-11",
       "label": "Data poisoning + Backdoors & trojans",
       "categories": [
         "supply.poisoning",
@@ -2632,7 +4946,7 @@
       ]
     },
     {
-      "id": "cluster-9",
+      "id": "cluster-12",
       "label": "Unlearning & deletion + Audit & certification",
       "categories": [
         "defense.unlearning",
@@ -2652,7 +4966,27 @@
       ]
     },
     {
-      "id": "cluster-10",
+      "id": "cluster-13",
+      "label": "Robust training + Jailbreaks & refusal bypass",
+      "categories": [
+        "defense.robust",
+        "attack.jailbreak",
+        "supply.poisoning"
+      ],
+      "papers": [
+        "arxiv:2406.05946",
+        "arxiv:2310.03693"
+      ],
+      "size": 2,
+      "mean_score": 0.65,
+      "shared": [
+        "attack.jailbreak",
+        "defense.robust",
+        "supply.poisoning"
+      ]
+    },
+    {
+      "id": "cluster-14",
       "label": "Defensive automation + Vulnerability discovery",
       "categories": [
         "cyber.defense",
@@ -2672,7 +5006,87 @@
       ]
     },
     {
-      "id": "cluster-11",
+      "id": "cluster-15",
+      "label": "Frontier safety frameworks + Audit & certification",
+      "categories": [
+        "gov.frameworks",
+        "eval.audit",
+        "interp.deception"
+      ],
+      "papers": [
+        "arxiv:2404.09932",
+        "arxiv:2312.09390"
+      ],
+      "size": 2,
+      "mean_score": 0.488,
+      "shared": [
+        "eval.audit",
+        "gov.frameworks",
+        "interp.deception"
+      ]
+    },
+    {
+      "id": "cluster-16",
+      "label": "Frontier safety frameworks + Dangerous-capability evals",
+      "categories": [
+        "gov.frameworks",
+        "eval.dangercap",
+        "supply.provenance"
+      ],
+      "papers": [
+        "arxiv:2403.07918",
+        "arxiv:2311.09227"
+      ],
+      "size": 2,
+      "mean_score": 0.65,
+      "shared": [
+        "eval.dangercap",
+        "gov.frameworks",
+        "supply.provenance"
+      ]
+    },
+    {
+      "id": "cluster-17",
+      "label": "Identity & secrets + Authorisation & least privilege",
+      "categories": [
+        "infra.identity",
+        "agent.authz",
+        "gov.regulation"
+      ],
+      "papers": [
+        "arxiv:2401.13138",
+        "doi:10.2139-ssrn.4772956"
+      ],
+      "size": 2,
+      "mean_score": 0.488,
+      "shared": [
+        "agent.authz",
+        "gov.regulation",
+        "infra.identity"
+      ]
+    },
+    {
+      "id": "cluster-18",
+      "label": "Frontier safety frameworks + Regulation & compliance",
+      "categories": [
+        "gov.frameworks",
+        "gov.regulation",
+        "eval.dangercap"
+      ],
+      "papers": [
+        "doi:10.1126-science.adn0117",
+        "arxiv:2310.17688"
+      ],
+      "size": 2,
+      "mean_score": 0.9,
+      "shared": [
+        "eval.dangercap",
+        "gov.frameworks",
+        "gov.regulation"
+      ]
+    },
+    {
+      "id": "cluster-19",
       "label": "Defensive automation + Vulnerability discovery",
       "categories": [
         "cyber.defense",
@@ -2691,7 +5105,7 @@
       ]
     },
     {
-      "id": "cluster-12",
+      "id": "cluster-20",
       "label": "Data poisoning + Backdoors & trojans",
       "categories": [
         "supply.poisoning",
@@ -2755,30 +5169,30 @@
     ],
     "matrix": {
       "attack.injection": {
-        "attack.injection": 14,
+        "attack.injection": 19,
         "attack.jailbreak": 0,
         "attack.extraction": 2,
         "attack.adversarial": 0,
         "attack.model_theft": 0,
         "attack.privacy": 0,
-        "supply.poisoning": 1,
-        "supply.backdoor": 0,
+        "supply.poisoning": 2,
+        "supply.backdoor": 1,
         "supply.provenance": 0,
         "supply.deps": 1,
-        "agent.hijack": 6,
+        "agent.hijack": 8,
         "agent.sandbox": 0,
-        "agent.authz": 2,
+        "agent.authz": 3,
         "agent.multiagent": 1,
         "agent.mcp": 2,
         "agent.computeruse": 1,
         "defense.guardrails": 1,
-        "defense.provenance": 5,
-        "defense.robust": 1,
+        "defense.provenance": 8,
+        "defense.robust": 2,
         "defense.unlearning": 0,
         "defense.monitoring": 0,
         "defense.constrained": 1,
         "eval.redteam": 0,
-        "eval.benchmark": 4,
+        "eval.benchmark": 5,
         "eval.dangercap": 0,
         "eval.audit": 0,
         "interp.probes": 1,
@@ -2798,12 +5212,12 @@
       },
       "attack.jailbreak": {
         "attack.injection": 0,
-        "attack.jailbreak": 23,
+        "attack.jailbreak": 34,
         "attack.extraction": 1,
-        "attack.adversarial": 3,
+        "attack.adversarial": 5,
         "attack.model_theft": 0,
         "attack.privacy": 1,
-        "supply.poisoning": 1,
+        "supply.poisoning": 3,
         "supply.backdoor": 1,
         "supply.provenance": 0,
         "supply.deps": 1,
@@ -2812,15 +5226,15 @@
         "agent.authz": 1,
         "agent.multiagent": 1,
         "agent.mcp": 0,
-        "agent.computeruse": 1,
-        "defense.guardrails": 6,
+        "agent.computeruse": 2,
+        "defense.guardrails": 8,
         "defense.provenance": 0,
-        "defense.robust": 8,
+        "defense.robust": 11,
         "defense.unlearning": 0,
         "defense.monitoring": 2,
         "defense.constrained": 0,
-        "eval.redteam": 5,
-        "eval.benchmark": 1,
+        "eval.redteam": 9,
+        "eval.benchmark": 2,
         "eval.dangercap": 1,
         "eval.audit": 0,
         "interp.probes": 1,
@@ -2841,13 +5255,13 @@
       "attack.extraction": {
         "attack.injection": 2,
         "attack.jailbreak": 1,
-        "attack.extraction": 13,
+        "attack.extraction": 14,
         "attack.adversarial": 0,
         "attack.model_theft": 1,
         "attack.privacy": 8,
         "supply.poisoning": 1,
         "supply.backdoor": 0,
-        "supply.provenance": 0,
+        "supply.provenance": 1,
         "supply.deps": 1,
         "agent.hijack": 0,
         "agent.sandbox": 0,
@@ -2878,13 +5292,13 @@
         "gov.frameworks": 0,
         "gov.disclosure": 0,
         "gov.regulation": 0,
-        "gov.transparency": 0
+        "gov.transparency": 1
       },
       "attack.adversarial": {
         "attack.injection": 0,
-        "attack.jailbreak": 3,
+        "attack.jailbreak": 5,
         "attack.extraction": 0,
-        "attack.adversarial": 8,
+        "attack.adversarial": 11,
         "attack.model_theft": 1,
         "attack.privacy": 0,
         "supply.poisoning": 1,
@@ -2896,14 +5310,14 @@
         "agent.authz": 0,
         "agent.multiagent": 0,
         "agent.mcp": 0,
-        "agent.computeruse": 2,
-        "defense.guardrails": 0,
+        "agent.computeruse": 4,
+        "defense.guardrails": 1,
         "defense.provenance": 0,
         "defense.robust": 3,
         "defense.unlearning": 0,
         "defense.monitoring": 1,
         "defense.constrained": 0,
-        "eval.redteam": 2,
+        "eval.redteam": 3,
         "eval.benchmark": 0,
         "eval.dangercap": 0,
         "eval.audit": 0,
@@ -2970,9 +5384,9 @@
         "attack.extraction": 8,
         "attack.adversarial": 0,
         "attack.model_theft": 0,
-        "attack.privacy": 11,
-        "supply.poisoning": 0,
-        "supply.backdoor": 0,
+        "attack.privacy": 12,
+        "supply.poisoning": 1,
+        "supply.backdoor": 1,
         "supply.provenance": 0,
         "supply.deps": 0,
         "agent.hijack": 1,
@@ -3007,28 +5421,28 @@
         "gov.transparency": 0
       },
       "supply.poisoning": {
-        "attack.injection": 1,
-        "attack.jailbreak": 1,
+        "attack.injection": 2,
+        "attack.jailbreak": 3,
         "attack.extraction": 1,
         "attack.adversarial": 1,
         "attack.model_theft": 1,
-        "attack.privacy": 0,
-        "supply.poisoning": 11,
-        "supply.backdoor": 5,
+        "attack.privacy": 1,
+        "supply.poisoning": 17,
+        "supply.backdoor": 7,
         "supply.provenance": 3,
         "supply.deps": 2,
-        "agent.hijack": 2,
+        "agent.hijack": 3,
         "agent.sandbox": 0,
         "agent.authz": 1,
         "agent.multiagent": 1,
         "agent.mcp": 0,
         "agent.computeruse": 0,
         "defense.guardrails": 1,
-        "defense.provenance": 0,
-        "defense.robust": 2,
+        "defense.provenance": 1,
+        "defense.robust": 5,
         "defense.unlearning": 0,
         "defense.monitoring": 1,
-        "defense.constrained": 0,
+        "defense.constrained": 1,
         "eval.redteam": 1,
         "eval.benchmark": 0,
         "eval.dangercap": 0,
@@ -3049,20 +5463,20 @@
         "gov.transparency": 0
       },
       "supply.backdoor": {
-        "attack.injection": 0,
+        "attack.injection": 1,
         "attack.jailbreak": 1,
         "attack.extraction": 0,
         "attack.adversarial": 0,
         "attack.model_theft": 0,
-        "attack.privacy": 0,
-        "supply.poisoning": 5,
-        "supply.backdoor": 7,
+        "attack.privacy": 1,
+        "supply.poisoning": 7,
+        "supply.backdoor": 11,
         "supply.provenance": 1,
         "supply.deps": 0,
-        "agent.hijack": 1,
+        "agent.hijack": 4,
         "agent.sandbox": 0,
         "agent.authz": 0,
-        "agent.multiagent": 0,
+        "agent.multiagent": 1,
         "agent.mcp": 1,
         "agent.computeruse": 0,
         "defense.guardrails": 0,
@@ -3093,13 +5507,13 @@
       "supply.provenance": {
         "attack.injection": 0,
         "attack.jailbreak": 0,
-        "attack.extraction": 0,
+        "attack.extraction": 1,
         "attack.adversarial": 0,
         "attack.model_theft": 0,
         "attack.privacy": 0,
         "supply.poisoning": 3,
         "supply.backdoor": 1,
-        "supply.provenance": 7,
+        "supply.provenance": 9,
         "supply.deps": 1,
         "agent.hijack": 0,
         "agent.sandbox": 0,
@@ -3115,7 +5529,7 @@
         "defense.constrained": 0,
         "eval.redteam": 0,
         "eval.benchmark": 0,
-        "eval.dangercap": 1,
+        "eval.dangercap": 2,
         "eval.audit": 0,
         "interp.probes": 0,
         "interp.deception": 0,
@@ -3127,10 +5541,10 @@
         "infra.serving": 2,
         "infra.identity": 0,
         "infra.federated": 0,
-        "gov.frameworks": 3,
+        "gov.frameworks": 4,
         "gov.disclosure": 0,
         "gov.regulation": 1,
-        "gov.transparency": 2
+        "gov.transparency": 3
       },
       "supply.deps": {
         "attack.injection": 1,
@@ -3175,25 +5589,25 @@
         "gov.transparency": 0
       },
       "agent.hijack": {
-        "attack.injection": 6,
+        "attack.injection": 8,
         "attack.jailbreak": 4,
         "attack.extraction": 0,
         "attack.adversarial": 3,
         "attack.model_theft": 1,
         "attack.privacy": 1,
-        "supply.poisoning": 2,
-        "supply.backdoor": 1,
+        "supply.poisoning": 3,
+        "supply.backdoor": 4,
         "supply.provenance": 0,
         "supply.deps": 1,
-        "agent.hijack": 21,
+        "agent.hijack": 25,
         "agent.sandbox": 2,
         "agent.authz": 5,
-        "agent.multiagent": 2,
+        "agent.multiagent": 3,
         "agent.mcp": 3,
         "agent.computeruse": 5,
         "defense.guardrails": 0,
         "defense.provenance": 3,
-        "defense.robust": 1,
+        "defense.robust": 2,
         "defense.unlearning": 0,
         "defense.monitoring": 1,
         "defense.constrained": 0,
@@ -3228,8 +5642,8 @@
         "supply.provenance": 0,
         "supply.deps": 0,
         "agent.hijack": 2,
-        "agent.sandbox": 4,
-        "agent.authz": 1,
+        "agent.sandbox": 5,
+        "agent.authz": 2,
         "agent.multiagent": 0,
         "agent.mcp": 0,
         "agent.computeruse": 0,
@@ -3239,7 +5653,7 @@
         "defense.unlearning": 0,
         "defense.monitoring": 0,
         "defense.constrained": 0,
-        "eval.redteam": 0,
+        "eval.redteam": 1,
         "eval.benchmark": 2,
         "eval.dangercap": 0,
         "eval.audit": 0,
@@ -3259,7 +5673,7 @@
         "gov.transparency": 0
       },
       "agent.authz": {
-        "attack.injection": 2,
+        "attack.injection": 3,
         "attack.jailbreak": 1,
         "attack.extraction": 1,
         "attack.adversarial": 0,
@@ -3270,34 +5684,34 @@
         "supply.provenance": 1,
         "supply.deps": 2,
         "agent.hijack": 5,
-        "agent.sandbox": 1,
-        "agent.authz": 11,
+        "agent.sandbox": 2,
+        "agent.authz": 18,
         "agent.multiagent": 1,
         "agent.mcp": 1,
         "agent.computeruse": 0,
         "defense.guardrails": 2,
-        "defense.provenance": 2,
+        "defense.provenance": 3,
         "defense.robust": 0,
         "defense.unlearning": 0,
-        "defense.monitoring": 3,
-        "defense.constrained": 0,
-        "eval.redteam": 1,
+        "defense.monitoring": 4,
+        "defense.constrained": 1,
+        "eval.redteam": 2,
         "eval.benchmark": 1,
-        "eval.dangercap": 1,
+        "eval.dangercap": 2,
         "eval.audit": 0,
         "interp.probes": 0,
-        "interp.deception": 2,
+        "interp.deception": 3,
         "interp.circuits": 0,
         "cyber.vulndiscovery": 0,
-        "cyber.exploit": 1,
+        "cyber.exploit": 2,
         "cyber.defense": 0,
         "cyber.malware": 1,
         "infra.serving": 1,
-        "infra.identity": 0,
+        "infra.identity": 2,
         "infra.federated": 0,
-        "gov.frameworks": 2,
+        "gov.frameworks": 4,
         "gov.disclosure": 0,
-        "gov.regulation": 0,
+        "gov.regulation": 2,
         "gov.transparency": 0
       },
       "agent.multiagent": {
@@ -3308,37 +5722,37 @@
         "attack.model_theft": 0,
         "attack.privacy": 0,
         "supply.poisoning": 1,
-        "supply.backdoor": 0,
+        "supply.backdoor": 1,
         "supply.provenance": 0,
         "supply.deps": 0,
-        "agent.hijack": 2,
+        "agent.hijack": 3,
         "agent.sandbox": 0,
         "agent.authz": 1,
-        "agent.multiagent": 6,
+        "agent.multiagent": 8,
         "agent.mcp": 0,
         "agent.computeruse": 0,
         "defense.guardrails": 1,
         "defense.provenance": 1,
         "defense.robust": 0,
         "defense.unlearning": 0,
-        "defense.monitoring": 0,
+        "defense.monitoring": 1,
         "defense.constrained": 0,
         "eval.redteam": 0,
         "eval.benchmark": 0,
-        "eval.dangercap": 2,
+        "eval.dangercap": 3,
         "eval.audit": 0,
         "interp.probes": 0,
         "interp.deception": 1,
         "interp.circuits": 0,
         "cyber.vulndiscovery": 0,
-        "cyber.exploit": 1,
+        "cyber.exploit": 2,
         "cyber.defense": 0,
-        "cyber.malware": 0,
+        "cyber.malware": 1,
         "infra.serving": 0,
         "infra.identity": 0,
         "infra.federated": 0,
         "gov.frameworks": 0,
-        "gov.disclosure": 0,
+        "gov.disclosure": 1,
         "gov.regulation": 0,
         "gov.transparency": 0
       },
@@ -3386,9 +5800,9 @@
       },
       "agent.computeruse": {
         "attack.injection": 1,
-        "attack.jailbreak": 1,
+        "attack.jailbreak": 2,
         "attack.extraction": 0,
-        "attack.adversarial": 2,
+        "attack.adversarial": 4,
         "attack.model_theft": 0,
         "attack.privacy": 1,
         "supply.poisoning": 0,
@@ -3400,8 +5814,8 @@
         "agent.authz": 0,
         "agent.multiagent": 0,
         "agent.mcp": 0,
-        "agent.computeruse": 7,
-        "defense.guardrails": 0,
+        "agent.computeruse": 9,
+        "defense.guardrails": 1,
         "defense.provenance": 0,
         "defense.robust": 0,
         "defense.unlearning": 0,
@@ -3428,9 +5842,9 @@
       },
       "defense.guardrails": {
         "attack.injection": 1,
-        "attack.jailbreak": 6,
+        "attack.jailbreak": 8,
         "attack.extraction": 1,
-        "attack.adversarial": 0,
+        "attack.adversarial": 1,
         "attack.model_theft": 0,
         "attack.privacy": 0,
         "supply.poisoning": 1,
@@ -3442,15 +5856,15 @@
         "agent.authz": 2,
         "agent.multiagent": 1,
         "agent.mcp": 0,
-        "agent.computeruse": 0,
-        "defense.guardrails": 10,
+        "agent.computeruse": 1,
+        "defense.guardrails": 16,
         "defense.provenance": 0,
         "defense.robust": 2,
         "defense.unlearning": 0,
         "defense.monitoring": 1,
         "defense.constrained": 0,
-        "eval.redteam": 1,
-        "eval.benchmark": 1,
+        "eval.redteam": 3,
+        "eval.benchmark": 2,
         "eval.dangercap": 1,
         "eval.audit": 0,
         "interp.probes": 0,
@@ -3466,33 +5880,33 @@
         "gov.frameworks": 1,
         "gov.disclosure": 0,
         "gov.regulation": 0,
-        "gov.transparency": 0
+        "gov.transparency": 1
       },
       "defense.provenance": {
-        "attack.injection": 5,
+        "attack.injection": 8,
         "attack.jailbreak": 0,
         "attack.extraction": 0,
         "attack.adversarial": 0,
         "attack.model_theft": 0,
         "attack.privacy": 0,
-        "supply.poisoning": 0,
+        "supply.poisoning": 1,
         "supply.backdoor": 0,
         "supply.provenance": 0,
         "supply.deps": 0,
         "agent.hijack": 3,
         "agent.sandbox": 1,
-        "agent.authz": 2,
+        "agent.authz": 3,
         "agent.multiagent": 1,
         "agent.mcp": 0,
         "agent.computeruse": 0,
         "defense.guardrails": 0,
-        "defense.provenance": 7,
+        "defense.provenance": 10,
         "defense.robust": 1,
         "defense.unlearning": 0,
         "defense.monitoring": 0,
         "defense.constrained": 1,
         "eval.redteam": 0,
-        "eval.benchmark": 1,
+        "eval.benchmark": 2,
         "eval.dangercap": 0,
         "eval.audit": 0,
         "interp.probes": 0,
@@ -3511,17 +5925,17 @@
         "gov.transparency": 0
       },
       "defense.robust": {
-        "attack.injection": 1,
-        "attack.jailbreak": 8,
+        "attack.injection": 2,
+        "attack.jailbreak": 11,
         "attack.extraction": 0,
         "attack.adversarial": 3,
         "attack.model_theft": 0,
         "attack.privacy": 0,
-        "supply.poisoning": 2,
+        "supply.poisoning": 5,
         "supply.backdoor": 3,
         "supply.provenance": 0,
         "supply.deps": 0,
-        "agent.hijack": 1,
+        "agent.hijack": 2,
         "agent.sandbox": 0,
         "agent.authz": 0,
         "agent.multiagent": 0,
@@ -3529,16 +5943,16 @@
         "agent.computeruse": 0,
         "defense.guardrails": 2,
         "defense.provenance": 1,
-        "defense.robust": 15,
+        "defense.robust": 24,
         "defense.unlearning": 0,
         "defense.monitoring": 0,
-        "defense.constrained": 0,
-        "eval.redteam": 2,
-        "eval.benchmark": 0,
+        "defense.constrained": 1,
+        "eval.redteam": 3,
+        "eval.benchmark": 2,
         "eval.dangercap": 1,
-        "eval.audit": 0,
+        "eval.audit": 1,
         "interp.probes": 0,
-        "interp.deception": 2,
+        "interp.deception": 4,
         "interp.circuits": 2,
         "cyber.vulndiscovery": 0,
         "cyber.exploit": 0,
@@ -3547,10 +5961,10 @@
         "infra.serving": 0,
         "infra.identity": 0,
         "infra.federated": 0,
-        "gov.frameworks": 0,
+        "gov.frameworks": 2,
         "gov.disclosure": 0,
         "gov.regulation": 0,
-        "gov.transparency": 0
+        "gov.transparency": 1
       },
       "defense.unlearning": {
         "attack.injection": 0,
@@ -3572,12 +5986,12 @@
         "defense.guardrails": 0,
         "defense.provenance": 0,
         "defense.robust": 0,
-        "defense.unlearning": 8,
+        "defense.unlearning": 9,
         "defense.monitoring": 0,
         "defense.constrained": 0,
         "eval.redteam": 0,
         "eval.benchmark": 1,
-        "eval.dangercap": 3,
+        "eval.dangercap": 4,
         "eval.audit": 4,
         "interp.probes": 1,
         "interp.deception": 0,
@@ -3589,7 +6003,7 @@
         "infra.serving": 0,
         "infra.identity": 0,
         "infra.federated": 0,
-        "gov.frameworks": 1,
+        "gov.frameworks": 2,
         "gov.disclosure": 0,
         "gov.regulation": 1,
         "gov.transparency": 0
@@ -3607,33 +6021,33 @@
         "supply.deps": 1,
         "agent.hijack": 1,
         "agent.sandbox": 0,
-        "agent.authz": 3,
-        "agent.multiagent": 0,
+        "agent.authz": 4,
+        "agent.multiagent": 1,
         "agent.mcp": 0,
         "agent.computeruse": 0,
         "defense.guardrails": 1,
         "defense.provenance": 0,
         "defense.robust": 0,
         "defense.unlearning": 0,
-        "defense.monitoring": 10,
+        "defense.monitoring": 12,
         "defense.constrained": 0,
         "eval.redteam": 2,
         "eval.benchmark": 0,
-        "eval.dangercap": 0,
+        "eval.dangercap": 1,
         "eval.audit": 0,
         "interp.probes": 1,
         "interp.deception": 3,
         "interp.circuits": 0,
         "cyber.vulndiscovery": 0,
-        "cyber.exploit": 3,
+        "cyber.exploit": 4,
         "cyber.defense": 0,
-        "cyber.malware": 4,
+        "cyber.malware": 5,
         "infra.serving": 1,
-        "infra.identity": 0,
+        "infra.identity": 1,
         "infra.federated": 0,
         "gov.frameworks": 2,
-        "gov.disclosure": 2,
-        "gov.regulation": 0,
+        "gov.disclosure": 3,
+        "gov.regulation": 1,
         "gov.transparency": 0
       },
       "defense.constrained": {
@@ -3643,22 +6057,22 @@
         "attack.adversarial": 0,
         "attack.model_theft": 0,
         "attack.privacy": 0,
-        "supply.poisoning": 0,
+        "supply.poisoning": 1,
         "supply.backdoor": 0,
         "supply.provenance": 0,
         "supply.deps": 0,
         "agent.hijack": 0,
         "agent.sandbox": 0,
-        "agent.authz": 0,
+        "agent.authz": 1,
         "agent.multiagent": 0,
         "agent.mcp": 0,
         "agent.computeruse": 0,
         "defense.guardrails": 0,
         "defense.provenance": 1,
-        "defense.robust": 0,
+        "defense.robust": 1,
         "defense.unlearning": 0,
         "defense.monitoring": 0,
-        "defense.constrained": 1,
+        "defense.constrained": 3,
         "eval.redteam": 0,
         "eval.benchmark": 0,
         "eval.dangercap": 0,
@@ -3673,16 +6087,16 @@
         "infra.serving": 0,
         "infra.identity": 0,
         "infra.federated": 0,
-        "gov.frameworks": 0,
+        "gov.frameworks": 1,
         "gov.disclosure": 0,
         "gov.regulation": 0,
         "gov.transparency": 0
       },
       "eval.redteam": {
         "attack.injection": 0,
-        "attack.jailbreak": 5,
+        "attack.jailbreak": 9,
         "attack.extraction": 0,
-        "attack.adversarial": 2,
+        "attack.adversarial": 3,
         "attack.model_theft": 1,
         "attack.privacy": 0,
         "supply.poisoning": 1,
@@ -3690,19 +6104,19 @@
         "supply.provenance": 0,
         "supply.deps": 0,
         "agent.hijack": 1,
-        "agent.sandbox": 0,
-        "agent.authz": 1,
+        "agent.sandbox": 1,
+        "agent.authz": 2,
         "agent.multiagent": 0,
         "agent.mcp": 0,
         "agent.computeruse": 0,
-        "defense.guardrails": 1,
+        "defense.guardrails": 3,
         "defense.provenance": 0,
-        "defense.robust": 2,
+        "defense.robust": 3,
         "defense.unlearning": 0,
         "defense.monitoring": 2,
         "defense.constrained": 0,
-        "eval.redteam": 11,
-        "eval.benchmark": 1,
+        "eval.redteam": 20,
+        "eval.benchmark": 3,
         "eval.dangercap": 1,
         "eval.audit": 1,
         "interp.probes": 0,
@@ -3718,11 +6132,11 @@
         "gov.frameworks": 0,
         "gov.disclosure": 2,
         "gov.regulation": 1,
-        "gov.transparency": 1
+        "gov.transparency": 2
       },
       "eval.benchmark": {
-        "attack.injection": 4,
-        "attack.jailbreak": 1,
+        "attack.injection": 5,
+        "attack.jailbreak": 2,
         "attack.extraction": 0,
         "attack.adversarial": 0,
         "attack.model_theft": 0,
@@ -3737,18 +6151,18 @@
         "agent.multiagent": 0,
         "agent.mcp": 1,
         "agent.computeruse": 2,
-        "defense.guardrails": 1,
-        "defense.provenance": 1,
-        "defense.robust": 0,
+        "defense.guardrails": 2,
+        "defense.provenance": 2,
+        "defense.robust": 2,
         "defense.unlearning": 1,
         "defense.monitoring": 0,
         "defense.constrained": 0,
-        "eval.redteam": 1,
-        "eval.benchmark": 18,
-        "eval.dangercap": 6,
-        "eval.audit": 1,
+        "eval.redteam": 3,
+        "eval.benchmark": 26,
+        "eval.dangercap": 7,
+        "eval.audit": 2,
         "interp.probes": 1,
-        "interp.deception": 0,
+        "interp.deception": 2,
         "interp.circuits": 0,
         "cyber.vulndiscovery": 3,
         "cyber.exploit": 3,
@@ -3760,7 +6174,7 @@
         "gov.frameworks": 0,
         "gov.disclosure": 0,
         "gov.regulation": 0,
-        "gov.transparency": 0
+        "gov.transparency": 1
       },
       "eval.dangercap": {
         "attack.injection": 0,
@@ -3771,38 +6185,38 @@
         "attack.privacy": 0,
         "supply.poisoning": 0,
         "supply.backdoor": 0,
-        "supply.provenance": 1,
+        "supply.provenance": 2,
         "supply.deps": 0,
         "agent.hijack": 2,
         "agent.sandbox": 0,
-        "agent.authz": 1,
-        "agent.multiagent": 2,
+        "agent.authz": 2,
+        "agent.multiagent": 3,
         "agent.mcp": 0,
         "agent.computeruse": 1,
         "defense.guardrails": 1,
         "defense.provenance": 0,
         "defense.robust": 1,
-        "defense.unlearning": 3,
-        "defense.monitoring": 0,
+        "defense.unlearning": 4,
+        "defense.monitoring": 1,
         "defense.constrained": 0,
         "eval.redteam": 1,
-        "eval.benchmark": 6,
-        "eval.dangercap": 21,
-        "eval.audit": 4,
+        "eval.benchmark": 7,
+        "eval.dangercap": 29,
+        "eval.audit": 5,
         "interp.probes": 1,
-        "interp.deception": 4,
+        "interp.deception": 6,
         "interp.circuits": 0,
         "cyber.vulndiscovery": 1,
-        "cyber.exploit": 7,
+        "cyber.exploit": 10,
         "cyber.defense": 0,
-        "cyber.malware": 1,
+        "cyber.malware": 2,
         "infra.serving": 0,
         "infra.identity": 1,
         "infra.federated": 0,
-        "gov.frameworks": 8,
-        "gov.disclosure": 0,
-        "gov.regulation": 1,
-        "gov.transparency": 1
+        "gov.frameworks": 12,
+        "gov.disclosure": 1,
+        "gov.regulation": 2,
+        "gov.transparency": 2
       },
       "eval.audit": {
         "attack.injection": 0,
@@ -3823,28 +6237,28 @@
         "agent.computeruse": 0,
         "defense.guardrails": 0,
         "defense.provenance": 0,
-        "defense.robust": 0,
+        "defense.robust": 1,
         "defense.unlearning": 4,
         "defense.monitoring": 0,
         "defense.constrained": 0,
         "eval.redteam": 1,
-        "eval.benchmark": 1,
-        "eval.dangercap": 4,
-        "eval.audit": 11,
-        "interp.probes": 3,
-        "interp.deception": 2,
-        "interp.circuits": 0,
+        "eval.benchmark": 2,
+        "eval.dangercap": 5,
+        "eval.audit": 19,
+        "interp.probes": 4,
+        "interp.deception": 6,
+        "interp.circuits": 1,
         "cyber.vulndiscovery": 0,
         "cyber.exploit": 1,
         "cyber.defense": 0,
         "cyber.malware": 0,
         "infra.serving": 0,
-        "infra.identity": 0,
+        "infra.identity": 1,
         "infra.federated": 0,
-        "gov.frameworks": 2,
+        "gov.frameworks": 5,
         "gov.disclosure": 0,
-        "gov.regulation": 2,
-        "gov.transparency": 2
+        "gov.regulation": 3,
+        "gov.transparency": 3
       },
       "interp.probes": {
         "attack.injection": 1,
@@ -3872,10 +6286,10 @@
         "eval.redteam": 0,
         "eval.benchmark": 1,
         "eval.dangercap": 1,
-        "eval.audit": 3,
-        "interp.probes": 8,
+        "eval.audit": 4,
+        "interp.probes": 11,
         "interp.deception": 4,
-        "interp.circuits": 2,
+        "interp.circuits": 5,
         "cyber.vulndiscovery": 0,
         "cyber.exploit": 0,
         "cyber.defense": 0,
@@ -3901,34 +6315,34 @@
         "supply.deps": 0,
         "agent.hijack": 0,
         "agent.sandbox": 0,
-        "agent.authz": 2,
+        "agent.authz": 3,
         "agent.multiagent": 1,
         "agent.mcp": 0,
         "agent.computeruse": 0,
         "defense.guardrails": 0,
         "defense.provenance": 0,
-        "defense.robust": 2,
+        "defense.robust": 4,
         "defense.unlearning": 0,
         "defense.monitoring": 3,
         "defense.constrained": 0,
         "eval.redteam": 2,
-        "eval.benchmark": 0,
-        "eval.dangercap": 4,
-        "eval.audit": 2,
+        "eval.benchmark": 2,
+        "eval.dangercap": 6,
+        "eval.audit": 6,
         "interp.probes": 4,
-        "interp.deception": 10,
+        "interp.deception": 18,
         "interp.circuits": 0,
         "cyber.vulndiscovery": 0,
-        "cyber.exploit": 0,
+        "cyber.exploit": 1,
         "cyber.defense": 0,
         "cyber.malware": 0,
         "infra.serving": 0,
         "infra.identity": 0,
         "infra.federated": 0,
-        "gov.frameworks": 2,
+        "gov.frameworks": 5,
         "gov.disclosure": 0,
         "gov.regulation": 0,
-        "gov.transparency": 0
+        "gov.transparency": 1
       },
       "interp.circuits": {
         "attack.injection": 0,
@@ -3956,10 +6370,10 @@
         "eval.redteam": 0,
         "eval.benchmark": 0,
         "eval.dangercap": 0,
-        "eval.audit": 0,
-        "interp.probes": 2,
+        "eval.audit": 1,
+        "interp.probes": 5,
         "interp.deception": 0,
-        "interp.circuits": 4,
+        "interp.circuits": 7,
         "cyber.vulndiscovery": 0,
         "cyber.exploit": 0,
         "cyber.defense": 0,
@@ -4027,34 +6441,34 @@
         "supply.deps": 0,
         "agent.hijack": 1,
         "agent.sandbox": 0,
-        "agent.authz": 1,
-        "agent.multiagent": 1,
+        "agent.authz": 2,
+        "agent.multiagent": 2,
         "agent.mcp": 0,
         "agent.computeruse": 1,
         "defense.guardrails": 0,
         "defense.provenance": 0,
         "defense.robust": 0,
         "defense.unlearning": 0,
-        "defense.monitoring": 3,
+        "defense.monitoring": 4,
         "defense.constrained": 0,
         "eval.redteam": 0,
         "eval.benchmark": 3,
-        "eval.dangercap": 7,
+        "eval.dangercap": 10,
         "eval.audit": 1,
         "interp.probes": 0,
-        "interp.deception": 0,
+        "interp.deception": 1,
         "interp.circuits": 0,
         "cyber.vulndiscovery": 1,
-        "cyber.exploit": 12,
+        "cyber.exploit": 15,
         "cyber.defense": 2,
-        "cyber.malware": 4,
+        "cyber.malware": 5,
         "infra.serving": 0,
         "infra.identity": 0,
         "infra.federated": 0,
         "gov.frameworks": 2,
-        "gov.disclosure": 2,
+        "gov.disclosure": 3,
         "gov.regulation": 0,
-        "gov.transparency": 0
+        "gov.transparency": 1
       },
       "cyber.defense": {
         "attack.injection": 0,
@@ -4112,31 +6526,31 @@
         "agent.hijack": 1,
         "agent.sandbox": 1,
         "agent.authz": 1,
-        "agent.multiagent": 0,
+        "agent.multiagent": 1,
         "agent.mcp": 0,
         "agent.computeruse": 0,
         "defense.guardrails": 0,
         "defense.provenance": 0,
         "defense.robust": 0,
         "defense.unlearning": 0,
-        "defense.monitoring": 4,
+        "defense.monitoring": 5,
         "defense.constrained": 0,
         "eval.redteam": 0,
         "eval.benchmark": 1,
-        "eval.dangercap": 1,
+        "eval.dangercap": 2,
         "eval.audit": 0,
         "interp.probes": 0,
         "interp.deception": 0,
         "interp.circuits": 0,
         "cyber.vulndiscovery": 0,
-        "cyber.exploit": 4,
+        "cyber.exploit": 5,
         "cyber.defense": 0,
-        "cyber.malware": 6,
+        "cyber.malware": 7,
         "infra.serving": 0,
         "infra.identity": 0,
         "infra.federated": 0,
         "gov.frameworks": 0,
-        "gov.disclosure": 2,
+        "gov.disclosure": 3,
         "gov.regulation": 0,
         "gov.transparency": 0
       },
@@ -4195,7 +6609,7 @@
         "supply.deps": 0,
         "agent.hijack": 0,
         "agent.sandbox": 0,
-        "agent.authz": 0,
+        "agent.authz": 2,
         "agent.multiagent": 0,
         "agent.mcp": 0,
         "agent.computeruse": 0,
@@ -4203,12 +6617,12 @@
         "defense.provenance": 0,
         "defense.robust": 0,
         "defense.unlearning": 0,
-        "defense.monitoring": 0,
+        "defense.monitoring": 1,
         "defense.constrained": 0,
         "eval.redteam": 0,
         "eval.benchmark": 0,
         "eval.dangercap": 1,
-        "eval.audit": 0,
+        "eval.audit": 1,
         "interp.probes": 0,
         "interp.deception": 0,
         "interp.circuits": 0,
@@ -4217,11 +6631,11 @@
         "cyber.defense": 0,
         "cyber.malware": 0,
         "infra.serving": 0,
-        "infra.identity": 1,
+        "infra.identity": 4,
         "infra.federated": 0,
         "gov.frameworks": 1,
         "gov.disclosure": 0,
-        "gov.regulation": 0,
+        "gov.regulation": 3,
         "gov.transparency": 0
       },
       "infra.federated": {
@@ -4275,26 +6689,26 @@
         "attack.privacy": 0,
         "supply.poisoning": 1,
         "supply.backdoor": 0,
-        "supply.provenance": 3,
+        "supply.provenance": 4,
         "supply.deps": 0,
         "agent.hijack": 0,
         "agent.sandbox": 0,
-        "agent.authz": 2,
+        "agent.authz": 4,
         "agent.multiagent": 0,
         "agent.mcp": 0,
         "agent.computeruse": 0,
         "defense.guardrails": 1,
         "defense.provenance": 0,
-        "defense.robust": 0,
-        "defense.unlearning": 1,
+        "defense.robust": 2,
+        "defense.unlearning": 2,
         "defense.monitoring": 2,
-        "defense.constrained": 0,
+        "defense.constrained": 1,
         "eval.redteam": 0,
         "eval.benchmark": 0,
-        "eval.dangercap": 8,
-        "eval.audit": 2,
+        "eval.dangercap": 12,
+        "eval.audit": 5,
         "interp.probes": 0,
-        "interp.deception": 2,
+        "interp.deception": 5,
         "interp.circuits": 0,
         "cyber.vulndiscovery": 0,
         "cyber.exploit": 2,
@@ -4303,10 +6717,10 @@
         "infra.serving": 2,
         "infra.identity": 1,
         "infra.federated": 0,
-        "gov.frameworks": 13,
+        "gov.frameworks": 22,
         "gov.disclosure": 0,
-        "gov.regulation": 3,
-        "gov.transparency": 3
+        "gov.regulation": 4,
+        "gov.transparency": 4
       },
       "gov.disclosure": {
         "attack.injection": 0,
@@ -4322,31 +6736,31 @@
         "agent.hijack": 0,
         "agent.sandbox": 0,
         "agent.authz": 0,
-        "agent.multiagent": 0,
+        "agent.multiagent": 1,
         "agent.mcp": 0,
         "agent.computeruse": 0,
         "defense.guardrails": 0,
         "defense.provenance": 0,
         "defense.robust": 0,
         "defense.unlearning": 0,
-        "defense.monitoring": 2,
+        "defense.monitoring": 3,
         "defense.constrained": 0,
         "eval.redteam": 2,
         "eval.benchmark": 0,
-        "eval.dangercap": 0,
+        "eval.dangercap": 1,
         "eval.audit": 0,
         "interp.probes": 0,
         "interp.deception": 0,
         "interp.circuits": 0,
         "cyber.vulndiscovery": 0,
-        "cyber.exploit": 2,
+        "cyber.exploit": 3,
         "cyber.defense": 0,
-        "cyber.malware": 2,
+        "cyber.malware": 3,
         "infra.serving": 0,
         "infra.identity": 0,
         "infra.federated": 0,
         "gov.frameworks": 0,
-        "gov.disclosure": 4,
+        "gov.disclosure": 5,
         "gov.regulation": 1,
         "gov.transparency": 1
       },
@@ -4363,7 +6777,7 @@
         "supply.deps": 0,
         "agent.hijack": 0,
         "agent.sandbox": 0,
-        "agent.authz": 0,
+        "agent.authz": 2,
         "agent.multiagent": 0,
         "agent.mcp": 0,
         "agent.computeruse": 0,
@@ -4371,12 +6785,12 @@
         "defense.provenance": 0,
         "defense.robust": 0,
         "defense.unlearning": 1,
-        "defense.monitoring": 0,
+        "defense.monitoring": 1,
         "defense.constrained": 0,
         "eval.redteam": 1,
         "eval.benchmark": 0,
-        "eval.dangercap": 1,
-        "eval.audit": 2,
+        "eval.dangercap": 2,
+        "eval.audit": 3,
         "interp.probes": 0,
         "interp.deception": 0,
         "interp.circuits": 0,
@@ -4385,23 +6799,23 @@
         "cyber.defense": 0,
         "cyber.malware": 0,
         "infra.serving": 0,
-        "infra.identity": 0,
+        "infra.identity": 3,
         "infra.federated": 0,
-        "gov.frameworks": 3,
+        "gov.frameworks": 4,
         "gov.disclosure": 1,
-        "gov.regulation": 7,
+        "gov.regulation": 11,
         "gov.transparency": 4
       },
       "gov.transparency": {
         "attack.injection": 0,
         "attack.jailbreak": 0,
-        "attack.extraction": 0,
+        "attack.extraction": 1,
         "attack.adversarial": 0,
         "attack.model_theft": 0,
         "attack.privacy": 0,
         "supply.poisoning": 0,
         "supply.backdoor": 0,
-        "supply.provenance": 2,
+        "supply.provenance": 3,
         "supply.deps": 0,
         "agent.hijack": 0,
         "agent.sandbox": 0,
@@ -4409,42 +6823,43 @@
         "agent.multiagent": 0,
         "agent.mcp": 0,
         "agent.computeruse": 0,
-        "defense.guardrails": 0,
+        "defense.guardrails": 1,
         "defense.provenance": 0,
-        "defense.robust": 0,
+        "defense.robust": 1,
         "defense.unlearning": 0,
         "defense.monitoring": 0,
         "defense.constrained": 0,
-        "eval.redteam": 1,
-        "eval.benchmark": 0,
-        "eval.dangercap": 1,
-        "eval.audit": 2,
+        "eval.redteam": 2,
+        "eval.benchmark": 1,
+        "eval.dangercap": 2,
+        "eval.audit": 3,
         "interp.probes": 0,
-        "interp.deception": 0,
+        "interp.deception": 1,
         "interp.circuits": 0,
         "cyber.vulndiscovery": 0,
-        "cyber.exploit": 0,
+        "cyber.exploit": 1,
         "cyber.defense": 0,
         "cyber.malware": 0,
         "infra.serving": 0,
         "infra.identity": 0,
         "infra.federated": 0,
-        "gov.frameworks": 3,
+        "gov.frameworks": 4,
         "gov.disclosure": 1,
         "gov.regulation": 4,
-        "gov.transparency": 7
+        "gov.transparency": 12
       }
     }
   },
   "coverage": {
     "n.guardrails": {
-      "papers": 28,
+      "papers": 45,
       "paper_ids": [
         "web:gtig-ai-threat-tracker-2025-11",
         "web:anthropic-asl3",
         "arxiv:2501.18841",
         "arxiv:2501.18837",
         "arxiv:2412.16339",
+        "arxiv:2412.03556",
         "arxiv:2411.07494",
         "arxiv:2410.13886",
         "arxiv:2410.09024",
@@ -4452,41 +6867,59 @@
         "arxiv:2408.15221",
         "arxiv:2407.17915",
         "arxiv:2407.16686",
+        "arxiv:2406.14598",
         "arxiv:2406.11717",
+        "arxiv:2406.05946",
         "arxiv:2406.04313",
+        "arxiv:2405.15556",
+        "arxiv:2405.06624",
         "arxiv:2404.01833",
+        "arxiv:2404.01318",
+        "arxiv:2403.09572",
         "arxiv:2403.04783",
         "arxiv:2402.06363",
         "arxiv:2401.17263",
+        "arxiv:2401.06561",
         "arxiv:2312.06674",
+        "arxiv:2312.02119",
         "arxiv:2311.17035",
         "arxiv:2311.14455",
         "arxiv:2311.09096",
         "arxiv:2311.04235",
+        "arxiv:2310.08419",
+        "arxiv:2310.03693",
         "arxiv:2310.03684",
+        "arxiv:2310.04451",
+        "arxiv:2310.02446",
+        "arxiv:2309.10253",
         "arxiv:2309.00614",
         "web:owasp-llm-top10",
         "arxiv:2307.15043",
-        "arxiv:2307.02483"
+        "arxiv:2307.02483",
+        "arxiv:2306.13213",
+        "arxiv:2209.07858",
+        "arxiv:2202.03286"
       ],
       "by_contribution": {
-        "analysis": 6,
-        "framework": 2,
-        "defence": 10,
-        "attack": 8,
-        "benchmark": 2
+        "analysis": 9,
+        "framework": 4,
+        "defence": 13,
+        "attack": 14,
+        "benchmark": 4,
+        "position": 1
       },
-      "defensive": 12,
-      "offensive": 8,
+      "defensive": 17,
+      "offensive": 14,
       "mean_demand": 3.89,
       "max_demand": 5,
       "companies_at_4plus": 18,
       "evidenced_cells": 8,
-      "pressure": 0.134
+      "pressure": 0.085
     },
     "n.agent_sec": {
-      "papers": 35,
+      "papers": 49,
       "paper_ids": [
+        "web:anthropic-llm-attack-navigator",
         "web:anthropic-espionage-2025-11",
         "arxiv:2506.14866",
         "arxiv:2506.08837",
@@ -4496,6 +6929,7 @@
         "arxiv:2502.01822",
         "arxiv:2412.14470",
         "arxiv:2412.04984",
+        "arxiv:2411.14738",
         "arxiv:2411.07781",
         "arxiv:2411.02391",
         "web:project-zero-big-sleep",
@@ -4509,44 +6943,59 @@
         "arxiv:2407.12784",
         "arxiv:2406.13352",
         "arxiv:2406.04313",
+        "arxiv:2406.03007",
         "arxiv:2406.01637",
+        "arxiv:2405.06624",
+        "arxiv:2404.16244",
+        "arxiv:2404.13208",
         "arxiv:2403.14720",
+        "arxiv:2403.09572",
+        "arxiv:2403.04957",
         "arxiv:2403.02691",
         "arxiv:2403.04783",
+        "arxiv:2402.11208",
         "arxiv:2402.06664",
+        "arxiv:2401.13138",
         "doi:10.48550-arXiv.2410.17401",
+        "doi:10.2139-ssrn.4772956",
+        "arxiv:2312.11671",
         "arxiv:2312.06942",
         "arxiv:2311.04235",
+        "arxiv:2309.15817",
         "web:owasp-llm-top10",
+        "arxiv:2306.13213",
         "web:google-saif",
         "arxiv:2306.05499",
         "arxiv:2302.12173",
         "web:mitre-atlas"
       ],
       "by_contribution": {
-        "analysis": 3,
+        "analysis": 5,
         "benchmark": 9,
-        "framework": 7,
-        "evaluation": 3,
-        "attack": 10,
-        "defence": 3
+        "framework": 9,
+        "evaluation": 4,
+        "attack": 14,
+        "defence": 5,
+        "position": 3
       },
-      "defensive": 10,
-      "offensive": 10,
+      "defensive": 14,
+      "offensive": 14,
       "mean_demand": 3.82,
       "max_demand": 5,
       "companies_at_4plus": 17,
       "evidenced_cells": 1,
-      "pressure": 0.106
+      "pressure": 0.076
     },
     "n.redteam": {
-      "papers": 43,
+      "papers": 64,
       "paper_ids": [
         "web:gtig-ai-threat-tracker-2025-11",
         "arxiv:2504.18575",
         "arxiv:2501.18841",
         "arxiv:2501.18837",
         "arxiv:2412.16339",
+        "arxiv:2412.03556",
+        "arxiv:2411.14738",
         "arxiv:2411.07494",
         "arxiv:2410.14923",
         "arxiv:2410.13886",
@@ -4559,54 +7008,75 @@
         "arxiv:2407.16686",
         "arxiv:2406.13352",
         "arxiv:2406.11717",
+        "arxiv:2406.05946",
         "arxiv:2406.04313",
         "web:aisi-inspect",
+        "arxiv:2404.13208",
         "arxiv:2404.01833",
+        "arxiv:2404.01318",
         "arxiv:2403.14720",
+        "arxiv:2403.04957",
         "arxiv:2403.04893",
         "arxiv:2403.02691",
         "arxiv:2403.04783",
+        "arxiv:2402.10260",
+        "arxiv:2402.07867",
         "arxiv:2402.07039",
         "arxiv:2402.06363",
+        "arxiv:2402.04249",
         "arxiv:2401.17263",
+        "arxiv:2401.06561",
         "arxiv:2401.05566",
         "arxiv:2312.17673",
+        "arxiv:2312.14197",
         "arxiv:2312.06942",
+        "arxiv:2312.02119",
         "arxiv:2311.17035",
         "arxiv:2311.14455",
         "arxiv:2311.09096",
         "arxiv:2311.01011",
+        "arxiv:2310.08419",
+        "arxiv:2310.03693",
         "arxiv:2310.03684",
+        "arxiv:2310.04451",
+        "arxiv:2310.02446",
+        "arxiv:2309.15817",
+        "arxiv:2309.10253",
         "arxiv:2309.00614",
         "web:owasp-llm-top10",
         "arxiv:2307.15043",
         "arxiv:2307.06865",
         "arxiv:2307.02483",
+        "arxiv:2306.13213",
         "arxiv:2306.05499",
         "arxiv:2302.12173",
+        "arxiv:2209.07858",
+        "arxiv:2202.03286",
         "web:mitre-atlas"
       ],
       "by_contribution": {
-        "analysis": 7,
-        "benchmark": 4,
-        "defence": 12,
-        "attack": 13,
-        "framework": 4,
+        "analysis": 10,
+        "benchmark": 8,
+        "defence": 14,
+        "attack": 22,
+        "framework": 7,
         "position": 2,
         "dataset": 1
       },
-      "defensive": 16,
-      "offensive": 13,
+      "defensive": 21,
+      "offensive": 22,
       "mean_demand": 3.25,
       "max_demand": 5,
       "companies_at_4plus": 10,
       "evidenced_cells": 6,
-      "pressure": 0.074
+      "pressure": 0.05
     },
     "n.evals": {
-      "papers": 40,
+      "papers": 61,
       "paper_ids": [
+        "web:anthropic-llm-attack-navigator",
         "web:anthropic-espionage-2025-11",
+        "arxiv:2508.03153",
         "arxiv:2506.14866",
         "web:anthropic-asl3",
         "arxiv:2504.18575",
@@ -4623,37 +7093,56 @@
         "arxiv:2410.02644",
         "arxiv:2409.18025",
         "arxiv:2408.08926",
+        "arxiv:2408.05147",
+        "arxiv:2407.21792",
         "web:nist-ai-600-1",
+        "arxiv:2406.14598",
         "arxiv:2406.13352",
         "arxiv:2406.05590",
         "arxiv:2406.01637",
         "web:aisi-inspect",
         "arxiv:2405.04760",
+        "arxiv:2404.09932",
+        "arxiv:2404.01318",
         "arxiv:2403.13793",
         "arxiv:2403.03218",
         "arxiv:2403.02691",
+        "arxiv:2403.07918",
         "arxiv:2402.16835",
+        "arxiv:2402.10260",
+        "arxiv:2402.06782",
         "arxiv:2402.06664",
+        "arxiv:2402.04249",
         "arxiv:2401.14446",
+        "doi:10.48550-arXiv.2412.16720",
+        "arxiv:2312.14197",
+        "arxiv:2312.11671",
+        "arxiv:2312.09390",
         "arxiv:2312.04724",
         "arxiv:2311.04235",
         "arxiv:2311.01011",
         "doi:10.1126-science.adn0117",
+        "arxiv:2310.17688",
         "arxiv:2310.16789",
+        "arxiv:2310.13548",
         "arxiv:2311.09227",
         "web:anthropic-rsp",
         "arxiv:2308.06782",
         "arxiv:2306.12338",
+        "arxiv:2305.15324",
         "web:apollo-research",
-        "web:metr"
+        "arxiv:2212.09251",
+        "arxiv:2211.03540",
+        "web:metr",
+        "arxiv:2201.05159"
       ],
       "by_contribution": {
-        "analysis": 5,
-        "benchmark": 13,
+        "analysis": 9,
+        "evaluation": 16,
+        "benchmark": 18,
         "framework": 5,
-        "evaluation": 11,
-        "position": 4,
-        "dataset": 1,
+        "position": 9,
+        "dataset": 3,
         "attack": 1
       },
       "defensive": 5,
@@ -4662,19 +7151,29 @@
       "max_demand": 5,
       "companies_at_4plus": 9,
       "evidenced_cells": 4,
-      "pressure": 0.08
+      "pressure": 0.053
     },
     "n.supplychain": {
-      "papers": 19,
+      "papers": 29,
       "paper_ids": [
         "web:gtig-ai-threat-tracker-2025-11",
+        "arxiv:2504.07096",
         "arxiv:2504.03767",
+        "arxiv:2411.14738",
         "arxiv:2410.13722",
         "arxiv:2410.02644",
         "arxiv:2407.12784",
+        "arxiv:2406.05946",
+        "arxiv:2406.03007",
+        "arxiv:2405.15556",
+        "arxiv:2403.07918",
+        "arxiv:2402.11208",
+        "arxiv:2402.07867",
         "arxiv:2401.05566",
+        "doi:10.48550-arXiv.2402.13532",
         "arxiv:2311.14455",
         "arxiv:2310.12941",
+        "arxiv:2310.03693",
         "arxiv:2311.09227",
         "web:owasp-llm-top10",
         "arxiv:2306.17194",
@@ -4688,25 +7187,28 @@
         "arxiv:1708.06733"
       ],
       "by_contribution": {
-        "analysis": 4,
-        "attack": 7,
+        "analysis": 7,
+        "framework": 6,
+        "attack": 11,
         "benchmark": 1,
-        "evaluation": 1,
-        "position": 1,
-        "framework": 5
+        "defence": 1,
+        "position": 2,
+        "evaluation": 1
       },
-      "defensive": 5,
-      "offensive": 7,
+      "defensive": 7,
+      "offensive": 11,
       "mean_demand": 3.39,
       "max_demand": 5,
       "companies_at_4plus": 15,
       "evidenced_cells": 2,
-      "pressure": 0.17
+      "pressure": 0.113
     },
     "n.privacy": {
-      "papers": 20,
+      "papers": 23,
       "paper_ids": [
+        "arxiv:2508.03153",
         "arxiv:2506.17090",
+        "arxiv:2504.07096",
         "arxiv:2502.05209",
         "arxiv:2501.04952",
         "arxiv:2410.22884",
@@ -4716,6 +7218,7 @@
         "arxiv:2403.03218",
         "arxiv:2402.16835",
         "arxiv:2402.08787",
+        "doi:10.48550-arXiv.2402.13532",
         "arxiv:2311.17035",
         "arxiv:2310.16789",
         "arxiv:2310.02238",
@@ -4728,25 +7231,26 @@
         "arxiv:1906.08935"
       ],
       "by_contribution": {
-        "attack": 10,
-        "evaluation": 2,
+        "evaluation": 3,
+        "attack": 11,
+        "framework": 2,
         "position": 2,
         "analysis": 3,
         "benchmark": 1,
-        "defence": 1,
-        "framework": 1
+        "defence": 1
       },
-      "defensive": 2,
-      "offensive": 10,
+      "defensive": 3,
+      "offensive": 11,
       "mean_demand": 3.39,
       "max_demand": 5,
       "companies_at_4plus": 14,
       "evidenced_cells": 0,
-      "pressure": 0.161
+      "pressure": 0.141
     },
     "n.monitoring": {
-      "papers": 12,
+      "papers": 14,
       "paper_ids": [
+        "web:anthropic-llm-attack-navigator",
         "web:gtig-ai-threat-tracker-2025-11",
         "web:anthropic-misuse-2025-08",
         "web:openai-disrupting-malicious-uses",
@@ -4755,29 +7259,32 @@
         "arxiv:2411.07494",
         "arxiv:2403.04893",
         "arxiv:2402.07039",
+        "arxiv:2401.13138",
         "arxiv:2312.06942",
         "arxiv:2310.01405",
         "web:google-saif",
         "web:mitre-atlas"
       ],
       "by_contribution": {
-        "analysis": 4,
-        "framework": 5,
+        "analysis": 5,
+        "framework": 6,
         "defence": 1,
         "position": 2
       },
-      "defensive": 6,
+      "defensive": 7,
       "offensive": 0,
       "mean_demand": 4.25,
       "max_demand": 5,
       "companies_at_4plus": 24,
       "evidenced_cells": 1,
-      "pressure": 0.327
+      "pressure": 0.283
     },
     "n.compliance": {
-      "papers": 27,
+      "papers": 46,
       "paper_ids": [
+        "arxiv:2508.03153",
         "web:anthropic-asl3",
+        "arxiv:2504.07096",
         "arxiv:2504.01849",
         "arxiv:2503.10965",
         "arxiv:2502.05209",
@@ -4785,40 +7292,58 @@
         "arxiv:2410.21514",
         "arxiv:2410.08827",
         "arxiv:2409.18025",
+        "arxiv:2408.05147",
+        "arxiv:2407.21792",
         "web:nist-ai-600-1",
         "web:aisi-inspect",
+        "arxiv:2405.06624",
+        "arxiv:2404.16244",
+        "arxiv:2404.09932",
         "arxiv:2403.13793",
         "arxiv:2403.04893",
+        "arxiv:2403.07918",
         "arxiv:2402.16835",
         "arxiv:2402.08787",
         "arxiv:2402.07039",
+        "arxiv:2402.06782",
         "arxiv:2401.14446",
+        "arxiv:2401.13138",
+        "doi:10.48550-arXiv.2412.16720",
+        "doi:10.2139-ssrn.4772956",
+        "arxiv:2312.09390",
         "doi:10.1126-science.adn0117",
+        "arxiv:2310.17688",
         "arxiv:2310.16789",
         "arxiv:2310.12941",
         "arxiv:2311.09227",
         "web:anthropic-rsp",
         "arxiv:2307.03718",
         "web:google-saif",
+        "arxiv:2305.15324",
         "web:apollo-research",
         "arxiv:2301.10226",
+        "arxiv:2211.03540",
         "web:ncsc-ml-principles",
-        "web:metr"
+        "arxiv:2209.07858",
+        "web:metr",
+        "arxiv:2201.05159",
+        "arxiv:2110.01167"
       ],
       "by_contribution": {
-        "framework": 8,
-        "evaluation": 8,
-        "position": 8,
-        "analysis": 2,
+        "evaluation": 12,
+        "framework": 10,
+        "position": 16,
+        "analysis": 6,
+        "dataset": 1,
         "attack": 1
       },
-      "defensive": 8,
+      "defensive": 10,
       "offensive": 1,
       "mean_demand": 4.11,
       "max_demand": 5,
       "companies_at_4plus": 21,
       "evidenced_cells": 1,
-      "pressure": 0.147
+      "pressure": 0.087
     },
     "n.secure_infra": {
       "papers": 7,
@@ -4845,7 +7370,7 @@
       "pressure": 0.482
     },
     "n.identity": {
-      "papers": 12,
+      "papers": 20,
       "paper_ids": [
         "web:anthropic-espionage-2025-11",
         "arxiv:2506.08837",
@@ -4855,31 +7380,44 @@
         "arxiv:2502.01822",
         "arxiv:2410.14923",
         "arxiv:2407.17915",
+        "arxiv:2405.06624",
+        "arxiv:2404.16244",
+        "arxiv:2404.13208",
+        "arxiv:2401.13138",
+        "doi:10.2139-ssrn.4772956",
+        "arxiv:2312.11671",
         "arxiv:2312.06942",
         "arxiv:2311.04235",
+        "arxiv:2309.15817",
         "web:owasp-llm-top10",
-        "web:google-saif"
+        "web:google-saif",
+        "arxiv:2201.05159"
       ],
       "by_contribution": {
         "analysis": 2,
-        "framework": 7,
+        "framework": 9,
         "attack": 2,
+        "position": 4,
+        "defence": 1,
+        "evaluation": 1,
         "benchmark": 1
       },
-      "defensive": 7,
+      "defensive": 10,
       "offensive": 2,
       "mean_demand": 3.5,
       "max_demand": 5,
       "companies_at_4plus": 18,
       "evidenced_cells": 1,
-      "pressure": 0.269
+      "pressure": 0.167
     },
     "n.offensive": {
-      "papers": 32,
+      "papers": 40,
       "paper_ids": [
+        "web:anthropic-llm-attack-navigator",
         "web:anthropic-espionage-2025-11",
         "web:gtig-ai-threat-tracker-2025-11",
         "web:anthropic-misuse-2025-08",
+        "arxiv:2508.03153",
         "web:openai-disrupting-malicious-uses",
         "web:anthropic-asl3",
         "arxiv:2502.05209",
@@ -4898,24 +7436,31 @@
         "arxiv:2405.04760",
         "arxiv:2403.13793",
         "arxiv:2403.03218",
+        "arxiv:2403.07918",
         "arxiv:2402.06664",
+        "doi:10.48550-arXiv.2412.16720",
+        "arxiv:2312.11671",
         "arxiv:2312.04724",
         "doi:10.1126-science.adn0117",
+        "arxiv:2310.17688",
         "arxiv:2311.09227",
         "web:anthropic-rsp",
         "arxiv:2308.06782",
         "arxiv:2308.00121",
         "arxiv:2306.12338",
+        "arxiv:2305.15324",
         "web:apollo-research",
+        "arxiv:2212.09251",
         "web:metr",
         "arxiv:2112.02125"
       ],
       "by_contribution": {
-        "analysis": 9,
+        "analysis": 10,
+        "evaluation": 13,
         "framework": 4,
-        "evaluation": 10,
-        "position": 3,
-        "benchmark": 6
+        "position": 6,
+        "benchmark": 6,
+        "dataset": 1
       },
       "defensive": 4,
       "offensive": 0,
@@ -4923,10 +7468,10 @@
       "max_demand": 5,
       "companies_at_4plus": 12,
       "evidenced_cells": 1,
-      "pressure": 0.097
+      "pressure": 0.078
     },
     "n.interp": {
-      "papers": 16,
+      "papers": 27,
       "paper_ids": [
         "arxiv:2504.01849",
         "arxiv:2503.10965",
@@ -4934,23 +7479,35 @@
         "arxiv:2412.04984",
         "arxiv:2410.21514",
         "arxiv:2410.08827",
+        "arxiv:2408.05147",
         "arxiv:2406.11717",
         "arxiv:2406.04313",
+        "arxiv:2406.04093",
+        "arxiv:2404.16244",
+        "arxiv:2404.16014",
+        "arxiv:2404.09932",
+        "arxiv:2402.06782",
         "arxiv:2401.05566",
+        "doi:10.48550-arXiv.2412.16720",
+        "arxiv:2312.09390",
         "arxiv:2312.06942",
         "arxiv:2311.01011",
+        "arxiv:2310.13548",
         "arxiv:2310.06824",
         "arxiv:2310.01405",
         "arxiv:2309.08600",
         "web:apollo-research",
+        "arxiv:2212.09251",
+        "arxiv:2211.03540",
         "arxiv:1905.02175"
       ],
       "by_contribution": {
         "framework": 3,
-        "evaluation": 4,
-        "analysis": 7,
+        "evaluation": 7,
+        "analysis": 11,
+        "dataset": 3,
         "defence": 1,
-        "dataset": 1
+        "position": 2
       },
       "defensive": 4,
       "offensive": 0,
@@ -4958,104 +7515,104 @@
       "max_demand": 5,
       "companies_at_4plus": 2,
       "evidenced_cells": 1,
-      "pressure": 0.109
+      "pressure": 0.066
     }
   },
   "derived_gaps": [],
   "tree": {
     "direct": {
-      "cyber.exploit": 12,
-      "agent.hijack": 21,
-      "cyber.malware": 6,
-      "eval.dangercap": 21,
-      "agent.authz": 11,
+      "cyber.exploit": 15,
+      "cyber.malware": 7,
+      "defense.monitoring": 12,
+      "eval.dangercap": 29,
+      "agent.multiagent": 8,
+      "gov.disclosure": 5,
+      "agent.hijack": 25,
+      "agent.authz": 18,
       "supply.deps": 4,
-      "defense.monitoring": 10,
-      "attack.jailbreak": 23,
-      "gov.disclosure": 4,
-      "attack.extraction": 13,
+      "attack.jailbreak": 34,
+      "gov.frameworks": 22,
+      "defense.unlearning": 9,
+      "attack.extraction": 14,
       "attack.model_theft": 3,
-      "agent.computeruse": 7,
-      "eval.benchmark": 18,
-      "agent.sandbox": 4,
-      "defense.provenance": 7,
-      "gov.frameworks": 13,
-      "defense.guardrails": 10,
-      "infra.identity": 1,
-      "attack.injection": 14,
+      "agent.computeruse": 9,
+      "eval.benchmark": 26,
+      "agent.sandbox": 5,
+      "defense.provenance": 10,
+      "defense.guardrails": 16,
+      "infra.identity": 4,
+      "attack.injection": 19,
+      "supply.provenance": 9,
+      "gov.transparency": 12,
       "agent.mcp": 4,
-      "interp.deception": 10,
-      "eval.audit": 11,
-      "interp.probes": 8,
-      "defense.unlearning": 8,
-      "agent.multiagent": 6,
-      "defense.robust": 15,
-      "attack.adversarial": 8,
-      "eval.redteam": 11,
+      "interp.deception": 18,
+      "eval.audit": 19,
+      "interp.probes": 11,
+      "defense.robust": 24,
+      "attack.adversarial": 11,
+      "eval.redteam": 20,
+      "supply.backdoor": 11,
       "cyber.vulndiscovery": 6,
       "cyber.defense": 6,
       "infra.serving": 5,
-      "attack.privacy": 11,
-      "supply.poisoning": 11,
-      "supply.backdoor": 7,
-      "gov.regulation": 7,
-      "gov.transparency": 7,
-      "interp.circuits": 4,
-      "defense.constrained": 1,
-      "supply.provenance": 7,
+      "attack.privacy": 12,
+      "supply.poisoning": 17,
+      "interp.circuits": 7,
+      "gov.regulation": 11,
+      "defense.constrained": 3,
       "infra.federated": 2
     },
     "total": {
-      "attack.injection": 14,
-      "attack.jailbreak": 23,
-      "attack.extraction": 13,
-      "attack.adversarial": 8,
+      "attack.injection": 19,
+      "attack.jailbreak": 34,
+      "attack.extraction": 14,
+      "attack.adversarial": 11,
       "attack.model_theft": 3,
-      "attack.privacy": 11,
-      "attack": 56,
-      "supply.poisoning": 11,
-      "supply.backdoor": 7,
-      "supply.provenance": 7,
+      "attack.privacy": 12,
+      "attack": 75,
+      "supply.poisoning": 17,
+      "supply.backdoor": 11,
+      "supply.provenance": 9,
       "supply.deps": 4,
-      "supply": 19,
-      "agent.hijack": 21,
-      "agent.sandbox": 4,
-      "agent.authz": 11,
-      "agent.multiagent": 6,
+      "supply": 29,
+      "agent.hijack": 25,
+      "agent.sandbox": 5,
+      "agent.authz": 18,
+      "agent.multiagent": 8,
       "agent.mcp": 4,
-      "agent.computeruse": 7,
-      "agent": 35,
-      "defense.guardrails": 10,
-      "defense.provenance": 7,
-      "defense.robust": 15,
-      "defense.unlearning": 8,
-      "defense.monitoring": 10,
-      "defense.constrained": 1,
-      "defense": 46,
-      "eval.redteam": 11,
-      "eval.benchmark": 18,
-      "eval.dangercap": 21,
-      "eval.audit": 11,
-      "eval": 50,
-      "interp.probes": 8,
-      "interp.deception": 10,
-      "interp.circuits": 4,
-      "interp": 16,
+      "agent.computeruse": 9,
+      "agent": 49,
+      "defense.guardrails": 16,
+      "defense.provenance": 10,
+      "defense.robust": 24,
+      "defense.unlearning": 9,
+      "defense.monitoring": 12,
+      "defense.constrained": 3,
+      "defense": 68,
+      "eval.redteam": 20,
+      "eval.benchmark": 26,
+      "eval.dangercap": 29,
+      "eval.audit": 19,
+      "eval": 78,
+      "interp.probes": 11,
+      "interp.deception": 18,
+      "interp.circuits": 7,
+      "interp": 27,
       "cyber.vulndiscovery": 6,
-      "cyber.exploit": 12,
+      "cyber.exploit": 15,
       "cyber.defense": 6,
-      "cyber.malware": 6,
-      "cyber": 19,
+      "cyber.malware": 7,
+      "cyber": 22,
       "infra.serving": 5,
       "infra.tee": 0,
-      "infra.identity": 1,
+      "infra.identity": 4,
       "infra.federated": 2,
-      "infra": 8,
-      "gov.frameworks": 13,
-      "gov.disclosure": 4,
-      "gov.regulation": 7,
-      "gov.transparency": 7,
-      "gov": 21
+      "infra": 11,
+      "gov.frameworks": 22,
+      "gov.disclosure": 5,
+      "gov.regulation": 11,
+      "gov.transparency": 12,
+      "gov": 38
     },
     "paper_ids": {
       "attack.injection": [
@@ -5063,29 +7620,44 @@
         "arxiv:2306.05499",
         "arxiv:2307.06865",
         "arxiv:2311.01011",
+        "arxiv:2312.14197",
         "arxiv:2312.17673",
         "arxiv:2402.06363",
+        "arxiv:2402.07867",
         "arxiv:2403.02691",
+        "arxiv:2403.04957",
         "arxiv:2403.14720",
+        "arxiv:2404.13208",
         "arxiv:2406.13352",
         "arxiv:2410.05451",
         "arxiv:2410.07283",
         "arxiv:2410.14923",
+        "arxiv:2411.14738",
         "arxiv:2504.18575",
         "web:owasp-llm-top10"
       ],
       "attack.jailbreak": [
+        "arxiv:2306.13213",
         "arxiv:2307.02483",
         "arxiv:2307.15043",
         "arxiv:2309.00614",
+        "arxiv:2309.10253",
+        "arxiv:2310.02446",
         "arxiv:2310.03684",
+        "arxiv:2310.03693",
+        "arxiv:2310.04451",
+        "arxiv:2310.08419",
         "arxiv:2311.09096",
         "arxiv:2311.14455",
         "arxiv:2311.17035",
+        "arxiv:2312.02119",
+        "arxiv:2401.06561",
         "arxiv:2401.17263",
         "arxiv:2403.04783",
+        "arxiv:2404.01318",
         "arxiv:2404.01833",
         "arxiv:2406.04313",
+        "arxiv:2406.05946",
         "arxiv:2406.11717",
         "arxiv:2407.16686",
         "arxiv:2407.17915",
@@ -5094,6 +7666,7 @@
         "arxiv:2410.09024",
         "arxiv:2410.13886",
         "arxiv:2411.07494",
+        "arxiv:2412.03556",
         "arxiv:2412.16339",
         "arxiv:2501.18837",
         "arxiv:2501.18841",
@@ -5111,15 +7684,19 @@
         "arxiv:2402.16835",
         "arxiv:2409.18025",
         "arxiv:2410.22884",
+        "arxiv:2504.07096",
         "arxiv:2506.17090",
         "web:owasp-llm-top10"
       ],
       "attack.adversarial": [
         "arxiv:1706.06083",
         "arxiv:1905.02175",
+        "arxiv:2306.13213",
         "arxiv:2307.15043",
+        "arxiv:2403.09572",
         "arxiv:2407.16686",
         "arxiv:2411.02391",
+        "arxiv:2412.03556",
         "arxiv:2501.18841",
         "doi:10.48550-arXiv.2410.17401",
         "web:mitre-atlas"
@@ -5140,7 +7717,8 @@
         "arxiv:2311.17035",
         "arxiv:2402.08787",
         "arxiv:2409.11295",
-        "arxiv:2410.22884"
+        "arxiv:2410.22884",
+        "doi:10.48550-arXiv.2402.13532"
       ],
       "attack": [
         "arxiv:1706.06083",
@@ -5151,29 +7729,44 @@
         "arxiv:2302.00539",
         "arxiv:2302.12173",
         "arxiv:2306.05499",
+        "arxiv:2306.13213",
         "arxiv:2307.02483",
         "arxiv:2307.06865",
         "arxiv:2307.15043",
         "arxiv:2309.00614",
         "arxiv:2309.05610",
+        "arxiv:2309.10253",
         "arxiv:2310.02238",
+        "arxiv:2310.02446",
         "arxiv:2310.03684",
+        "arxiv:2310.03693",
+        "arxiv:2310.04451",
+        "arxiv:2310.08419",
         "arxiv:2310.16789",
         "arxiv:2311.01011",
         "arxiv:2311.09096",
         "arxiv:2311.14455",
         "arxiv:2311.17035",
+        "arxiv:2312.02119",
+        "arxiv:2312.14197",
         "arxiv:2312.17673",
+        "arxiv:2401.06561",
         "arxiv:2401.17263",
         "arxiv:2402.06363",
+        "arxiv:2402.07867",
         "arxiv:2402.08787",
         "arxiv:2402.16835",
         "arxiv:2403.02691",
         "arxiv:2403.04783",
+        "arxiv:2403.04957",
         "arxiv:2403.06634",
+        "arxiv:2403.09572",
         "arxiv:2403.14720",
+        "arxiv:2404.01318",
         "arxiv:2404.01833",
+        "arxiv:2404.13208",
         "arxiv:2406.04313",
+        "arxiv:2406.05946",
         "arxiv:2406.11717",
         "arxiv:2406.13352",
         "arxiv:2407.16686",
@@ -5190,11 +7783,15 @@
         "arxiv:2410.22884",
         "arxiv:2411.02391",
         "arxiv:2411.07494",
+        "arxiv:2411.14738",
+        "arxiv:2412.03556",
         "arxiv:2412.16339",
         "arxiv:2501.18837",
         "arxiv:2501.18841",
+        "arxiv:2504.07096",
         "arxiv:2504.18575",
         "arxiv:2506.17090",
+        "doi:10.48550-arXiv.2402.13532",
         "doi:10.48550-arXiv.2410.17401",
         "web:gtig-ai-threat-tracker-2025-11",
         "web:mitre-atlas",
@@ -5206,9 +7803,15 @@
         "arxiv:2302.10149",
         "arxiv:2305.00944",
         "arxiv:2306.17194",
+        "arxiv:2310.03693",
         "arxiv:2311.14455",
+        "arxiv:2402.07867",
+        "arxiv:2405.15556",
+        "arxiv:2406.03007",
+        "arxiv:2406.05946",
         "arxiv:2407.12784",
         "arxiv:2410.13722",
+        "doi:10.48550-arXiv.2402.13532",
         "web:mitre-atlas",
         "web:ncsc-ml-principles",
         "web:owasp-llm-top10"
@@ -5219,8 +7822,12 @@
         "arxiv:2306.17194",
         "arxiv:2311.14455",
         "arxiv:2401.05566",
+        "arxiv:2402.11208",
+        "arxiv:2406.03007",
         "arxiv:2410.02644",
-        "arxiv:2410.13722"
+        "arxiv:2410.13722",
+        "arxiv:2411.14738",
+        "doi:10.48550-arXiv.2402.13532"
       ],
       "supply.provenance": [
         "arxiv:1708.06733",
@@ -5228,6 +7835,8 @@
         "arxiv:2302.10149",
         "arxiv:2310.12941",
         "arxiv:2311.09227",
+        "arxiv:2403.07918",
+        "arxiv:2504.07096",
         "web:google-saif",
         "web:ncsc-ml-principles"
       ],
@@ -5244,14 +7853,24 @@
         "arxiv:2302.10149",
         "arxiv:2305.00944",
         "arxiv:2306.17194",
+        "arxiv:2310.03693",
         "arxiv:2310.12941",
         "arxiv:2311.09227",
         "arxiv:2311.14455",
         "arxiv:2401.05566",
+        "arxiv:2402.07867",
+        "arxiv:2402.11208",
+        "arxiv:2403.07918",
+        "arxiv:2405.15556",
+        "arxiv:2406.03007",
+        "arxiv:2406.05946",
         "arxiv:2407.12784",
         "arxiv:2410.02644",
         "arxiv:2410.13722",
+        "arxiv:2411.14738",
         "arxiv:2504.03767",
+        "arxiv:2504.07096",
+        "doi:10.48550-arXiv.2402.13532",
         "web:google-saif",
         "web:gtig-ai-threat-tracker-2025-11",
         "web:mitre-atlas",
@@ -5260,8 +7879,11 @@
       ],
       "agent.hijack": [
         "arxiv:2302.12173",
+        "arxiv:2402.11208",
         "arxiv:2403.02691",
+        "arxiv:2403.04957",
         "arxiv:2403.14720",
+        "arxiv:2406.03007",
         "arxiv:2406.04313",
         "arxiv:2406.13352",
         "arxiv:2407.12784",
@@ -5273,6 +7895,7 @@
         "arxiv:2410.13886",
         "arxiv:2410.14923",
         "arxiv:2411.02391",
+        "arxiv:2411.14738",
         "arxiv:2412.14470",
         "arxiv:2504.03767",
         "arxiv:2506.08837",
@@ -5282,31 +7905,41 @@
         "web:mitre-atlas"
       ],
       "agent.sandbox": [
+        "arxiv:2309.15817",
         "arxiv:2411.07781",
         "arxiv:2412.14470",
         "arxiv:2506.08837",
         "web:project-zero-big-sleep"
       ],
       "agent.authz": [
+        "arxiv:2309.15817",
         "arxiv:2311.04235",
         "arxiv:2312.06942",
+        "arxiv:2312.11671",
+        "arxiv:2401.13138",
+        "arxiv:2404.13208",
+        "arxiv:2404.16244",
+        "arxiv:2405.06624",
         "arxiv:2407.17915",
         "arxiv:2410.14923",
         "arxiv:2502.01822",
         "arxiv:2504.01849",
         "arxiv:2504.03767",
         "arxiv:2506.08837",
+        "doi:10.2139-ssrn.4772956",
         "web:anthropic-espionage-2025-11",
         "web:google-saif",
         "web:owasp-llm-top10"
       ],
       "agent.multiagent": [
+        "arxiv:2402.11208",
         "arxiv:2403.04783",
         "arxiv:2406.01637",
         "arxiv:2407.12784",
         "arxiv:2410.07283",
         "arxiv:2412.04984",
-        "arxiv:2502.01822"
+        "arxiv:2502.01822",
+        "web:anthropic-llm-attack-navigator"
       ],
       "agent.mcp": [
         "arxiv:2302.12173",
@@ -5315,7 +7948,9 @@
         "arxiv:2504.03767"
       ],
       "agent.computeruse": [
+        "arxiv:2306.13213",
         "arxiv:2402.06664",
+        "arxiv:2403.09572",
         "arxiv:2409.11295",
         "arxiv:2410.13886",
         "arxiv:2411.02391",
@@ -5326,13 +7961,24 @@
       "agent": [
         "arxiv:2302.12173",
         "arxiv:2306.05499",
+        "arxiv:2306.13213",
+        "arxiv:2309.15817",
         "arxiv:2311.04235",
         "arxiv:2312.06942",
+        "arxiv:2312.11671",
+        "arxiv:2401.13138",
         "arxiv:2402.06664",
+        "arxiv:2402.11208",
         "arxiv:2403.02691",
         "arxiv:2403.04783",
+        "arxiv:2403.04957",
+        "arxiv:2403.09572",
         "arxiv:2403.14720",
+        "arxiv:2404.13208",
+        "arxiv:2404.16244",
+        "arxiv:2405.06624",
         "arxiv:2406.01637",
+        "arxiv:2406.03007",
         "arxiv:2406.04313",
         "arxiv:2406.13352",
         "arxiv:2407.12784",
@@ -5345,6 +7991,7 @@
         "arxiv:2410.14923",
         "arxiv:2411.02391",
         "arxiv:2411.07781",
+        "arxiv:2411.14738",
         "arxiv:2412.04984",
         "arxiv:2412.14470",
         "arxiv:2502.01822",
@@ -5353,19 +8000,27 @@
         "arxiv:2504.18575",
         "arxiv:2506.08837",
         "arxiv:2506.14866",
+        "doi:10.2139-ssrn.4772956",
         "doi:10.48550-arXiv.2410.17401",
         "web:anthropic-espionage-2025-11",
+        "web:anthropic-llm-attack-navigator",
         "web:google-saif",
         "web:mitre-atlas",
         "web:owasp-llm-top10",
         "web:project-zero-big-sleep"
       ],
       "defense.guardrails": [
+        "arxiv:2202.03286",
+        "arxiv:2209.07858",
         "arxiv:2309.00614",
+        "arxiv:2310.02446",
         "arxiv:2311.04235",
         "arxiv:2311.09096",
         "arxiv:2312.06674",
+        "arxiv:2401.06561",
         "arxiv:2403.04783",
+        "arxiv:2403.09572",
+        "arxiv:2406.14598",
         "arxiv:2411.07494",
         "arxiv:2412.16339",
         "arxiv:2501.18837",
@@ -5373,9 +8028,12 @@
         "web:owasp-llm-top10"
       ],
       "defense.provenance": [
+        "arxiv:2312.14197",
         "arxiv:2312.17673",
         "arxiv:2402.06363",
+        "arxiv:2402.07867",
         "arxiv:2403.14720",
+        "arxiv:2404.13208",
         "arxiv:2406.13352",
         "arxiv:2410.05451",
         "arxiv:2502.01822",
@@ -5384,13 +8042,22 @@
       "defense.robust": [
         "arxiv:1706.06083",
         "arxiv:1905.02175",
+        "arxiv:2110.01167",
         "arxiv:2306.17194",
         "arxiv:2307.02483",
         "arxiv:2309.00614",
         "arxiv:2310.03684",
+        "arxiv:2310.03693",
+        "arxiv:2310.04451",
+        "arxiv:2310.13548",
         "arxiv:2401.05566",
         "arxiv:2401.17263",
+        "arxiv:2402.04249",
+        "arxiv:2403.04957",
+        "arxiv:2404.09932",
+        "arxiv:2405.15556",
         "arxiv:2406.04313",
+        "arxiv:2406.05946",
         "arxiv:2408.15221",
         "arxiv:2410.05451",
         "arxiv:2410.13722",
@@ -5406,13 +8073,16 @@
         "arxiv:2409.18025",
         "arxiv:2410.08827",
         "arxiv:2501.04952",
-        "arxiv:2502.05209"
+        "arxiv:2502.05209",
+        "arxiv:2508.03153"
       ],
       "defense.monitoring": [
         "arxiv:2310.01405",
         "arxiv:2312.06942",
+        "arxiv:2401.13138",
         "arxiv:2411.07494",
         "arxiv:2504.01849",
+        "web:anthropic-llm-attack-navigator",
         "web:anthropic-misuse-2025-08",
         "web:google-saif",
         "web:gtig-adversarial-misuse-2025",
@@ -5421,32 +8091,54 @@
         "web:openai-disrupting-malicious-uses"
       ],
       "defense.constrained": [
-        "arxiv:2402.06363"
+        "arxiv:2402.06363",
+        "arxiv:2405.06624",
+        "arxiv:2405.15556"
       ],
       "defense": [
         "arxiv:1706.06083",
         "arxiv:1905.02175",
+        "arxiv:2110.01167",
+        "arxiv:2202.03286",
+        "arxiv:2209.07858",
         "arxiv:2306.17194",
         "arxiv:2307.02483",
         "arxiv:2309.00614",
         "arxiv:2310.01405",
         "arxiv:2310.02238",
+        "arxiv:2310.02446",
         "arxiv:2310.03684",
+        "arxiv:2310.03693",
+        "arxiv:2310.04451",
+        "arxiv:2310.13548",
         "arxiv:2311.04235",
         "arxiv:2311.09096",
         "arxiv:2312.06674",
         "arxiv:2312.06942",
+        "arxiv:2312.14197",
         "arxiv:2312.17673",
         "arxiv:2401.05566",
+        "arxiv:2401.06561",
+        "arxiv:2401.13138",
         "arxiv:2401.17263",
+        "arxiv:2402.04249",
         "arxiv:2402.06363",
+        "arxiv:2402.07867",
         "arxiv:2402.08787",
         "arxiv:2402.16835",
         "arxiv:2403.03218",
         "arxiv:2403.04783",
+        "arxiv:2403.04957",
+        "arxiv:2403.09572",
         "arxiv:2403.14720",
+        "arxiv:2404.09932",
+        "arxiv:2404.13208",
+        "arxiv:2405.06624",
+        "arxiv:2405.15556",
         "arxiv:2406.04313",
+        "arxiv:2406.05946",
         "arxiv:2406.13352",
+        "arxiv:2406.14598",
         "arxiv:2408.15221",
         "arxiv:2409.18025",
         "arxiv:2410.05451",
@@ -5462,7 +8154,9 @@
         "arxiv:2502.05209",
         "arxiv:2504.01849",
         "arxiv:2506.08837",
+        "arxiv:2508.03153",
         "web:anthropic-asl3",
+        "web:anthropic-llm-attack-navigator",
         "web:anthropic-misuse-2025-08",
         "web:google-saif",
         "web:gtig-adversarial-misuse-2025",
@@ -5472,29 +8166,46 @@
         "web:owasp-llm-top10"
       ],
       "eval.redteam": [
+        "arxiv:2202.03286",
+        "arxiv:2209.07858",
         "arxiv:2307.15043",
+        "arxiv:2309.10253",
+        "arxiv:2309.15817",
+        "arxiv:2310.08419",
+        "arxiv:2312.02119",
         "arxiv:2312.06942",
         "arxiv:2401.05566",
+        "arxiv:2402.04249",
         "arxiv:2402.07039",
+        "arxiv:2402.10260",
         "arxiv:2403.04893",
         "arxiv:2404.01833",
         "arxiv:2408.15221",
         "arxiv:2409.00137",
+        "arxiv:2412.03556",
         "arxiv:2501.18837",
         "web:aisi-inspect",
         "web:mitre-atlas"
       ],
       "eval.benchmark": [
+        "arxiv:2212.09251",
         "arxiv:2306.12338",
         "arxiv:2308.06782",
+        "arxiv:2310.13548",
         "arxiv:2311.01011",
         "arxiv:2311.04235",
         "arxiv:2312.04724",
+        "arxiv:2312.14197",
+        "arxiv:2402.04249",
+        "arxiv:2402.10260",
         "arxiv:2403.02691",
         "arxiv:2403.03218",
+        "arxiv:2404.01318",
         "arxiv:2405.04760",
         "arxiv:2406.05590",
         "arxiv:2406.13352",
+        "arxiv:2406.14598",
+        "arxiv:2407.21792",
         "arxiv:2408.08926",
         "arxiv:2410.02644",
         "arxiv:2410.09024",
@@ -5505,10 +8216,15 @@
         "web:aisi-inspect"
       ],
       "eval.dangercap": [
+        "arxiv:2212.09251",
+        "arxiv:2305.15324",
+        "arxiv:2310.17688",
         "arxiv:2311.09227",
         "arxiv:2312.04724",
+        "arxiv:2312.11671",
         "arxiv:2402.06664",
         "arxiv:2403.03218",
+        "arxiv:2403.07918",
         "arxiv:2403.13793",
         "arxiv:2406.01637",
         "arxiv:2406.05590",
@@ -5519,18 +8235,29 @@
         "arxiv:2412.14093",
         "arxiv:2501.04952",
         "arxiv:2502.05209",
+        "arxiv:2508.03153",
         "doi:10.1126-science.adn0117",
+        "doi:10.48550-arXiv.2412.16720",
         "web:aisi-inspect",
         "web:anthropic-asl3",
         "web:anthropic-espionage-2025-11",
+        "web:anthropic-llm-attack-navigator",
         "web:anthropic-rsp",
         "web:apollo-research",
         "web:metr"
       ],
       "eval.audit": [
+        "arxiv:2201.05159",
+        "arxiv:2211.03540",
+        "arxiv:2305.15324",
         "arxiv:2310.16789",
+        "arxiv:2312.09390",
         "arxiv:2401.14446",
+        "arxiv:2402.06782",
         "arxiv:2402.16835",
+        "arxiv:2404.09932",
+        "arxiv:2407.21792",
+        "arxiv:2408.05147",
         "arxiv:2409.18025",
         "arxiv:2410.08827",
         "arxiv:2502.05209",
@@ -5541,29 +8268,53 @@
         "web:nist-ai-600-1"
       ],
       "eval": [
+        "arxiv:2201.05159",
+        "arxiv:2202.03286",
+        "arxiv:2209.07858",
+        "arxiv:2211.03540",
+        "arxiv:2212.09251",
+        "arxiv:2305.15324",
         "arxiv:2306.12338",
         "arxiv:2307.15043",
         "arxiv:2308.06782",
+        "arxiv:2309.10253",
+        "arxiv:2309.15817",
+        "arxiv:2310.08419",
+        "arxiv:2310.13548",
         "arxiv:2310.16789",
+        "arxiv:2310.17688",
         "arxiv:2311.01011",
         "arxiv:2311.04235",
         "arxiv:2311.09227",
+        "arxiv:2312.02119",
         "arxiv:2312.04724",
         "arxiv:2312.06942",
+        "arxiv:2312.09390",
+        "arxiv:2312.11671",
+        "arxiv:2312.14197",
         "arxiv:2401.05566",
         "arxiv:2401.14446",
+        "arxiv:2402.04249",
         "arxiv:2402.06664",
+        "arxiv:2402.06782",
         "arxiv:2402.07039",
+        "arxiv:2402.10260",
         "arxiv:2402.16835",
         "arxiv:2403.02691",
         "arxiv:2403.03218",
         "arxiv:2403.04893",
+        "arxiv:2403.07918",
         "arxiv:2403.13793",
+        "arxiv:2404.01318",
         "arxiv:2404.01833",
+        "arxiv:2404.09932",
         "arxiv:2405.04760",
         "arxiv:2406.01637",
         "arxiv:2406.05590",
         "arxiv:2406.13352",
+        "arxiv:2406.14598",
+        "arxiv:2407.21792",
+        "arxiv:2408.05147",
         "arxiv:2408.08926",
         "arxiv:2408.15221",
         "arxiv:2409.00137",
@@ -5573,6 +8324,7 @@
         "arxiv:2410.09024",
         "arxiv:2410.21514",
         "arxiv:2411.07781",
+        "arxiv:2412.03556",
         "arxiv:2412.04984",
         "arxiv:2412.14093",
         "arxiv:2412.14470",
@@ -5582,10 +8334,13 @@
         "arxiv:2503.10965",
         "arxiv:2504.18575",
         "arxiv:2506.14866",
+        "arxiv:2508.03153",
         "doi:10.1126-science.adn0117",
+        "doi:10.48550-arXiv.2412.16720",
         "web:aisi-inspect",
         "web:anthropic-asl3",
         "web:anthropic-espionage-2025-11",
+        "web:anthropic-llm-attack-navigator",
         "web:anthropic-rsp",
         "web:apollo-research",
         "web:metr",
@@ -5597,45 +8352,70 @@
         "arxiv:2310.01405",
         "arxiv:2310.06824",
         "arxiv:2311.01011",
+        "arxiv:2404.16014",
+        "arxiv:2406.04093",
         "arxiv:2406.11717",
+        "arxiv:2408.05147",
         "arxiv:2410.08827",
         "arxiv:2503.10965",
         "web:apollo-research"
       ],
       "interp.deception": [
+        "arxiv:2211.03540",
+        "arxiv:2212.09251",
         "arxiv:2310.01405",
         "arxiv:2310.06824",
+        "arxiv:2310.13548",
         "arxiv:2312.06942",
+        "arxiv:2312.09390",
         "arxiv:2401.05566",
+        "arxiv:2402.06782",
+        "arxiv:2404.09932",
+        "arxiv:2404.16244",
         "arxiv:2410.21514",
         "arxiv:2412.04984",
         "arxiv:2412.14093",
         "arxiv:2503.10965",
         "arxiv:2504.01849",
+        "doi:10.48550-arXiv.2412.16720",
         "web:apollo-research"
       ],
       "interp.circuits": [
         "arxiv:1905.02175",
         "arxiv:2309.08600",
+        "arxiv:2404.16014",
+        "arxiv:2406.04093",
         "arxiv:2406.04313",
-        "arxiv:2406.11717"
+        "arxiv:2406.11717",
+        "arxiv:2408.05147"
       ],
       "interp": [
         "arxiv:1905.02175",
+        "arxiv:2211.03540",
+        "arxiv:2212.09251",
         "arxiv:2309.08600",
         "arxiv:2310.01405",
         "arxiv:2310.06824",
+        "arxiv:2310.13548",
         "arxiv:2311.01011",
         "arxiv:2312.06942",
+        "arxiv:2312.09390",
         "arxiv:2401.05566",
+        "arxiv:2402.06782",
+        "arxiv:2404.09932",
+        "arxiv:2404.16014",
+        "arxiv:2404.16244",
+        "arxiv:2406.04093",
         "arxiv:2406.04313",
         "arxiv:2406.11717",
+        "arxiv:2408.05147",
         "arxiv:2410.08827",
         "arxiv:2410.21514",
         "arxiv:2412.04984",
         "arxiv:2412.14093",
         "arxiv:2503.10965",
         "arxiv:2504.01849",
+        "doi:10.48550-arXiv.2412.16720",
         "web:apollo-research"
       ],
       "cyber.vulndiscovery": [
@@ -5649,12 +8429,15 @@
       "cyber.exploit": [
         "arxiv:2308.00121",
         "arxiv:2308.06782",
+        "arxiv:2312.11671",
         "arxiv:2402.06664",
         "arxiv:2403.13793",
         "arxiv:2406.01637",
         "arxiv:2406.05590",
         "arxiv:2408.08926",
+        "doi:10.48550-arXiv.2412.16720",
         "web:anthropic-espionage-2025-11",
+        "web:anthropic-llm-attack-navigator",
         "web:anthropic-misuse-2025-08",
         "web:gtig-adversarial-misuse-2025",
         "web:metr",
@@ -5671,6 +8454,7 @@
       "cyber.malware": [
         "arxiv:2411.07781",
         "web:anthropic-espionage-2025-11",
+        "web:anthropic-llm-attack-navigator",
         "web:anthropic-misuse-2025-08",
         "web:gtig-adversarial-misuse-2025",
         "web:gtig-ai-threat-tracker-2025-11",
@@ -5682,6 +8466,7 @@
         "arxiv:2308.00121",
         "arxiv:2308.06782",
         "arxiv:2312.04724",
+        "arxiv:2312.11671",
         "arxiv:2402.06664",
         "arxiv:2403.13793",
         "arxiv:2405.04760",
@@ -5689,7 +8474,9 @@
         "arxiv:2406.05590",
         "arxiv:2408.08926",
         "arxiv:2411.07781",
+        "doi:10.48550-arXiv.2412.16720",
         "web:anthropic-espionage-2025-11",
+        "web:anthropic-llm-attack-navigator",
         "web:anthropic-misuse-2025-08",
         "web:gtig-adversarial-misuse-2025",
         "web:gtig-ai-threat-tracker-2025-11",
@@ -5706,6 +8493,9 @@
       ],
       "infra.tee": [],
       "infra.identity": [
+        "arxiv:2201.05159",
+        "arxiv:2401.13138",
+        "doi:10.2139-ssrn.4772956",
         "web:anthropic-asl3"
       ],
       "infra.federated": [
@@ -5715,20 +8505,32 @@
       "infra": [
         "arxiv:1906.08935",
         "arxiv:2108.10241",
+        "arxiv:2201.05159",
         "arxiv:2309.05610",
+        "arxiv:2401.13138",
         "arxiv:2403.06634",
         "arxiv:2410.22884",
+        "doi:10.2139-ssrn.4772956",
         "web:anthropic-asl3",
         "web:google-saif",
         "web:ncsc-ml-principles"
       ],
       "gov.frameworks": [
+        "arxiv:2110.01167",
+        "arxiv:2305.15324",
         "arxiv:2307.03718",
+        "arxiv:2310.17688",
         "arxiv:2311.09227",
+        "arxiv:2312.09390",
+        "arxiv:2403.07918",
         "arxiv:2403.13793",
+        "arxiv:2404.09932",
+        "arxiv:2404.16244",
+        "arxiv:2405.06624",
         "arxiv:2410.21514",
         "arxiv:2501.04952",
         "arxiv:2504.01849",
+        "arxiv:2508.03153",
         "doi:10.1126-science.adn0117",
         "web:anthropic-asl3",
         "web:anthropic-rsp",
@@ -5740,42 +8542,69 @@
       "gov.disclosure": [
         "arxiv:2402.07039",
         "arxiv:2403.04893",
+        "web:anthropic-llm-attack-navigator",
         "web:anthropic-misuse-2025-08",
         "web:openai-disrupting-malicious-uses"
       ],
       "gov.regulation": [
+        "arxiv:2201.05159",
         "arxiv:2307.03718",
         "arxiv:2310.12941",
+        "arxiv:2310.17688",
+        "arxiv:2401.13138",
         "arxiv:2401.14446",
         "arxiv:2402.08787",
         "arxiv:2403.04893",
         "doi:10.1126-science.adn0117",
+        "doi:10.2139-ssrn.4772956",
         "web:nist-ai-600-1"
       ],
       "gov.transparency": [
+        "arxiv:2110.01167",
+        "arxiv:2209.07858",
         "arxiv:2301.10226",
         "arxiv:2307.03718",
         "arxiv:2310.12941",
         "arxiv:2401.14446",
         "arxiv:2402.07039",
+        "arxiv:2407.21792",
+        "arxiv:2504.07096",
+        "doi:10.48550-arXiv.2412.16720",
         "web:anthropic-rsp",
         "web:nist-ai-600-1"
       ],
       "gov": [
+        "arxiv:2110.01167",
+        "arxiv:2201.05159",
+        "arxiv:2209.07858",
         "arxiv:2301.10226",
+        "arxiv:2305.15324",
         "arxiv:2307.03718",
         "arxiv:2310.12941",
+        "arxiv:2310.17688",
         "arxiv:2311.09227",
+        "arxiv:2312.09390",
+        "arxiv:2401.13138",
         "arxiv:2401.14446",
         "arxiv:2402.07039",
         "arxiv:2402.08787",
         "arxiv:2403.04893",
+        "arxiv:2403.07918",
         "arxiv:2403.13793",
+        "arxiv:2404.09932",
+        "arxiv:2404.16244",
+        "arxiv:2405.06624",
+        "arxiv:2407.21792",
         "arxiv:2410.21514",
         "arxiv:2501.04952",
         "arxiv:2504.01849",
+        "arxiv:2504.07096",
+        "arxiv:2508.03153",
         "doi:10.1126-science.adn0117",
+        "doi:10.2139-ssrn.4772956",
+        "doi:10.48550-arXiv.2412.16720",
         "web:anthropic-asl3",
+        "web:anthropic-llm-attack-navigator",
         "web:anthropic-misuse-2025-08",
         "web:anthropic-rsp",
         "web:google-saif",

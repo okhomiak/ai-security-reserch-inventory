@@ -1,6 +1,52 @@
 {
   "runs": [
     {
+      "started": "2026-11-05T04:29:40+00:00",
+      "trigger": "local",
+      "actor": "",
+      "mode": "derive-only",
+      "discovered": 0,
+      "gated_out": 0,
+      "considered": 0,
+      "classified": 0,
+      "added": 0,
+      "queued": 0,
+      "errors": [],
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cache_read": 0,
+        "cache_write": 0
+      },
+      "proposed_leaves": [],
+      "finished": "2026-11-05T04:29:40+00:00",
+      "seconds": 0.1,
+      "total_papers": 169
+    },
+    {
+      "started": "2026-11-05T04:26:04+00:00",
+      "trigger": "local",
+      "actor": "",
+      "mode": "derive-only",
+      "discovered": 0,
+      "gated_out": 0,
+      "considered": 0,
+      "classified": 0,
+      "added": 0,
+      "queued": 0,
+      "errors": [],
+      "usage": {
+        "input": 0,
+        "output": 0,
+        "cache_read": 0,
+        "cache_write": 0
+      },
+      "proposed_leaves": [],
+      "finished": "2026-11-05T04:26:04+00:00",
+      "seconds": 0.1,
+      "total_papers": 119
+    },
+    {
       "started": "2026-11-05T01:32:29+00:00",
       "trigger": "local",
       "actor": "",
@@ -395,13 +441,13 @@
     }
   ],
   "latest": {
-    "started": "2026-11-05T01:32:29+00:00",
+    "started": "2026-11-05T04:29:40+00:00",
     "trigger": "local",
     "actor": "",
-    "mode": "dry-run",
-    "discovered": 74,
-    "gated_out": 8,
-    "considered": 60,
+    "mode": "derive-only",
+    "discovered": 0,
+    "gated_out": 0,
+    "considered": 0,
     "classified": 0,
     "added": 0,
     "queued": 0,
@@ -413,11 +459,8 @@
       "cache_write": 0
     },
     "proposed_leaves": [],
-    "gap_vocab_terms": 43,
-    "gap_matches": 29,
-    "news_items": 160,
-    "finished": "2026-11-05T01:33:18+00:00",
-    "seconds": 49.6,
-    "total_papers": 118
+    "finished": "2026-11-05T04:29:40+00:00",
+    "seconds": 0.1,
+    "total_papers": 169
   }
 }

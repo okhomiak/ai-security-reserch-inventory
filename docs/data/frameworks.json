@@ -14,16 +14,89 @@
       "blurb": "The consensus risk list for LLM applications. Its real function is organisational - it is the artefact a security team hands a product team.",
       "critique": "Ranked by practitioner consensus rather than incident data, so the ordering reflects what the community discusses, not what gets exploited. Useful as a checklist, weak as a prioritisation.",
       "elements": [
-        { "id": "LLM01", "label": "Prompt Injection", "cats": ["attack.injection", "agent.hijack", "defense.provenance"] },
-        { "id": "LLM02", "label": "Sensitive Information Disclosure", "cats": ["attack.extraction", "attack.privacy"] },
-        { "id": "LLM03", "label": "Supply Chain", "cats": ["supply.deps", "supply.provenance", "supply.backdoor"] },
-        { "id": "LLM04", "label": "Data and Model Poisoning", "cats": ["supply.poisoning", "supply.backdoor"] },
-        { "id": "LLM05", "label": "Improper Output Handling", "cats": ["defense.constrained", "agent.sandbox"] },
-        { "id": "LLM06", "label": "Excessive Agency", "cats": ["agent.authz", "agent.sandbox", "infra.identity"] },
-        { "id": "LLM07", "label": "System Prompt Leakage", "cats": ["attack.extraction", "attack.injection"] },
-        { "id": "LLM08", "label": "Vector and Embedding Weaknesses", "cats": ["supply.poisoning", "attack.privacy"] },
-        { "id": "LLM09", "label": "Misinformation", "cats": ["gov.transparency", "supply.provenance"] },
-        { "id": "LLM10", "label": "Unbounded Consumption", "cats": ["infra.serving", "attack.model_theft"] }
+        {
+          "id": "LLM01",
+          "label": "Prompt Injection",
+          "cats": [
+            "attack.injection",
+            "agent.hijack",
+            "defense.provenance"
+          ]
+        },
+        {
+          "id": "LLM02",
+          "label": "Sensitive Information Disclosure",
+          "cats": [
+            "attack.extraction",
+            "attack.privacy"
+          ]
+        },
+        {
+          "id": "LLM03",
+          "label": "Supply Chain",
+          "cats": [
+            "supply.deps",
+            "supply.provenance",
+            "supply.backdoor"
+          ]
+        },
+        {
+          "id": "LLM04",
+          "label": "Data and Model Poisoning",
+          "cats": [
+            "supply.poisoning",
+            "supply.backdoor"
+          ]
+        },
+        {
+          "id": "LLM05",
+          "label": "Improper Output Handling",
+          "cats": [
+            "defense.constrained",
+            "agent.sandbox"
+          ]
+        },
+        {
+          "id": "LLM06",
+          "label": "Excessive Agency",
+          "cats": [
+            "agent.authz",
+            "agent.sandbox",
+            "infra.identity"
+          ]
+        },
+        {
+          "id": "LLM07",
+          "label": "System Prompt Leakage",
+          "cats": [
+            "attack.extraction",
+            "attack.injection"
+          ]
+        },
+        {
+          "id": "LLM08",
+          "label": "Vector and Embedding Weaknesses",
+          "cats": [
+            "supply.poisoning",
+            "attack.privacy"
+          ]
+        },
+        {
+          "id": "LLM09",
+          "label": "Misinformation",
+          "cats": [
+            "gov.transparency",
+            "supply.provenance"
+          ]
+        },
+        {
+          "id": "LLM10",
+          "label": "Unbounded Consumption",
+          "cats": [
+            "infra.serving",
+            "attack.model_theft"
+          ]
+        }
       ]
     },
     {
@@ -35,22 +108,125 @@
       "url": "https://atlas.mitre.org/",
       "kind": "adversary matrix",
       "blurb": "The ATT&CK equivalent for AI systems: adversary tactics across the full lifecycle, grounded in observed incidents, with mitigations mapped to each technique.",
-      "critique": "Techniques are catalogued without prevalence data. Nothing says which are common, so a defender cannot prioritise from the matrix alone - the same weakness ATT&CK took years to address.",
+      "critique": "Techniques are catalogued without prevalence data: nothing says which are common, so a defender cannot prioritise from the matrix alone. Anthropic's LLM ATT&CK Navigator (June 2026) shows what filling that hole looks like - 13,873 observed actions with per-technique frequency - but it maps to ATT&CK, not ATLAS, so the AI-specific matrix still has no equivalent.",
       "elements": [
-        { "id": "AML.TA0002", "label": "Reconnaissance", "cats": ["attack.model_theft", "eval.redteam"] },
-        { "id": "AML.TA0003", "label": "Resource Development", "cats": ["supply.poisoning", "supply.deps"] },
-        { "id": "AML.TA0004", "label": "Initial Access", "cats": ["supply.deps", "attack.injection", "agent.mcp"] },
-        { "id": "AML.TA0000", "label": "ML Model Access", "cats": ["attack.model_theft", "infra.serving"] },
-        { "id": "AML.TA0005", "label": "Execution", "cats": ["agent.sandbox", "supply.deps", "cyber.exploit"] },
-        { "id": "AML.TA0006", "label": "Persistence", "cats": ["supply.backdoor", "supply.poisoning"] },
-        { "id": "AML.TA0012", "label": "Privilege Escalation", "cats": ["agent.authz", "infra.identity"] },
-        { "id": "AML.TA0007", "label": "Defense Evasion", "cats": ["attack.jailbreak", "attack.adversarial", "interp.deception"] },
-        { "id": "AML.TA0013", "label": "Credential Access", "cats": ["infra.identity", "attack.extraction"] },
-        { "id": "AML.TA0008", "label": "Discovery", "cats": ["attack.model_theft", "attack.privacy"] },
-        { "id": "AML.TA0009", "label": "Collection", "cats": ["attack.extraction", "attack.privacy"] },
-        { "id": "AML.TA0001", "label": "ML Attack Staging", "cats": ["attack.adversarial", "supply.backdoor"] },
-        { "id": "AML.TA0010", "label": "Exfiltration", "cats": ["attack.extraction", "attack.model_theft", "infra.serving"] },
-        { "id": "AML.TA0011", "label": "Impact", "cats": ["cyber.exploit", "cyber.malware", "infra.serving"] }
+        {
+          "id": "AML.TA0002",
+          "label": "Reconnaissance",
+          "cats": [
+            "attack.model_theft",
+            "eval.redteam"
+          ]
+        },
+        {
+          "id": "AML.TA0003",
+          "label": "Resource Development",
+          "cats": [
+            "supply.poisoning",
+            "supply.deps"
+          ]
+        },
+        {
+          "id": "AML.TA0004",
+          "label": "Initial Access",
+          "cats": [
+            "supply.deps",
+            "attack.injection",
+            "agent.mcp"
+          ]
+        },
+        {
+          "id": "AML.TA0000",
+          "label": "ML Model Access",
+          "cats": [
+            "attack.model_theft",
+            "infra.serving"
+          ]
+        },
+        {
+          "id": "AML.TA0005",
+          "label": "Execution",
+          "cats": [
+            "agent.sandbox",
+            "supply.deps",
+            "cyber.exploit"
+          ]
+        },
+        {
+          "id": "AML.TA0006",
+          "label": "Persistence",
+          "cats": [
+            "supply.backdoor",
+            "supply.poisoning"
+          ]
+        },
+        {
+          "id": "AML.TA0012",
+          "label": "Privilege Escalation",
+          "cats": [
+            "agent.authz",
+            "infra.identity"
+          ]
+        },
+        {
+          "id": "AML.TA0007",
+          "label": "Defense Evasion",
+          "cats": [
+            "attack.jailbreak",
+            "attack.adversarial",
+            "interp.deception"
+          ]
+        },
+        {
+          "id": "AML.TA0013",
+          "label": "Credential Access",
+          "cats": [
+            "infra.identity",
+            "attack.extraction"
+          ]
+        },
+        {
+          "id": "AML.TA0008",
+          "label": "Discovery",
+          "cats": [
+            "attack.model_theft",
+            "attack.privacy"
+          ]
+        },
+        {
+          "id": "AML.TA0009",
+          "label": "Collection",
+          "cats": [
+            "attack.extraction",
+            "attack.privacy"
+          ]
+        },
+        {
+          "id": "AML.TA0001",
+          "label": "ML Attack Staging",
+          "cats": [
+            "attack.adversarial",
+            "supply.backdoor"
+          ]
+        },
+        {
+          "id": "AML.TA0010",
+          "label": "Exfiltration",
+          "cats": [
+            "attack.extraction",
+            "attack.model_theft",
+            "infra.serving"
+          ]
+        },
+        {
+          "id": "AML.TA0011",
+          "label": "Impact",
+          "cats": [
+            "cyber.exploit",
+            "cyber.malware",
+            "infra.serving"
+          ]
+        }
       ]
     },
     {
@@ -64,18 +240,100 @@
       "blurb": "Twelve risk categories with suggested actions mapped onto the AI RMF's Govern, Map, Measure and Manage functions. What US enterprise compliance programmes are usually built against.",
       "critique": "Suggests actions without acceptance criteria. It says what to do, not how to demonstrate it was done well - the compliance-evidence gap in another form. Several risks are societal rather than security, which stretches the frame.",
       "elements": [
-        { "id": "CBRN", "label": "CBRN information or capabilities", "cats": ["eval.dangercap", "defense.unlearning"] },
-        { "id": "CONF", "label": "Confabulation", "cats": ["gov.transparency"] },
-        { "id": "DVH", "label": "Dangerous, violent or hateful content", "cats": ["defense.guardrails", "attack.jailbreak"] },
-        { "id": "PRIV", "label": "Data privacy", "cats": ["attack.privacy", "attack.extraction", "defense.unlearning"] },
-        { "id": "ENV", "label": "Environmental impacts", "cats": [] },
-        { "id": "BIAS", "label": "Harmful bias and homogenization", "cats": [] },
-        { "id": "HAIC", "label": "Human-AI configuration", "cats": ["agent.authz", "interp.deception"] },
-        { "id": "INTEG", "label": "Information integrity", "cats": ["supply.provenance", "gov.transparency"] },
-        { "id": "INFOSEC", "label": "Information security", "cats": ["attack.injection", "supply.backdoor", "infra.serving", "cyber.exploit", "agent.sandbox"] },
-        { "id": "IP", "label": "Intellectual property", "cats": ["attack.extraction", "defense.unlearning", "supply.provenance"] },
-        { "id": "OBSC", "label": "Obscene or abusive content", "cats": ["defense.guardrails"] },
-        { "id": "VCHAIN", "label": "Value chain and component integration", "cats": ["supply.deps", "supply.provenance", "agent.mcp"] }
+        {
+          "id": "CBRN",
+          "label": "CBRN information or capabilities",
+          "cats": [
+            "eval.dangercap",
+            "defense.unlearning"
+          ]
+        },
+        {
+          "id": "CONF",
+          "label": "Confabulation",
+          "cats": [
+            "gov.transparency"
+          ]
+        },
+        {
+          "id": "DVH",
+          "label": "Dangerous, violent or hateful content",
+          "cats": [
+            "defense.guardrails",
+            "attack.jailbreak"
+          ]
+        },
+        {
+          "id": "PRIV",
+          "label": "Data privacy",
+          "cats": [
+            "attack.privacy",
+            "attack.extraction",
+            "defense.unlearning"
+          ]
+        },
+        {
+          "id": "ENV",
+          "label": "Environmental impacts",
+          "cats": []
+        },
+        {
+          "id": "BIAS",
+          "label": "Harmful bias and homogenization",
+          "cats": []
+        },
+        {
+          "id": "HAIC",
+          "label": "Human-AI configuration",
+          "cats": [
+            "agent.authz",
+            "interp.deception"
+          ]
+        },
+        {
+          "id": "INTEG",
+          "label": "Information integrity",
+          "cats": [
+            "supply.provenance",
+            "gov.transparency"
+          ]
+        },
+        {
+          "id": "INFOSEC",
+          "label": "Information security",
+          "cats": [
+            "attack.injection",
+            "supply.backdoor",
+            "infra.serving",
+            "cyber.exploit",
+            "agent.sandbox"
+          ]
+        },
+        {
+          "id": "IP",
+          "label": "Intellectual property",
+          "cats": [
+            "attack.extraction",
+            "defense.unlearning",
+            "supply.provenance"
+          ]
+        },
+        {
+          "id": "OBSC",
+          "label": "Obscene or abusive content",
+          "cats": [
+            "defense.guardrails"
+          ]
+        },
+        {
+          "id": "VCHAIN",
+          "label": "Value chain and component integration",
+          "cats": [
+            "supply.deps",
+            "supply.provenance",
+            "agent.mcp"
+          ]
+        }
       ]
     },
     {
@@ -89,12 +347,55 @@
       "blurb": "Six elements for extending existing security controls to AI systems, with a self-assessment that turns it into something a team can act on.",
       "critique": "Vendor-authored and vendor-shaped. Nothing independent validates that an organisation scoring well on SAIF is measurably harder to attack.",
       "elements": [
-        { "id": "SAIF1", "label": "Expand strong security foundations to the AI ecosystem", "cats": ["infra.serving", "infra.identity", "supply.deps"] },
-        { "id": "SAIF2", "label": "Extend detection and response to AI", "cats": ["defense.monitoring", "gov.disclosure"] },
-        { "id": "SAIF3", "label": "Automate defences to keep pace with threats", "cats": ["defense.monitoring", "cyber.defense"] },
-        { "id": "SAIF4", "label": "Harmonize platform-level controls", "cats": ["defense.guardrails", "agent.authz"] },
-        { "id": "SAIF5", "label": "Adapt controls for faster feedback loops", "cats": ["eval.redteam", "defense.monitoring"] },
-        { "id": "SAIF6", "label": "Contextualize AI system risks in business processes", "cats": ["gov.regulation", "eval.audit"] }
+        {
+          "id": "SAIF1",
+          "label": "Expand strong security foundations to the AI ecosystem",
+          "cats": [
+            "infra.serving",
+            "infra.identity",
+            "supply.deps"
+          ]
+        },
+        {
+          "id": "SAIF2",
+          "label": "Extend detection and response to AI",
+          "cats": [
+            "defense.monitoring",
+            "gov.disclosure"
+          ]
+        },
+        {
+          "id": "SAIF3",
+          "label": "Automate defences to keep pace with threats",
+          "cats": [
+            "defense.monitoring",
+            "cyber.defense"
+          ]
+        },
+        {
+          "id": "SAIF4",
+          "label": "Harmonize platform-level controls",
+          "cats": [
+            "defense.guardrails",
+            "agent.authz"
+          ]
+        },
+        {
+          "id": "SAIF5",
+          "label": "Adapt controls for faster feedback loops",
+          "cats": [
+            "eval.redteam",
+            "defense.monitoring"
+          ]
+        },
+        {
+          "id": "SAIF6",
+          "label": "Contextualize AI system risks in business processes",
+          "cats": [
+            "gov.regulation",
+            "eval.audit"
+          ]
+        }
       ]
     },
     {
@@ -108,10 +409,39 @@
       "blurb": "The four-function spine - Govern, Map, Measure, Manage - that the generative-AI profile hangs off and that most US AI governance programmes organise around.",
       "critique": "Deliberately outcome-agnostic, which makes it adoptable and also makes conformance unfalsifiable. An organisation can satisfy every function and still ship an insecure system.",
       "elements": [
-        { "id": "GOVERN", "label": "Govern — culture, policy, accountability", "cats": ["gov.frameworks", "gov.regulation"] },
-        { "id": "MAP", "label": "Map — context and risk identification", "cats": ["eval.redteam", "gov.transparency"] },
-        { "id": "MEASURE", "label": "Measure — analysis and tracking", "cats": ["eval.benchmark", "eval.dangercap", "eval.audit"] },
-        { "id": "MANAGE", "label": "Manage — prioritisation and response", "cats": ["defense.monitoring", "gov.disclosure"] }
+        {
+          "id": "GOVERN",
+          "label": "Govern — culture, policy, accountability",
+          "cats": [
+            "gov.frameworks",
+            "gov.regulation"
+          ]
+        },
+        {
+          "id": "MAP",
+          "label": "Map — context and risk identification",
+          "cats": [
+            "eval.redteam",
+            "gov.transparency"
+          ]
+        },
+        {
+          "id": "MEASURE",
+          "label": "Measure — analysis and tracking",
+          "cats": [
+            "eval.benchmark",
+            "eval.dangercap",
+            "eval.audit"
+          ]
+        },
+        {
+          "id": "MANAGE",
+          "label": "Manage — prioritisation and response",
+          "cats": [
+            "defense.monitoring",
+            "gov.disclosure"
+          ]
+        }
       ]
     },
     {
@@ -125,10 +455,42 @@
       "blurb": "National technical authority guidance across the ML lifecycle. The baseline a UK organisation is expected to have considered.",
       "critique": "Predates the generative and agentic shift. The principles hold, but the threat enumeration is built around classifiers, so agent-specific risks have no home in it.",
       "elements": [
-        { "id": "NCSC1", "label": "Secure design", "cats": ["agent.authz", "defense.constrained", "infra.serving"] },
-        { "id": "NCSC2", "label": "Secure development", "cats": ["supply.poisoning", "supply.provenance", "supply.deps"] },
-        { "id": "NCSC3", "label": "Secure deployment", "cats": ["infra.serving", "infra.tee", "defense.guardrails"] },
-        { "id": "NCSC4", "label": "Secure operation and maintenance", "cats": ["defense.monitoring", "gov.disclosure", "defense.unlearning"] }
+        {
+          "id": "NCSC1",
+          "label": "Secure design",
+          "cats": [
+            "agent.authz",
+            "defense.constrained",
+            "infra.serving"
+          ]
+        },
+        {
+          "id": "NCSC2",
+          "label": "Secure development",
+          "cats": [
+            "supply.poisoning",
+            "supply.provenance",
+            "supply.deps"
+          ]
+        },
+        {
+          "id": "NCSC3",
+          "label": "Secure deployment",
+          "cats": [
+            "infra.serving",
+            "infra.tee",
+            "defense.guardrails"
+          ]
+        },
+        {
+          "id": "NCSC4",
+          "label": "Secure operation and maintenance",
+          "cats": [
+            "defense.monitoring",
+            "gov.disclosure",
+            "defense.unlearning"
+          ]
+        }
       ]
     },
     {
@@ -142,10 +504,40 @@
       "blurb": "Deployment tied to measured capability: each level carries required security and safety standards, with a commitment to pause if controls lag capability.",
       "critique": "Thresholds are self-assessed and self-enforced. No external party can verify an ASL determination, which is exactly the dependency the audit literature keeps naming.",
       "elements": [
-        { "id": "ASL1", "label": "ASL-1 — no meaningful catastrophic risk", "cats": ["gov.frameworks"] },
-        { "id": "ASL2", "label": "ASL-2 — early dangerous capability, not yet useful", "cats": ["gov.frameworks", "eval.dangercap"] },
-        { "id": "ASL3", "label": "ASL-3 — meaningful uplift; hardened deployment and weight security", "cats": ["eval.dangercap", "defense.guardrails", "infra.identity", "supply.provenance"] },
-        { "id": "ASL4", "label": "ASL-4 — qualitatively more dangerous; standards still being defined", "cats": ["gov.frameworks", "interp.deception", "eval.audit"] }
+        {
+          "id": "ASL1",
+          "label": "ASL-1 — no meaningful catastrophic risk",
+          "cats": [
+            "gov.frameworks"
+          ]
+        },
+        {
+          "id": "ASL2",
+          "label": "ASL-2 — early dangerous capability, not yet useful",
+          "cats": [
+            "gov.frameworks",
+            "eval.dangercap"
+          ]
+        },
+        {
+          "id": "ASL3",
+          "label": "ASL-3 — meaningful uplift; hardened deployment and weight security",
+          "cats": [
+            "eval.dangercap",
+            "defense.guardrails",
+            "infra.identity",
+            "supply.provenance"
+          ]
+        },
+        {
+          "id": "ASL4",
+          "label": "ASL-4 — qualitatively more dangerous; standards still being defined",
+          "cats": [
+            "gov.frameworks",
+            "interp.deception",
+            "eval.audit"
+          ]
+        }
       ]
     }
   ]

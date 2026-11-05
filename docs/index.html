@@ -153,21 +153,37 @@
   <!-- ============================================================= EXPLORE -->
   <section class="view" id="view-explore" role="tabpanel">
     <div class="card">
-      <h2>How everything connects</h2>
-      <p class="note">Every paper, category, organisation, company need, gap and framework as one graph.
-        Pick anything and it moves to the centre with everything it touches arranged around it, grouped by
-        what the relationship actually is. Click a neighbour to walk there. This is deliberately not a
-        picture of all 300-odd entities at once — that is a hairball nobody can read. One thing at a time,
-        and a trail of where you have been.</p>
+      <h2>The field at a glance</h2>
+      <p class="note">Every category in the taxonomy laid out by branch, the way an ATT&amp;CK Navigator lays
+        techniques out by tactic — and like a Navigator, the colour is a layer you choose. Switch the layer
+        and the same grid answers a different question: where the research is, where the demand is, where
+        demand outruns coverage, which cells a gap names, and what arrived in the last import. The point is
+        to see the whole field at once with one number on it, which a relationship graph cannot do.
+        <b>Connections</b> switches to the pivot view for walking one entity's neighbourhood.</p>
       <div class="toolbar">
-        <input type="search" id="x-q" placeholder="focus on a paper, category, organisation, gap…" autocomplete="off">
+        <div class="seg" id="x-mode">
+          <button data-m="matrix" aria-pressed="true">Matrix</button>
+          <button data-m="graph" aria-pressed="false">Connections</button>
+        </div>
+        <div class="seg" id="x-layer">
+          <button data-l="coverage" aria-pressed="true">Coverage</button>
+          <button data-l="demand" aria-pressed="false">Demand</button>
+          <button data-l="pressure" aria-pressed="false">Pressure</button>
+          <button data-l="gaps" aria-pressed="false">Gaps</button>
+          <button data-l="frameworks" aria-pressed="false">Frameworks</button>
+          <button data-l="new" aria-pressed="false">New</button>
+        </div>
         <span class="spacer"></span>
         <span class="sub" id="x-count"></span>
       </div>
-      <div class="xq-results" id="x-results"></div>
-      <nav class="trail" id="x-trail"></nav>
       <div class="legend" id="x-legend"></div>
-      <div class="scroll-x"><svg id="xgraph" role="img" aria-label="Relationship graph"></svg></div>
+      <div id="x-matrix-wrap"><div class="navmx" id="x-matrix"></div></div>
+      <div id="x-graph-wrap" hidden>
+        <input type="search" id="x-q" placeholder="focus on a paper, category, organisation, gap…" autocomplete="off">
+        <div class="xq-results" id="x-results"></div>
+        <nav class="trail" id="x-trail"></nav>
+        <div class="scroll-x"><svg id="xgraph" role="img" aria-label="Relationship graph"></svg></div>
+      </div>
     </div>
   </section>
 

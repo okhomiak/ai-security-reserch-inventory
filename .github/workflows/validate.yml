@@ -65,6 +65,18 @@ jobs:
       - name: Dashboard script parses
         run: node --check docs/app.js
 
+      - name: End-to-end onboarding path
+        # Drives discovery, the gate, validation, merge, derive and the gap
+        # reassessment with a stubbed model response. The expensive part of the
+        # weekly job is everything AFTER the model answers, and that had never
+        # been exercised without spending an API call.
+        run: python3 agent/selftest.py --offline
+
+      - name: Fuzz the untrusted-input parsers
+        # The feed parser eats XML from the open internet. An unhandled
+        # exception there means no ingest and no deploy that week.
+        run: python3 agent/fuzz.py 4000
+
       - name: Every action is pinned to a commit SHA
         # An unpinned action is a mutable dependency with write access to the
         # build. This also catches the failure that actually happened here: a

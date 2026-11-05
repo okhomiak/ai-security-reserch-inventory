@@ -161,6 +161,29 @@ const newBadge = (p) => (isNew(p) ? '<span class="badge is-new">new</span>' : ''
 const plural = (w) => (w.endsWith('y') ? w.slice(0, -1) + 'ies' : w + 's');
 const kindBadge = (p) => (p.kind && p.kind !== 'paper'
   ? `<span class="badge kind-${esc(p.kind)}">${esc(p.kind)}</span>` : '');
+/* Metadata as one colour-coded row. Each chip's colour encodes what KIND of
+   fact it is - provenance, record type, contribution, standing, recency - so
+   the shape of a record registers before you read any of it. */
+function metaRow(p, opts = {}) {
+  const c = [];
+  c.push(tierBadge(p.trust.tier));
+  if (p.kind && p.kind !== 'paper') c.push(kindBadge(p));
+  c.push(contribBadge(p.contribution_type));
+  if (p.date) c.push(`<span class="mchip m-year"><span class="k">yr</span>${esc(p.date.slice(0, 4))}</span>`);
+  if (p.citations) c.push(`<span class="mchip m-cites"><span class="d"></span>${p.citations.toLocaleString()} cited</span>`);
+  if (opts.venue !== false && p.venue) {
+    c.push(`<span class="mchip m-venue" title="${p.venue_source === 'curator'
+      ? 'Venue stated by the curator, not verified' : 'Venue verified via Semantic Scholar'}">
+      <span class="k">${p.venue_source === 'curator' ? 'unverified' : 'venue'}</span>${esc(shortTitle(p.venue, 30))}</span>`);
+  }
+  if (opts.orgs !== false && p.organisations?.length) {
+    c.push(`<span class="mchip m-org"><span class="d"></span>${esc(p.organisations[0])}${
+      p.organisations.length > 1 ? ` +${p.organisations.length - 1}` : ''}</span>`);
+  }
+  if (isNew(p)) c.push(newBadge(p));
+  return `<div class="meta">${c.join('')}</div>`;
+}
+
 const contribBadge = (t) =>
   `<span class="badge contrib" data-sty="color:${contribVar(t)}">${esc(t)}</span>`;
 
@@ -333,7 +356,7 @@ function redrawCanvases() {
   }
   if ($('#view-tree').classList.contains('active')) drawTree();
   if ($('#view-gaps').classList.contains('active')) drawGapTree();
-  if ($('#view-explore').classList.contains('active')) drawExplore();
+  if ($('#view-explore').classList.contains('active')) { if (XMODE === 'matrix') drawMatrix(); else drawExplore(); }
 }
 let resizeT;
 addEventListener('resize', () => { clearTimeout(resizeT); resizeT = setTimeout(redrawCanvases, 180); });
@@ -983,8 +1006,7 @@ function treePanel(id) {
     if (!p) return '';
     return `<div data-sty="border-top:1px solid var(--grid);padding:10px 0">
       <div><a href="#read" class="plink" data-read="${esc(p.id)}">${esc(p.title)}</a></div>
-      <div class="sub" data-sty="margin:3px 0 5px">${esc(p.organisations.slice(0, 3).join(', '))} · ${esc(p.venue)} · ${esc(p.date)}
-        ${tierBadge(p.trust.tier)} ${contribBadge(p.contribution_type)} ${kindBadge(p)} ${newBadge(p)}</div>
+      <div class="tp-meta">${metaRow(p)}</div>
       <div data-sty="font-size:12.5px">${esc(p.what_its_about)}</div></div>`;
   }).join('');
   $('#tree-panel-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -1620,12 +1642,17 @@ function openReader(id, pane) {
   RD_LAST = document.activeElement;
   const rd = $('#reader');
 
-  $('#rd-kicker').innerHTML = `${tierBadge(p.trust.tier)} ${kindBadge(p)} ${contribBadge(p.contribution_type)} ${newBadge(p)}`;
+  $('#rd-kicker').innerHTML = metaRow(p, { venue: false, orgs: false });
   $('#rd-title').textContent = p.title;
   $('#rd-meta').innerHTML =
-    `${esc(p.organisations.join(', ') || p.source)} · ${esc(p.venue)} · ${esc(p.date)}`
-    + (p.citations ? ` · ${p.citations} citations` : '')
-    + ` · <a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">open at source ↗</a>`;
+    `<div class="meta">`
+    + (p.venue ? `<span class="mchip m-venue"><span class="k">${p.venue_source === 'curator' ? 'unverified' : 'venue'}</span>${esc(p.venue)}</span>` : '')
+    + (p.organisations?.length ? `<span class="mchip m-org"><span class="d"></span>${esc(p.organisations.join(', '))}</span>` : '')
+    + (p.citations ? `<span class="mchip m-cites"><span class="d"></span>${p.citations.toLocaleString()} cited</span>` : '')
+    + (p.addresses_needs?.length ? p.addresses_needs.map((n) =>
+        `<span class="mchip m-need"><span class="d"></span>${esc(NEED[n]?.label || n)}</span>`).join('') : '')
+    + `</div>`
+    + `<a class="rd-src" href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">open at source ↗</a>`;
 
   const row = (k, v) => v ? `<div class="rd-row"><dt>${esc(k)}</dt><dd>${v}</dd></div>` : '';
   $('#rd-summary').innerHTML = `
@@ -1804,11 +1831,135 @@ function xFocus(id, pushTrail = true) {
   drawExplore();
 }
 
+/* ---------------------------------------------------------------- layers
+   Each layer is a function from a taxonomy leaf to a number, plus how to read
+   it. Switching the layer re-colours the same grid, which is the whole idea
+   borrowed from an ATT&CK Navigator: one map, several questions. */
+const XLAYERS = {
+  coverage: {
+    label: 'papers filed here', unit: '',
+    value: (c) => (D.derived.tree.total || {})[c] || 0,
+    note: 'How much work the inventory holds in each category. Empty cells are where nothing has been published.',
+  },
+  demand: {
+    label: 'peak demand /5', unit: '/5',
+    value: (c) => {
+      const needs = D.companies.needs.filter((n) => n.categories.includes(c));
+      return needs.length ? Math.max(...needs.map((n) => D.derived.coverage?.[n.id]?.mean_demand || 0)) : 0;
+    },
+    note: 'The strongest company demand touching each category. Editorial estimates — read columns, not cells.',
+  },
+  pressure: {
+    label: 'demand per paper', unit: '',
+    value: (c) => {
+      const needs = D.companies.needs.filter((n) => n.categories.includes(c));
+      const d = needs.length ? Math.max(...needs.map((n) => D.derived.coverage?.[n.id]?.mean_demand || 0)) : 0;
+      return +(d / (((D.derived.tree.total || {})[c] || 0) + 1)).toFixed(2);
+    },
+    note: 'Demand divided by coverage. High means the market is asking a question the literature has not answered.',
+  },
+  gaps: {
+    label: 'gap severity', unit: '',
+    value: (c) => {
+      const g = (D.gaps.gaps || []).filter((x) => (x.categories || []).includes(c));
+      if (!g.length) return 0;
+      return Math.max(...g.map((x) => (x.severity === 'high' ? 2 : 1)));
+    },
+    fmt: (v) => (v === 2 ? 'high' : v === 1 ? 'med' : ''),
+    note: 'Which categories an argued gap actually names, and at what severity.',
+  },
+  frameworks: {
+    label: 'frameworks requiring it', unit: '',
+    value: (c) => (D.frameworks.frameworks || [])
+      .filter((f) => f.elements.some((e) => e.cats.includes(c))).length,
+    note: 'How many of the seven frameworks place a named requirement on each category.',
+  },
+  new: {
+    label: 'added in the last import', unit: '',
+    value: (c) => ((D.derived.tree.paper_ids || {})[c] || [])
+      .map((id) => PAPER[id]).filter((p) => p && isNew(p)).length,
+    note: 'What the weekly agent added most recently. All zero until the first ingest runs.',
+  },
+};
+let XLAYER = 'coverage', XMODE = 'matrix';
+
+function drawMatrix() {
+  const L = XLAYERS[XLAYER];
+  const branches = Object.keys(BRANCH);
+  const cells = Object.keys(LEAF);
+  const vals = cells.map(L.value);
+  const max = Math.max(1, ...vals);
+  const nonZero = vals.filter((v) => v > 0).length;
+
+  $('#x-count').textContent =
+    `${nonZero} of ${cells.length} categories have a value · highest ${Math.max(...vals)}${L.unit}`;
+  $('#x-legend').innerHTML = rampLegend(L.label, max)
+    + `<span class="li sub">${esc(L.note)}</span>`;
+
+  $('#x-matrix').innerHTML = branches.map((b) => {
+    const leaves = cells.filter((c) => TAX[c].parent === b);
+    const sum = leaves.reduce((acc, c) => acc + L.value(c), 0);
+    return `<div class="navcol">
+      <div class="navhead"><span>${esc(TAX[b].label)}</span><b>${leaves.length}</b></div>
+      ${leaves.map((c) => {
+        const v = L.value(c);
+        const txt = L.fmt ? L.fmt(v) : (v || '');
+        return `<button class="navcell${v ? '' : ' nil'}" data-cat="${esc(c)}"
+                  data-sty="background:${v ? ramp(v, max) : 'transparent'};color:${v ? rampInk(v, max) : 'var(--ink-3)'}">
+          <span class="nc-l">${esc(TAX[c].label)}</span>
+          <span class="nc-v">${esc(String(txt))}</span>
+        </button>`;
+      }).join('')}
+    </div>`;
+  }).join('');
+
+  $$('#x-matrix .navcell').forEach((b) => {
+    const c = b.dataset.cat;
+    b.addEventListener('click', () => { show('tree'); treePanel(c); });
+    bindCard(b, () => matrixCard(c));
+  });
+}
+
+function matrixCard(c) {
+  const n = TAX[c];
+  const papers = ((D.derived.tree.paper_ids || {})[c] || []).map((i) => PAPER[i]).filter(Boolean);
+  const gaps = (D.gaps.gaps || []).filter((g) => (g.categories || []).includes(c));
+  const fws = (D.frameworks.frameworks || []).filter((f) => f.elements.some((e) => e.cats.includes(c)));
+  const rows = Object.entries(XLAYERS)
+    .map(([k, L]) => `<div><b>${esc(String(L.fmt ? L.fmt(L.value(c)) || '—' : L.value(c)))}</b><span>${esc(k)}</span></div>`)
+    .join('');
+  return `
+    <div class="hd"><h4>${esc(n.label)}</h4>
+      <div class="path">${esc(TAX[n.parent].label)}</div></div>
+    <div class="bd">
+      <p class="nc-means">${esc(n.means || n.blurb || '')}</p>
+      ${n.example ? `<p class="nc-eg"><b>For example</b> ${esc(n.example)}</p>` : ''}
+      <div class="nums nums-6">${rows}</div>
+      ${gaps.length ? `<ul>${gaps.map((g) => `<li><b>Named in a gap:</b> ${esc(g.title)}</li>`).join('')}</ul>` : ''}
+      ${fws.length ? `<div class="hint">Required by ${esc(fws.map((f) => f.short).join(', '))}</div>` : ''}
+      ${papers.length ? `<div class="hint">${papers.length} paper${papers.length === 1 ? '' : 's'} — click to list them.</div>`
+        : '<div class="hint warn">Nothing published here.</div>'}
+    </div>`;
+}
+
 function renderExplore() {
   const E = xIndex();
   $('[data-count="explore"]').textContent = E.size;
-  $('#x-legend').innerHTML = Object.entries(XTYPE).map(([k, v]) =>
-    `<span class="li"><span class="swatch" data-sty="background:${v.colour}"></span>${esc(v.label)}</span>`).join('');
+
+  $$('#x-mode button').forEach((b) => b.addEventListener('click', () => {
+    $$('#x-mode button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    XMODE = b.dataset.m;
+    const mx = XMODE === 'matrix';
+    $('#x-matrix-wrap').hidden = !mx;
+    $('#x-graph-wrap').hidden = mx;
+    $('#x-layer').hidden = !mx;
+    if (mx) drawMatrix(); else drawExplore();
+  }));
+  $$('#x-layer button').forEach((b) => b.addEventListener('click', () => {
+    $$('#x-layer button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    XLAYER = b.dataset.l;
+    drawMatrix();
+  }));
 
   const box = $('#x-q');
   const draw = () => {
@@ -1834,7 +1985,7 @@ function renderExplore() {
       .sort((a, b) => b[1] - a[1])[0];
     XFOCUS = best ? `p:${best[0]}` : [...E.keys()][0];
   }
-  drawExplore();
+  drawMatrix();
 }
 
 /* The renderer. Focus at the centre; each relationship gets an angular sector;
@@ -1860,6 +2011,8 @@ function drawExplore() {
 
   $('#x-count').textContent =
     `${groups.reduce((a2, g) => a2 + g.ids.length, 0)} connections across ${groups.length} relationship${groups.length === 1 ? '' : 's'}`;
+  $('#x-legend').innerHTML = Object.entries(XTYPE).map(([k, v]) =>
+    `<span class="li"><span class="swatch" data-sty="background:${v.colour}"></span>${esc(v.label)}</span>`).join('');
 
   // trail
   $('#x-trail').innerHTML = XTRAIL.length

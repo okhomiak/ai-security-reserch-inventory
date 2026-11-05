@@ -1118,3 +1118,122 @@ tr.grouprow .mix { vertical-align: middle; }
 #xgraph text { pointer-events: none; }
 
 #xgraph { width: 100%; height: auto; max-height: min(66vh, 620px); }
+
+/* ═══════════════════════════════════════════ navigator matrix ═══ */
+/* Branch as column, category as cell, colour as a switchable layer - the
+   ATT&CK Navigator idea: one map, several questions. */
+.navmx {
+  display: grid; grid-template-columns: repeat(9, minmax(104px, 1fr));
+  gap: var(--sp-2); align-items: start; overflow-x: auto; padding-bottom: var(--sp-2);
+}
+.navcol { display: flex; flex-direction: column; gap: 3px; min-width: 104px; }
+.navhead {
+  display: flex; align-items: baseline; gap: 5px; justify-content: space-between;
+  font-size: 10px; text-transform: uppercase; letter-spacing: .05em; font-weight: 700;
+  color: var(--ink-2); padding: 0 2px var(--sp-2); border-bottom: 2px solid var(--axis);
+  margin-bottom: var(--sp-1); min-height: 30px;
+}
+.navhead span { line-height: 1.2; }
+.navhead b { color: var(--ink-3); font-weight: 600; font-size: 10px; }
+.navcell {
+  position: relative; display: flex; flex-direction: column; justify-content: space-between;
+  gap: 4px; min-height: 56px; padding: 7px 8px; text-align: left; cursor: pointer;
+  border: 1px solid var(--ring); border-radius: var(--r-sm); font: inherit;
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), filter var(--dur) var(--ease);
+}
+.navcell:hover { transform: translateY(-1px); box-shadow: var(--e-2); filter: saturate(1.15); z-index: 2; }
+.navcell.nil { border-style: dashed; border-color: var(--axis); background: transparent !important; }
+.nc-l { font-size: 10.5px; line-height: 1.25; font-weight: 500; }
+.nc-v { font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1; letter-spacing: -0.02em; }
+.navcell.nil .nc-v::after { content: "—"; font-size: 12px; font-weight: 400; }
+#card .nums-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px 10px; }
+#card .nums-6 b { font-size: 14px; }
+#card .hint.warn { color: var(--serious); }
+@media (max-width: 1100px) { .navmx { grid-template-columns: repeat(9, 104px); } }
+
+/* ═══════════════════════════════════════════════ liquid surfaces ═══ */
+/* Elevated things are glass: translucent, blurred, with a light edge along the
+   top where the surface catches light. Applied to things that FLOAT - the
+   sidebar, tooltips, the reader, the palette - and only faintly to cards,
+   because a page where everything is glass reads as fog rather than depth. */
+:root {
+  --glass:        color-mix(in srgb, var(--surface-1) 76%, transparent);
+  --glass-strong: color-mix(in srgb, var(--raised) 82%, transparent);
+  --sheen:        rgba(255, 255, 255, 0.55);
+  --sheen-soft:   rgba(255, 255, 255, 0.28);
+  --blur: saturate(180%) blur(18px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    --glass:        color-mix(in srgb, var(--surface-1) 72%, transparent);
+    --glass-strong: color-mix(in srgb, var(--raised) 78%, transparent);
+    --sheen:        rgba(255, 255, 255, 0.14);
+    --sheen-soft:   rgba(255, 255, 255, 0.07);
+  }
+}
+:root[data-theme="dark"] {
+  --glass:        color-mix(in srgb, var(--surface-1) 72%, transparent);
+  --glass-strong: color-mix(in srgb, var(--raised) 78%, transparent);
+  --sheen:        rgba(255, 255, 255, 0.14);
+  --sheen-soft:   rgba(255, 255, 255, 0.07);
+}
+
+.side {
+  background: var(--glass); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+  border-right-color: color-mix(in srgb, var(--axis) 60%, transparent);
+}
+.card {
+  position: relative;
+  background: linear-gradient(180deg, var(--sheen-soft), transparent 42%), var(--surface-1);
+  border-color: color-mix(in srgb, var(--ring) 150%, transparent);
+}
+.card::before {
+  content: ""; position: absolute; inset: 0 0 auto; height: 1px; border-radius: var(--r-lg) var(--r-lg) 0 0;
+  background: linear-gradient(90deg, transparent, var(--sheen), transparent); pointer-events: none;
+}
+#tip, #card, .cmd-panel, .rd-panel, #keys .panel {
+  background: var(--glass-strong);
+  backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+  border-color: color-mix(in srgb, var(--axis) 70%, transparent);
+}
+#card, .cmd-panel, .rd-panel { position: relative; }
+#card::after, .cmd-panel::after, .rd-panel::after {
+  content: ""; position: absolute; inset: 0 0 auto; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--sheen), transparent); pointer-events: none;
+}
+.stat, .hero-link, .fw, .gap, .cl {
+  background: linear-gradient(180deg, var(--sheen-soft), transparent 50%), var(--page);
+}
+.navcell { backdrop-filter: saturate(140%); -webkit-backdrop-filter: saturate(140%); }
+@media (prefers-reduced-transparency: reduce) {
+  .side, #tip, #card, .cmd-panel, .rd-panel, #keys .panel {
+    backdrop-filter: none; -webkit-backdrop-filter: none;
+    background: var(--surface-1);
+  }
+}
+
+/* ══════════════════════════════════════════ metadata chip system ═══ */
+/* Metadata was scattered: tier in one column, type in another, year as plain
+   text, citations nowhere. One row of chips, each colour-coded by what it
+   means - provenance, kind, contribution, standing - so a record's shape reads
+   before any of its words do. */
+.meta { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.mchip {
+  display: inline-flex; align-items: center; gap: 5px; height: 19px; padding: 0 7px;
+  border-radius: var(--r-sm); font-size: 10.5px; line-height: 1; white-space: nowrap;
+  border: 1px solid color-mix(in srgb, currentColor 24%, transparent);
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+.mchip .k { opacity: .62; font-size: 9.5px; text-transform: uppercase; letter-spacing: .04em; }
+.mchip .d { width: 5px; height: 5px; border-radius: 999px; background: currentColor; }
+.m-venue   { color: var(--ink-2); }
+.m-year    { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.m-cites   { color: var(--c-benchmark); font-variant-numeric: tabular-nums; }
+.m-methods { color: var(--ink-3); }
+.m-need    { color: var(--c-framework); }
+.m-cat     { color: var(--c-defence); }
+.m-org     { color: var(--c-analysis); }
+.m-gapsig  { color: var(--serious); }
+.rd-src { display: inline-block; margin-top: 7px; font-size: 11.5px; }
+.tp-meta { margin: 5px 0 6px; }
+#rd-kicker .meta { gap: 4px; }

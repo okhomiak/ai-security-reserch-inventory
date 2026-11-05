@@ -22,8 +22,9 @@ import json
 import os
 import re
 
-import anthropic
-
+# The SDK is imported lazily inside classify(), not at module scope. SCHEMA and
+# validate() are pure and are needed by the self-test and by any tooling that
+# inspects the contract - none of which should require the SDK to be installed.
 MODEL = os.environ.get("CLASSIFIER_MODEL", "claude-opus-5")
 EFFORT = os.environ.get("CLASSIFIER_EFFORT", "medium")
 
