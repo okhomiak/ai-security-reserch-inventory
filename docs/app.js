@@ -272,10 +272,10 @@ function initDensity() {
       if (len < 150) { n.dataset.clamp = 'skip'; return; }
       n.dataset.clamp = 'on';
       n.classList.add('clamped');
-      const btn = el('button', { class: 'note-more', type: 'button' }, 'Why this view →');
+      const btn = el('button', { class: 'note-more', type: 'button' }, 'Why this view');
       btn.addEventListener('click', () => {
         const open = !n.classList.toggle('clamped');
-        btn.textContent = open ? 'Show less' : 'Why this view →';
+        btn.textContent = open ? 'Show less' : 'Why this view';
       });
       n.after(btn);
     });
@@ -365,7 +365,11 @@ function renderHead() {
   const n = D.papers.papers.length;
   const latest = D.runs?.latest;
   const when = latest?.finished?.slice(0, 10) || D.papers.updated;
-  $('#head-sub').innerHTML = `${n} papers · ${D.derived.pairs.length} overlapping pairs · ${Object.keys(LEAF).length} categories · updated ${esc(when)}`;
+  $('#head-sub').innerHTML =
+    `<span class="mchip m-year">${n}</span> records`
+    + `<span class="mchip m-year">${D.derived.pairs.length}</span> overlaps`
+    + `<span class="mchip m-year">${Object.keys(LEAF).length}</span> categories`
+    + `<div class="side-when">updated ${esc(when)}</div>`;
   if ($('#foot-updated')) $('#foot-updated').innerHTML = `Inventory updated ${esc(D.papers.updated)}. Derived figures generated ${esc(D.derived.generated || '—')}.`;
 
   const counts = {
@@ -413,7 +417,7 @@ function renderOverlaps() {
   $('#ov-clusters').innerHTML = clusters.map((c, i) => `
     <div class="cl" data-sty="border-left-color:var(--s${(i % 3) + 1})">
       <h3>${esc(c.label)}</h3>
-      <div class="meta">${c.size} papers · mean overlap ${c.mean_score} · shares
+      <div class="meta">${c.size} papers, mean overlap ${c.mean_score}. Shares
         ${c.shared.slice(0, 4).map((s) => esc(TAX[s]?.label || s)).join(', ')}
         <div data-sty="margin-top:6px">${mixBar(c.papers.map((id) => PAPER[id]).filter(Boolean), 150)}</div></div>
       <ol>${c.papers.map((id) => `<li>${paperLink(id)} <span class="sub">${esc(PAPER[id]?.date?.slice(0, 4) || '')}</span>${PAPER[id] && isNew(PAPER[id]) ? ' <span class="badge is-new">new</span>' : ''}</li>`).join('')}</ol>
@@ -565,7 +569,7 @@ function drawOverlapTree() {
         <div class="nums"><div><b>${g.papers.length}</b><span>papers</span></div>
           <div><b>${g.shared.length}</b><span>shared categories</span></div>
           <div><b>${members.filter(isNew).length}</b><span>new</span></div></div>
-        <p>${esc(g.shared.slice(0, 4).map((c) => TAX[c]?.label || c).join(' · ')) || 'No single shared category.'}</p>
+        <p>${esc(g.shared.slice(0, 4).map((c) => TAX[c]?.label || c).join(', ')) || 'No single shared category.'}</p>
         <div>${mixBar(members, 160)}</div>
         <div class="hint">Contribution mix — attack red, defence green, evaluation blue.</div>
       </div>`);
@@ -734,8 +738,8 @@ function drawGraph() {
     g.append(c);
     g.addEventListener('click', () => openReader(n.p.id));
     bindTip(g, `<b>${esc(shortTitle(n.p.title, 92))}</b>
-      <span class="r">${esc(n.p.organisations.slice(0, 3).join(', '))} · ${esc(n.p.date)}</span>
-      <span class="r">${esc(catLabel(n.p.primary_category))} · ${deg[n.id] || 0} overlaps</span>
+      <span class="r">${esc(n.p.organisations.slice(0, 3).join(', '))}, ${esc(n.p.date)}</span>
+      <span class="r">${esc(catLabel(n.p.primary_category))} — ${deg[n.id] || 0} overlaps</span>
       <ul><li>${esc(n.p.what_its_about.slice(0, 180))}…</li></ul>`);
     gN.append(g);
   }
@@ -974,7 +978,7 @@ function nodeCard(id, isLeaf) {
       </div>
       ${papers.length
         ? `<div>${mixBar(papers, 180)}</div>
-           <div class="hint">${CONTRIB.filter((t) => papers.some((p) => p.contribution_type === t)).join(' · ')}</div>`
+           <div class="hint">${CONTRIB.filter((t) => papers.some((p) => p.contribution_type === t)).join(', ')}</div>`
         : `<p class="warn">Nothing filed here. ${demand >= 3.5
              ? `Demand for this is ${demand.toFixed(1)}/5 — an empty leaf under real demand is the strongest kind of gap signal.`
              : 'Low measured demand, so an empty leaf here may simply be uninteresting.'}</p>`}
@@ -1015,7 +1019,7 @@ function treePanel(id) {
 /* ===================================================================== DEMAND */
 function renderDemand() {
   $('#demand-basis').innerHTML = esc(D.companies.basis || '')
-    + ' <a href="#methodology" class="jump">Methodology and limitations &darr;</a>';
+    + ' <a href="#methodology" class="jump">How this was scored</a>';
   $$('#hm-sort button').forEach((b) => b.addEventListener('click', () => {
     $$('#hm-sort button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
     drawHeatmap(b.dataset.s);
@@ -1099,7 +1103,7 @@ function drawHeatmap(sort) {
       td.style.color = rampInk(cell.score, 5);
       td.innerHTML = `<span>${cell.score || '·'}</span>`;
       const scale = (D.companies.scale || []).find((s) => s.v === cell.score);
-      bindTip(td, `<b>${esc(c.label)} · ${esc(n.label)}</b>
+      bindTip(td, `<b>${esc(c.label)} — ${esc(n.label)}</b>
         <span class="r">${cell.score}/5 — ${esc(scale?.label || '')}</span>
         ${ev.length
           ? `<ul>${ev.map((e) => `<li>${esc(e.q)}<br><span class="r">${esc(new URL(e.url).hostname)}</span></li>`).join('')}</ul>
@@ -1121,7 +1125,7 @@ function drawHeatmap(sort) {
   cols.forEach((n) => {
     const k = cov[n.id] || { papers: 0 };
     const td = el('td', { class: 'cell hm' }, `<span>${k.papers}</span>`);
-    bindTip(td, `<b>${esc(n.label)}</b><span class="r">${k.papers} paper(s) in the inventory · mean demand ${k.mean_demand}/5</span>
+    bindTip(td, `<b>${esc(n.label)}</b><span class="r">${k.papers} paper(s) held, mean demand ${k.mean_demand}/5</span>
       <span class="r">covers ${esc(n.categories.map((c) => TAX[c]?.label || c).join(', '))}</span>`);
     foot.append(td);
   });
@@ -1332,7 +1336,7 @@ function drawGapTree() {
       x: X1 - 13 - BOXW + 12, y: boxY + PAD + 5 + lines.length * LH + 7,
       'font-size': 10, fill: 'var(--ink-3)',
     });
-    sub.textContent = `${g.severity} · ${g.confidence || '?'} confidence · ${g.status}`;
+    sub.textContent = `${g.severity} severity, ${g.confidence || '?'} confidence, ${g.status}`;
     node.append(sub);
     node.append(svgEl('circle', { cx: X1, cy: gy, r: 7, fill: sev, stroke: 'var(--surface-1)', 'stroke-width': 2 }));
 
@@ -1340,7 +1344,7 @@ function drawGapTree() {
     const empties = cats.filter((c) => !(total[c] || 0)).length;
     bindCard(node, () => `
       <div class="hd"><h4>${esc(g.title)}</h4>
-        <div class="path">${esc(g.severity)} severity · ${esc(g.confidence || 'unrated')} confidence</div></div>
+        <div class="path">${esc(g.severity)} severity, ${esc(g.confidence || 'unrated')} confidence</div></div>
       <div class="bd">
         <div class="nums">
           <div><b>${cats.length}</b><span>categories</span></div>
@@ -1568,7 +1572,7 @@ function paletteIndex() {
     kind: 'gap', t: g.title, s: `${g.severity} severity`, hay: `${g.title} ${g.closes_when || ''}`,
     go: () => { show('gaps'); document.getElementById(g.id)?.scrollIntoView({ behavior: 'smooth' }); } }));
   D.companies.companies.forEach((c) => rows.push({
-    kind: 'org', t: c.label, s: `${c.type} · ${c.region}`, hay: `${c.label} ${c.type} ${c.region}`,
+    kind: 'org', t: c.label, s: `${c.type}, ${c.region}`, hay: `${c.label} ${c.type} ${c.region}`,
     go: () => show('demand') }));
   return rows;
 }
@@ -1652,7 +1656,7 @@ function openReader(id, pane) {
     + (p.addresses_needs?.length ? p.addresses_needs.map((n) =>
         `<span class="mchip m-need"><span class="d"></span>${esc(NEED[n]?.label || n)}</span>`).join('') : '')
     + `</div>`
-    + `<a class="rd-src" href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">open at source ↗</a>`;
+    + `<a class="rd-src" href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">Open at source</a>`;
 
   const row = (k, v) => v ? `<div class="rd-row"><dt>${esc(k)}</dt><dd>${v}</dd></div>` : '';
   $('#rd-summary').innerHTML = `
@@ -1676,14 +1680,14 @@ function openReader(id, pane) {
         return `<li><button class="rd-jump" data-id="${esc(o.id)}">${esc(q ? (q.short || shortTitle(q.title, 54)) : o.id)}</button>
                 <span>${esc(o.shared)}</span></li>`;
       }).join('')}</ul>` : ''}
-    <div class="rd-foot sub">${esc(p.curation)} record · classified by ${esc(p.classified_by)} · added ${esc(p.added)}</div>`;
+    <div class="rd-foot sub">${esc(p.curation)} record, classified by ${esc(p.classified_by)}, added ${esc(p.added)}</div>`;
 
   const m = /arxiv\.org\/abs\/([0-9.]+)/.exec(p.url || '');
   $('#rd-pdf').innerHTML = m
     ? `<iframe title="${esc(p.title)}" src="https://arxiv.org/pdf/${esc(m[1])}" loading="lazy"></iframe>`
     : `<div class="rd-nopdf">
          <p>No embeddable PDF for this record — it is ${esc(p.kind || 'a page')} published by ${esc(p.organisations[0] || p.source)}.</p>
-         <p><a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">Read it at ${esc(new URL(p.url).hostname)} ↗</a></p>
+         <p><a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">Read it at ${esc(new URL(p.url).hostname)}</a></p>
        </div>`;
   $$('#rd-tabs button').forEach((b) => b.disabled = false);
 
@@ -1892,7 +1896,7 @@ function drawMatrix() {
   const nonZero = vals.filter((v) => v > 0).length;
 
   $('#x-count').textContent =
-    `${nonZero} of ${cells.length} categories have a value · highest ${Math.max(...vals)}${L.unit}`;
+    `${nonZero} of ${cells.length} categories have a value. Highest ${Math.max(...vals)}${L.unit}`;
   $('#x-legend').innerHTML = rampLegend(L.label, max)
     + `<span class="li sub">${esc(L.note)}</span>`;
 
@@ -2099,17 +2103,17 @@ function drawExplore() {
 function xCard(ent, rel) {
   const r = ent.ref || {};
   const bits = {
-    paper: () => `${esc(r.organisations?.slice(0, 2).join(', ') || r.source || '')} · ${esc(r.date || '')}
+    paper: () => `${esc(r.organisations?.slice(0, 2).join(', ') || r.source || '')}, ${esc(r.date || '')}
       <p>${esc((r.what_its_about || '').slice(0, 180))}…</p>`,
     category: () => `<p>${esc(r.means || r.blurb || '')}</p>`,
     need: () => `<p>${esc(r.blurb || '')}</p>`,
-    org: () => `<p>${esc(r.type ? `${r.type} · ${r.region}` : 'publisher')}</p>`,
-    gap: () => `<p>${esc(r.severity || '')} severity · ${esc(r.status || '')}</p>
+    org: () => `<p>${esc(r.type ? `${r.type}, ${r.region}` : 'publisher')}</p>`,
+    gap: () => `<p>${esc(r.severity || '')} severity, ${esc(r.status || '')}</p>
       <p>${esc((r.closes_when || '').slice(0, 160))}</p>`,
     framework: () => `<p>${esc(r.blurb || '')}</p>`,
   }[ent.type] || (() => '');
   return `<div class="hd"><h4>${esc(ent.label)}</h4>
-      <div class="path">${esc(XTYPE[ent.type].label)} · ${esc(rel)}</div></div>
+      <div class="path">${esc(XTYPE[ent.type].label)} — ${esc(rel)}</div></div>
     <div class="bd">${bits()}<div class="hint">Click to centre the graph here.</div></div>`;
 }
 
@@ -2176,8 +2180,11 @@ function drawFrameworks() {
         <header class="fw-h">
           <div>
             <h3>${esc(f.name)}</h3>
-            <div class="fw-meta">${esc(f.org)} · ${esc(f.version)} · ${esc(f.kind)}
-              · <a href="${esc(f.url)}" target="_blank" rel="noopener noreferrer">source</a></div>
+            <div class="fw-meta meta">
+              <span class="mchip m-org">${esc(f.org)}</span>
+              <span class="mchip m-year">${esc(f.version)}</span>
+              <span class="mchip m-venue">${esc(f.kind)}</span>
+              <a href="${esc(f.url)}" target="_blank" rel="noopener noreferrer">source</a></div>
           </div>
           <div class="fw-score" title="elements with 3+ papers behind them">
             <b>${covered}</b><span>/ ${f.elements.length} covered</span>
@@ -2242,7 +2249,7 @@ function renderNews() {
     `<a href="#tree" data-go="tree">${emptyLeaves} categor${emptyLeaves === 1 ? 'y' : 'ies'} with nothing published</a>`,
     hottest ? `<a href="#demand" data-go="demand">most under-served: ${esc(NEED[hottest[0]]?.label || '')}</a>` : '',
     `<a href="#gaps" data-go="gaps">${(D.gaps.gaps || []).length} open gaps</a>`,
-  ].filter(Boolean).join('<i>·</i>');
+  ].filter(Boolean).join('<i>/</i>');
 
   $$('#hero-links a').forEach((el2) =>
     el2.addEventListener('click', (e) => { e.preventDefault(); show(el2.dataset.go); }));
@@ -2345,7 +2352,7 @@ function renderPipeline() {
       r.news_items ? `${r.news_items} news items` : null,
       r.errors?.length ? `<span class="rd-gap">${r.errors.length} error(s)</span>` : null,
     ].filter(Boolean);
-    $('#pl-last').innerHTML = bits.join(' · ') + '.';
+    $('#pl-last').innerHTML = bits.join('. ') + '.';
   } else {
     $('#pl-last').innerHTML = '<span class="sub">No run recorded yet.</span>';
   }
@@ -2416,7 +2423,7 @@ function renderPipeline() {
   $('#pl-queue').innerHTML = q.length ? q.slice().reverse().map((p) => `
     <div data-sty="border-top:1px solid var(--grid);padding:10px 0">
       <div><a href="#read" class="plink" data-read="${esc(p.id)}">${esc(p.title)}</a></div>
-      <div class="sub" data-sty="margin:3px 0">${esc(p.date)} · ${esc((p.organisations || []).join(', ') || 'organisations unknown')}
+      <div class="sub" data-sty="margin:3px 0">${esc(p.date)}, ${esc((p.organisations || []).join(', ') || 'organisations unknown')}
         ${p.agent_verdict ? `<span class="badge">tier ${esc(p.agent_verdict.tier)}</span>
         <span class="badge">confidence ${esc(p.agent_verdict.confidence)}</span>` : ''}</div>
       <div data-sty="font-size:12.5px">${esc(p.queued_because || '')}</div>

@@ -1277,3 +1277,107 @@ tr.grouprow .g-name, table.list th {
 .stat .v, .nc-v, .fw-score b, #card .nums b, .g-n { font-family: var(--font-data); }
 .rd-kicker, .meta { letter-spacing: 0; }
 /* The gap chains keep their numbers: that content genuinely is a sequence. */
+
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║  Design pass against the frontend-design brief                       ║
+   ╚══════════════════════════════════════════════════════════════════════╝
+   The subject is not an analytics product. It is a register of adversarial
+   knowledge where every claim carries its warrant — closer to an evidence
+   catalogue than a SaaS dashboard. The palette is cool and archival rather
+   than the tinted near-black (#0B0B0B) the skill names as a tell, and the
+   chrome stops pretending every block on the page has equal weight.
+
+   The data palette is unchanged and was re-validated against these surfaces:
+   every hard gate still passes in both modes. */
+
+:root {
+  --page:    #EDF1F5;   /* cool paper, not cream */
+  --surface-1:#F7F9FB;
+  --raised:  #FFFFFF;
+  --ink:     #16202B;   /* slate, not tinted black */
+  --ink-2:   #4A5A6A;
+  --ink-3:   #7C8C9C;
+  --grid:    #DDE4EA;
+  --axis:    #BCC9D4;
+  --ring:    rgba(22, 32, 43, 0.12);
+  --on-ramp-lo: #16202B;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    --page:    #080E14;
+    --surface-1:#0C141C;
+    --raised:  #131E28;
+    --ink:     #E7EEF4;
+    --ink-2:   #9FB0BF;
+    --ink-3:   #6E8192;
+    --grid:    #1B2832;
+    --axis:    #2F4150;
+    --ring:    rgba(231, 238, 244, 0.11);
+    --on-ramp-hi: #0C141C;
+    --on-ramp-lo: #E7EEF4;
+  }
+}
+:root[data-theme="dark"] {
+  --page:    #080E14;
+  --surface-1:#0C141C;
+  --raised:  #131E28;
+  --ink:     #E7EEF4;
+  --ink-2:   #9FB0BF;
+  --ink-3:   #6E8192;
+  --grid:    #1B2832;
+  --axis:    #2F4150;
+  --ring:    rgba(231, 238, 244, 0.11);
+  --on-ramp-hi: #0C141C;
+  --on-ramp-lo: #E7EEF4;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Not every block deserves the same box. The skill's "SaaS-card kit" is
+   identical rounded cards with one radius and the same soft shadow under
+   each, regardless of hierarchy. Primary data now sits on the page; only
+   secondary material keeps a container, and it is a hairline, not a card. */
+.card {
+  background: none; border: 0; border-radius: 0; box-shadow: none;
+  padding: 0 0 var(--sp-6); margin: 0 0 var(--sp-5);
+  border-bottom: 1px solid var(--grid);
+}
+.card:last-of-type { border-bottom: 0; }
+.card > h2 { font-size: 17px; letter-spacing: -0.015em; margin-bottom: 3px; }
+
+/* The one place boldness is spent: the matrix. */
+#x-matrix-wrap { margin-top: var(--sp-3); }
+.navcell { border-radius: 3px; min-height: 62px; }
+.navhead { border-bottom-width: 1px; border-bottom-color: var(--ink); }
+
+/* Secondary blocks keep a frame, but a quiet one and at a smaller radius, so
+   radius itself carries hierarchy rather than being set once globally. */
+.fw, .gap, .cl, .hero-link, .stat, .pg-row {
+  border-radius: 5px; box-shadow: none;
+  background: var(--surface-1); border: 1px solid var(--ring);
+}
+.card.hero {
+  background: var(--surface-1); border: 1px solid var(--ring);
+  border-radius: 6px; padding: var(--sp-4); margin-bottom: var(--sp-5);
+}
+.card.hero .stat { background: var(--page); border-radius: 999px; }
+#tip, #card, .cmd-panel, .rd-panel, #keys .panel { border-radius: 8px; }
+.stat:hover { box-shadow: none; border-color: var(--axis); }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Monospace is for columns that must align, not a costume for small labels —
+   the skill lists "a monospace face for small data labels" as a tell, and I
+   had added exactly that. It stays on numerals in tables and counts; it comes
+   off every label. */
+.navhead, .chip-k, .mchip .k, .cmd-item .ci-k, .xq-k, .fw-id,
+tr.grouprow .g-name, table.list th, .news-day {
+  font-family: var(--font-ui);
+}
+table.list td.num, .stat .v, .nc-v, .fw-n, .g-n, #card .nums b,
+.score, .mchip.m-year, .mchip.m-cites {
+  font-family: var(--font-data); font-variant-numeric: tabular-nums;
+}
+.navhead { font-size: 11px; font-weight: 600; letter-spacing: -0.005em; }
+table.list th { font-size: 11px; font-weight: 600; letter-spacing: 0; color: var(--ink-2); }
+.side-meta .mchip { margin-right: 3px; }
+.side-when { margin-top: 4px; color: var(--ink-3); }
+.fw-meta.meta { gap: 5px; }
