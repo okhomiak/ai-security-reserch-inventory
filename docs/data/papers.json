@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "updated": "2026-11-05",
-  "count": 100,
+  "count": 118,
   "note": "Seed set: landmark AI-security work, every id/title/date/author verified against the live arXiv API. The weekly agent appends to this file; `curation` says whether a record was hand-written or agent-classified.",
   "papers": [
     {
@@ -441,6 +441,58 @@
       "validation_warnings": []
     },
     {
+      "id": "arxiv:2504.18575",
+      "title": "WASP: Benchmarking Web Agent Security Against Prompt Injection Attacks",
+      "short": "WASP",
+      "url": "https://arxiv.org/abs/2504.18575",
+      "pdf": "https://arxiv.org/pdf/2504.18575",
+      "date": "2025-04-22",
+      "authors": [
+        "I. Evtimov",
+        "A. Zharmagambetov",
+        "Aaron Grattafiori",
+        "Chuan Guo",
+        "Kamalika Chaudhuri"
+      ],
+      "organisations": [],
+      "venue": "Neural Information Processing Systems",
+      "venue_source": "semantic-scholar",
+      "citations": 207,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "Neural Information Processing Systems; 207 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "A web-agent injection benchmark that scores partial compromise rather than only full success, finding agents are frequently derailed even when the attack does not fully succeed.",
+      "primary_category": "eval.benchmark",
+      "categories": [
+        "eval.benchmark",
+        "agent.computeruse",
+        "attack.injection"
+      ],
+      "contribution_type": "benchmark",
+      "methods": [
+        "realistic web environments",
+        "partial-success scoring"
+      ],
+      "threat_model": "Prompt injection against agents operating real web applications.",
+      "addresses_needs": [
+        "n.agent_sec",
+        "n.evals"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Partial compromise is the common case and most benchmarks score it as a defence win.",
+      "confidence": 1.0,
+      "abstract": "Autonomous UI agents powered by AI have tremendous potential to boost human productivity by automating routine tasks such as filing taxes and paying bills. However, a major challenge in unlocking their full potential is security, which is exacerbated by the agent's ability to take action on their user's behalf. Existing tests for prompt injections in web agents either over-simplify the threat by testing unrealistic scenarios or giving the attacker too much power, or look at single-step isolated tasks. To more accurately measure progress for secure web agents, we introduce WASP -- a new publicly available benchmark for end-to-end evaluation of Web Agent Security against Prompt injection attacks. Evaluating with WASP shows that even top-tier AI models, including those with advanced reasoning capabilities, can be deceived by simple, low-effort human-written injections in very realistic scenarios. Our end-to-end evaluation reveals a previously unobserved insight: while attacks partially succeed in up to 86% of the case, even state-of-the-art agents often struggle to fully complete the attacker goals -- highlighting the current state of security by incompetence.",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
       "id": "arxiv:2504.03767",
       "title": "MCP safety audit: LLMs with the model context protocol allow major security exploits",
       "short": "MCP safety audit",
@@ -665,6 +717,62 @@
       "validation_warnings": []
     },
     {
+      "id": "arxiv:2502.05209",
+      "title": "Model Tampering Attacks Enable More Rigorous Evaluations of LLM Capabilities",
+      "short": "Tampering evals",
+      "url": "https://arxiv.org/abs/2502.05209",
+      "pdf": "https://arxiv.org/pdf/2502.05209",
+      "date": "2025-02-03",
+      "authors": [
+        "Zora Che",
+        "Stephen Casper",
+        "Robert Kirk",
+        "Anirudh Satheesh",
+        "Stewart Slocum",
+        "Lev McKinney"
+      ],
+      "organisations": [
+        "MIT",
+        "UK AI Security Institute"
+      ],
+      "venue": "Trans. Mach. Learn. Res.",
+      "venue_source": "semantic-scholar",
+      "citations": 48,
+      "kind": "paper",
+      "trust": {
+        "tier": "frontier-lab",
+        "justification": "Trans. Mach. Learn. Res.; 48 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Argues input-space evaluation underestimates capability, and that tampering with weights or activations gives a better worst-case estimate. A direct answer to the suppressed-versus-removed problem.",
+      "primary_category": "eval.dangercap",
+      "categories": [
+        "eval.dangercap",
+        "defense.unlearning",
+        "eval.audit"
+      ],
+      "contribution_type": "evaluation",
+      "methods": [
+        "latent-space tampering",
+        "worst-case capability estimation"
+      ],
+      "threat_model": "Evaluating what a model could do, not what it does when asked politely.",
+      "addresses_needs": [
+        "n.evals",
+        "n.interp"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Requires weight access, so the strongest evaluation method is unavailable to exactly the third-party auditors who need it.",
+      "confidence": 1.0,
+      "abstract": "Evaluations of large language model (LLM) risks and capabilities are increasingly being incorporated into AI risk management and governance frameworks. Currently, most risk evaluations are conducted by designing inputs that elicit harmful behaviors from the system. However, this approach suffers from two limitations. First, input-output evaluations cannot fully evaluate realistic risks from open-weight models. Second, the behaviors identified during any particular input-output evaluation can only lower-bound the model's worst-possible-case input-output behavior. As a complementary method for eliciting harmful behaviors, we propose evaluating LLMs with model tampering attacks which allow for modifications to latent activations or weights. We pit state-of-the-art techniques for removing harmful LLM capabilities against a suite of 5 input-space and 6 model tampering attacks. In addition to benchmarking these methods against each other, we show that (1) model resilience to capability elicitation attacks lies on a low-dimensional robustness subspace; (2) the success rate of model tampering attacks can empirically predict and offer conservative estimates for the success of held-out input-space attacks; and (3) state-of-the-art unlearning methods can easily be undone within 16 steps of fine-tuning. Together, these results highlight the difficulty of suppressing harmful LLM capabilities and show that model tampering attacks enable substantially more rigorous evaluations than input-sp",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
       "id": "arxiv:2501.18837",
       "title": "Constitutional Classifiers: Defending against Universal Jailbreaks across Thousands of Hours of Red Teaming",
       "url": "https://arxiv.org/abs/2501.18837",
@@ -740,6 +848,61 @@
       "validation_warnings": [],
       "short": "Constitutional classifiers",
       "citations": 219
+    },
+    {
+      "id": "arxiv:2501.18841",
+      "title": "Trading Inference-Time Compute for Adversarial Robustness",
+      "short": "Compute for robustness",
+      "url": "https://arxiv.org/abs/2501.18841",
+      "pdf": "https://arxiv.org/pdf/2501.18841",
+      "date": "2025-01-31",
+      "authors": [
+        "Wojciech Zaremba",
+        "Evgenia Nitishinskaya",
+        "Boaz Barak",
+        "Stephanie L. Lin",
+        "S. Toyer",
+        "Yaodong Yu"
+      ],
+      "organisations": [
+        "OpenAI"
+      ],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 64,
+      "kind": "paper",
+      "trust": {
+        "tier": "frontier-lab",
+        "justification": "preprint; 64 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Shows attack success often falls as a model is given more reasoning time, without adversarial training. Robustness becomes partly a compute dial rather than purely a training property.",
+      "primary_category": "defense.robust",
+      "categories": [
+        "defense.robust",
+        "attack.jailbreak",
+        "attack.adversarial"
+      ],
+      "contribution_type": "analysis",
+      "methods": [
+        "inference-compute scaling",
+        "attack success vs compute"
+      ],
+      "threat_model": "Adversarial pressure against a model that can think longer.",
+      "addresses_needs": [
+        "n.guardrails",
+        "n.redteam"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Identifies attack classes where more compute does not help, and those are the ones a defender cannot buy their way out of.",
+      "confidence": 1.0,
+      "abstract": "We conduct experiments on the impact of increasing inference-time compute in reasoning models (specifically OpenAI o1-preview and o1-mini) on their robustness to adversarial attacks. We find that across a variety of attacks, increased inference-time compute leads to improved robustness. In many cases (with important exceptions), the fraction of model samples where the attack succeeds tends to zero as the amount of test-time compute grows. We perform no adversarial training for the tasks we study, and we increase inference-time compute by simply allowing the models to spend more compute on reasoning, independently of the form of attack. Our results suggest that inference-time compute has the potential to improve adversarial robustness for Large Language Models. We also explore new attacks directed at reasoning models, as well as settings where inference-time compute does not improve reliability, and speculate on the reasons for these as well as ways to address them.",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "web:gtig-adversarial-misuse-2025",
@@ -839,6 +1002,60 @@
       "confidence": 1.0,
       "abstract": "As AI systems become more capable, widely deployed, and increasingly autonomous in critical areas such as cybersecurity, biological research, and healthcare, ensuring their safety and alignment with human values is paramount. Machine unlearning -- the ability to selectively forget or suppress specific types of knowledge -- has shown promise for privacy and data removal tasks, which has been the primary focus of existing research. More recently, its potential application to AI safety has gained attention. In this paper, we identify key limitations that prevent unlearning from serving as a comprehensive solution for AI safety, particularly in managing dual-use knowledge in sensitive domains like cybersecurity and chemical, biological, radiological, and nuclear (CBRN) safety. In these contexts, information can be both beneficial and harmful, and models may combine seemingly harmless information for harmful purposes -- unlearning this information could strongly affect beneficial uses. We provide an overview of inherent constraints and open problems, including the broader side effects of unlearning dangerous knowledge, as well as previously unexplored tensions between unlearning and existing safety mechanisms. Finally, we investigate challenges related to evaluation, robustness, and the preservation of safety features during unlearning. By mapping these limitations and open challenges, we aim to guide future research toward realistic applications of unlearning within a broader AI ",
       "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2412.16339",
+      "title": "Deliberative Alignment: Reasoning Enables Safer Language Models",
+      "short": "Deliberative alignment",
+      "url": "https://arxiv.org/abs/2412.16339",
+      "pdf": "https://arxiv.org/pdf/2412.16339",
+      "date": "2024-12-20",
+      "authors": [
+        "Melody Y. Guan",
+        "Manas R. Joglekar",
+        "Eric Wallace",
+        "Saachi Jain",
+        "Boaz Barak",
+        "Alec Helyar"
+      ],
+      "organisations": [
+        "OpenAI"
+      ],
+      "venue": "Robotics",
+      "venue_source": "semantic-scholar",
+      "citations": 333,
+      "kind": "paper",
+      "trust": {
+        "tier": "frontier-lab",
+        "justification": "Robotics; 333 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Teaches the model the safety specification itself and has it reason over the policy before answering, improving both jailbreak robustness and over-refusal at once. The first defence to move both metrics in the right direction.",
+      "primary_category": "defense.guardrails",
+      "categories": [
+        "defense.guardrails",
+        "attack.jailbreak",
+        "defense.robust"
+      ],
+      "contribution_type": "defence",
+      "methods": [
+        "policy reasoning at inference",
+        "chain-of-thought safety"
+      ],
+      "threat_model": "Attacks that exploit a model applying safety rules it has only memorised.",
+      "addresses_needs": [
+        "n.guardrails"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Costs inference-time reasoning, so the robustness is bought with latency - a trade nobody has priced.",
+      "confidence": 1.0,
+      "abstract": "As large-scale language models increasingly impact safety-critical domains, ensuring their reliable adherence to well-defined principles remains a fundamental challenge. We introduce Deliberative Alignment, a new paradigm that directly teaches the model safety specifications and trains it to explicitly recall and accurately reason over the specifications before answering. We used this approach to align OpenAI’s o-series models [1], and achieved highly precise adherence to OpenAI’s safety policies, without requiring human-written chain-of-thoughts or answers. Deliberative Alignment pushes the Pareto frontier by simultaneously increasing robustness to jailbreaks while decreasing overrefusal rates, and also improves out-of-distribution generalization. We demonstrate that reasoning over explicitly specified policies enables more scalable, trustworthy, and interpretable alignment.",
+      "added": "2026-11-05",
       "classified_by": "curated-seed",
       "curation": "human",
       "notes": "",
@@ -1095,6 +1312,59 @@
       "citations": 16
     },
     {
+      "id": "arxiv:2411.07781",
+      "title": "RedCode: Risky Code Execution and Generation Benchmark for Code Agents",
+      "short": "RedCode",
+      "url": "https://arxiv.org/abs/2411.07781",
+      "pdf": "https://arxiv.org/pdf/2411.07781",
+      "date": "2024-11-12",
+      "authors": [
+        "Cheng-Quan Guo",
+        "Xun Liu",
+        "Chulin Xie",
+        "Andy Zhou",
+        "Yi Zeng",
+        "Zinan Lin"
+      ],
+      "organisations": [],
+      "venue": "Neural Information Processing Systems",
+      "venue_source": "semantic-scholar",
+      "citations": 118,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "Neural Information Processing Systems; 118 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Evaluates whether code agents recognise and refuse risky operations, finding they frequently execute destructive commands when asked indirectly.",
+      "primary_category": "agent.sandbox",
+      "categories": [
+        "agent.sandbox",
+        "eval.benchmark",
+        "cyber.malware"
+      ],
+      "contribution_type": "benchmark",
+      "methods": [
+        "risky code execution",
+        "sandboxed evaluation"
+      ],
+      "threat_model": "A code agent executing or generating dangerous code.",
+      "addresses_needs": [
+        "n.agent_sec",
+        "n.evals"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Code agents have execution capability and weak judgement about it, and sandboxing is treated as the deployer's problem.",
+      "confidence": 1.0,
+      "abstract": "With the rapidly increasing capabilities and adoption of code agents for AI-assisted coding, safety concerns, such as generating or executing risky code, have become significant barriers to the real-world deployment of these agents. To provide comprehensive and practical evaluations on the safety of code agents, we propose RedCode, a benchmark for risky code execution and generation: (1) RedCode-Exec provides challenging prompts that could lead to risky code execution, aiming to evaluate code agents' ability to recognize and handle unsafe code. We provide a total of 4,050 risky test cases in Python and Bash tasks with diverse input formats including code snippets and natural text. They covers 25 types of critical vulnerabilities spanning 8 domains (e.g., websites, file systems). We provide Docker environments and design corresponding evaluation metrics to assess their execution results. (2) RedCode-Gen provides 160 prompts with function signatures and docstrings as input to assess whether code agents will follow instructions to generate harmful code or software. Our empirical findings, derived from evaluating three agent frameworks based on 19 LLMs, provide insights into code agents' vulnerabilities. For instance, evaluations on RedCode-Exec show that agents are more likely to reject executing risky operations on the operating system, but are less likely to reject executing technically buggy code, indicating high risks. Risky operations described in natural text lead to a low",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
       "id": "arxiv:2411.02391",
       "title": "Attacking Vision-Language Computer Agents via Pop-ups",
       "short": "Pop-up attacks",
@@ -1320,6 +1590,59 @@
       "citations": 58
     },
     {
+      "id": "arxiv:2410.14923",
+      "title": "Imprompter: Tricking LLM Agents into Improper Tool Use",
+      "short": "Imprompter",
+      "url": "https://arxiv.org/abs/2410.14923",
+      "pdf": "https://arxiv.org/pdf/2410.14923",
+      "date": "2024-10-19",
+      "authors": [
+        "Xiao-Han Fu",
+        "Shuheng Li",
+        "Zihan Wang",
+        "Yi-Hao Liu",
+        "Rajesh K. Gupta",
+        "Taylor Berg-Kirkpatrick"
+      ],
+      "organisations": [],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 88,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "preprint; 88 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Automatically generates obfuscated prompts that drive real agents to exfiltrate personal data through tool calls, demonstrated against deployed products.",
+      "primary_category": "agent.hijack",
+      "categories": [
+        "agent.hijack",
+        "attack.injection",
+        "agent.authz"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "obfuscated adversarial prompts",
+        "automated exfiltration"
+      ],
+      "threat_model": "An agent with tool access processing attacker-influenced text.",
+      "addresses_needs": [
+        "n.agent_sec",
+        "n.privacy"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Obfuscation defeats human review of agent inputs, which is the control most deployments actually rely on.",
+      "confidence": 1.0,
+      "abstract": "Large Language Model (LLM) Agents are an emerging computing paradigm that blends generative machine learning with tools such as code interpreters, web browsing, email, and more generally, external resources. These agent-based systems represent an emerging shift in personal computing. We contribute to the security foundations of agent-based systems and surface a new class of automatically computed obfuscated adversarial prompt attacks that violate the confidentiality and integrity of user resources connected to an LLM agent. We show how prompt optimization techniques can find such prompts automatically given the weights of a model. We demonstrate that such attacks transfer to production-level agents. For example, we show an information exfiltration attack on Mistral's LeChat agent that analyzes a user's conversation, picks out personally identifiable information, and formats it into a valid markdown command that results in leaking that data to the attacker's server. This attack shows a nearly 80% success rate in an end-to-end evaluation. We conduct a range of experiments to characterize the efficacy of these attacks and find that they reliably work on emerging agent-based systems like Mistral's LeChat, ChatGLM, and Meta's Llama. These attacks are multimodal, and we show variants in the text-only and image domains.",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
       "id": "arxiv:2410.13722",
       "title": "Persistent Pre-Training Poisoning of LLMs",
       "short": "Pretraining poisoning",
@@ -1426,6 +1749,112 @@
       "confidence": 1.0,
       "abstract": "The robustness of LLMs to jailbreak attacks, where users design prompts to circumvent safety measures and misuse model capabilities, has been studied primarily for LLMs acting as simple chatbots. Meanwhile, LLM agents -- which use external tools and can execute multi-stage tasks -- may pose a greater risk if misused, but their robustness remains underexplored. To facilitate research on LLM agent misuse, we propose a new benchmark called AgentHarm. The benchmark includes a diverse set of 110 explicitly malicious agent tasks (440 with augmentations), covering 11 harm categories including fraud, cybercrime, and harassment. In addition to measuring whether models refuse harmful agentic requests, scoring well on AgentHarm requires jailbroken agents to maintain their capabilities following an attack to complete a multi-step task. We evaluate a range of leading LLMs, and find (1) leading LLMs are surprisingly compliant with malicious agent requests without jailbreaking, (2) simple universal jailbreak templates can be adapted to effectively jailbreak agents, and (3) these jailbreaks enable coherent and malicious multi-step agent behavior and retain model capabilities. To enable simple and reliable evaluation of attacks and defenses for LLM-based agents, we publicly release AgentHarm at https://huggingface.co/datasets/ai-safety-institute/AgentHarm.",
       "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2410.13886",
+      "title": "Refusal-Trained LLMs Are Easily Jailbroken As Browser Agents",
+      "short": "Browser agent jailbreaks",
+      "url": "https://arxiv.org/abs/2410.13886",
+      "pdf": "https://arxiv.org/pdf/2410.13886",
+      "date": "2024-10-11",
+      "authors": [
+        "Priyanshu Kumar",
+        "Elaine Lau",
+        "Saranya Vijayakumar",
+        "Tu Trinh",
+        "Scale Red Team",
+        "Elaine T. Chang"
+      ],
+      "organisations": [
+        "Scale AI"
+      ],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 82,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "preprint; 82 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Refusal training that holds in chat largely fails when the same model drives a browser. Safety does not transfer across deployment surfaces.",
+      "primary_category": "agent.computeruse",
+      "categories": [
+        "agent.computeruse",
+        "attack.jailbreak",
+        "agent.hijack"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "browser-agent harness",
+        "refusal transfer measurement"
+      ],
+      "threat_model": "The same model acting as an agent rather than a chatbot.",
+      "addresses_needs": [
+        "n.agent_sec",
+        "n.guardrails"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Safety is evaluated in chat and deployed in agents - the gap is structural, not incidental.",
+      "confidence": 1.0,
+      "abstract": "For safety reasons, large language models (LLMs) are trained to refuse harmful user instructions, such as assisting dangerous activities. We study an open question in this work: does the desired safety refusal, typically enforced in chat contexts, generalize to non-chat and agentic use cases? Unlike chatbots, LLM agents equipped with general-purpose tools, such as web browsers and mobile devices, can directly influence the real world, making it even more crucial to refuse harmful instructions. In this work, we primarily focus on red-teaming browser agents, LLMs that manipulate information via web browsers. To this end, we introduce Browser Agent Red teaming Toolkit (BrowserART), a comprehensive test suite designed specifically for red-teaming browser agents. BrowserART is consist of 100 diverse browser-related harmful behaviors (including original behaviors and ones sourced from HarmBench [Mazeika et al., 2024] and AirBench 2024 [Zeng et al., 2024b]) across both synthetic and real websites. Our empirical study on state-of-the-art browser agents reveals that, while the backbone LLM refuses harmful instructions as a chatbot, the corresponding agent does not. Moreover, attack methods designed to jailbreak refusal-trained LLMs in the chat settings transfer effectively to browser agents. With human rewrites, GPT-4o and o1-preview-based browser agents attempted 98 and 63 harmful behaviors (out of 100), respectively. We publicly release BrowserART and call on LLM developers, policym",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2410.08827",
+      "title": "Do Unlearning Methods Remove Information from Language Model Weights?",
+      "short": "Weights or behaviour",
+      "url": "https://arxiv.org/abs/2410.08827",
+      "pdf": "https://arxiv.org/pdf/2410.08827",
+      "date": "2024-10-11",
+      "authors": [
+        "Aghyad Deeb",
+        "Fabien Roger"
+      ],
+      "organisations": [
+        "FAR AI"
+      ],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 88,
+      "kind": "paper",
+      "trust": {
+        "tier": "frontier-lab",
+        "justification": "preprint; 88 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Asks the question directly and finds information largely remains in the weights after unlearning. Reframes unlearning results as behavioural edits rather than deletions.",
+      "primary_category": "defense.unlearning",
+      "categories": [
+        "defense.unlearning",
+        "interp.probes",
+        "eval.audit"
+      ],
+      "contribution_type": "analysis",
+      "methods": [
+        "weight-level probing",
+        "retraining attacks"
+      ],
+      "threat_model": "A deletion obligation on a trained model.",
+      "addresses_needs": [
+        "n.privacy",
+        "n.evals"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "A legal deletion obligation is about the data, not the behaviour, so current methods may not discharge it at all.",
+      "confidence": 1.0,
+      "abstract": "Large Language Models' knowledge of how to perform cyber-security attacks, create bioweapons, and manipulate humans poses risks of misuse. Previous work has proposed methods to unlearn this knowledge. Historically, it has been unclear whether unlearning techniques are removing information from the model weights or just making it harder to access. To disentangle these two objectives, we propose an adversarial evaluation method to test for the removal of information from model weights: we give an attacker access to some facts that were supposed to be removed, and using those, the attacker tries to recover other facts from the same distribution that cannot be guessed from the accessible facts. We show that using fine-tuning on the accessible facts can recover 88% of the pre-unlearning accuracy when applied to current unlearning methods for information learned during pretraining, revealing the limitations of these methods in removing information from the model weights. Our results also suggest that unlearning evaluations that measure unlearning robustness on information learned during an additional fine-tuning phase may overestimate robustness compared to evaluations that attempt to unlearn information learned during pretraining.",
+      "added": "2026-11-05",
       "classified_by": "curated-seed",
       "curation": "human",
       "notes": "",
@@ -1627,6 +2056,224 @@
       "citations": 499
     },
     {
+      "id": "arxiv:2409.18025",
+      "title": "An Adversarial Perspective on Machine Unlearning for AI Safety",
+      "short": "Adversarial unlearning",
+      "url": "https://arxiv.org/abs/2409.18025",
+      "pdf": "https://arxiv.org/pdf/2409.18025",
+      "date": "2024-09-26",
+      "authors": [
+        "Jakub Lucki",
+        "Boyi Wei",
+        "Yangsibo Huang",
+        "Peter Henderson",
+        "Florian Tramèr",
+        "Javier Rando"
+      ],
+      "organisations": [
+        "ETH Zurich",
+        "Google DeepMind"
+      ],
+      "venue": "Trans. Mach. Learn. Res.",
+      "venue_source": "semantic-scholar",
+      "citations": 152,
+      "kind": "paper",
+      "trust": {
+        "tier": "frontier-lab",
+        "justification": "Trans. Mach. Learn. Res.; 152 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Shows unlearned capability is recoverable by fine-tuning or probing, and that unlearning often suppresses rather than removes. Direct evidence for the unlearning-evaluation gap.",
+      "primary_category": "defense.unlearning",
+      "categories": [
+        "defense.unlearning",
+        "eval.audit",
+        "attack.extraction"
+      ],
+      "contribution_type": "analysis",
+      "methods": [
+        "relearning attacks",
+        "activation-space probing"
+      ],
+      "threat_model": "A party claiming hazardous capability was removed.",
+      "addresses_needs": [
+        "n.privacy",
+        "n.evals"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "If suppression and removal are indistinguishable behaviourally, no behavioural evaluation can support a removal claim.",
+      "confidence": 1.0,
+      "abstract": "Large language models are finetuned to refuse questions about hazardous knowledge, but these protections can often be bypassed. Unlearning methods aim at completely removing hazardous capabilities from models and make them inaccessible to adversaries. This work challenges the fundamental differences between unlearning and traditional safety post-training from an adversarial perspective. We demonstrate that existing jailbreak methods, previously reported as ineffective against unlearning, can be successful when applied carefully. Furthermore, we develop a variety of adaptive methods that recover most supposedly unlearned capabilities. For instance, we show that finetuning on 10 unrelated examples or removing specific directions in the activation space can recover most hazardous capabilities for models edited with RMU, a state-of-the-art unlearning method. Our findings challenge the robustness of current unlearning approaches and question their advantages over safety training.",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2409.11295",
+      "title": "EIA: Environmental Injection Attack on Generalist Web Agents for Privacy Leakage",
+      "short": "Environmental injection",
+      "url": "https://arxiv.org/abs/2409.11295",
+      "pdf": "https://arxiv.org/pdf/2409.11295",
+      "date": "2024-09-17",
+      "authors": [
+        "Zeyi Liao",
+        "Ling-Bo Mo",
+        "Che-Jian Xu",
+        "Min-Tong Kang",
+        "Jia-Wei Zhang",
+        "Chaowei Xiao"
+      ],
+      "organisations": [],
+      "venue": "International Conference on Learning Representations",
+      "venue_source": "semantic-scholar",
+      "citations": 193,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "International Conference on Learning Representations; 193 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Injects invisible elements into a page that cause a web agent to disclose the user's personal data. The agent becomes the leak, with the user's own credentials.",
+      "primary_category": "agent.computeruse",
+      "categories": [
+        "agent.computeruse",
+        "attack.privacy",
+        "agent.hijack"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "injected form fields",
+        "privacy leakage measurement"
+      ],
+      "threat_model": "A hostile website harvesting data from an agent acting for a user.",
+      "addresses_needs": [
+        "n.agent_sec",
+        "n.privacy"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Defences require the agent to distinguish page content from instruction, which is the unsolved injection problem in visual form.",
+      "confidence": 1.0,
+      "abstract": "Generalist web agents have demonstrated remarkable potential in autonomously completing a wide range of tasks on real websites, significantly boosting human productivity. However, web tasks, such as booking flights, usually involve users' PII, which may be exposed to potential privacy risks if web agents accidentally interact with compromised websites, a scenario that remains largely unexplored in the literature. In this work, we narrow this gap by conducting the first study on the privacy risks of generalist web agents in adversarial environments. First, we present a realistic threat model for attacks on the website, where we consider two adversarial targets: stealing users' specific PII or the entire user request. Then, we propose a novel attack method, termed Environmental Injection Attack (EIA). EIA injects malicious content designed to adapt well to environments where the agents operate and our work instantiates EIA specifically for privacy scenarios in web environments. We collect 177 action steps that involve diverse PII categories on realistic websites from the Mind2Web, and conduct experiments using one of the most capable generalist web agent frameworks to date. The results demonstrate that EIA achieves up to 70% ASR in stealing specific PII and 16% ASR for full user request. Additionally, by accessing the stealthiness and experimenting with a defensive system prompt, we indicate that EIA is hard to detect and mitigate. Notably, attacks that are not well adapted for",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2409.00137",
+      "title": "Emerging Vulnerabilities in Frontier Models: Multi-Turn Jailbreak Attacks",
+      "short": "Multi-turn jailbreaks",
+      "url": "https://arxiv.org/abs/2409.00137",
+      "pdf": "https://arxiv.org/pdf/2409.00137",
+      "date": "2024-08-29",
+      "authors": [
+        "Tom Gibbs",
+        "Ethan Kosak-Hine",
+        "George Ingebretsen",
+        "Jason Zhang",
+        "Julius Broomfield",
+        "Sara Pieri"
+      ],
+      "organisations": [
+        "Scale AI"
+      ],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 19,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "preprint; 19 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Shows harmful requests decomposed across turns bypass defences that catch the same request in one turn. Safety evaluation is overwhelmingly single-turn; attacks are not.",
+      "primary_category": "attack.jailbreak",
+      "categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "multi-turn decomposition",
+        "single-turn equivalence"
+      ],
+      "threat_model": "An attacker spreading a harmful request across a conversation.",
+      "addresses_needs": [
+        "n.redteam",
+        "n.guardrails"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Nearly all benchmarks and guardrails operate per-message, so multi-turn is structurally under-measured.",
+      "confidence": 1.0,
+      "abstract": "Large language models (LLMs) are improving at an exceptional rate. However, these models are still susceptible to jailbreak attacks, which are becoming increasingly dangerous as models become increasingly powerful. In this work, we introduce a dataset of jailbreaks where each example can be input in both a single or a multi-turn format. We show that while equivalent in content, they are not equivalent in jailbreak success: defending against one structure does not guarantee defense against the other. Similarly, LLM-based filter guardrails also perform differently depending on not just the input content but the input structure. Thus, vulnerabilities of frontier models should be studied in both single and multi-turn settings; this dataset provides a tool to do so.",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2408.15221",
+      "title": "LLM Defenses Are Not Robust to Multi-Turn Human Jailbreaks Yet",
+      "short": "Human multi-turn",
+      "url": "https://arxiv.org/abs/2408.15221",
+      "pdf": "https://arxiv.org/pdf/2408.15221",
+      "date": "2024-08-27",
+      "authors": [
+        "Nathaniel Li",
+        "Ziwen Han",
+        "Ian Steneker",
+        "Willow E. Primack",
+        "Riley Goodside",
+        "Hugh Zhang"
+      ],
+      "organisations": [
+        "Scale AI"
+      ],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 185,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "preprint; 185 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Human multi-turn attacks achieve far higher success than automated single-turn ones against the same defences, including ones reporting near-zero attack success.",
+      "primary_category": "attack.jailbreak",
+      "categories": [
+        "attack.jailbreak",
+        "defense.robust",
+        "eval.redteam"
+      ],
+      "contribution_type": "analysis",
+      "methods": [
+        "human red-team multi-turn",
+        "defence comparison"
+      ],
+      "threat_model": "A patient human attacker rather than an automated one.",
+      "addresses_needs": [
+        "n.redteam",
+        "n.guardrails"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Defences reporting robustness against automated attacks are being measured against the wrong adversary.",
+      "confidence": 1.0,
+      "abstract": "Recent large language model (LLM) defenses have greatly improved models' ability to refuse harmful queries, even when adversarially attacked. However, LLM defenses are primarily evaluated against automated adversarial attacks in a single turn of conversation, an insufficient threat model for real-world malicious use. We demonstrate that multi-turn human jailbreaks uncover significant vulnerabilities, exceeding 70% attack success rate (ASR) on HarmBench against defenses that report single-digit ASRs with automated single-turn attacks. Human jailbreaks also reveal vulnerabilities in machine unlearning defenses, successfully recovering dual-use biosecurity knowledge from unlearned models. We compile these results into Multi-Turn Human Jailbreaks (MHJ), a dataset of 2,912 prompts across 537 multi-turn jailbreaks. We publicly release MHJ alongside a compendium of jailbreak tactics developed across dozens of commercial red teaming engagements, supporting research towards stronger LLM defenses.",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
       "id": "arxiv:2408.08926",
       "title": "Cybench: A Framework for Evaluating Cybersecurity Capabilities and Risks of Language Models",
       "url": "https://arxiv.org/abs/2408.08926",
@@ -1796,6 +2443,109 @@
       "confidence": 1.0,
       "abstract": "Large language models (LLMs) have demonstrated remarkable capabilities, but their power comes with significant security considerations. While extensive research has been conducted on the safety of LLMs in chat mode, the security implications of their function calling feature have been largely overlooked. This paper uncovers a critical vulnerability in the function calling process of LLMs, introducing a novel\"jailbreak function\"attack method that exploits alignment discrepancies, user coercion, and the absence of rigorous safety filters. Our empirical study, conducted on six state-of-the-art LLMs including GPT-4o, Claude-3.5-Sonnet, and Gemini-1.5-pro, reveals an alarming average success rate of over 90\\% for this attack. We provide a comprehensive analysis of why function calls are susceptible to such attacks and propose defensive strategies, including the use of defensive prompts. Our findings highlight the urgent need for enhanced security measures in the function calling capabilities of LLMs, contributing to the field of AI safety by identifying a previously unexplored risk, designing an effective attack method, and suggesting practical defensive measures. Our code is available at https://github.com/wooozihui/jailbreakfunction.",
       "added": "2026-11-04",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2407.16686",
+      "title": "Can Large Language Models Automatically Jailbreak GPT-4V?",
+      "short": "Multimodal auto-jailbreak",
+      "url": "https://arxiv.org/abs/2407.16686",
+      "pdf": "https://arxiv.org/pdf/2407.16686",
+      "date": "2024-07-23",
+      "authors": [
+        "Yuan-Wei Wu",
+        "Yue Huang",
+        "Yi-Xin Liu",
+        "Xiang Li",
+        "Pan Zhou",
+        "Li-Min Sun"
+      ],
+      "organisations": [],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 3,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "preprint; 3 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Automates jailbreak discovery against a multimodal model, confirming the pattern that each added modality widens rather than extends the attack surface.",
+      "primary_category": "attack.jailbreak",
+      "categories": [
+        "attack.jailbreak",
+        "attack.adversarial"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "automated multimodal jailbreak",
+        "transfer across modality"
+      ],
+      "threat_model": "A vision-language model accepting both text and image.",
+      "addresses_needs": [
+        "n.redteam"
+      ],
+      "overlaps_with": [],
+      "gap_signal": null,
+      "confidence": 1.0,
+      "abstract": "GPT-4V has attracted considerable attention due to its extraordinary capacity for integrating and processing multimodal information. At the same time, its ability of face recognition raises new safety concerns of privacy leakage. Despite researchers' efforts in safety alignment through RLHF or preprocessing filters, vulnerabilities might still be exploited. In our study, we introduce AutoJailbreak, an innovative automatic jailbreak technique inspired by prompt optimization. We leverage Large Language Models (LLMs) for red-teaming to refine the jailbreak prompt and employ weak-to-strong in-context learning prompts to boost efficiency. Furthermore, we present an effective search method that incorporates early stopping to minimize optimization time and token expenditure. Our experiments demonstrate that AutoJailbreak significantly surpasses conventional methods, achieving an Attack Success Rate (ASR) exceeding 95.3\\%. This research sheds light on strengthening GPT-4V security, underscoring the potential for LLMs to be exploited in compromising GPT-4V integrity.",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
+      "id": "arxiv:2407.12784",
+      "title": "AgentPoison: Red-teaming LLM Agents via Poisoning Memory or Knowledge Bases",
+      "short": "AgentPoison",
+      "url": "https://arxiv.org/abs/2407.12784",
+      "pdf": "https://arxiv.org/pdf/2407.12784",
+      "date": "2024-07-17",
+      "authors": [
+        "Zhaorun Chen",
+        "Zhen Xiang",
+        "Chao-Wei Xiao",
+        "D. Song",
+        "Bo Li"
+      ],
+      "organisations": [],
+      "venue": "Neural Information Processing Systems",
+      "venue_source": "semantic-scholar",
+      "citations": 607,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "Neural Information Processing Systems; 607 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Poisons an agent's retrieval memory so a trigger retrieves attacker-chosen context, with high success at very low poison ratios. Agent memory is a persistent attack surface, not a cache.",
+      "primary_category": "agent.multiagent",
+      "categories": [
+        "agent.multiagent",
+        "supply.poisoning",
+        "agent.hijack"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "memory poisoning",
+        "trigger optimisation in embedding space"
+      ],
+      "threat_model": "An agent whose long-term memory or knowledge base an attacker can write to.",
+      "addresses_needs": [
+        "n.agent_sec",
+        "n.supplychain"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Agent memory has none of the integrity controls a database would have, and no defence is proposed.",
+      "confidence": 1.0,
+      "abstract": "LLM agents have demonstrated remarkable performance across various applications, primarily due to their advanced capabilities in reasoning, utilizing external knowledge and tools, calling APIs, and executing actions to interact with environments. Current agents typically utilize a memory module or a retrieval-augmented generation (RAG) mechanism, retrieving past knowledge and instances with similar embeddings from knowledge bases to inform task planning and execution. However, the reliance on unverified knowledge bases raises significant concerns about their safety and trustworthiness. To uncover such vulnerabilities, we propose a novel red teaming approach AgentPoison, the first backdoor attack targeting generic and RAG-based LLM agents by poisoning their long-term memory or RAG knowledge base. In particular, we form the trigger generation process as a constrained optimization to optimize backdoor triggers by mapping the triggered instances to a unique embedding space, so as to ensure that whenever a user instruction contains the optimized backdoor trigger, the malicious demonstrations are retrieved from the poisoned memory or knowledge base with high probability. In the meantime, benign instructions without the trigger will still maintain normal performance. Unlike conventional backdoor attacks, AgentPoison requires no additional model training or fine-tuning, and the optimized backdoor trigger exhibits superior transferability, in-context coherence, and stealthiness. Exten",
+      "added": "2026-11-05",
       "classified_by": "curated-seed",
       "curation": "human",
       "notes": "",
@@ -2250,6 +3000,57 @@
       "validation_warnings": []
     },
     {
+      "id": "arxiv:2404.01833",
+      "title": "Great, Now Write an Article About That: The Crescendo Multi-Turn LLM Jailbreak Attack",
+      "short": "Crescendo",
+      "url": "https://arxiv.org/abs/2404.01833",
+      "pdf": "https://arxiv.org/pdf/2404.01833",
+      "date": "2024-04-02",
+      "authors": [
+        "M. Russinovich",
+        "Ahmed Salem",
+        "Ronen Eldan"
+      ],
+      "organisations": [
+        "Microsoft"
+      ],
+      "venue": "USENIX Security Symposium",
+      "venue_source": "semantic-scholar",
+      "citations": 506,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "USENIX Security Symposium; 506 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Starts benign and escalates in small steps, each referencing the model's own prior output, until it produces content it would have refused outright. Effective against production systems and hard to detect per-message.",
+      "primary_category": "attack.jailbreak",
+      "categories": [
+        "attack.jailbreak",
+        "eval.redteam"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "gradual escalation",
+        "benign-start conversation"
+      ],
+      "threat_model": "An attacker escalating gradually from an innocuous opening.",
+      "addresses_needs": [
+        "n.redteam",
+        "n.guardrails"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Per-message classification cannot see escalation; conversation-level detection is largely unstudied.",
+      "confidence": 1.0,
+      "abstract": "Large Language Models (LLMs) have risen significantly in popularity and are increasingly being adopted across multiple applications. These LLMs are heavily aligned to resist engaging in illegal or unethical topics as a means to avoid contributing to responsible AI harms. However, a recent line of attacks, known as jailbreaks, seek to overcome this alignment. Intuitively, jailbreak attacks aim to narrow the gap between what the model can do and what it is willing to do. In this paper, we introduce a novel jailbreak attack called Crescendo. Unlike existing jailbreak methods, Crescendo is a simple multi-turn jailbreak that interacts with the model in a seemingly benign manner. It begins with a general prompt or question about the task at hand and then gradually escalates the dialogue by referencing the model's replies progressively leading to a successful jailbreak. We evaluate Crescendo on various public systems, including ChatGPT, Gemini Pro, Gemini-Ultra, LlaMA-2 70b and LlaMA-3 70b Chat, and Anthropic Chat. Our results demonstrate the strong efficacy of Crescendo, with it achieving high attack success rates across all evaluated models and tasks. Furthermore, we present Crescendomation, a tool that automates the Crescendo attack and demonstrate its efficacy against state-of-the-art models through our evaluations. Crescendomation surpasses other state-of-the-art jailbreaking techniques on the AdvBench subset dataset, achieving 29-61% higher performance on GPT-4 and 49-71% on G",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
       "id": "arxiv:2403.14720",
       "title": "Defending Against Indirect Prompt Injection Attacks With Spotlighting",
       "url": "https://arxiv.org/abs/2403.14720",
@@ -2656,6 +3457,58 @@
       "validation_warnings": [],
       "short": "InjecAgent",
       "citations": 820
+    },
+    {
+      "id": "arxiv:2403.04783",
+      "title": "AutoDefense: Multi-Agent LLM Defense against Jailbreak Attacks",
+      "short": "AutoDefense",
+      "url": "https://arxiv.org/abs/2403.04783",
+      "pdf": "https://arxiv.org/pdf/2403.04783",
+      "date": "2024-03-02",
+      "authors": [
+        "Yifan Zeng",
+        "Yiran Wu",
+        "Xiao Zhang",
+        "Hua-Zheng Wang",
+        "Qing-Yun Wu"
+      ],
+      "organisations": [],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 200,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "preprint; 200 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Filters responses with a committee of agents in separate roles, letting a smaller model defend a larger one. Moves the defence to the output side where intent is easier to judge.",
+      "primary_category": "defense.guardrails",
+      "categories": [
+        "defense.guardrails",
+        "agent.multiagent",
+        "attack.jailbreak"
+      ],
+      "contribution_type": "defence",
+      "methods": [
+        "multi-agent response filtering",
+        "role separation"
+      ],
+      "threat_model": "Harmful content in a model's response rather than its prompt.",
+      "addresses_needs": [
+        "n.guardrails",
+        "n.agent_sec"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Adds latency and cost per response, and the defending agents are themselves injectable.",
+      "confidence": 1.0,
+      "abstract": "Despite extensive pre-training in moral alignment to prevent generating harmful information, large language models (LLMs) remain vulnerable to jailbreak attacks. In this paper, we propose AutoDefense, a multi-agent defense framework that filters harmful responses from LLMs. With the response-filtering mechanism, our framework is robust against different jailbreak attack prompts, and can be used to defend different victim models. AutoDefense assigns different roles to LLM agents and employs them to complete the defense task collaboratively. The division in tasks enhances the overall instruction-following of LLMs and enables the integration of other defense components as tools. With AutoDefense, small open-source LMs can serve as agents and defend larger models against jailbreak attacks. Our experiments show that AutoDefense can effectively defense against different jailbreak attacks, while maintaining the performance at normal user request. For example, we reduce the attack success rate on GPT-3.5 from 55.74% to 7.95% using LLaMA-2-13b with a 3-agent system. Our code and data are publicly available at https://github.com/XHMY/AutoDefense.",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2402.16835",
@@ -3133,6 +3986,58 @@
       "citations": 653
     },
     {
+      "id": "doi:10.48550-arXiv.2410.17401",
+      "title": "AdvWeb: Controllable Black-box Attacks on VLM-powered Web Agents",
+      "short": "AdvWeb",
+      "url": "https://doi.org/10.48550/arXiv.2410.17401",
+      "pdf": "",
+      "date": "2024-01-01",
+      "authors": [
+        "Che-Jian Xu",
+        "Min-Tong Kang",
+        "Jia-Wei Zhang",
+        "Zeyi Liao",
+        "Ling-Bo Mo",
+        "Meng-Qi Yuan"
+      ],
+      "organisations": [],
+      "venue": "preprint",
+      "venue_source": "semantic-scholar",
+      "citations": 48,
+      "kind": "paper",
+      "trust": {
+        "tier": "top-institution",
+        "justification": "preprint; 48 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "DOI",
+      "what_its_about": "Generates injected page content that steers a vision-language web agent to attacker-chosen actions, with control over which action is taken rather than mere disruption.",
+      "primary_category": "agent.computeruse",
+      "categories": [
+        "agent.computeruse",
+        "agent.hijack",
+        "attack.adversarial"
+      ],
+      "contribution_type": "attack",
+      "methods": [
+        "injected HTML strings",
+        "black-box controllable attacks"
+      ],
+      "threat_model": "Attacker-controlled content on a page a web agent visits.",
+      "addresses_needs": [
+        "n.agent_sec"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Controllability means a web agent is a usable attacker tool, not just a failure risk - a qualitative change nothing defends against.",
+      "confidence": 1.0,
+      "abstract": "",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
+    },
+    {
       "id": "arxiv:2312.17673",
       "title": "Jatmo: Prompt Injection Defense by Task-Specific Finetuning",
       "short": "Jatmo",
@@ -3499,6 +4404,57 @@
       "validation_warnings": [],
       "short": "RLHF backdoors",
       "citations": 179
+    },
+    {
+      "id": "arxiv:2311.09096",
+      "title": "Defending Large Language Models Against Jailbreaking Attacks Through Goal Prioritization",
+      "short": "Goal prioritisation",
+      "url": "https://arxiv.org/abs/2311.09096",
+      "pdf": "https://arxiv.org/pdf/2311.09096",
+      "date": "2023-11-15",
+      "authors": [
+        "Zhexin Zhang",
+        "Junxiao Yang",
+        "Pei Ke",
+        "Fei Mi",
+        "Hong-Ning Wang",
+        "Min-Lie Huang"
+      ],
+      "organisations": [],
+      "venue": "Annual Meeting of the Association for Computational Linguistics",
+      "venue_source": "semantic-scholar",
+      "citations": 239,
+      "kind": "paper",
+      "trust": {
+        "tier": "peer-reviewed",
+        "justification": "Annual Meeting of the Association for Computational Linguistics; 239 citations",
+        "gate_reason": "seed entry; metadata and venue verified via Semantic Scholar"
+      },
+      "source": "arXiv",
+      "what_its_about": "Makes the helpfulness/harmlessness ordering explicit at inference, substantially cutting attack success without retraining. A cheap defence addressing the competing-objectives failure mode directly.",
+      "primary_category": "defense.guardrails",
+      "categories": [
+        "defense.guardrails",
+        "attack.jailbreak"
+      ],
+      "contribution_type": "defence",
+      "methods": [
+        "explicit goal ordering",
+        "inference-time prompting"
+      ],
+      "threat_model": "Attacks exploiting the tension between helpfulness and harmlessness.",
+      "addresses_needs": [
+        "n.guardrails"
+      ],
+      "overlaps_with": [],
+      "gap_signal": "Works through prompting, so an attack that reaches the same channel can argue with the priority instruction.",
+      "confidence": 1.0,
+      "abstract": "While significant attention has been dedicated to exploiting weaknesses in LLMs through jailbreaking attacks, there remains a paucity of effort in defending against these attacks. We point out a pivotal factor contributing to the success of jailbreaks: the intrinsic conflict between the goals of being helpful and ensuring safety. Accordingly, we propose to integrate goal prioritization at both training and inference stages to counteract. Implementing goal prioritization during inference substantially diminishes the Attack Success Rate (ASR) of jailbreaking from 66.4% to 3.6% for ChatGPT. And integrating goal prioritization into model training reduces the ASR from 71.0% to 6.6% for Llama2-13B. Remarkably, even in scenarios where no jailbreaking samples are included during training, our approach slashes the ASR by half. Additionally, our findings reveal that while stronger LLMs face greater safety risks, they also possess a greater capacity to be steered towards defending against such attacks, both because of their stronger ability in instruction following. Our work thus contributes to the comprehension of jailbreaking attacks and defenses, and sheds light on the relationship between LLMs' capability and safety. Our code is available at \\url{https://github.com/thu-coai/JailbreakDefense_GoalPriority}.",
+      "added": "2026-11-05",
+      "classified_by": "curated-seed",
+      "curation": "human",
+      "notes": "",
+      "validation_warnings": []
     },
     {
       "id": "arxiv:2311.04235",

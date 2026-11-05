@@ -203,7 +203,7 @@ part of the argument. What is in place, and why:
 | **No credential persistence** | `persist-credentials: false` wherever a job does not push, so no token is left in `.git/config`. |
 | **Egress recorded** | `harden-runner` in audit mode. The agent fetches from the open internet by design, so egress cannot be blocked — but a source feed quietly redirecting elsewhere shows up in the run's network log. |
 | **Hash-pinned dependencies** | `agent/requirements.txt` pins the full transitive closure with hashes, installed via `--require-hashes`. A substituted artifact fails closed. |
-| **Static analysis** | CodeQL (`security-extended`) on Python and JavaScript, on push, PR and weekly. |
+| **Static analysis** | CodeQL via GitHub's **default setup** (Settings → Code security). An advanced workflow was tried first and conflicted — default setup rejects uploads from one, so both ran and the advanced one failed on every push. Default setup covers Python and Actions out of the box; add `javascript-typescript` to its language list to cover `docs/app.js` too. |
 | **Secret scanning** | GitHub's own on the default branch, plus gitleaks gating pull requests over full history, plus a pre-commit hook. |
 | **Supply-chain score** | OpenSSF Scorecard publishing to the Security tab. |
 | **Human-only commits** | The weekly agent opens a pull request; it cannot write to `main`. Every commit on `main` is a merge someone reviewed. |
