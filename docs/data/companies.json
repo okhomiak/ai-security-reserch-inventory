@@ -1328,6 +1328,586 @@
       },
       "basis": "Public positioning as an assurance consultancy; most columns inferred from that.",
       "confidence": "low"
+    },
+    {
+      "id": "janestreet",
+      "label": "Jane Street",
+      "type": "Quant trading",
+      "region": "London/NY",
+      "cells": {
+        "n.guardrails": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.agent_sec": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 2,
+          "evidence": []
+        }
+      },
+      "basis": "Inferred from sector: proprietary models are the firm's core IP, so model confidentiality and insider risk dominate. Jane Street publishes engineering content but nothing on AI security specifically.",
+      "confidence": "low"
+    },
+    {
+      "id": "citadel",
+      "label": "Citadel / Citadel Securities",
+      "type": "Quant trading",
+      "region": "London/Chicago",
+      "cells": {
+        "n.guardrails": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.agent_sec": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 1,
+          "evidence": []
+        }
+      },
+      "basis": "Inferred from sector and public security hiring. No public AI-security material.",
+      "confidence": "low"
+    },
+    {
+      "id": "twosigma",
+      "label": "Two Sigma",
+      "type": "Quant trading",
+      "region": "London/NY",
+      "cells": {
+        "n.guardrails": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.agent_sec": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 3,
+          "evidence": []
+        }
+      },
+      "basis": "Inferred, with slightly more weight on evaluation and interpretability given the firm's published ML research.",
+      "confidence": "low"
+    },
+    {
+      "id": "gresearch",
+      "label": "G-Research",
+      "type": "Quant trading",
+      "region": "London",
+      "cells": {
+        "n.guardrails": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.agent_sec": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 3,
+          "evidence": []
+        }
+      },
+      "basis": "Inferred. Publishes ML research and sponsors academic work, so evaluation and infrastructure weigh higher; nothing public on AI security.",
+      "confidence": "low"
+    },
+    {
+      "id": "xtx",
+      "label": "XTX Markets",
+      "type": "Quant trading",
+      "region": "London",
+      "cells": {
+        "n.guardrails": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.agent_sec": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 2,
+          "evidence": []
+        }
+      },
+      "basis": "Inferred from sector and known compute investment. No public AI-security material.",
+      "confidence": "low"
+    },
+    {
+      "id": "hrt",
+      "label": "Hudson River Trading",
+      "type": "Quant trading",
+      "region": "London/NY",
+      "cells": {
+        "n.guardrails": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.agent_sec": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 1,
+          "evidence": []
+        }
+      },
+      "basis": "Inferred entirely from sector. Among the least publicly documented rows here.",
+      "confidence": "low"
+    },
+    {
+      "id": "jump",
+      "label": "Jump Trading",
+      "type": "Quant trading",
+      "region": "London/Chicago",
+      "cells": {
+        "n.guardrails": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.agent_sec": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 1,
+          "evidence": []
+        }
+      },
+      "basis": "Inferred entirely from sector.",
+      "confidence": "low"
+    },
+    {
+      "id": "manggroup",
+      "label": "Man Group",
+      "type": "Hedge fund",
+      "region": "London",
+      "cells": {
+        "n.guardrails": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.agent_sec": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 2,
+          "evidence": []
+        }
+      },
+      "basis": "Inferred, weighted toward compliance: a listed asset manager carries FCA obligations a private trading firm does not.",
+      "confidence": "low"
+    },
+    {
+      "id": "deshaw",
+      "label": "D. E. Shaw",
+      "type": "Hedge fund",
+      "region": "London/NY",
+      "cells": {
+        "n.guardrails": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.agent_sec": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 2,
+          "evidence": []
+        }
+      },
+      "basis": "Inferred from sector and regulatory posture.",
+      "confidence": "low"
+    },
+    {
+      "id": "marshallwace",
+      "label": "Marshall Wace",
+      "type": "Hedge fund",
+      "region": "London",
+      "cells": {
+        "n.guardrails": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.agent_sec": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.redteam": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.evals": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.supplychain": {
+          "score": 3,
+          "evidence": []
+        },
+        "n.privacy": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.monitoring": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.compliance": {
+          "score": 5,
+          "evidence": []
+        },
+        "n.secure_infra": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.identity": {
+          "score": 4,
+          "evidence": []
+        },
+        "n.offensive": {
+          "score": 2,
+          "evidence": []
+        },
+        "n.interp": {
+          "score": 2,
+          "evidence": []
+        }
+      },
+      "basis": "Inferred. Public statements about adopting LLMs for research workflows raise the agent and guardrail columns slightly.",
+      "confidence": "low"
     }
   ],
   "methodology": {
@@ -1360,6 +1940,10 @@
       {
         "bias": "Curator framing",
         "effect": "The twelve needs were chosen by one person and determine what can be measured. A demand that does not map onto a column is invisible here, which is the hardest bias to see from inside the artefact."
+      },
+      {
+        "bias": "Sector opacity",
+        "effect": "Quantitative trading firms and hedge funds publish almost nothing about internal security. Their rows here are inference from regulatory obligation, hiring patterns and sector norms, not from evidence - every one is marked low confidence. Their apparent profile (high on monitoring, infrastructure, identity and compliance; low on interpretability and red-teaming) may say more about what the sector is obliged to disclose than about what it actually works on. Treat the whole block as a hypothesis to test by talking to people, not as a reading."
       }
     ],
     "what_it_cannot_tell_you": [

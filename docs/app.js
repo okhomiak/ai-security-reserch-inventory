@@ -1,7 +1,7 @@
 /* AI Security Research Inventory - static dashboard over docs/data/*.json.
    No framework, no build. Everything here reads committed JSON and draws it. */
 
-const FILES = ['papers', 'taxonomy', 'companies', 'gaps', 'derived', 'runs', 'review_queue', 'news'];
+const FILES = ['papers', 'taxonomy', 'companies', 'gaps', 'derived', 'runs', 'review_queue', 'news', 'frameworks'];
 
 /* Contribution types on the eight categorical slots, in the order that clears
    every adjacent-pair CVD gate in both modes. Render legends and stacks in THIS
@@ -177,6 +177,7 @@ async function boot() {
   D.companies = D.companies || { needs: [], companies: [] };
   D.review_queue = D.review_queue || { items: [] };
   D.news = D.news || { items: [] };
+  D.frameworks = D.frameworks || { frameworks: [] };
 
   D.taxonomy.nodes.forEach((n) => { TAX[n.id] = n; (n.parent ? LEAF : BRANCH)[n.id] = n; });
   D.papers.papers.forEach((p) => { PAPER[p.id] = p; });
@@ -201,6 +202,7 @@ async function boot() {
   renderDemand();
   renderGaps();
   renderPapers();
+  renderFrameworks();
   renderNews();
   renderPipeline();
   openFromHash();
@@ -219,9 +221,46 @@ function initTheme() {
   });
 }
 
+const VIEWS = ['news', 'overlaps', 'tree', 'demand', 'frameworks', 'gaps', 'papers', 'pipeline'];
+
 function initTabs() {
   $$('#tabs .tab').forEach((t) => t.addEventListener('click', () => show(t.dataset.view)));
   addEventListener('hashchange', openFromHash);
+
+  // The header condenses once you leave the top, so the tab bar stays reachable
+  // without the title block eating the viewport.
+  const onScroll = () => document.querySelector('header').classList.toggle('scrolled', scrollY > 8);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const keys = $('#keys');
+  const closeKeys = () => keys.removeAttribute('open');
+  $('#keys-btn').addEventListener('click', () => keys.toggleAttribute('open'));
+  keys.addEventListener('click', closeKeys);
+
+  // Anyone who reads a dashboard twice wants to stop reaching for the mouse.
+  addEventListener('keydown', (e) => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName || '');
+    if (e.key === 'Escape') { closeKeys(); hideTip(); hideCard(); document.activeElement?.blur?.(); return; }
+    if (typing) return;
+
+    if (e.key >= '1' && e.key <= '8') { show(VIEWS[+e.key - 1]); e.preventDefault(); return; }
+    if (e.key === '/') {
+      const box = $('section.view.active input[type="search"]');
+      if (box) { box.focus(); box.select(); e.preventDefault(); }
+      return;
+    }
+    if (e.key === 't') { $('#theme-btn').click(); return; }
+    if (e.key === '?') { keys.toggleAttribute('open'); return; }
+    if (e.key === 'g' && $('#view-overlaps').classList.contains('active')) {
+      const [tree, graph] = $$('#ov-mode button');
+      ($('#ov-tree-wrap').hidden ? tree : graph).click();
+    }
+  });
+  // Reveal the per-tab number hints while Alt is held.
+  addEventListener('keydown', (e) => { if (e.key === 'Alt') document.body.classList.add('keys'); });
+  addEventListener('keyup', (e) => { if (e.key === 'Alt') document.body.classList.remove('keys'); });
 }
 function show(view) {
   $$('#tabs .tab').forEach((t) => t.setAttribute('aria-selected', String(t.dataset.view === view)));
@@ -231,7 +270,7 @@ function show(view) {
 }
 const openFromHash = () => {
   const v = location.hash.slice(1);
-  show($(`#view-${v}`) ? v : 'overlaps');
+  show($(`#view-${v}`) ? v : 'news');
 };
 /* SVG that needs measured width redrawn after a layout or theme change */
 function redrawCanvases() {
@@ -1286,6 +1325,100 @@ function drawPapers() {
   if (!rows.length) tb.innerHTML = '<tr><td colspan="6" class="empty">Nothing matches those filters.</td></tr>';
 }
 
+/* ================================================================= FRAMEWORKS
+   A framework is a tree, not a list - OWASP has ten risks, ATLAS fourteen
+   tactics, NIST twelve. Drawing each element against the research that backs it
+   is what turns a compliance checklist into a diagnosis: a hollow element is a
+   risk somebody is obliged to manage with nothing published to manage it with. */
+let FW_FILTER = 'all';
+function renderFrameworks() {
+  $$('#fw-filter button').forEach((b) => b.addEventListener('click', () => {
+    $$('#fw-filter button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    FW_FILTER = b.dataset.f;
+    drawFrameworks();
+  }));
+  drawFrameworks();
+}
+
+/* An element is only as covered as its thinnest requirement.
+   Counting the union of papers across all of an element's categories flatters
+   it: OWASP's "Supply Chain" maps to three categories, and if two are well
+   studied the union looks healthy even when the third has nothing. The weakest
+   mapped category is the number that actually tells you whether the element is
+   answerable, so that is what drives the colour and the score. */
+function fwCoverage(el) {
+  const byCat = D.derived.tree.paper_ids || {};
+  const ids = new Set();
+  el.cats.forEach((c) => (byCat[c] || []).forEach((p) => ids.add(p)));
+  const perCat = el.cats.map((c) => ({ cat: c, n: (byCat[c] || []).length }));
+  const weakest = perCat.length ? Math.min(...perCat.map((x) => x.n)) : 0;
+  const thinnest = perCat.length ? perCat.reduce((a, b) => (b.n < a.n ? b : a)) : null;
+  return { papers: ids.size, weakest, thinnest, perCat, ids: [...ids], cats: el.cats.length };
+}
+
+function drawFrameworks() {
+  const fws = D.frameworks.frameworks || [];
+  if (!fws.length) { $('#fw-list').innerHTML = '<p class="empty">No frameworks loaded.</p>'; return; }
+
+  const all = fws.flatMap((f) => f.elements.map((e) => ({ f, e, ...fwCoverage(e) })));
+  const maxN = Math.max(1, ...all.map((x) => x.weakest));
+  const empty = all.filter((x) => !x.weakest).length;
+  const thin = all.filter((x) => x.weakest > 0 && x.weakest <= 2).length;
+
+  $('#fw-stats').innerHTML = [
+    [fws.length, 'frameworks mapped'],
+    [all.length, 'named risks and controls'],
+    [empty, 'with an unstudied requirement'],
+    [thin, 'whose weakest leg is 1-2 papers'],
+    [`${Math.round((all.filter((x) => x.weakest >= 3).length / all.length) * 100)}%`, 'covered on every leg'],
+  ].map(([v, k]) => `<div class="stat"><div class="v">${esc(v)}</div><div class="k">${esc(k)}</div></div>`).join('');
+
+  $('#fw-legend').innerHTML = rampLegend('papers on the weakest mapped category', maxN)
+    + '<span class="li"><span class="swatch hollow"></span>a requirement with nothing published</span>'
+    + '<span class="li sub">bold = weakest leg, grey = total touching the element</span>';
+
+  $('#fw-list').innerHTML = fws.map((f) => {
+    const rows = f.elements
+      .map((e) => ({ e, ...fwCoverage(e) }))
+      .filter((r) => FW_FILTER === 'all' || r.weakest <= 2);
+    if (!rows.length) return '';
+    const covered = f.elements.filter((e) => fwCoverage(e).weakest >= 3).length;
+    return `
+      <section class="fw" id="fw-${esc(f.id)}">
+        <header class="fw-h">
+          <div>
+            <h3>${esc(f.name)}</h3>
+            <div class="fw-meta">${esc(f.org)} · ${esc(f.version)} · ${esc(f.kind)}
+              · <a href="${esc(f.url)}" target="_blank" rel="noopener noreferrer">source</a></div>
+          </div>
+          <div class="fw-score" title="elements with 3+ papers behind them">
+            <b>${covered}</b><span>/ ${f.elements.length} covered</span>
+          </div>
+        </header>
+        <p class="fw-blurb">${esc(f.blurb)}</p>
+        <ul class="fw-tree">${rows.map(({ e, papers, weakest, thinnest, perCat }) => `
+          <li class="fw-el${weakest ? '' : ' hollow'}">
+            <span class="fw-dot" data-sty="background:${weakest ? ramp(weakest, maxN) : 'transparent'}"></span>
+            <span class="fw-id">${esc(e.id)}</span>
+            <span class="fw-label">${esc(e.label)}${weakest === 0 && thinnest
+              ? `<em class="fw-weak">nothing on ${esc(TAX[thinnest.cat]?.label || thinnest.cat)}</em>`
+              : (weakest <= 2 && thinnest && perCat.length > 1
+                 ? `<em class="fw-weak">thinnest leg: ${esc(TAX[thinnest.cat]?.label || thinnest.cat)} (${thinnest.n})</em>` : '')}</span>
+            <span class="fw-cats">${e.cats.length
+              ? perCat.map((pc) => `<a href="#tree" class="catlink${pc.n ? '' : ' nil'}" data-cat="${esc(pc.cat)}">${esc(TAX[pc.cat]?.label || pc.cat)}<b>${pc.n}</b></a>`).join('')
+              : '<em>maps to nothing in the taxonomy</em>'}</span>
+            <span class="fw-n${weakest ? '' : ' zero'}">${weakest || '—'}<i>${papers}</i></span>
+          </li>`).join('')}</ul>
+        <details class="fw-crit"><summary>The case against this framework</summary>
+          <p>${esc(f.critique)}</p></details>
+      </section>`;
+  }).join('');
+
+  $$('#fw-list .catlink').forEach((a2) => a2.addEventListener('click', (ev) => {
+    ev.preventDefault(); show('tree'); treePanel(a2.dataset.cat);
+  }));
+}
+
 /* ======================================================================= NEWS
    The early-signal layer. A lab post is not a paper - it is unreviewed, often
    the first public word on an incident, and it dates fast. Keeping it in its own
@@ -1295,6 +1428,35 @@ let N_SORT = 'date';
 function renderNews() {
   const items = D.news.items || [];
   $('#news-note').textContent = D.news.note || '';
+
+  // The landing view has to orient someone who arrived cold, not just list links.
+  const papers = D.papers.papers;
+  const cov = D.derived.coverage || {};
+  const emptyLeaves = Object.keys(LEAF).filter((l) => !(D.derived.tree.total || {})[l]).length;
+  const hottest = Object.entries(cov).sort((a, b) => b[1].pressure - a[1].pressure)[0];
+  const week = items.filter((i) => {
+    const d = new Date(i.date); const now = new Date(D.news.updated || Date.now());
+    return (now - d) / 86400000 <= 7;
+  }).length;
+
+  $('#hero-stats').innerHTML = [
+    [papers.length, 'papers, reports and frameworks'],
+    [D.derived.pairs.length, 'overlaps between them'],
+    [(D.gaps.gaps || []).length, 'gaps, each with a falsification test'],
+    [D.companies.companies.length, 'organisations mapped'],
+    [week, 'lab posts in the last 7 days'],
+  ].map(([v, k]) => `<div class="stat"><div class="v">${esc(v)}</div><div class="k">${esc(k)}</div></div>`).join('');
+
+  $('#hero-links').innerHTML = [
+    ['overlaps', 'Where the work overlaps', `${D.derived.clusters.length} research conversations`],
+    ['tree', 'The research tree', `${emptyLeaves} categor${emptyLeaves === 1 ? 'y' : 'ies'} with nothing in them`],
+    ['demand', 'What companies want', hottest ? `most under-served: ${esc(NEED[hottest[0]]?.label || '')}` : ''],
+    ['gaps', 'The gaps', 'what the literature has not answered'],
+  ].map(([v, t, sub]) =>
+    `<a href="#${v}" class="hero-link" data-go="${v}"><b>${esc(t)}</b><span>${sub}</span></a>`).join('');
+
+  $$('#hero-links .hero-link').forEach((el2) =>
+    el2.addEventListener('click', (e) => { e.preventDefault(); show(el2.dataset.go); }));
 
   const orgs = [...new Set(items.map((i) => i.org))].sort();
   orgs.forEach((o) => $('#n-org').append(el('option', { value: o },

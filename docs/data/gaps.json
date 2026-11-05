@@ -156,9 +156,9 @@
             }
           ],
           "computed": {
-            "mean_demand": 3.11,
-            "companies_at_4plus": 8,
-            "of_companies": 18,
+            "mean_demand": 3.5,
+            "companies_at_4plus": 18,
+            "of_companies": 28,
             "need_label": "Identity & authz for AI"
           }
         },
@@ -342,9 +342,9 @@
             }
           ],
           "computed": {
-            "mean_demand": 3.17,
-            "companies_at_4plus": 7,
-            "of_companies": 18,
+            "mean_demand": 3.39,
+            "companies_at_4plus": 15,
+            "of_companies": 28,
             "need_label": "Model supply chain"
           }
         },
@@ -529,9 +529,9 @@
             "need": "n.agent_sec"
           },
           "computed": {
-            "mean_demand": 4.11,
-            "companies_at_4plus": 14,
-            "of_companies": 18,
+            "mean_demand": 3.82,
+            "companies_at_4plus": 17,
+            "of_companies": 28,
             "need_label": "Agent & tool security"
           }
         },
@@ -610,9 +610,9 @@
             }
           ],
           "computed": {
-            "mean_demand": 3.89,
-            "companies_at_4plus": 11,
-            "of_companies": 18,
+            "mean_demand": 4.11,
+            "companies_at_4plus": 21,
+            "of_companies": 28,
             "need_label": "Compliance & assurance"
           }
         },

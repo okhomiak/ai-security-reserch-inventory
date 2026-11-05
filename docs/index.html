@@ -36,20 +36,22 @@
 <header>
   <div class="head-in">
     <div class="head-top">
-      <h1>AI Security Research Inventory</h1>
+      <h1><span class="mark" aria-hidden="true"></span>AI Security Research Inventory</h1>
       <span class="sub" id="head-sub">loading…</span>
       <span id="new-pill"></span>
       <span class="spacer"></span>
-      <button class="icon-btn" id="theme-btn" title="Toggle light / dark">◐ theme</button>
+      <button class="icon-btn" id="keys-btn" title="Keyboard shortcuts (press ?)">⌘ keys</button>
+      <button class="icon-btn" id="theme-btn" title="Toggle light / dark (press t)">◐ theme</button>
     </div>
     <nav class="tabs" role="tablist" id="tabs">
-      <button class="tab" role="tab" data-view="overlaps"  aria-selected="true">Overlaps</button>
-      <button class="tab" role="tab" data-view="tree"      aria-selected="false">Research tree</button>
-      <button class="tab" role="tab" data-view="demand"    aria-selected="false">What companies want</button>
-      <button class="tab" role="tab" data-view="gaps"      aria-selected="false">Gaps</button>
-      <button class="tab" role="tab" data-view="news"      aria-selected="false">News</button>
-      <button class="tab" role="tab" data-view="papers"    aria-selected="false">Papers</button>
-      <button class="tab" role="tab" data-view="pipeline"  aria-selected="false">Pipeline</button>
+      <button class="tab" role="tab" data-view="news"      aria-selected="true">News<span class="key">1</span></button>
+      <button class="tab" role="tab" data-view="overlaps"  aria-selected="false">Overlaps<span class="key">2</span></button>
+      <button class="tab" role="tab" data-view="tree"      aria-selected="false">Research tree<span class="key">3</span></button>
+      <button class="tab" role="tab" data-view="demand"    aria-selected="false">What companies want<span class="key">4</span></button>
+      <button class="tab" role="tab" data-view="frameworks" aria-selected="false">Frameworks<span class="key">5</span></button>
+      <button class="tab" role="tab" data-view="gaps"      aria-selected="false">Gaps<span class="key">6</span></button>
+      <button class="tab" role="tab" data-view="papers"    aria-selected="false">Papers<span class="key">7</span></button>
+      <button class="tab" role="tab" data-view="pipeline"  aria-selected="false">Pipeline<span class="key">8</span></button>
     </nav>
   </div>
 </header>
@@ -57,7 +59,7 @@
 <div class="wrap">
 
   <!-- ============================================================ OVERLAPS -->
-  <section class="view active" id="view-overlaps" role="tabpanel">
+  <section class="view" id="view-overlaps" role="tabpanel">
     <div class="stats" id="ov-stats"></div>
 
     <div class="card">
@@ -166,6 +168,27 @@
     </div>
   </section>
 
+  <!-- ========================================================== FRAMEWORKS -->
+  <section class="view" id="view-frameworks" role="tabpanel">
+    <div class="card">
+      <h2>Security frameworks, against the research</h2>
+      <p class="note">Seven frameworks with their real internal structure — OWASP's ten risks, ATLAS's
+        fourteen tactics, NIST's twelve — each element mapped onto the research taxonomy and filled by how
+        many papers sit behind it. A hollow element is a risk the framework names and the literature has not
+        answered. That is the whole reason to draw these as trees rather than list them: the shape tells you
+        where a compliance obligation has no research to draw on.</p>
+      <div class="toolbar">
+        <div class="seg" id="fw-filter">
+          <button data-f="all" aria-pressed="true">All elements</button>
+          <button data-f="thin" aria-pressed="false">Thin or empty only</button>
+        </div>
+        <span class="legend flush" id="fw-legend"></span>
+      </div>
+      <div class="stats" id="fw-stats"></div>
+      <div id="fw-list"></div>
+    </div>
+  </section>
+
   <!-- ================================================================ GAPS -->
   <section class="view" id="view-gaps" role="tabpanel">
     <div class="card">
@@ -194,7 +217,17 @@
   </section>
 
   <!-- ================================================================ NEWS -->
-  <section class="view" id="view-news" role="tabpanel">
+  <section class="view active" id="view-news" role="tabpanel">
+    <div class="card hero">
+      <h2>AI security research, and what it still does not answer</h2>
+      <p class="note">An inventory of AI-security work with the arguments between papers made explicit,
+        a taxonomy that shows where nothing has been published, a map of what organisations are visibly
+        investing in, and eight gaps where demand and coverage come apart. Refreshed weekly by an agent
+        that reads new work and files it. <b>This page is the week's signal;</b> the rest is the standing
+        picture.</p>
+      <div class="stats" id="hero-stats"></div>
+      <nav class="hero-links" id="hero-links"></nav>
+    </div>
     <div class="card">
       <h2>Latest from the labs</h2>
       <p class="note" id="news-note"></p>
@@ -272,6 +305,19 @@
 
 <div id="tip" role="tooltip"></div>
 <div id="card" role="tooltip"></div>
+<div id="keys" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts">
+  <div class="panel">
+    <h3>Keyboard</h3>
+    <dl>
+      <dt><kbd>1</kbd>–<kbd>8</kbd></dt><dd>jump to a view</dd>
+      <dt><kbd>/</kbd></dt><dd>focus this view's search</dd>
+      <dt><kbd>t</kbd></dt><dd>light / dark</dd>
+      <dt><kbd>g</kbd></dt><dd>graph / tree on Overlaps</dd>
+      <dt><kbd>?</kbd></dt><dd>this panel</dd>
+      <dt><kbd>Esc</kbd></dt><dd>close</dd>
+    </dl>
+  </div>
+</div>
 <script src="app.js"></script>
 </body>
 </html>

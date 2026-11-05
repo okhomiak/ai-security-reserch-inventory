@@ -3685,11 +3685,11 @@
       },
       "defensive": 9,
       "offensive": 4,
-      "mean_demand": 4.17,
+      "mean_demand": 3.89,
       "max_demand": 5,
-      "companies_at_4plus": 14,
+      "companies_at_4plus": 18,
       "evidenced_cells": 8,
-      "pressure": 0.208
+      "pressure": 0.195
     },
     "n.agent_sec": {
       "papers": 27,
@@ -3732,11 +3732,11 @@
       },
       "defensive": 9,
       "offensive": 5,
-      "mean_demand": 4.11,
+      "mean_demand": 3.82,
       "max_demand": 5,
-      "companies_at_4plus": 14,
+      "companies_at_4plus": 17,
       "evidenced_cells": 1,
-      "pressure": 0.147
+      "pressure": 0.136
     },
     "n.redteam": {
       "papers": 32,
@@ -3785,11 +3785,11 @@
       },
       "defensive": 13,
       "offensive": 8,
-      "mean_demand": 3.78,
+      "mean_demand": 3.25,
       "max_demand": 5,
       "companies_at_4plus": 10,
       "evidenced_cells": 6,
-      "pressure": 0.115
+      "pressure": 0.098
     },
     "n.evals": {
       "papers": 35,
@@ -3841,11 +3841,11 @@
       },
       "defensive": 5,
       "offensive": 1,
-      "mean_demand": 3.33,
+      "mean_demand": 3.29,
       "max_demand": 5,
-      "companies_at_4plus": 7,
+      "companies_at_4plus": 9,
       "evidenced_cells": 4,
-      "pressure": 0.092
+      "pressure": 0.091
     },
     "n.supplychain": {
       "papers": 18,
@@ -3879,11 +3879,11 @@
       },
       "defensive": 5,
       "offensive": 6,
-      "mean_demand": 3.17,
+      "mean_demand": 3.39,
       "max_demand": 5,
-      "companies_at_4plus": 7,
+      "companies_at_4plus": 15,
       "evidenced_cells": 2,
-      "pressure": 0.167
+      "pressure": 0.178
     },
     "n.privacy": {
       "papers": 16,
@@ -3916,11 +3916,11 @@
       },
       "defensive": 2,
       "offensive": 9,
-      "mean_demand": 3.22,
+      "mean_demand": 3.39,
       "max_demand": 5,
-      "companies_at_4plus": 7,
+      "companies_at_4plus": 14,
       "evidenced_cells": 0,
-      "pressure": 0.189
+      "pressure": 0.199
     },
     "n.monitoring": {
       "papers": 12,
@@ -3946,11 +3946,11 @@
       },
       "defensive": 6,
       "offensive": 0,
-      "mean_demand": 4.17,
+      "mean_demand": 4.25,
       "max_demand": 5,
-      "companies_at_4plus": 14,
+      "companies_at_4plus": 24,
       "evidenced_cells": 1,
-      "pressure": 0.321
+      "pressure": 0.327
     },
     "n.compliance": {
       "papers": 24,
@@ -3988,11 +3988,11 @@
       },
       "defensive": 8,
       "offensive": 1,
-      "mean_demand": 3.89,
+      "mean_demand": 4.11,
       "max_demand": 5,
-      "companies_at_4plus": 11,
+      "companies_at_4plus": 21,
       "evidenced_cells": 1,
-      "pressure": 0.156
+      "pressure": 0.164
     },
     "n.secure_infra": {
       "papers": 7,
@@ -4012,11 +4012,11 @@
       },
       "defensive": 2,
       "offensive": 4,
-      "mean_demand": 3.44,
+      "mean_demand": 3.86,
       "max_demand": 5,
-      "companies_at_4plus": 9,
+      "companies_at_4plus": 19,
       "evidenced_cells": 0,
-      "pressure": 0.43
+      "pressure": 0.482
     },
     "n.identity": {
       "papers": 11,
@@ -4041,11 +4041,11 @@
       },
       "defensive": 7,
       "offensive": 1,
-      "mean_demand": 3.11,
+      "mean_demand": 3.5,
       "max_demand": 5,
-      "companies_at_4plus": 8,
+      "companies_at_4plus": 18,
       "evidenced_cells": 1,
-      "pressure": 0.259
+      "pressure": 0.292
     },
     "n.offensive": {
       "papers": 30,
@@ -4090,11 +4090,11 @@
       },
       "defensive": 4,
       "offensive": 0,
-      "mean_demand": 3.67,
+      "mean_demand": 3.21,
       "max_demand": 5,
-      "companies_at_4plus": 11,
+      "companies_at_4plus": 12,
       "evidenced_cells": 1,
-      "pressure": 0.118
+      "pressure": 0.104
     },
     "n.interp": {
       "papers": 15,
@@ -4124,11 +4124,11 @@
       },
       "defensive": 4,
       "offensive": 0,
-      "mean_demand": 1.83,
+      "mean_demand": 1.86,
       "max_demand": 5,
       "companies_at_4plus": 2,
       "evidenced_cells": 1,
-      "pressure": 0.114
+      "pressure": 0.116
     }
   },
   "derived_gaps": [],
