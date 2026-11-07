@@ -9,6 +9,16 @@ not.
 The dashboard itself deploys from `main` on every push, so a release here marks
 a coherent state of the data and tooling, not a separate artefact to download.
 
+## Unreleased
+
+- **The Strata redesign is live in `docs/`.** The left rail, type, surfaces and
+  colour are restyled across all ten views; Demand is rebuilt as a glass slab over research-coverage bars with a per-need
+  sheet; Papers is a single sortable, groupable table; every other view takes
+  the same type, surfaces and flat inline stat rows. Light and dark both work
+  (`?theme=light|dark` pins one), glass falls back to opaque surfaces under
+  `prefers-reduced-transparency`, and CSP is unchanged (no inline style, no
+  webfonts). Keyboard: `1`-`9` and `0` jump between the ten views.
+
 ## 2026.11.4 — 2026-11-07
 
 - **Validate failed on any push made on a day after the last data refresh.**
@@ -22,8 +32,8 @@ a coherent state of the data and tooling, not a separate artefact to download.
   because a manual run of an older tag executes that tag's `pipeline.py`,
   which may predate `--as-of`.
 - **A redesign proposal, "Strata", lives in `design/strata/`:** a self-contained
-  mockup with screenshots and the designer's notes. It is a proposal only;
-  nothing under `docs/` changed and the live dashboard is as it was.
+  mockup with screenshots and the designer's notes. It was a proposal
+  only when released; the live dashboard adopts it in the entry above.
 - **ClusterFuzzLite also runs on pushes to `main` that touch the fuzzed code**
   (`agent/`, `.clusterfuzzlite/`, its own workflow), so its badge reflects
   `main` rather than the last pull request or Thursday's scheduled run.

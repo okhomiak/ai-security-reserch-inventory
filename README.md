@@ -28,7 +28,7 @@ Three views carry most of the weight:
 |---|---|
 | **Overlaps** | Which pieces of work are arguing with each other? A force-directed graph of every paper, joined where two share a real object of study, plus the 20 clusters those joins form, a branch co-occurrence matrix, and the ranked pair list. |
 | **Research tree** | What is the shape of the field, and where is nothing? A taxonomy of 9 branches and 41 leaves, each node filled by how many papers sit under it. A hollow dashed leaf is a coverage hole you can see in the shape of the tree. |
-| **What companies want** | Where is the demand? A 28 × 12 heat map of organisation against need, with research coverage along the bottom so demand and supply are read together. Scores are editorial estimates of *visible investment*, not measurements — the view states its own six biases. |
+| **Demand** | Where does demand outrun the research? A 28 × 12 heat map of organisation against need on a glass slab, with research coverage as bars beneath it (and a status strip underneath) so demand and supply are read together; click a need for its sheet of gap chains, papers and askers. Scores are editorial estimates of *visible investment*, not measurements — the view states its own six biases. |
 
 Alongside those: **Gaps** (each a numbered chain of claims carrying its own
 counter-argument and falsifier), **Frameworks** (7, scored on their weakest
@@ -186,7 +186,7 @@ needs to be served over HTTP, not opened as a `file://` URL.
 
 ```
 docs/                      the published site
-  index.html  app.js  styles.css
+  index.html  app.js  styles.css  strata.css  strata-demand.css  strata-papers.css
   data/
     taxonomy.json          the research tree - 9 branches, 41 leaves
     papers.json            the inventory; `curation` says hand-written or agent-classified

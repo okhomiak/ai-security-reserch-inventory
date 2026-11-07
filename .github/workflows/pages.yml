@@ -45,8 +45,8 @@ jobs:
         # query string makes each deploy a new URL.
         run: |
           sha="${GITHUB_SHA::12}"
-          sed -i "s|href=\"styles.css\"|href=\"styles.css?v=$sha\"|; s|src=\"app.js\"|src=\"app.js?v=$sha\"|" docs/index.html
-          grep -o 'styles.css?v=[a-f0-9]*' docs/index.html
+          sed -i -E "s#href=\"(styles|strata|strata-demand|strata-papers)\.css\"#href=\"\1.css?v=$sha\"#g; s|src=\"app.js\"|src=\"app.js?v=$sha\"|" docs/index.html
+          grep -o -E '(styles|strata[a-z-]*)\.css\?v=[a-f0-9]*' docs/index.html
           grep -o 'app.js?v=[a-f0-9]*' docs/index.html
 
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0

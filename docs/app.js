@@ -151,7 +151,7 @@ function bindCard(node, builder) {
 
 const shortTitle = (t, n = 72) => (t.length > n ? t.slice(0, n - 1) + '…' : t);
 const catLabel = (id) => (TAX[id] ? (TAX[id].parent ? `${TAX[TAX[id].parent].label} › ${TAX[id].label}` : TAX[id].label) : id);
-const branchOf = (id) => id.split('.')[0];
+const branchOf = (id) => String(id ?? '').split('.')[0];
 const tierBadge = (t) => `<span class="badge t-${esc(t)}">${esc(t.replace(/-/g, ' '))}</span>`;
 const newBadge = (p) => (isNew(p) ? '<span class="badge is-new">new</span>' : '');
 /* Threat-intel reports and policy documents are not papers; the inventory holds
@@ -260,6 +260,26 @@ async function boot() {
   openFromHash();
 }
 
+/* The first sentence of a note as a node list (inline markup preserved), or null when the
+   note is already about one sentence long. */
+function firstSentenceNodes(n) {
+  const text = n.textContent;
+  let m = /^[\s\S]*?[.!?](?=\s|$)/.exec(text);
+  let end = m ? m[0].length : text.length;
+  if (end < 70) { m = /^[\s\S]*?[.!?](?=\s|$)/.exec(text.slice(end).replace(/^\s+/, '')); if (m) end = text.indexOf(m[0], end) + m[0].length; }
+  if (end >= text.trimEnd().length - 12) return null;
+  const w = document.createTreeWalker(n, NodeFilter.SHOW_TEXT);
+  let acc = 0, node;
+  const r = document.createRange();
+  r.setStart(n, 0);
+  while ((node = w.nextNode())) {
+    const L = node.data.length;
+    if (acc + L >= end) { r.setEnd(node, end - acc); return [...r.cloneContents().childNodes]; }
+    acc += L;
+  }
+  return null;
+}
+
 /* Clamp long card explanations and give each a toggle. Applied after render so
    it catches every view, including the ones drawn lazily. */
 function initDensity() {
@@ -271,13 +291,20 @@ function initDensity() {
       // never clamped. Only a note that actually has short content is skipped.
       const len = n.textContent.trim().length;
       if (len === 0) return;
-      if (len < 150) { n.dataset.clamp = 'skip'; return; }
+      if (len < 150 || n.previousElementSibling?.classList.contains('card-h3')) { n.dataset.clamp = 'skip'; return; }
+      // Collapse to the first whole sentence (never a mid-word cut), keeping any inline markup.
+      const full = [...n.childNodes];
+      const short = firstSentenceNodes(n);
+      if (!short) { n.dataset.clamp = 'skip'; return; }
       n.dataset.clamp = 'on';
       n.classList.add('clamped');
-      const btn = el('button', { class: 'note-more', type: 'button' }, 'Why this view');
+      n.replaceChildren(...short);
+      const btn = el('button', { class: 'note-more', type: 'button', 'aria-expanded': 'false' }, 'Read more');
       btn.addEventListener('click', () => {
-        const open = !n.classList.toggle('clamped');
-        btn.textContent = open ? 'Show less' : 'Why this view';
+        const open = n.classList.toggle('clamped') === false;
+        n.replaceChildren(...(open ? full : short));
+        btn.textContent = open ? 'Show less' : 'Read more';
+        btn.setAttribute('aria-expanded', String(open));
       });
       n.after(btn);
     });
@@ -288,7 +315,9 @@ function initDensity() {
 }
 
 function initTheme() {
-  const saved = (() => { try { return localStorage.getItem('aisec-theme'); } catch { return null; } })();
+  const urlTheme = new URLSearchParams(location.search).get('theme');
+  const saved = ['light', 'dark'].includes(urlTheme) ? urlTheme
+    : (() => { try { return localStorage.getItem('aisec-theme'); } catch { return null; } })();
   if (saved) document.documentElement.dataset.theme = saved;
   $('#theme-btn').addEventListener('click', () => {
     const dark = matchMedia('(prefers-color-scheme: dark)').matches;
@@ -346,6 +375,8 @@ function show(view) {
   $$('#tabs .nav').forEach((t) => t.setAttribute('aria-selected', String(t.dataset.view === view)));
   $$('section.view').forEach((s) => s.classList.toggle('active', s.id === `view-${view}`));
   if (location.hash.slice(1) !== view) history.replaceState(null, '', `#${view}`);
+  document.body.classList.toggle('sd-view', view === 'demand');
+  sdSyncView(view === 'demand');
   redrawCanvases();
 }
 const openFromHash = () => {
@@ -454,7 +485,7 @@ function renderOverlaps() {
       <li>
         <div class="score">${p.score.toFixed(2)}<i data-sty="width:${Math.round(p.score * 100)}%"></i></div>
         <div>
-          <div class="pair-t">${paperLink(p.a)}<span class="j">↔</span>${paperLink(p.b)}
+          <div class="pair-t">${paperLink(p.a)}<span class="j" aria-hidden="true">↔</span>${paperLink(p.b)}
             ${p.declared ? '<span class="badge">stated</span>' : ''}</div>
           ${p.note ? `<div class="pair-why">${esc(p.note)}</div>` : ''}
           <div class="ev">${p.shared_categories.map((c) => `<span>${esc(catLabel(c))}</span>`).join('')}
@@ -1017,13 +1048,74 @@ function treePanel(id) {
       <div class="tp-meta">${metaRow(p)}</div>
       <div data-sty="font-size:12.5px">${esc(p.what_its_about)}</div></div>`;
   }).join('');
-  $('#tree-panel-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  $('#tree-panel-card').scrollIntoView({ behavior: smoothBehavior(), block: 'nearest' });
 }
 
-/* ===================================================================== DEMAND */
+/* ===================================================================== DEMAND
+   Strata hero. Twelve coverage bars stand on the field; the company x need
+   matrix is one glass slab floating over them; a crisp strip beneath the slab
+   carries the paper count and a status word per need; a docked sheet explains
+   the selected need. All colour that depends on data is a CSS class or goes
+   through data-sty (CSP forbids inline style attributes). */
+
+/* Short type words so the row label never truncates. The full type is in the tooltip. */
+const SD_TYPE_WORD = {
+  'Quant trading': 'Quant', 'Frontier lab': 'Lab', 'Platform': 'Platform', 'Security vendor': 'Vendor',
+  'Hedge fund': 'Fund', 'AI-security startup': 'Startup', 'Government': 'Gov', 'Consultancy': 'Consult',
+  'Enterprise (finance)': 'Finance', 'Enterprise (fintech)': 'Fintech', 'Enterprise (gov/defence)': 'Gov / def',
+};
+const sdTypeWord = (t) => SD_TYPE_WORD[t] || t;
+const SD_BRANCHES = ['attack', 'supply', 'agent', 'defense', 'eval', 'interp', 'cyber', 'infra', 'gov'];
+const sdSafeClass = (v, allowed, fallback = '') => (allowed.includes(v) ? v : fallback);
+const sdHost = (u) => { try { return new URL(u).hostname; } catch { return ''; } };
+const sdHttp = (u) => /^https?:\/\//i.test(String(u || ''));
+const SD = { sel: null, open: false, sort: 'demand', cols: [], opener: null, drawn: false, wired: false };
+const SD_MQ = matchMedia('(min-width: 1340px)');
+const sdDock = () => SD_MQ.matches;
+const smoothBehavior = () => (matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth');
+const sdNum = (v) => (Number.isFinite(Number(v)) ? Number(v) : 0);
+
+/* Coverage status is demand per paper (derived.coverage[n].pressure) measured
+   against the median need, so the words stay meaningful as the corpus grows
+   rather than being pinned to absolute numbers:
+     hole  : at least 3.00x the median pressure  (asked for a lot, held almost nothing)
+     thin  : at least 1.75x
+     watch : at least 1.25x
+     ok    : below that
+   On today's data this gives 2 holes, 1 thin, 2 watch, 7 ok. Every status is a
+   word as well as a colour. */
+const SD_STATUS = [
+  { key: 'hole', min: 3, say: 'at least 3x the median demand per paper' },
+  { key: 'thin', min: 1.75, say: 'at least 1.75x the median demand per paper' },
+  { key: 'watch', min: 1.25, say: 'at least 1.25x the median demand per paper' },
+  { key: 'ok', min: 0, say: 'demand per paper close to or below the median' },
+];
+function sdStats() {
+  const needs = D.companies.needs, cov = D.derived.coverage || {};
+  const ps = needs.map((n) => cov[n.id]?.pressure || 0).sort((a, b) => a - b);
+  const h = ps.length >> 1;
+  const med = !ps.length ? 0 : (ps.length % 2 ? ps[h] : (ps[h - 1] + ps[h]) / 2);
+  return { med, maxPapers: Math.max(1, ...needs.map((n) => cov[n.id]?.papers || 0)), maxP: Math.max(0.001, ...ps) };
+}
+function sdStatus(pressure, med) {
+  const r = med ? pressure / med : 0;
+  return SD_STATUS.find((s) => r >= s.min) || SD_STATUS[3];
+}
+const sdStatusTag = (st) => `<span class="sd-st sd-st-${st.key}"><i aria-hidden="true"></i>${st.key}</span>`;
+const sdCov = (id) => (D.derived.coverage || {})[id] || { papers: 0, paper_ids: [], mean_demand: 0, pressure: 0, defensive: 0, offensive: 0, companies_at_4plus: 0, evidenced_cells: 0, by_contribution: {} };
+const sdHasGap = (id) => (D.gaps.gaps || []).some((g) => (g.needs || []).includes(id) || (g.chain || []).some((s2) => s2.metric?.need === id));
+/* The need opened by default: most demand per paper, preferring one a gap chain already
+   argues about, so the sheet is never a thin first impression. */
+const sdTopNeed = () => {
+  const by = [...D.companies.needs].sort((a, b) => sdCov(b.id).pressure - sdCov(a.id).pressure);
+  return (by.find((n) => sdHasGap(n.id)) || by[0])?.id || null;
+};
+
 function renderDemand() {
-  $('#demand-basis').innerHTML = esc(D.companies.basis || '')
-    + ' <a href="#methodology" class="jump">How this was scored</a>';
+  // First sentence of the basis only; the rest of the caveat lives in the legend and the methodology below.
+  const basis = String(D.companies.basis || '');
+  $('#demand-basis').innerHTML = esc((basis.match(/^.*?\.(?=\s|$)/) || [basis])[0])
+    + ' <a href="#methodology" class="sd-jump" data-sd-jump>How this was scored and how it could be wrong</a>';
   $$('#hm-sort button').forEach((b) => b.addEventListener('click', () => {
     $$('#hm-sort button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
     drawHeatmap(b.dataset.s);
@@ -1031,6 +1123,330 @@ function renderDemand() {
   drawHeatmap('demand');
   drawPressure();
   drawMethodology();
+  sdWire();
+  // The hero is never empty on first paint: the need with the most demand per
+  // paper is selected. Below the dock breakpoint the sheet is an overlay, so it
+  // opens only when asked.
+  if (sdDock() && !SD.open) sdSelect(sdTopNeed(), null, true);
+}
+
+function sdWire() {
+  if (SD.wired) return;
+  SD.wired = true;
+  const view = $('#view-demand'), sheet = $('#need-sheet');
+  view.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-sd-need]');
+    if (b) { sdSelect(b.dataset.sdNeed, b, false, e.detail === 0); return; }
+    const j = e.target.closest('[data-sd-jump]');
+    if (j) { e.preventDefault(); $('#methodology')?.scrollIntoView({ behavior: smoothBehavior(), block: 'start' }); }
+  });
+  const scrim = el('div', { class: 'sd-scrim', 'aria-hidden': 'true' });
+  document.body.append(scrim);
+  scrim.addEventListener('click', () => sdClose());
+  sheet.addEventListener('click', (e) => {
+    if (e.target.closest('[data-sd-close]')) { sdClose(); return; }
+    const st = e.target.closest('[data-sd-step]');
+    if (st) {
+      const ids = SD.cols.map((c) => c.id), i = ids.indexOf(SD.sel);
+      const nx = ids[(i + (+st.dataset.sdStep) + ids.length) % ids.length];
+      sdSelect(nx, null, true);
+      $(`#need-sheet [data-sd-step="${st.dataset.sdStep === '1' ? '1' : '-1'}"]`)?.focus();
+      return;
+    }
+    const more = e.target.closest('[data-sd-more]');
+    if (more) {
+      const hidden = $$('#need-sheet .sd-plist li[hidden]');
+      hidden.forEach((li) => li.removeAttribute('hidden'));
+      more.remove();
+      hidden[0]?.querySelector('a')?.focus();
+    }
+  });
+  // Capture phase: this must see the palette / reader / keys panel while they are
+  // still open, so one Esc closes exactly one layer.
+  const layerOpen = () => document.body.classList.contains('rd-open')
+    || $('#cmdk')?.getAttribute('aria-hidden') === 'false' || $('#keys')?.hasAttribute('open');
+  document.addEventListener('keydown', (e) => {
+    if (!SD.open || !$('#view-demand').classList.contains('active') || layerOpen()) return;
+    if (e.key === 'Escape') { sdClose(); return; }
+    // Overlay mode is modal: keep Tab inside the sheet.
+    if (e.key === 'Tab' && !sdDock()) {
+      const f = $$('#need-sheet a[href], #need-sheet button, #need-sheet summary, #sd-sh-title')
+        .filter((x) => !x.closest('[hidden]') && x.getClientRects().length);
+      if (!f.length) return;
+      const first = f[0], last = f[f.length - 1], a = document.activeElement;
+      if (!sheet.contains(a)) { first.focus(); e.preventDefault(); }
+      else if (e.shiftKey && (a === first || a === sheet)) { last.focus(); e.preventDefault(); }
+      else if (!e.shiftKey && a === last) { first.focus(); e.preventDefault(); }
+    }
+  }, true);
+  // Crossing the dock breakpoint: a docked sheet must not turn into a scrim-covered
+  // overlay over the matrix, and returning to a wide window re-docks it.
+  SD_MQ.addEventListener('change', () => {
+    if (!$('#view-demand').classList.contains('active')) return;
+    if (SD.open && !sdDock()) sdClose(true);
+    else if (!SD.open && sdDock()) sdSelect(sdTopNeed(), null, true);
+    else sdSyncMode();
+  });
+}
+
+function sdMarkSel() {
+  $$('#view-demand [data-need]').forEach((n) => n.classList.toggle('sd-sel', n.dataset.need === SD.sel));
+  $$('#view-demand [data-sd-need]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.sdNeed === SD.sel)));
+}
+/* The sheet belongs to the Demand view only: leaving closes it (so focus is never left
+   inside a hidden panel) and arriving on a wide window docks the headline need again. */
+function sdSyncView(on) {
+  if (!SD.drawn) return;
+  if (!on) { if (SD.open) sdClose(true); return; }
+  if (!SD.open && sdDock()) sdSelect(sdTopNeed(), null, true);
+}
+function sdSyncMode() {
+  // In overlay mode the sheet is a modal dialog; docked it is a plain complementary region.
+  const sheet = $('#need-sheet'), overlay = SD.open && !sdDock();
+  sheet.setAttribute('role', overlay ? 'dialog' : 'complementary');
+  if (overlay) { sheet.setAttribute('aria-modal', 'true'); sheet.setAttribute('aria-labelledby', 'sd-sh-title'); sheet.removeAttribute('aria-label'); }
+  else { sheet.removeAttribute('aria-modal'); sheet.removeAttribute('aria-labelledby'); sheet.setAttribute('aria-label', 'Selected need'); }
+}
+function sdSelect(id, opener, quiet, byKey) {
+  if (!NEED[id]) return;
+  if (!quiet && SD.open && SD.sel === id) { sdClose(); return; }
+  SD.sel = id; SD.open = true;
+  if (opener) SD.opener = opener.className.split(/\s+/).find((c) => /^sd-(colbtn|sc|pn)$/.test(c)) || null;
+  const sheet = $('#need-sheet');
+  sdRenderSheet(id);
+  sheet.classList.add('sd-on');
+  sheet.setAttribute('aria-hidden', 'false');
+  sheet.scrollTop = 0;
+  document.body.classList.add('sd-open');
+  sdSyncMode();
+  sdMarkSel();
+  const live = $('#sd-live');
+  if (live) live.textContent = `Showing ${NEED[id].label}`;
+  // Overlay mode is modal, and a keyboard selection anywhere should land on the sheet.
+  if (!quiet && (byKey || !sdDock())) $('#sd-sh-title')?.focus();
+}
+function sdClose(noFocus) {
+  const was = SD.sel;
+  SD.open = false; SD.sel = null;
+  const sheet = $('#need-sheet');
+  sheet.classList.remove('sd-on');
+  sheet.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('sd-open');
+  sdSyncMode();
+  sdMarkSel();
+  if (noFocus || !SD.opener || !was) return;
+  const cls = SD.opener;
+  setTimeout(() => $$('#view-demand [data-sd-need]').find((b) => b.dataset.sdNeed === was && b.classList.contains(cls))?.focus(), 0);
+}
+
+/* ------------------------------------------------------------ the field */
+function sdDrawField(cols, st) {
+  const cov = D.derived.coverage || {};
+  $('#sd-cover').innerHTML = '<span></span>' + cols.map((n) => {
+    const h = Math.max(2, ((cov[n.id]?.papers || 0) / st.maxPapers) * 92);
+    return `<div class="sd-bar" data-need="${esc(n.id)}"><i class="sd-fill" data-sty="height:${h.toFixed(2)}%"></i></div>`;
+  }).join('');
+  $('#sd-strip').innerHTML = `<div class="sd-cap"><b>Papers beneath each need</b>
+      <span>Status compares demand per paper with the median need.</span></div>` + cols.map((n) => {
+    const k = sdCov(n.id), s = sdStatus(k.pressure, st.med);
+    return `<button type="button" class="sd-sc" data-need="${esc(n.id)}" data-sd-need="${esc(n.id)}" aria-pressed="false"
+      aria-label="${esc(n.label)}: ${sdNum(k.papers)} papers held, ${s.key}. Open details"><b>${sdNum(k.papers)}</b>${sdStatusTag(s)}</button>`;
+  }).join('');
+  $$('#sd-strip .sd-sc').forEach((b, i) => {
+    const n = cols[i], k = sdCov(n.id), s = sdStatus(k.pressure, st.med);
+    bindTip(b, `<b>${esc(n.label)}</b><span class="r">${sdNum(k.papers)} paper${k.papers === 1 ? '' : 's'} held, mean demand ${sdNum(k.mean_demand)}/5</span>
+      <span class="r">${sdNum(k.pressure).toFixed(3)} demand per paper: <b>${s.key}</b>, ${esc(s.say)}</span>`);
+  });
+}
+
+function drawHeatmap(sort) {
+  SD.sort = sort;
+  const needs = D.companies.needs;
+  const cov = D.derived.coverage || {};
+  const st = sdStats();
+  const total = (c) => needs.reduce((a, n) => a + (c.cells[n.id]?.score || 0), 0);
+  let rows = [...D.companies.companies];
+  if (sort === 'demand') rows.sort((a, b) => total(b) - total(a));
+  else if (sort === 'name') rows.sort((a, b) => a.label.localeCompare(b.label));
+  else rows.sort((a, b) => (a.type + a.label).localeCompare(b.type + b.label));
+
+  const cols = [...needs].sort((a, b) => (cov[b.id]?.mean_demand || 0) - (cov[a.id]?.mean_demand || 0));
+  SD.cols = cols;
+  const scale = D.companies.scale || [];
+  const maxTotal = needs.length * 5;
+
+  $('#hm-legend').innerHTML = `
+    <div class="sd-lg-t">Demand score</div>
+    <div class="sd-ramp" aria-hidden="true">${[0, 1, 2, 3, 4, 5].map((v) => `<i class="sd-q${v}">${v}</i>`).join('')}</div>
+    <div class="sd-lg-ends"><span>${esc(scale[0]?.label || 'none')}</span><span>${esc(scale[5]?.label || 'core bet')}</span></div>
+    <div class="sd-lg-r"><span class="sd-mk" aria-hidden="true"></span>dot: sourced, click to open</div>
+    <div class="sd-lg-r"><span class="sd-conf sd-conf-high" aria-hidden="true"></span><span class="sd-conf sd-conf-medium" aria-hidden="true"></span><span class="sd-conf sd-conf-low" aria-hidden="true"></span>row evidence: high, med, low</div>`;
+
+  const t = el('table', { class: 'sd-grid' });
+  t.innerHTML = `<caption class="sd-sr">Demand scores, 0 to 5, for each organisation and need. Columns are ordered by mean demand.</caption>
+    <colgroup><col class="sd-col-lab">${cols.map(() => '<col>').join('')}</colgroup>
+    <thead><tr><th class="sd-corner"><span class="sd-sr">Organisation</span></th>${cols.map((n) => {
+      const k = sdCov(n.id);
+      return `<th scope="col" class="sd-colh" data-need="${esc(n.id)}"><button type="button" class="sd-colbtn"
+        data-need="${esc(n.id)}" data-sd-need="${esc(n.id)}" aria-pressed="false"
+        aria-label="${esc(n.label)}: mean demand ${sdNum(k.mean_demand)}, ${sdNum(k.papers)} papers. Open details"><span>${esc(n.label)}</span></button></th>`;
+    }).join('')}</tr></thead>`;
+  const tb = el('tbody');
+
+  let lastType = null;
+  rows.forEach((c) => {
+    const tr = el('tr', { class: sort === 'type' && lastType !== null && c.type !== lastType ? 'sd-grp' : '' });
+    lastType = c.type;
+    const conf = sdSafeClass(c.confidence, ['high', 'medium', 'low'], 'low');
+    const th = el('th', { scope: 'row', class: 'sd-rowh' },
+      `<div class="sd-rh"><span class="sd-conf sd-conf-${conf}" role="img" aria-label="${conf} confidence"></span>`
+      + `<span class="sd-co">${esc(c.label)}</span><span class="sd-ty">${esc(sdTypeWord(c.type))}</span></div>`);
+    bindTip(th, `<b>${esc(c.label)}</b><span class="r">${esc(c.type)} · ${esc(c.region)}</span>
+      <span class="r">total demand ${total(c)}/${maxTotal} · ${conf} confidence</span>
+      <span class="r">${esc(c.basis || '')}</span>`);
+    tr.append(th);
+    cols.forEach((n) => {
+      const cell = c.cells[n.id] || { score: 0, evidence: [] };
+      const ev = (cell.evidence || []).filter((e) => sdHttp(e.url));
+      const score = sdNum(cell.score);
+      const td = el('td', { class: 'sd-cell' + (ev.length ? ' sd-src' : ''), 'data-need': n.id });
+      // A sourced cell is a real link inside the cell, so the table keeps its cell semantics.
+      td.innerHTML = ev.length
+        ? `<a class="sd-c sd-q${Math.min(5, Math.max(0, Math.round(score)))}" href="${esc(ev[0].url)}" target="_blank" rel="noopener noreferrer"
+            aria-label="${esc(c.label)}, ${esc(n.label)}: ${score} of 5. Anchored to ${esc(sdHost(ev[0].url))}; opens in a new tab">${score || '·'}</a>`
+        : `<span class="sd-c sd-q${Math.min(5, Math.max(0, Math.round(score)))}">${score || '·'}</span>`;
+      const sc = scale.find((s) => s.v === score);
+      bindTip(td, `<b>${esc(c.label)} — ${esc(n.label)}</b>
+        <span class="r">${score}/5 — ${esc(sc?.label || '')}</span>
+        ${ev.length
+          ? `<ul>${ev.map((e) => `<li>${esc(e.q)}<br><span class="r">${esc(sdHost(e.url))}</span></li>`).join('')}</ul>
+             <span class="r sd-tip-end">click to open the source</span>`
+          : '<span class="r sd-tip-end">seed estimate — no source attached yet</span>'}`);
+      tr.append(td);
+    });
+    tb.append(tr);
+  });
+  t.append(tb);
+
+  $('#heatmap').innerHTML = '';
+  $('#heatmap').append(t);
+  if (!SD.drawn) { sdDrawField(cols, st); SD.drawn = true; }
+  // Column header tooltips + selection state after any redraw
+  $$('#heatmap .sd-colbtn').forEach((b) => {
+    const n = NEED[b.dataset.need], k = sdCov(n.id), s = sdStatus(k.pressure, st.med);
+    bindTip(b, `<b>${esc(n.label)}</b><span class="r">${esc(n.blurb)}</span>
+      <span class="r">mean demand ${sdNum(k.mean_demand)}/5 · ${sdNum(k.papers)} papers · ${s.key}</span>`);
+  });
+  sdMarkSel();
+}
+
+/* ------------------------------------------------------------ the sheet */
+function sdComputed(c) {
+  if (!c) return '';
+  const bits = [];
+  if (c.mean_demand !== undefined) bits.push(`mean demand <b>${esc(c.mean_demand)}</b>/5, <b>${esc(c.companies_at_4plus)}</b> of ${esc(c.of_companies)} orgs at 4+`);
+  if (c.papers !== undefined) bits.push(`<b>${esc(c.papers)}</b> paper${c.papers === 1 ? '' : 's'} held`);
+  if (c.defensive !== undefined) bits.push(`<b>${esc(c.defensive)}</b> defence, <b>${esc(c.offensive)}</b> attack`);
+  const ids = (c.paper_ids || []);
+  const chips = ids.slice(0, 6).map((id) => evChip({ type: 'paper', id })).join('')
+    + (ids.length > 6 ? `<span class="sd-more-n">+${ids.length - 6} more beneath</span>` : '');
+  return (bits.length ? `<span class="sd-comp">${bits.join(' · ')}</span>` : '') + (chips ? `<div class="sd-evs">${chips}</div>` : '');
+}
+function sdGap(g) {
+  const sev = sdSafeClass(g.severity, ['high', 'medium', 'low']);
+  const chain = (g.chain || []).map((s, i) => `<li><span class="sd-n" aria-hidden="true">${esc(s.step ?? i + 1)}</span>
+      <div><p>${esc(s.claim)}</p>${sdComputed(s.computed)}
+      ${s.evidence?.length ? `<div class="sd-evs">${s.evidence.map(evChip).join('')}</div>` : ''}</div></li>`).join('');
+  const dl = [['Closes when', g.closes_when], ['Held open by', g.blocked_by]].filter(([, v]) => v)
+    .map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join('');
+  const against = [['Strongest counter', g.counter], ['Falsified by', g.falsifier]].filter(([, v]) => v)
+    .map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join('');
+  return `<article class="sd-gap">
+    <div class="sd-gap-top">${sev ? `<span class="sd-sev sd-sev-${sev}"><i aria-hidden="true"></i>${sev} severity</span>` : ''}
+      ${g.confidence ? `<span>${esc(g.confidence)} confidence</span>` : ''}${g.status ? `<span>${esc(g.status)}</span>` : ''}</div>
+    <h4>${esc(g.title)}</h4>
+    <ol class="sd-chain">${chain}</ol>
+    ${dl ? `<dl class="sd-dl">${dl}</dl>` : ''}
+    ${against ? `<details class="sd-crit"><summary>The case against</summary><dl class="sd-dl">${against}</dl></details>` : ''}
+    ${g.refreshed ? `<div class="sd-asof">figures as of ${esc(g.refreshed)}</div>` : ''}
+  </article>`;
+}
+
+function sdRenderSheet(id) {
+  const n = NEED[id], k = sdCov(id), st = sdStats(), s = sdStatus(k.pressure, st.med);
+  const idx = SD.cols.findIndex((c) => c.id === id);
+  const nCo = D.companies.companies.length;
+  const total = D.derived.tree.total || {};
+
+  const leaves = (n.categories || []).map((c) => {
+    const b = sdSafeClass(branchOf(c), SD_BRANCHES, 'gov');
+    return `<span class="sd-tag sd-b-${b}"><b aria-hidden="true"></b>${esc(catLabel(c))}<i>${esc(total[c] ?? 0)}</i></span>`;
+  }).join('');
+
+  const mix = Object.entries(k.by_contribution || {}).sort((a, b) => b[1] - a[1]).map(([t, v]) => `${esc(v)} ${esc(t)}`).join(', ');
+  const facts = [
+    ['Mean demand', `${sdNum(k.mean_demand)}<small> of 5</small>`],
+    ['Papers beneath', String(sdNum(k.papers))],
+    ['At 4 or more', `${sdNum(k.companies_at_4plus)}<small> of ${nCo}</small>`],
+    ['Defence / attack', `${sdNum(k.defensive)} / ${sdNum(k.offensive)}`],
+    ['Anchored cells', `${sdNum(k.evidenced_cells)}<small> of ${nCo}</small>`],
+    ['Demand per paper', `${sdNum(k.pressure).toFixed(3)} ${sdStatusTag(s)}`],
+  ].map(([a, b]) => `<div><dt>${a}</dt><dd>${b}</dd></div>`).join('');
+
+  const gaps = (D.gaps.gaps || []).filter((g) => (g.needs || []).includes(id)
+    || (g.chain || []).some((s2) => s2.metric?.need === id));
+
+  const ids = (k.paper_ids || []).filter((p) => PAPER[p]);
+  const SHOW = 8;
+  const papers = ids.map((pid, i) => {
+    const p = PAPER[pid];
+    return `<li${i >= SHOW ? ' hidden' : ''}><a href="#read" class="plink" data-read="${esc(pid)}" title="${esc(p.title)}">${esc(p.title)}</a>
+      <div class="sd-pm">${esc((p.date || '').slice(0, 4))}${p.organisations?.[0] ? ` · ${esc(p.organisations[0])}` : ''} · ${esc(p.contribution_type || '')}</div></li>`;
+  }).join('');
+
+  const askers = D.companies.companies.map((c) => ({ c, v: c.cells[id] || { score: 0, evidence: [] } }))
+    .filter((x) => x.v.score >= 4)
+    .sort((a, b) => b.v.score - a.v.score || a.c.label.localeCompare(b.c.label));
+  const ask = askers.map(({ c, v }) => {
+    const ev = (v.evidence || []).filter((e) => sdHttp(e.url));
+    return `<li title="${esc(c.type)}"><span class="sd-c sd-q${Math.min(5, Math.round(v.score))}">${esc(v.score)}</span>
+      <span class="sd-an" title="${esc(c.label)}">${esc(c.label)}</span>${ev.length ? `<a class="sd-srcl" href="${esc(ev[0].url)}" target="_blank" rel="noopener" title="${esc(ev[0].q || '')}" aria-label="Source for ${esc(c.label)}: ${esc(sdHost(ev[0].url))}">source</a>` : ''}</li>`;
+  }).join('');
+
+  const leafSet = new Set(n.categories || []);
+  const fws = (D.frameworks.frameworks || []).map((fw) => ({
+    fw, els: (fw.elements || []).filter((e) => (e.cats || []).some((c) => leafSet.has(c))),
+  })).filter((x) => x.els.length);
+  const fwHtml = fws.map(({ fw, els }) => `<div class="sd-fw"><h4>${esc(fw.short || fw.name)}</h4><ul>${els.map((e) =>
+    `<li><span class="sd-fid">${esc(e.id)}</span>${esc(e.label)}</li>`).join('')}</ul></div>`).join('');
+
+  $('#need-sheet-body').innerHTML = `
+    <div class="sd-sh-head">
+      <div class="sd-crumb"><span>Demand</span><i class="sd-chev" aria-hidden="true"></i><span>column ${idx + 1} of ${SD.cols.length}</span>
+        <span class="sd-steps"><button type="button" data-sd-step="-1" aria-label="Previous need">&#8249;</button><button type="button" data-sd-step="1" aria-label="Next need">&#8250;</button></span>
+        <button type="button" class="sd-x" data-sd-close aria-label="Close need details"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8"/></svg></button></div>
+      <h2 id="sd-sh-title" tabindex="-1">${esc(n.label)}</h2>
+      <p class="sd-sh-lede">${esc(n.blurb)}</p>
+      ${leaves ? `<div class="sd-tags" aria-label="Taxonomy leaves this need maps to">${leaves}</div>` : ''}
+    </div>
+    <section class="sd-sec"><h3>The numbers</h3>
+      <dl class="sd-facts">${facts}</dl>
+      ${mix ? `<p class="sd-fine">Contribution mix: ${mix}. Scores are editorial 0&ndash;5 estimates of visible investment, not measurements.</p>` : ''}
+    </section>
+    <section class="sd-sec"><h3>The gap written over this column<span class="sd-cnt">${gaps.length}</span></h3>
+      ${gaps.length ? gaps.map(sdGap).join('') : '<p class="sd-empty">No gap chain names this need yet.</p>'}
+    </section>
+    <section class="sd-sec"><h3>Papers beneath<span class="sd-cnt">${ids.length}</span></h3>
+      ${ids.length ? `<ul class="sd-plist">${papers}</ul>${ids.length > SHOW ? `<button type="button" class="sd-moreb" data-sd-more>Show all ${ids.length}</button>` : ''}`
+        : '<p class="sd-empty">Nothing held. This is a hole, not a rendering fault.</p>'}
+    </section>
+    <section class="sd-sec"><h3>Who is asking<span class="sd-cnt">${askers.length} at 4 or more</span></h3>
+      ${askers.length ? `<ul class="sd-ask">${ask}</ul>` : '<p class="sd-empty">No organisation scores this 4 or more.</p>'}
+    </section>
+    <section class="sd-sec"><h3>Frameworks that name it<span class="sd-cnt">${fws.length}</span></h3>
+      ${fws.length ? `<p class="sd-fine sd-fine-top">Elements whose taxonomy leaves overlap this need's leaves.</p>${fwHtml}`
+        : '<p class="sd-empty">No framework element maps to this need\'s taxonomy leaves.</p>'}
+    </section>`;
 }
 
 /* A heat map is a persuasive object. If the numbers behind it are judgements,
@@ -1069,107 +1485,33 @@ function drawMethodology() {
       </tbody></table>`;
 }
 
-function drawHeatmap(sort) {
-  const needs = D.companies.needs;
-  const cov = D.derived.coverage || {};
-  const total = (c) => needs.reduce((a, n) => a + (c.cells[n.id]?.score || 0), 0);
-  let rows = [...D.companies.companies];
-  if (sort === 'demand') rows.sort((a, b) => total(b) - total(a));
-  else if (sort === 'name') rows.sort((a, b) => a.label.localeCompare(b.label));
-  else rows.sort((a, b) => (a.type + a.label).localeCompare(b.type + b.label));
-
-  const cols = [...needs].sort((a, b) => (cov[b.id]?.mean_demand || 0) - (cov[a.id]?.mean_demand || 0));
-
-  $('#hm-legend').innerHTML = rampLegend('demand', 5) +
-    '<span class="li"><span class="swatch sourced-key"></span>anchored to a published source — click to open it</span>' +
-    '<span class="li"><span class="swatch" data-sty="background:var(--q4)"></span>seed estimate</span>';
-
-  const t = el('table', { class: 'grid' });
-  const head = el('tr');
-  head.append(el('th'));
-  cols.forEach((n) => head.append(el('th', { class: 'colh' }, `<span>${esc(n.label)}</span>`)));
-  head.append(el('th', { class: 'colh' }, '<span>row total</span>'));
-  t.append(head);
-
-  let lastType = null;
-  rows.forEach((c) => {
-    const tr = el('tr');
-    const showType = sort === 'type' && c.type !== lastType;
-    lastType = c.type;
-    tr.append(el('th', { class: 'rowh' },
-      `${esc(c.label)}<div class="sub rowh-sub">${showType || sort !== 'type' ? esc(c.region) : esc(c.type)}`
-      + `${c.confidence ? ` <span class="dot conf-${esc(c.confidence)}" title="${esc(c.confidence)} confidence: ${esc(c.basis || '')}"></span>` : ''}</div>`));
-    cols.forEach((n) => {
-      const cell = c.cells[n.id] || { score: 0, evidence: [] };
-      const ev = cell.evidence || [];
-      const td = el('td', { class: 'cell hm' + (ev.length ? ' sourced' : '') + (cell.score ? '' : ' zero') });
-      td.style.background = ramp(cell.score, 5);
-      td.style.color = rampInk(cell.score, 5);
-      td.innerHTML = `<span>${cell.score || '·'}</span>`;
-      const scale = (D.companies.scale || []).find((s) => s.v === cell.score);
-      bindTip(td, `<b>${esc(c.label)} — ${esc(n.label)}</b>
-        <span class="r">${cell.score}/5 — ${esc(scale?.label || '')}</span>
-        ${ev.length
-          ? `<ul>${ev.map((e) => `<li>${esc(e.q)}<br><span class="r">${esc(new URL(e.url).hostname)}</span></li>`).join('')}</ul>
-             <span class="r" data-sty="display:block;margin-top:5px">click to open the source</span>`
-          : '<span class="r" data-sty="display:block;margin-top:5px">seed estimate — no source attached yet</span>'}`);
-      if (ev.length) {
-        td.style.cursor = 'pointer';
-        td.addEventListener('click', () => window.open(ev[0].url, '_blank', 'noopener'));
-      }
-      tr.append(td);
-    });
-    const tot = total(c);
-    tr.append(el('td', { class: 'cell hm' }, `<span data-sty="color:var(--ink-2)">${tot}</span>`));
-    t.append(tr);
-  });
-
-  const foot = el('tr', { class: 'footrow' });
-  foot.append(el('th', { class: 'rowh' }, 'papers held'));
-  cols.forEach((n) => {
-    const k = cov[n.id] || { papers: 0 };
-    const td = el('td', { class: 'cell hm' }, `<span>${k.papers}</span>`);
-    bindTip(td, `<b>${esc(n.label)}</b><span class="r">${k.papers} paper(s) held, mean demand ${k.mean_demand}/5</span>
-      <span class="r">covers ${esc(n.categories.map((c) => TAX[c]?.label || c).join(', '))}</span>`);
-    foot.append(td);
-  });
-  foot.append(el('td'));
-  t.append(foot);
-
-  $('#heatmap').innerHTML = '';
-  $('#heatmap').append(t);
-}
-
 function drawPressure() {
-  const cov = D.derived.coverage || {};
-  const rows = D.companies.needs.map((n) => ({ n, ...(cov[n.id] || { papers: 0, mean_demand: 0, pressure: 0, defensive: 0, offensive: 0, companies_at_4plus: 0 }) }))
-    .sort((a, b) => b.pressure - a.pressure);
-  const maxP = Math.max(0.001, ...rows.map((r) => r.pressure));
-
-  const t = el('table', { class: 'list' });
-  t.innerHTML = `<thead><tr><th>Need</th><th class="right">Mean demand</th><th class="right">4+ orgs</th>
-    <th class="right">Papers</th><th class="right">Defence</th><th class="right">Attack</th>
-    <th class="right">Demand per paper</th></tr></thead>`;
+  const st = sdStats();
+  const rows = D.companies.needs.map((n) => ({ n, ...sdCov(n.id) })).sort((a, b) => b.pressure - a.pressure);
+  const t = el('table', { class: 'sd-ptable' });
+  t.innerHTML = `<thead><tr><th scope="col">Need</th><th scope="col" class="r">Mean demand</th><th scope="col" class="r">4+ orgs</th>
+    <th scope="col" class="r">Papers</th><th scope="col" class="r">Defence</th><th scope="col" class="r">Attack</th>
+    <th scope="col" class="r">Demand per paper</th><th scope="col">Status</th></tr></thead>`;
   const tb = el('tbody');
   rows.forEach((r) => {
-    const tr = el('tr');
+    const s = sdStatus(r.pressure, st.med);
+    const tr = el('tr', { 'data-need': r.n.id });
     tr.innerHTML = `
-      <td><b>${esc(r.n.label)}</b><div class="sub" data-sty="font-size:11px">${esc(r.n.blurb)}</div></td>
-      <td class="num right"><span data-sty="display:inline-flex;align-items:center;gap:7px;justify-content:flex-end;width:100%">
-        ${r.mean_demand.toFixed(2)}
-        <i data-sty="display:block;width:${Math.round((r.mean_demand / 5) * 76)}px;height:7px;border-radius:0 3px 3px 0;background:${ramp(r.mean_demand, 5)}"></i></span></td>
-      <td class="num right">${r.companies_at_4plus}</td>
-      <td class="num right">${r.papers}</td>
-      <td class="num right">${r.defensive}</td>
-      <td class="num right">${r.offensive}</td>
-      <td class="num right"><span data-sty="display:inline-flex;align-items:center;gap:7px;justify-content:flex-end;width:100%">
-        ${r.pressure.toFixed(2)}
-        <i data-sty="display:block;width:${Math.round((r.pressure / maxP) * 76)}px;height:7px;border-radius:0 3px 3px 0;background:${ramp(r.pressure, maxP)}"></i></span></td>`;
+      <th scope="row"><button type="button" class="sd-pn" data-need="${esc(r.n.id)}" data-sd-need="${esc(r.n.id)}" aria-pressed="false">${esc(r.n.label)}</button>
+        <div class="sd-pb">${esc(r.n.blurb)}</div></th>
+      <td class="r"><span class="sd-pv">${sdNum(r.mean_demand).toFixed(2)}<span class="sd-track" aria-hidden="true"><i class="sd-m1" data-sty="width:${Math.round((r.mean_demand / 5) * 100)}%"></i></span></span></td>
+      <td class="r">${sdNum(r.companies_at_4plus)}</td>
+      <td class="r">${sdNum(r.papers)}</td>
+      <td class="r">${sdNum(r.defensive)}</td>
+      <td class="r">${sdNum(r.offensive)}</td>
+      <td class="r"><span class="sd-pv">${sdNum(r.pressure).toFixed(3)}<span class="sd-track" aria-hidden="true"><i class="sd-m2" data-sty="width:${Math.round((r.pressure / st.maxP) * 100)}%"></i></span></span></td>
+      <td>${sdStatusTag(s)}</td>`;
     tb.append(tr);
   });
   t.append(tb);
   $('#pressure').innerHTML = '';
   $('#pressure').append(t);
+  sdMarkSel();
 }
 
 /* ======================================================================= GAPS */
@@ -1359,7 +1701,7 @@ function drawGapTree() {
         <p class="warn"><b>Against:</b> ${esc((g.counter || '').slice(0, 170))}${(g.counter || '').length > 170 ? '…' : ''}</p>
         <div class="hint">Click to jump to the full chain.</div>
       </div>`);
-    node.addEventListener('click', () => document.getElementById(g.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    node.addEventListener('click', () => document.getElementById(g.id)?.scrollIntoView({ behavior: smoothBehavior(), block: 'start' }));
     gNode.append(node);
 
     cats.forEach((c, i) => {
@@ -1407,12 +1749,71 @@ function renderGaps() {
   drawGapTree();
 }
 
-/* ===================================================================== PAPERS */
+/* ===================================================================== PAPERS
+   Strata inventory table. Colour is spent on where a paper sits in the taxonomy
+   (nine branch hues, --sp-b0..8); what KIND of contribution it makes is a glyph
+   and a word, never a colour. */
 let P_SORT = { key: 'date', dir: -1 };
 let drawPapers;
+
+const SP_KIND = {
+  attack:     ['▲', 'Attack: shows a way to break or misuse a system'],
+  analysis:   ['○', 'Analysis: measures or studies something that already exists'],
+  framework:  ['▭', 'Framework: a structure for reasoning about or governing risk'],
+  defence:    ['■', 'Defence: proposes or tests a mitigation'],
+  evaluation: ['◆', 'Evaluation: assesses models or defences against a standard'],
+  benchmark:  ['●', 'Benchmark: a reusable test with a score'],
+  position:   ['◇', 'Position: an argued stance or research agenda'],
+  dataset:    ['▦', 'Dataset: data released for others to use'],
+};
+const spKind = (t) => {
+  const [g, d] = SP_KIND[t] || ['·', String(t)];
+  return `<span class="sp-kind" title="${esc(d)}"><span class="sp-glyph" aria-hidden="true">${g}</span>${esc(t)}</span>`;
+};
+/* Branch id -> 0..8 by taxonomy order, so a branch keeps its hue everywhere. */
+let SP_BI = {};
+const spBranchIdx = (id) => SP_BI[branchOf(id)] ?? 8;
+const spTier = (t, why) =>
+  `<span class="sp-tier sp-t-${esc(t)}" title="${esc(why || '')}"><i class="sp-tmark" aria-hidden="true"></i>${esc(t.replace(/-/g, ' '))}</span>`;
+
+const SP_TAGS = 3;
+function spTags(p, fb) {
+  const cats = [...(p.categories || [])].filter(Boolean);
+  const first = cats.shift();
+  const rank = (c) => (fb && branchOf(c) === fb ? 0 : 1);
+  cats.sort((a, b) => rank(a) - rank(b));
+  const all = first === undefined ? [] : [first, ...cats];
+  const shown = all.slice(0, SP_TAGS);
+  const rest = all.slice(SP_TAGS);
+  return shown.map((c, i) =>
+    `<span class="sp-tag sp-b${spBranchIdx(c)}${c === p.primary_category ? ' is-primary' : ''}" title="${esc(catLabel(c))}"><i class="sp-dot" aria-hidden="true"></i>${esc(TAX[c]?.label || c)}</span>`).join('')
+    + (rest.length ? `<span class="sp-tag sp-more" title="${esc(rest.map(catLabel).join('; '))}">+${rest.length}</span>` : '');
+}
+
+function spRow(p, fb) {
+  const o = p.organisations;
+  const rk = p.kind && p.kind !== 'paper' ? `<span class="sp-rk">${esc(p.kind)}</span>` : '';
+  const nm = p.short && p.short !== p.title ? esc(p.short) : '';
+  return `<tr class="sp-row" data-id="${esc(p.id)}">
+    <td class="sp-c-date">${esc(p.date)}</td>
+    <td class="sp-c-paper">
+      <div class="sp-name">${nm ? `<b>${nm}</b>` : ''}${rk}${newBadge(p)}</div>
+      <a href="#read" class="plink sp-title${nm ? '' : ' is-solo'}" data-read="${esc(p.id)}" title="${esc(p.title)}">${esc(p.title)}</a>
+    </td>
+    <td class="sp-c-org">${o.length
+      ? o.slice(0, 2).map((x) => `<span>${esc(x)}</span>`).join('') + (o.length > 2 ? `<em title="${esc(o.slice(2).join(', '))}">+${o.length - 2} more</em>` : '')
+      : '<span class="sp-none">none listed</span>'}</td>
+    <td class="sp-c-venue"><span class="sp-venue" title="${esc(p.venue)}">${esc(p.venue)}</span>${spTier(p.trust.tier, p.trust.justification)}</td>
+    <td class="sp-c-tags">${spTags(p, fb)}</td>
+    <td class="sp-c-kind">${spKind(p.contribution_type)}</td>
+  </tr>`;
+}
+
 function renderPapers() {
   const papers = D.papers.papers;
   $('#papers-note').textContent = D.papers.note || '';
+  SP_BI = {};
+  (D.taxonomy?.nodes || []).filter((n) => !n.parent).forEach((n, i) => { SP_BI[n.id] = i; });
 
   const branches = [...new Set(papers.flatMap((p) => p.categories.map(branchOf)))].sort();
   branches.forEach((b) => $('#p-branch').append(el('option', { value: b }, esc(TAX[b]?.label || b))));
@@ -1422,30 +1823,82 @@ function renderPapers() {
     $('#p-contrib').append(el('option', { value: t }, esc(t))));
   const kinds = [...new Set(papers.map((p) => p.kind || 'paper'))].sort();
   if (kinds.length > 1) {
-    const sel = el('select', { id: 'p-kind' }, '<option value="">Papers and reports</option>'
+    const sel = el('select', { id: 'p-kind', 'aria-label': 'Record type' }, '<option value="">Papers and reports</option>'
       + kinds.map((k) => `<option value="${esc(k)}">${esc(plural(k) + ' only')}</option>`).join(''));
     $('#p-contrib').after(sel);
     sel.addEventListener('input', drawPapers);
   }
 
-  $$('#p-table thead th').forEach((th) => th.addEventListener('click', () => {
-    const k = th.dataset.sort;
+  // A quiet key for the kind glyphs. Each entry also filters, and says how many.
+  $('#sp-key').innerHTML = Object.keys(SP_KIND).map((t) => {
+    const n = papers.filter((p) => p.contribution_type === t).length;
+    return n ? `<button type="button" class="sp-keyb" data-k="${esc(t)}" aria-pressed="false" title="${esc(SP_KIND[t][1])}"><span class="sp-glyph" aria-hidden="true">${SP_KIND[t][0]}</span>${esc(t)}<span class="sp-n">${n}</span></button>` : '';
+  }).join('');
+  $('#sp-key').addEventListener('click', (e) => {
+    const b = e.target.closest('.sp-keyb');
+    if (!b) return;
+    const s = $('#p-contrib');
+    s.value = s.value === b.dataset.k ? '' : b.dataset.k;
+    drawPapers();
+  });
+
+  const setSort = (k) => {
     P_SORT = { key: k, dir: P_SORT.key === k ? -P_SORT.dir : 1 };
     drawPapers();
-  }));
-  // reflect sort state in the header, so the table says how it is ordered
-  const markSort = () => $$('#p-table thead th').forEach((th) => {
-    const on = th.dataset.sort === P_SORT.key;
-    if (on) {
-      th.setAttribute('aria-sort', P_SORT.dir > 0 ? 'ascending' : 'descending');
-      th.dataset.arrow = P_SORT.dir > 0 ? '↑' : '↓';
-    } else {
-      th.removeAttribute('aria-sort');
-      delete th.dataset.arrow;
-    }
+  };
+  // Each sortable header holds a real button: it announces as one and is natively keyboard operable.
+  $$('#sp-table thead th').forEach((th) => {
+    if (!th.dataset.sort) return;
+    const b = el('button', { type: 'button', class: 'sp-thb' });
+    b.append(...th.childNodes);
+    th.append(b);
+    th.addEventListener('click', () => setSort(th.dataset.sort));
   });
+  $('#p-sort').addEventListener('input', (e) => {
+    const [k, d] = e.target.value.split(':');
+    P_SORT = { key: k, dir: +d };
+    drawPapers();
+  });
+  // reflect sort state in the header, so the table says how it is ordered
+  const markSort = () => {
+    $$('#sp-table thead th').forEach((th) => {
+      const on = th.dataset.sort === P_SORT.key;
+      if (on) {
+        th.setAttribute('aria-sort', P_SORT.dir > 0 ? 'ascending' : 'descending');
+        th.dataset.arrow = P_SORT.dir > 0 ? '↑' : '↓';
+      } else {
+        th.removeAttribute('aria-sort');
+        delete th.dataset.arrow;
+      }
+    });
+    const sel = $('#p-sort'), want = `${P_SORT.key}:${P_SORT.dir}`;
+    sel.value = [...sel.options].some((o) => o.value === want) ? want : 'custom';
+  };
   const _draw = drawPapers;
   drawPapers = (...a2) => { _draw(...a2); markSort(); };
+
+  // One listener on the body serves every row: click opens the reader unless a
+  // link already did, Enter/Space on a focused row does the same.
+  const tb = $('#sp-table tbody');
+  tb.addEventListener('click', (e) => {
+    if (e.target.closest('a')) return;
+    const tr = e.target.closest('tr[data-id]');
+    if (tr) openReader(tr.dataset.id);
+  });
+  tb.addEventListener('keydown', (e) => {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches?.('tr[data-id]')) {
+      e.preventDefault();
+      openReader(e.target.dataset.id);
+    }
+  });
+  $('#view-papers').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-clear]');
+    if (!b) return;
+    if (b.dataset.clear === '*') SP_FILTERS.forEach((sel) => { if ($(sel)) $(sel).value = ''; });
+    else if ($(b.dataset.clear)) $(b.dataset.clear).value = '';
+    drawPapers();
+  });
+
   ['#p-q', '#p-branch', '#p-tier', '#p-contrib', '#p-group'].forEach((s) =>
     $(s).addEventListener('input', drawPapers));
   drawPapers();
@@ -1454,6 +1907,7 @@ function renderPapers() {
 /* Applied filters are shown as removable chips rather than left implicit in
    four dropdowns. On a table this size, "why am I seeing 12 rows" has to be
    answerable at a glance - the pattern every security console settles on. */
+const SP_FILTERS = ['#p-q', '#p-branch', '#p-tier', '#p-contrib', '#p-kind'];
 function filterChips() {
   const defs = [
     ['#p-q', 'search', (v) => `“${v}”`],
@@ -1465,15 +1919,10 @@ function filterChips() {
   const active = defs.filter(([sel]) => $(sel)?.value);
   $('#p-chips').innerHTML = active.length
     ? active.map(([sel, label, fmt]) =>
-        `<button class="chip" data-clear="${esc(sel)}">
-           <span class="chip-k">${esc(label)}</span>${esc(fmt($(sel).value))}<i>✕</i></button>`).join('')
-      + (active.length > 1 ? '<button class="chip chip-all" data-clear="*">Clear all</button>' : '')
+        `<button type="button" class="chip" data-clear="${esc(sel)}" aria-label="Remove filter ${esc(label)}: ${esc(fmt($(sel).value))}">
+           <span class="chip-k">${esc(label)}</span>${esc(fmt($(sel).value))}<i aria-hidden="true">✕</i></button>`).join('')
+      + (active.length > 1 ? '<button type="button" class="chip chip-all" data-clear="*">Clear all</button>' : '')
     : '';
-  $$('#p-chips .chip').forEach((b) => b.addEventListener('click', () => {
-    if (b.dataset.clear === '*') defs.forEach(([sel]) => { if ($(sel)) $(sel).value = ''; });
-    else $(b.dataset.clear).value = '';
-    drawPapers();
-  }));
 }
 
 const GROUPERS = {
@@ -1483,14 +1932,26 @@ const GROUPERS = {
   year: (p) => p.date.slice(0, 4),
 };
 
+/* Group headers say how many, and (without colour) which kinds make them up. */
+function spGroupRow(name, group, groupKey) {
+  const counts = {};
+  group.forEach((p) => { counts[p.contribution_type] = (counts[p.contribution_type] || 0) + 1; });
+  const mix = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([t, n]) =>
+    `<span title="${n} ${esc(t)}"><span class="sp-glyph" aria-hidden="true">${(SP_KIND[t] || ['·'])[0]}</span>${n}</span>`).join('');
+  const dot = groupKey === 'branch'
+    ? `<i class="sp-dot sp-b${spBranchIdx(group[0].primary_category)}" aria-hidden="true"></i>` : '';
+  return `<tr class="sp-group"><td colspan="6"><div class="sp-gin">${dot}<span class="sp-gname">${esc(name)}</span>`
+    + `<span class="sp-gn">${group.length}</span><span class="sp-gmix">${mix}</span></div></td></tr>`;
+}
+
 drawPapers = function drawPapersImpl() {
   const q = $('#p-q').value.trim().toLowerCase();
   const fb = $('#p-branch').value, ft = $('#p-tier').value, fc = $('#p-contrib').value;
+  const fk = $('#p-kind')?.value;
   let rows = D.papers.papers.filter((p) => {
     if (fb && !p.categories.some((c) => branchOf(c) === fb)) return false;
     if (ft && p.trust.tier !== ft) return false;
     if (fc && p.contribution_type !== fc) return false;
-    const fk = $('#p-kind')?.value;
     if (fk && (p.kind || 'paper') !== fk) return false;
     if (!q) return true;
     return [p.title, p.authors.join(' '), p.organisations.join(' '), p.methods.join(' '),
@@ -1504,50 +1965,38 @@ drawPapers = function drawPapersImpl() {
   }[P_SORT.key]);
   rows.sort((a, b) => (key(a) > key(b) ? 1 : key(a) < key(b) ? -1 : 0) * P_SORT.dir);
 
-  $('#p-count').textContent = `${rows.length} of ${D.papers.papers.length}`;
+  $('#p-count').innerHTML = `<b>${rows.length}</b> of ${D.papers.papers.length}`;
   filterChips();
-
-  const tb = $('#p-table tbody');
-  tb.innerHTML = '';
+  $$('#sp-key .sp-keyb').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.k === fc)));
 
   const groupKey = $('#p-group')?.value;
-  const emit = (p) => {
-    const tr = el('tr', { class: `row tier-${p.trust.tier}` });
-    tr.innerHTML = `
-      <td class="num">${esc(p.date)}</td>
-      <td><a href="#read" class="plink" data-read="${esc(p.id)}">${esc(p.title)}</a> ${kindBadge(p)} ${newBadge(p)}</td>
-      <td>${esc(p.organisations.slice(0, 2).join(', ')) || '<span class="sub">—</span>'}${p.organisations.length > 2 ? ` <span class="sub">+${p.organisations.length - 2}</span>` : ''}</td>
-      <td>${esc(p.venue)}<br>${tierBadge(p.trust.tier)}</td>
-      <td>${esc(catLabel(p.primary_category))}</td>
-      <td>${contribBadge(p.contribution_type)}</td>`;
-    // The inline expander was replaced by the reader panel; building a hidden
-    // duplicate of every row's detail doubled the DOM for nothing.
-    tr.addEventListener('click', (e) => { if (e.target.tagName !== 'A') openReader(p.id); });
-    tb.append(tr);
-  };
-
-  if (groupKey && GROUPERS[groupKey]) {
+  let html = '';
+  if (!rows.length) {
+    html = `<tr class="sp-emptyrow"><td colspan="6" class="sp-empty"><b>Nothing matches those filters.</b>
+      <span>Loosen the search, or clear what is applied.</span>
+      <button type="button" class="chip chip-all" data-clear="*">Clear all filters</button></td></tr>`;
+  } else if (groupKey && GROUPERS[groupKey]) {
     const buckets = new Map();
     rows.forEach((p) => {
       const k = GROUPERS[groupKey](p);
       if (!buckets.has(k)) buckets.set(k, []);
       buckets.get(k).push(p);
     });
-    [...buckets.entries()]
-      .sort((a, b) => b[1].length - a[1].length || String(a[0]).localeCompare(String(b[0])))
-      .forEach(([name, group]) => {
-        const hr = el('tr', { class: 'grouprow' });
-        hr.innerHTML = `<td colspan="6">
-          <span class="g-name">${esc(name)}</span>
-          <span class="g-n">${group.length}</span>
-          ${mixBar(group, 120)}</td>`;
-        tb.append(hr);
-        group.forEach(emit);
-      });
+    // Years run in time order (following the date sort's direction); branches in taxonomy order;
+    // other groupings put the biggest group first.
+    const order = groupKey === 'year'
+      ? (a, b) => String(a[0]).localeCompare(String(b[0])) * (P_SORT.key === 'date' && P_SORT.dir > 0 ? 1 : -1)
+      : groupKey === 'branch'
+        ? (a, b) => spBranchIdx(a[1][0].primary_category) - spBranchIdx(b[1][0].primary_category)
+        : (a, b) => b[1].length - a[1].length || String(a[0]).localeCompare(String(b[0]));
+    html = [...buckets.entries()]
+      .sort(order)
+      .map(([name, group]) => spGroupRow(name, group, groupKey) + group.map((p) => spRow(p, fb)).join(''))
+      .join('');
   } else {
-    rows.forEach(emit);
+    html = rows.map((p) => spRow(p, fb)).join('');
   }
-  if (!rows.length) tb.innerHTML = '<tr><td colspan="6" class="empty">Nothing matches those filters.</td></tr>';
+  $('#sp-table tbody').innerHTML = html;
 }
 
 /* ============================================================ command palette
@@ -1571,10 +2020,10 @@ function paletteIndex() {
     go: () => { show('tree'); treePanel(n.id); } }));
   (D.frameworks.frameworks || []).forEach((f) => rows.push({
     kind: 'framework', t: f.name, s: f.org, hay: `${f.name} ${f.org} ${f.short}`,
-    go: () => { show('frameworks'); document.getElementById(`fw-${f.id}`)?.scrollIntoView({ behavior: 'smooth' }); } }));
+    go: () => { show('frameworks'); document.getElementById(`fw-${f.id}`)?.scrollIntoView({ behavior: smoothBehavior() }); } }));
   (D.gaps.gaps || []).forEach((g) => rows.push({
     kind: 'gap', t: g.title, s: `${g.severity} severity`, hay: `${g.title} ${g.closes_when || ''}`,
-    go: () => { show('gaps'); document.getElementById(g.id)?.scrollIntoView({ behavior: 'smooth' }); } }));
+    go: () => { show('gaps'); document.getElementById(g.id)?.scrollIntoView({ behavior: smoothBehavior() }); } }));
   D.companies.companies.forEach((c) => rows.push({
     kind: 'org', t: c.label, s: `${c.type}, ${c.region}`, hay: `${c.label} ${c.type} ${c.region}`,
     go: () => show('demand') }));

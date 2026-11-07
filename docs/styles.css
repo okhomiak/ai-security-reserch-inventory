@@ -89,7 +89,7 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.01em; }
 .wrap { max-width: 1280px; margin: 0 auto; padding: 0 20px 80px; }
 
 /* ---------------------------------------------------------------- header */
-header { border-bottom: 1px solid var(--grid); background: var(--surface-1); }
+body > header { border-bottom: 1px solid var(--grid); background: var(--surface-1); }
 .head-in { max-width: 1280px; margin: 0 auto; padding: 22px 20px 0; }
 .head-top { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
 .head-top h1 { font-size: 20px; }
@@ -493,13 +493,13 @@ ul.fw-tree { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(
 .scroll-y::-webkit-scrollbar-track, .scroll-x::-webkit-scrollbar-track { background: transparent; }
 
 /* ---------------------------------------------------------------- header */
-header {
+body > header {
   position: sticky; top: 0; z-index: 30;
   backdrop-filter: saturate(180%) blur(14px);
   background: color-mix(in srgb, var(--surface-1) 88%, transparent);
   transition: box-shadow var(--dur) var(--ease);
 }
-header.scrolled { box-shadow: var(--e-2); }
+body > header.scrolled { box-shadow: var(--e-2); }
 .head-top h1 {
   font-size: var(--t-xl); display: inline-flex; align-items: center; gap: 9px;
 }

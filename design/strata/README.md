@@ -1,6 +1,9 @@
 # Strata — design concept
 
-A proposal, not an implementation. Nothing in `docs/` changes in this branch.
+The design concept behind the live dashboard. The mockup here was the proposal; it has since been
+built into `docs/` (`strata.css`, `strata-demand.css`, `strata-papers.css`, `app.js`), fully for
+Demand and Papers and as a restyle (type, surfaces, rail, flat inline stat rows) for the other
+eight views. The mockup stays as the reference and the screenshots below are of the mockup.
 `index.html` here is a self-contained mockup built from the real data in
 `docs/data/` (titles, clusters, companies, gap chains are all genuine);
 open it in a browser, add `?theme=dark` for the dark theme.
@@ -57,7 +60,7 @@ and declares fallback stacks; a self-hosted woff2 is allowed, a font CDN is not.
 
 ### Layout
 
-A 196px translucent rail (level 1) docks left with brand, search and the ten views with live counts; the main column opens with a one-line title and a two-line explanation, then the hero: coverage bars on the field, the matrix slab over them (224px label column, twelve 48px cells, 17px rows, vertical column labels, legend in the dead top-left corner), and a 92px strip beneath where the bars become crisp and labelled. A 372px sheet (level 3) is fixed to the right edge, overlapping the slab's padding by 8px so its shadow proves it is above; a level-4 glass popover answers cell hover with the score word and the anchoring source quote. Row labels are left-aligned with a confidence ring and a right-aligned type word; numbers centre in cells; fact tables in the sheet are two aligned th/td pairs per row. When no sheet is open the main column reclaims the 428px; below 1180px the rail narrows to 150px, cells to 44px, and the sheet becomes a 340px overlay with a cast shadow.
+A 196px translucent rail (level 1) docks left with brand, search and the ten views with live counts; the main column opens with a one-line title and a two-line explanation, then the hero: coverage bars on the field, the matrix slab over them (224px label column, twelve 48px cells, 17px rows, vertical column labels, legend in the dead top-left corner), and a 92px strip beneath where the bars become crisp and labelled. A 372px sheet (level 3) is fixed to the right edge, overlapping the slab's padding by 8px so its shadow proves it is above; a level-4 glass popover answers cell hover with the score word and the anchoring source quote. Row labels are left-aligned with a confidence ring and a right-aligned type word; numbers centre in cells; fact tables in the sheet are two aligned th/td pairs per row. When no sheet is open the main column reclaims the 428px; in the live build the sheet docks beside the matrix at 1340px and wider, and below that it is a modal overlay with a scrim (opened on request, Esc closes, focus is held inside).
 
 ## What it keeps from the current design
 
@@ -70,8 +73,8 @@ A 196px translucent rail (level 1) docks left with brand, search and the ten vie
 
 ## What it removes
 
-- The five KPI stat tiles above the view; the numbers move into the coverage strip and the sheet where they sit next to what they count
-- Card-inside-card stacking and the Why this view link lines; one slab per view, one sheet per explanation
+- The five KPI stat tiles above the view (on Demand and Papers; the other views keep their numbers as flat inline stat rows, not tiles); the numbers move into the coverage strip and the sheet where they sit next to what they count
+- Card-inside-card stacking and the Why this view link lines; one slab per view, one sheet per explanation (live: the other views keep a card, with intros that collapse to their first whole sentence behind a Read more toggle)
 - Contribution-type colouring (attack red, dataset amber, position green reused the status hues); kind is now a glyph and colour is spent on taxonomy branch
 - White sheens and gradient highlights on surfaces; glass is opacity plus blur plus a hairline edge, and the inner rim was removed from controls as the last accessory
 - The row-total column (the sort already carries it) and the rotated-label header's clutter: one legend in the corner instead of a toolbar legend

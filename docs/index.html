@@ -24,8 +24,8 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>AI Security Research Inventory</title>
 <meta name="description" content="Overlaps, taxonomy and company-demand map across AI security research, refreshed weekly by an agent.">
-<meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1a1a19" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#E6EBF1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E141D" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:title" content="AI Security Research Inventory">
 <meta property="og:description" content="Where AI-security research overlaps, how it is shaped, and what companies are asking for that nobody has answered. Refreshed weekly by an agent.">
@@ -33,18 +33,17 @@
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="strata.css">
+<link rel="stylesheet" href="strata-demand.css">
+<link rel="stylesheet" href="strata-papers.css">
 </head>
 <body>
 
 <div class="app">
 <nav class="side" id="side" aria-label="Views">
   <div class="side-top">
-    <span class="mark" aria-hidden="true"></span>
+    <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
     <span class="side-title">AI Security<b>Research Inventory</b></span>
-  </div>
-  <div class="side-btns">
-    <button class="icon-btn" id="theme-btn" title="Light / dark (t)">◐</button>
-    <button class="icon-btn" id="keys-btn" title="Keyboard (?)">⌘</button>
   </div>
   <button class="cmd-open" id="cmd-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4"/></svg>Search<kbd>⌘K</kbd></button>
   <div class="side-nav" id="tabs" role="tablist">
@@ -66,7 +65,7 @@
       </button>
       <button class="nav" role="tab" data-view="demand" aria-selected="false">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19h16M6 16V9M10 16V5M14 16v-6M18 16v-9"/></svg>
-        <span class="nav-l">Companies</span><span class="nav-n" data-count="demand"></span>
+        <span class="nav-l">Demand</span><span class="nav-n" data-count="demand"></span>
       </button>
       <button class="nav" role="tab" data-view="frameworks" aria-selected="false">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16M8 3v18"/></svg>
@@ -90,6 +89,10 @@
       </button>
   </div>
   <div class="side-foot">
+    <div class="side-btns">
+      <button class="icon-btn theme-seg" id="theme-btn" title="Light / dark (t)" aria-label="Switch between light and dark theme"><span class="ts ts-l">Light</span><span class="ts ts-d">Dark</span><span class="ts ts-i" aria-hidden="true">◐</span></button>
+      <button class="icon-btn keys-btn" id="keys-btn" title="Keyboard shortcuts (?)" aria-label="Keyboard shortcuts">?</button>
+    </div>
     <div class="side-meta" id="head-sub">loading…</div>
     <div class="side-new"><span id="new-pill"></span></div>
   </div>
@@ -216,33 +219,43 @@
 
   <!-- ============================================================== DEMAND -->
   <section class="view" id="view-demand" role="tabpanel">
-    <div class="card">
-      <h2>What companies want</h2>
-      <p class="note" id="demand-basis"></p>
-      <div class="toolbar">
-        <div class="seg" id="hm-sort">
-          <button data-s="demand" aria-pressed="true">Sort by demand</button>
-          <button data-s="type" aria-pressed="false">Group by type</button>
-          <button data-s="name" aria-pressed="false">A–Z</button>
-        </div>
-        <span class="legend flush" id="hm-legend"></span>
+    <div class="sd-head">
+      <div class="sd-head-t">
+        <h2 class="sd-title">Where demand outruns the research</h2>
+        <p class="sd-lede">Organisations are scored 0&ndash;5 on what they ask for. The bars under the glass are the
+          papers this inventory holds for each need: a bright column over bare field is a hole.</p>
+        <p class="sd-basis" id="demand-basis"></p>
       </div>
-      <div class="scroll-x" id="heatmap"></div>
+      <div class="sd-seg" id="hm-sort" role="group" aria-label="Order the organisations">
+        <button type="button" data-s="demand" aria-pressed="true">Sort by demand</button>
+        <button type="button" data-s="type" aria-pressed="false">Group by type</button>
+        <button type="button" data-s="name" aria-pressed="false">A&ndash;Z</button>
+      </div>
     </div>
-    <div class="card" id="methodology">
-      <h2>How to read this, and how it could be wrong</h2>
-      <p class="note tight">A heat map invites more confidence than editorial estimates deserve. This panel
+    <div class="sd-fieldwrap">
+      <div class="sd-field" id="sd-field">
+        <div class="sd-cover" id="sd-cover" aria-hidden="true"></div>
+        <div class="sd-slab">
+          <div class="sd-legend" id="hm-legend"></div>
+          <div class="sd-tablewrap" id="heatmap"></div>
+        </div>
+        <div class="sd-strip" id="sd-strip" role="group" aria-label="Papers held per need and coverage status"></div>
+      </div>
+    </div>
+    <section class="sd-block" id="pressure-block" aria-labelledby="sd-pressure-h">
+      <h3 class="sd-h" id="sd-pressure-h">Demand against coverage</h3>
+      <p class="sd-note">The same twelve needs, with mean demand beside how many papers the inventory
+        holds for each. Demand per paper is the last column: the highest values are where the market is
+        asking a question the literature has not answered.</p>
+      <div class="sd-scroll" id="pressure"></div>
+    </section>
+    <section class="sd-block" id="methodology" aria-labelledby="sd-meth-h">
+      <h3 class="sd-h" id="sd-meth-h">How to read this, and how it could be wrong</h3>
+      <p class="sd-note">A heat map invites more confidence than editorial estimates deserve. This panel
         states what a score rests on, the biases pushing it around, and the test that would show the whole
         map is decorative.</p>
       <div id="meth-body"></div>
-    </div>
-    <div class="card">
-      <h2>Demand against coverage</h2>
-      <p class="note tight">The same twelve needs, with mean demand beside how many papers the inventory
-        holds for each. The right-hand column is demand per unit of research — the highest values are where
-        the market is asking a question the literature has not answered.</p>
-      <div class="scroll-x" id="pressure"></div>
-    </div>
+    </section>
   </section>
 
   <!-- ========================================================== FRAMEWORKS -->
@@ -274,9 +287,7 @@
         a step is fixed; a step carrying figures has them recomputed on every pipeline run, so the reasoning
         stays put while the numbers stay current. Evidence chips link to the paper or the company row behind
         a claim.</p>
-    </div>
-    <div class="card">
-      <h2>Gap tree</h2>
+      <h3 class="card-h3">Gap tree</h3>
       <p class="note tight">Every gap, the taxonomy branches it sits across, and the papers underneath.
         Node colour is severity, fill is how much research exists there. A gap whose branches are nearly
         empty is a gap in the literature; one sitting over well-populated branches is a gap in
@@ -341,32 +352,52 @@
 
   <!-- ============================================================== PAPERS -->
   <section class="view" id="view-papers" role="tabpanel">
-    <div class="card">
-      <h2>The inventory</h2>
-      <p class="note tight" id="papers-note"></p>
-      <div class="toolbar">
-        <input type="search" id="p-q" placeholder="search title, author, org, method…">
-        <select id="p-branch"><option value="">All branches</option></select>
-        <select id="p-tier"><option value="">All provenance tiers</option></select>
-        <select id="p-contrib"><option value="">All contribution types</option></select>
-        <select id="p-group" title="Group rows">
+    <div class="card sp-slab">
+      <div class="sp-head">
+        <h2>The inventory</h2>
+        <span class="sp-count" id="p-count" aria-live="polite"></span>
+      </div>
+      <p class="sp-note" id="papers-note"></p>
+      <div class="toolbar sp-tools">
+        <input type="search" id="p-q" placeholder="Search title, author, org, method" aria-label="Search the inventory">
+        <select id="p-branch" aria-label="Branch"><option value="">All branches</option></select>
+        <select id="p-tier" aria-label="Provenance tier"><option value="">All provenance tiers</option></select>
+        <select id="p-contrib" aria-label="Contribution type"><option value="">All contribution types</option></select>
+        <select id="p-group" title="Group rows" aria-label="Group rows">
           <option value="">No grouping</option>
           <option value="branch">Group by branch</option>
           <option value="tier">Group by provenance</option>
           <option value="contribution_type">Group by contribution</option>
           <option value="year">Group by year</option>
         </select>
-        <span class="spacer"></span>
-        <span class="sub" id="p-count"></span>
+        <select id="p-sort" class="sp-sortsel" aria-label="Sort rows">
+          <option value="date:-1">Newest first</option>
+          <option value="date:1">Oldest first</option>
+          <option value="title:1">Title A to Z</option>
+          <option value="title:-1">Title Z to A</option>
+          <option value="org:1">Organisation A to Z</option>
+          <option value="org:-1">Organisation Z to A</option>
+          <option value="venue:1">Venue A to Z</option>
+          <option value="venue:-1">Venue Z to A</option>
+          <option value="cat:1">Taxonomy A to Z</option>
+          <option value="cat:-1">Taxonomy Z to A</option>
+          <option value="contribution_type:1">Kind A to Z</option>
+          <option value="contribution_type:-1">Kind Z to A</option>
+          <option value="custom" hidden>Custom order</option>
+        </select>
       </div>
-      <div class="chips" id="p-chips"></div>
-      <div class="legend" id="contrib-legend"></div>
-      <div class="scroll-y">
-        <table class="list" id="p-table">
+      <div class="chips sp-chips" id="p-chips"></div>
+      <div class="sp-key" id="sp-key" role="group" aria-label="Contribution kind, click to filter"></div>
+      <div class="sp-scroll" tabindex="-1">
+        <table class="sp-table" id="sp-table">
+          <colgroup><col class="sp-w-date"><col class="sp-w-paper"><col class="sp-w-org"><col class="sp-w-venue"><col class="sp-w-tags"><col class="sp-w-kind"></colgroup>
           <thead><tr>
-            <th data-sort="date">Date</th><th data-sort="title">Title</th>
-            <th data-sort="org">Organisations</th><th data-sort="venue">Venue</th>
-            <th data-sort="cat">Primary category</th><th data-sort="contribution_type">Type</th>
+            <th scope="col" data-sort="date">Date</th>
+            <th scope="col" data-sort="title">Paper</th>
+            <th scope="col" data-sort="org">Organisations</th>
+            <th scope="col" data-sort="venue">Venue</th>
+            <th scope="col" data-sort="cat">Where it sits</th>
+            <th scope="col" data-sort="contribution_type">Kind</th>
           </tr></thead>
           <tbody></tbody>
         </table>
@@ -424,6 +455,10 @@
 </main>
 </div>
 
+<p class="sd-sr" id="sd-live" role="status" aria-live="polite"></p>
+<aside id="need-sheet" class="sd-sheet" role="complementary" aria-label="Selected need" aria-hidden="true" tabindex="-1">
+  <div class="sd-sh-in" id="need-sheet-body"></div>
+</aside>
 <div id="tip" role="tooltip"></div>
 <div id="card" role="tooltip"></div>
 <aside id="reader" aria-hidden="true">
@@ -457,7 +492,7 @@
   <div class="panel">
     <h3>Keyboard</h3>
     <dl>
-      <dt><kbd>1</kbd>–<kbd>8</kbd></dt><dd>jump to a view</dd>
+      <dt><kbd>1</kbd>–<kbd>9</kbd>, <kbd>0</kbd></dt><dd>jump to a view</dd>
       <dt><kbd>/</kbd></dt><dd>focus this view's search</dd>
       <dt><kbd>t</kbd></dt><dd>light / dark</dd>
       <dt><kbd>g</kbd></dt><dd>graph / tree on Overlaps</dd>
