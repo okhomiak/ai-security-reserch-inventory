@@ -5,6 +5,7 @@
   python3 agent/pipeline.py --dry-run       # discovery + gate only, no API calls
   python3 agent/pipeline.py --limit 5       # classify at most 5 (useful for a smoke test)
   python3 agent/pipeline.py --derive-only   # recompute overlaps/coverage/gaps from current data
+  python3 agent/pipeline.py --derive-only --as-of 2026-11-05   # ...stamped as that date, not today
 
 Writes docs/data/{papers,derived,gaps,runs}.json. Nothing else in the repo is touched,
 so the diff the workflow commits is always reviewable.
@@ -18,7 +19,7 @@ import os
 import pathlib
 import sys
 import traceback
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 
@@ -92,6 +93,10 @@ def main() -> int:
     ap.add_argument("--derive-only", action="store_true", help="recompute derived data only")
     ap.add_argument("--limit", type=int, default=None, help="cap classifications this run")
     ap.add_argument("--days", type=int, default=None, help="override the recency window")
+    ap.add_argument("--as-of", type=date.fromisoformat, metavar="YYYY-MM-DD", default=None,
+                    help="date stamped into derived data (default: today, UTC). The CI staleness "
+                         "gate pins this to the committed value, so a recompute differs from what "
+                         "is committed only when the numbers do")
     args = ap.parse_args()
 
     sources = load(AGENT / "sources.json", {})
@@ -243,7 +248,7 @@ def main() -> int:
 
     print("== derive")
     papers.sort(key=lambda p: (p.get("date", ""), p["id"]), reverse=True)
-    derived, gaps_doc = derive.run(papers, taxonomy, companies, gaps_doc)
+    derived, gaps_doc = derive.run(papers, taxonomy, companies, gaps_doc, as_of=args.as_of)
 
     papers_doc.update({
         "schema": 2,

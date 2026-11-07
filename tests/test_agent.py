@@ -13,6 +13,7 @@ from __future__ import annotations
 import json
 import subprocess
 import sys
+from datetime import UTC, date, datetime
 from pathlib import Path
 
 import pytest
@@ -20,6 +21,7 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "agent"))
 
+import derive  # noqa: E402
 import fetch  # noqa: E402
 import gate  # noqa: E402
 
@@ -120,6 +122,28 @@ def test_stage1_verdict_shape() -> None:
 
 
 # ------------------------------------------------------------------ the data
+
+def _data(name: str) -> dict:
+    return json.loads((ROOT / "docs" / "data" / f"{name}.json").read_text())
+
+
+def test_derive_stamps_the_pinned_date() -> None:
+    """The CI staleness gate recomputes with the committed date pinned, so a push
+    on a later day must not differ from the committed data by the date alone."""
+    derived, gaps = derive.run(
+        _data("papers")["papers"], _data("taxonomy"), _data("companies"), _data("gaps"),
+        as_of=date(2026, 1, 1),
+    )
+    assert derived["generated"] == "2026-01-01"
+    assert {g["refreshed"] for g in gaps["gaps"]} == {"2026-01-01"}
+
+
+def test_derive_stamps_today_by_default() -> None:
+    derived, _ = derive.run(
+        _data("papers")["papers"], _data("taxonomy"), _data("companies"), _data("gaps"),
+    )
+    assert derived["generated"] == datetime.now(UTC).date().isoformat()
+
 
 def test_published_data_is_valid_json() -> None:
     for f in sorted((ROOT / "docs" / "data").glob("*.json")):

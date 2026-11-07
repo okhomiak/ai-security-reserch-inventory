@@ -9,6 +9,16 @@ not.
 The dashboard itself deploys from `main` on every push, so a release here marks
 a coherent state of the data and tooling, not a separate artefact to download.
 
+## Unreleased
+
+- **Validate failed on any push made on a day after the last data refresh.**
+  The "derived data is current" gate recomputed the data and compared it with
+  what was committed, but the recompute stamped today's date into
+  `derived.json`, every gap's `refreshed` field and the "inventory updated"
+  badge, so the comparison failed on the date alone. `pipeline.py --as-of`
+  pins the stamped date and the gate pins it to the committed value, so the
+  check now fails only when the numbers differ.
+
 ## 2026.11.3 — 2026-11-05
 
 - **The 2026.11.2 release did not publish.** A line-continuation backslash

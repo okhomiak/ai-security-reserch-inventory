@@ -65,7 +65,11 @@ jobs:
         # a badge claiming "169 papers" is a factual assertion on a public page,
         # so it is not allowed to outlive the number being true.
         run: |
-          python3 agent/pipeline.py --derive-only >/dev/null
+          # Pin the stamped date to the committed one. This asks whether the
+          # numbers are still true, not whether today is the day they were
+          # made; without the pin, every push on a later day failed here.
+          as_of="$(python3 -I -c 'import json; print(json.load(open("docs/data/derived.json"))["generated"])')"
+          python3 agent/pipeline.py --derive-only --as-of "$as_of" >/dev/null
           paths="docs/data/derived.json docs/data/gaps.json docs/assets"
           if ! git diff --quiet -- $paths; then
             echo "::error::Derived data or badges are stale. Run: python3 agent/pipeline.py --derive-only"

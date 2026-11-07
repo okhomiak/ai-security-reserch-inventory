@@ -14,10 +14,20 @@ from __future__ import annotations
 import itertools
 import re
 from collections import Counter, defaultdict
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 
 PAIR_THRESHOLD = 0.34       # below this a pair is adjacency, not overlap
 CLUSTER_THRESHOLD = 0.45    # edges that form clusters are held to a higher bar
+
+
+def stamp(as_of: date | None = None) -> str:
+    """The date written into derived artefacts: today (UTC) unless pinned.
+
+    A recompute whose only purpose is to confirm the committed data is still
+    current must not differ from it by the date alone, so the CI staleness
+    gate pins this to the committed `generated` value (pipeline.py --as-of).
+    """
+    return (as_of or datetime.now(UTC).date()).isoformat()
 
 
 def _norm(s: str) -> str:
@@ -230,7 +240,9 @@ def derived_gaps(cov: dict, companies: dict, papers: list[dict]) -> list[dict]: 
     return out
 
 
-def refresh_chains(gaps: dict, cov: dict, companies: dict, papers: list[dict]) -> dict:
+def refresh_chains(
+    gaps: dict, cov: dict, companies: dict, papers: list[dict], as_of: date | None = None,
+) -> dict:
     """Recompute the figures inside authored gap chains, leaving the claims alone."""
     by_id = {p["id"]: p for p in papers}
     needs = {n["id"]: n for n in companies["needs"]}
@@ -264,7 +276,7 @@ def refresh_chains(gaps: dict, cov: dict, companies: dict, papers: list[dict]) -
                 }
         # Keep the paper list on each gap honest about what still exists.
         gap["papers"] = [pid for pid in gap.get("papers", []) if pid in by_id]
-        gap["refreshed"] = datetime.now(UTC).date().isoformat()
+        gap["refreshed"] = stamp(as_of)
     return gaps
 
 
@@ -307,12 +319,14 @@ def tree_rollup(papers: list[dict], taxonomy: dict) -> dict:
     }
 
 
-def run(papers: list[dict], taxonomy: dict, companies: dict, gaps: dict) -> tuple[dict, dict]:
+def run(
+    papers: list[dict], taxonomy: dict, companies: dict, gaps: dict, as_of: date | None = None,
+) -> tuple[dict, dict]:
     """Produce derived.json plus the refreshed gaps document."""
     pairs = overlap_pairs(papers)
     cov = coverage(papers, companies)
     derived = {
-        "generated": datetime.now(UTC).date().isoformat(),
+        "generated": stamp(as_of),
         "paper_count": len(papers),
         "pairs": pairs,
         "clusters": clusters(papers, pairs, taxonomy),
@@ -322,4 +336,4 @@ def run(papers: list[dict], taxonomy: dict, companies: dict, gaps: dict) -> tupl
         "tree": tree_rollup(papers, taxonomy),
         "thresholds": {"pair": PAIR_THRESHOLD, "cluster": CLUSTER_THRESHOLD},
     }
-    return derived, refresh_chains(gaps, cov, companies, papers)
+    return derived, refresh_chains(gaps, cov, companies, papers, as_of)
