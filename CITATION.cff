@@ -21,8 +21,8 @@ authors:
 repository-code: https://github.com/okhomiak/ai-security-reserch-inventory
 url: https://okhomiak.github.io/ai-security-reserch-inventory/
 license: MIT
-version: 2026.11.3
-date-released: '2026-11-05'
+version: 2026.11.4
+date-released: '2026-11-07'
 keywords:
   - AI security
   - LLM security

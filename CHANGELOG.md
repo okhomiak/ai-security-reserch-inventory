@@ -9,7 +9,7 @@ not.
 The dashboard itself deploys from `main` on every push, so a release here marks
 a coherent state of the data and tooling, not a separate artefact to download.
 
-## Unreleased
+## 2026.11.4 — 2026-11-07
 
 - **Validate failed on any push made on a day after the last data refresh.**
   The "derived data is current" gate recomputed the data and compared it with
@@ -18,6 +18,14 @@ a coherent state of the data and tooling, not a separate artefact to download.
   badge, so the comparison failed on the date alone. `pipeline.py --as-of`
   pins the stamped date and the gate pins it to the committed value, so the
   check now fails only when the numbers differ.
+- **A redesign proposal, "Strata", lives in `design/strata/`:** a self-contained
+  mockup with screenshots and the designer's notes. It is a proposal only;
+  nothing under `docs/` changed and the live dashboard is as it was.
+- **ClusterFuzzLite also runs on pushes to `main` that touch the fuzzed code**
+  (`agent/`, `.clusterfuzzlite/`, its own workflow), so its badge reflects
+  `main` rather than the last pull request or Thursday's scheduled run.
+- **2026.11.3 was described below but never tagged.** The tag now exists, on
+  the commit this file described it at, so the release list matches this file.
 
 ## 2026.11.3 — 2026-11-05
 
