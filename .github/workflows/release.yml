@@ -53,9 +53,19 @@ jobs:
         # A signature on a broken dataset just proves the break is authentic.
         run: |
           python3 agent/check.py
+          # The recompute stamps today's date into derived.json, every gap's
+          # `refreshed` and the "inventory updated" badge, while the tag holds
+          # its own day. Hunks that are only those dates are ignored; anything
+          # else is a real difference and refuses the release. validate.yml
+          # pins the date with --as-of instead, but a manual run here releases
+          # an older tag whose pipeline.py may predate that flag.
           python3 agent/pipeline.py --derive-only >/dev/null
-          if ! git diff --quiet -- docs/data/derived.json docs/data/gaps.json docs/assets; then
+          dates='^ *"(generated|refreshed)": "[0-9]{4}-[0-9]{2}-[0-9]{2}",?$'
+          badge='aria-label="inventory updated: '
+          paths="docs/data/derived.json docs/data/gaps.json docs/assets"
+          if ! git diff --quiet -I "$dates" -I "$badge" -- $paths; then
             echo "::error::Derived data or badges are stale at this tag - refusing to release."
+            git diff --stat -I "$dates" -I "$badge" -- $paths
             exit 1
           fi
 

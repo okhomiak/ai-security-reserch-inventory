@@ -17,7 +17,10 @@ a coherent state of the data and tooling, not a separate artefact to download.
   `derived.json`, every gap's `refreshed` field and the "inventory updated"
   badge, so the comparison failed on the date alone. `pipeline.py --as-of`
   pins the stamped date and the gate pins it to the committed value, so the
-  check now fails only when the numbers differ.
+  check now fails only when the numbers differ. The release workflow had the
+  same check with the same bug; it now ignores date-only differences instead,
+  because a manual run of an older tag executes that tag's `pipeline.py`,
+  which may predate `--as-of`.
 - **A redesign proposal, "Strata", lives in `design/strata/`:** a self-contained
   mockup with screenshots and the designer's notes. It is a proposal only;
   nothing under `docs/` changed and the live dashboard is as it was.
@@ -25,7 +28,10 @@ a coherent state of the data and tooling, not a separate artefact to download.
   (`agent/`, `.clusterfuzzlite/`, its own workflow), so its badge reflects
   `main` rather than the last pull request or Thursday's scheduled run.
 - **2026.11.3 was described below but never tagged.** The tag now exists, on
-  the commit this file described it at, so the release list matches this file.
+  the commit this file described it at. Its tag-push release ran that
+  commit's own workflow and failed on the old date check, so, like
+  2026.11.2, it publishes through a manual run of the release workflow with
+  the tag as input.
 
 ## 2026.11.3 — 2026-11-05
 
