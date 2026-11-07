@@ -2,10 +2,16 @@ name: ClusterFuzzLite
 
 # Scorecard's Fuzzing check looks for a real fuzzing integration, and my own
 # harness in agent/fuzz.py - useful as a regression net - is not one. This runs
-# the atheris targets on pull requests and on a schedule, with a corpus that
-# carries over between runs.
+# the atheris targets on pull requests, on pushes to main that touch the fuzzed
+# code, and on a schedule, with a corpus that carries over between runs.
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'agent/**'
+      - '.clusterfuzzlite/**'
+      - '.github/workflows/cflite.yml'
   pull_request:
     branches: [main]
   schedule:
