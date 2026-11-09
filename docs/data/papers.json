@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated": "2026-11-05",
+  "updated": "2026-11-09",
   "count": 169,
   "note": "Seed set: landmark AI-security work, every id/title/date/author verified against the live arXiv API. The weekly agent appends to this file; `curation` says whether a record was hand-written or agent-classified.",
   "papers": [

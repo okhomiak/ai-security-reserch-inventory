@@ -1,10 +1,82 @@
 {
   "schema": 1,
-  "updated": "2026-11-05",
+  "updated": "2026-11-09",
   "window_days": 150,
   "note": "Security-relevant posts from frontier labs and security research groups. Not peer-reviewed and not part of the paper inventory - this is the early signal layer. Promote an item into docs/data/papers.json by hand if it turns out to matter.",
-  "count": 104,
+  "count": 100,
   "items": [
+    {
+      "id": "news:www-microsoft-com-en-us-security-blog-2026-11-06-artex-abuse-expands-as-cybercriminals-target-financial-sector",
+      "title": "ARTEX abuse expands as cybercriminals target financial sector",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/06/artex-abuse-expands-as-cybercriminals-target-financial-sector/",
+      "date": "2026-11-07",
+      "org": "Microsoft",
+      "source": "Microsoft Security blog",
+      "tier": "frontier-lab",
+      "summary": "In October 2026, the financially motivated threat actor Storm-3358 began targeting organizations in the financial sector using the agentic AI offensive framework ARTEX. The post ARTEX abuse expands as cybercriminals target financial sector appeared first on Microsoft Security Blog .",
+      "relevance": 11,
+      "title_source": "feed"
+    },
+    {
+      "id": "news:blog-trailofbits-com-2026-11-06-after-binance-check-what-your-signing-systems-can-approve",
+      "title": "After Binance, check what your signing systems can approve",
+      "url": "https://blog.trailofbits.com/2026/11/06/after-binance-check-what-your-signing-systems-can-approve/",
+      "date": "2026-11-06",
+      "org": "Trail of Bits",
+      "source": "Trail of Bits blog",
+      "tier": "industry-research",
+      "summary": "Binance’s October 2026 security incident raises an operational question for every organization holding user funds: Can your security controls recognize when a valid signature grants an attacker wallet authority? If an organization only monitors transfers and ownership changes, it may miss the shift in wallet authority until assets move. Binance’s initial update about the incident suggested that a compromised DevOps l",
+      "relevance": 25,
+      "title_source": "feed"
+    },
+    {
+      "id": "news:openai-com-index-partnering-with-hacktron",
+      "title": "Partnering with Hacktron to find vulnerabilities in OpenAI’s systems",
+      "url": "https://openai.com/index/partnering-with-hacktron",
+      "date": "2026-11-06",
+      "org": "OpenAI",
+      "source": "OpenAI news",
+      "tier": "frontier-lab",
+      "summary": "OpenAI is partnering with Hacktron to find vulnerabilities, test connections with third-party services, and strengthen defenses with frontier AI.",
+      "relevance": 4,
+      "title_source": "feed"
+    },
+    {
+      "id": "news:www-microsoft-com-en-us-security-blog-2026-11-05-threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets",
+      "title": "Threat actors use agentic AI tooling to find and abuse exposed secrets",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/",
+      "date": "2026-11-05",
+      "org": "Microsoft",
+      "source": "Microsoft Security blog",
+      "tier": "frontier-lab",
+      "summary": "Microsoft Threat Intelligence has observed threat actors using the agentic offensive security framework ARTEX to search GitHub for OAuth application secrets, which can be used to compromise the associated OAuth application and perform authenticated actions in the application’s tenant. Agents operating on behalf of threat actors then used the compromised OAuth applications to perform a variety of subsequent actions wi",
+      "relevance": 12,
+      "title_source": "feed"
+    },
+    {
+      "id": "news:openai-com-index-introducing-gpt-6-cyber",
+      "title": "GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents",
+      "url": "https://openai.com/index/introducing-gpt-6-cyber",
+      "date": "2026-11-05",
+      "org": "OpenAI",
+      "source": "OpenAI news",
+      "tier": "frontier-lab",
+      "summary": "Introducing GPT‑6 Cyber, OpenAI’s cybersecurity model for finding exploitable vulnerabilities and developing fixes, trained to stay within authorized scope.",
+      "relevance": 11,
+      "title_source": "feed"
+    },
+    {
+      "id": "news:www-microsoft-com-en-us-security-blog-2026-11-05-whats-new-in-microsoft-security-november-2026",
+      "title": "​​​​What’s new in Microsoft Security: November 2026",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/05/whats-new-in-microsoft-security-november-2026/",
+      "date": "2026-11-05",
+      "org": "Microsoft",
+      "source": "Microsoft Security blog",
+      "tier": "frontier-lab",
+      "summary": "Microsoft Security’s November 2026 updates strengthen AI agent security, least privilege, threat protection, and exposure management. The post ​​​​What’s new in Microsoft Security: November 2026 appeared first on Microsoft Security Blog .",
+      "relevance": 6,
+      "title_source": "feed"
+    },
     {
       "id": "news:portswigger-net-research-making-http-header-injection-critical-with-one-prompt",
       "title": "Making HTTP header injection critical with one prompt",
@@ -102,18 +174,6 @@
       "title_source": "feed"
     },
     {
-      "id": "news:www-microsoft-com-en-us-security-blog-2026-10-29-tracking-ai-adoption-in-north-korean-threat-actor-tradecraft",
-      "title": "Tracking AI adoption in North Korean threat actor tradecraft",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/10/29/tracking-ai-adoption-in-north-korean-threat-actor-tradecraft/",
-      "date": "2026-10-29",
-      "org": "Microsoft",
-      "source": "Microsoft Security blog",
-      "tier": "frontier-lab",
-      "summary": "As Microsoft Threat Intelligence continues to track how threat actors operationalize AI to increase the speed and efficiency of attacks, we’ve identified North Korean threat actors expanding their use of AI with varying levels of adoption. This blog breaks down how North Korean threat actors are utilizing AI across their operations, reflecting a broader trend of threat actors incorporating AI into their attack chains",
-      "relevance": 8,
-      "title_source": "feed"
-    },
-    {
       "id": "news:unit42-paloaltonetworks-com-unwrapping-retail-cyber-threats",
       "title": "Unwrapping Retail Peak Season Cyber Threats",
       "url": "https://unit42.paloaltonetworks.com/unwrapping-retail-cyber-threats/",
@@ -123,18 +183,6 @@
       "tier": "industry-research",
       "summary": "Unit 42 explores key peak shopping season retail cyber threats, from ransomware to AI attacks, and shares how to defend operations and customer trust. The post Unwrapping Retail Peak Season Cyber Threats appeared first on Unit 42 .",
       "relevance": 9,
-      "title_source": "feed"
-    },
-    {
-      "id": "news:www-microsoft-com-en-us-security-blog-2026-10-28-the-cisos-evolving-role-protecting-and-defending-in-the-agentic-era",
-      "title": "The CISO’s evolving role: Protecting and defending in the agentic era",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/10/28/the-cisos-evolving-role-protecting-and-defending-in-the-agentic-era/",
-      "date": "2026-10-28",
-      "org": "Microsoft",
-      "source": "Microsoft Security blog",
-      "tier": "frontier-lab",
-      "summary": "As AI and agents reshape the enterprise, CISOs face two critical priorities: enabling innovation with the right identity and data guardrails, and modernizing defense to keep pace with AI-powered threats. Aarti Borkar shares how security leaders can approach both. The post The CISO’s evolving role: Protecting and defending in the agentic era appeared first on Microsoft Security Blog .",
-      "relevance": 8,
       "title_source": "feed"
     },
     {
@@ -378,18 +426,6 @@
       "title_source": "feed"
     },
     {
-      "id": "news:www-microsoft-com-en-us-security-blog-2026-10-21-storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise",
-      "title": "AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
-      "date": "2026-10-21",
-      "org": "Microsoft",
-      "source": "Microsoft Security blog",
-      "tier": "frontier-lab",
-      "summary": "Storm-0940 used ARTEX agentic AI to accelerate a ConnectWise supply chain compromise, enabling application credential abuse across Microsoft 365 environments. The post AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise appeared first on Microsoft Security Blog .",
-      "relevance": 13,
-      "title_source": "feed"
-    },
-    {
       "id": "news:openai-com-index-coordinated-disclosure-of-critical-vulnerabilities",
       "title": "Patch the Planet: global response coordination as agents uncover critical vulnerabilities",
       "url": "https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities",
@@ -519,18 +555,6 @@
       "tier": "frontier-lab",
       "summary": "Block is building AI-powered security with OpenAI. Its security team investigates threats faster and proposes patches in minutes.",
       "relevance": 5,
-      "title_source": "feed"
-    },
-    {
-      "id": "news:deepmind-google-blog-on-device-ai-scam-detection-mddi",
-      "title": "Google DeepMind and Singapore Government collaborate to build fine-tuned AI model for scam detection",
-      "url": "https://deepmind.google/blog/on-device-ai-scam-detection-mddi/",
-      "date": "2026-10-14",
-      "org": "Google DeepMind",
-      "source": "Google DeepMind blog",
-      "tier": "frontier-lab",
-      "summary": "Learn how Google DeepMind and GovTech Singapore uses lightweight on-device Gemma models to intercept conversational scams in private chats with zero cloud data egress.",
-      "relevance": 3,
       "title_source": "feed"
     },
     {
@@ -810,18 +834,6 @@
       "title_source": "feed"
     },
     {
-      "id": "news:deepmind-google-blog-introducing-gemini-3-8-flash-and-38-flash-cyber",
-      "title": "Introducing Gemini 3.8 Flash and 3.8 Flash Cyber",
-      "url": "https://deepmind.google/blog/introducing-gemini-3-8-flash-and-38-flash-cyber/",
-      "date": "2026-09-02",
-      "org": "Google DeepMind",
-      "source": "Google DeepMind blog",
-      "tier": "frontier-lab",
-      "summary": "",
-      "relevance": 2,
-      "title_source": "feed"
-    },
-    {
       "id": "news:openai-com-index-path-to-astra",
       "title": "Path to Astra: critical capabilities and frontier safeguards",
       "url": "https://openai.com/index/path-to-astra",
@@ -1074,18 +1086,6 @@
       "title_source": "feed"
     },
     {
-      "id": "news:deepmind-google-blog-introducing-gemini-3-5-flash-cyber",
-      "title": "Introducing Gemini 3.5 Flash Cyber",
-      "url": "https://deepmind.google/blog/introducing-gemini-3-5-flash-cyber/",
-      "date": "2026-07-17",
-      "org": "Google DeepMind",
-      "source": "Google DeepMind blog",
-      "tier": "frontier-lab",
-      "summary": "Google introduces Gemini 3.5 Flash Cyber, a lightweight cybersecurity model to find and patch vulnerabilities.",
-      "relevance": 7,
-      "title_source": "feed"
-    },
-    {
       "id": "news:embracethered-com-blog-posts-2026-macos-terminal-dillma-dns-exfil-ansi-escape-code-fix",
       "title": "From Indirect Prompt Injection to DNS Exfiltration in macOS Terminal",
       "url": "https://embracethered.com/blog/posts/2026/macos-terminal-dillma-dns-exfil-ansi-escape-code-fix/",
@@ -1158,18 +1158,6 @@
       "title_source": "feed"
     },
     {
-      "id": "news:blog-trailofbits-com-2026-06-30-shipping-post-quantum-cryptography-to-python",
-      "title": "Shipping post-quantum cryptography to Python",
-      "url": "https://blog.trailofbits.com/2026/06/30/shipping-post-quantum-cryptography-to-python/",
-      "date": "2026-06-30",
-      "org": "Trail of Bits",
-      "source": "Trail of Bits blog",
-      "tier": "industry-research",
-      "summary": "Post-quantum cryptography is now one pip-install away for the entire Python ecosystem. With funding from the Sovereign Tech Agency , we implemented support for ML-KEM, the NIST-standard key-establishment primitive, and ML-DSA, the NIST-standard digital-signature primitive, in pyca/cryptography . On June 22, 2026, the White House ordered the U.S. government to accelerate its transition to post-quantum cryptography. Th",
-      "relevance": 12,
-      "title_source": "feed"
-    },
-    {
       "id": "news:openai-com-index-previewing-gpt-5-6-sol",
       "title": "Previewing GPT-5.6 Sol: a next-generation model",
       "url": "https://openai.com/index/previewing-gpt-5-6-sol",
@@ -1214,42 +1202,6 @@
       "source": "OpenAI news",
       "tier": "frontier-lab",
       "summary": "OpenAI introduces Patch the Planet, a Daybreak initiative helping open-source maintainers find, validate, and fix vulnerabilities with AI and expert review.",
-      "relevance": 3,
-      "title_source": "feed"
-    },
-    {
-      "id": "news:deepmind-google-blog-securing-the-future-of-ai-agents",
-      "title": "Securing the future of AI agents",
-      "url": "https://deepmind.google/blog/securing-the-future-of-ai-agents/",
-      "date": "2026-06-16",
-      "org": "Google DeepMind",
-      "source": "Google DeepMind blog",
-      "tier": "frontier-lab",
-      "summary": "Securing internal systems with an AI Control Roadmap, combining traditional safeguards and real-time monitoring.",
-      "relevance": 4,
-      "title_source": "feed"
-    },
-    {
-      "id": "news:blog-google-innovation-and-ai-technology-safety-security-combatting-ai-scams",
-      "title": "How we're combatting AI scams with security, legislation and more",
-      "url": "https://blog.google/innovation-and-ai/technology/safety-security/combatting-ai-scams/",
-      "date": "2026-06-12",
-      "org": "Google",
-      "source": "Google safety & security",
-      "tier": "frontier-lab",
-      "summary": "Learn how Google is fighting scammers on all fronts with industry-leading security, lawsuits and law enforcement and industry partners.",
-      "relevance": 4,
-      "title_source": "feed"
-    },
-    {
-      "id": "news:openai-com-index-openai-on-oracle-cloud",
-      "title": "Access OpenAI models and Codex through your Oracle cloud commitment",
-      "url": "https://openai.com/index/openai-on-oracle-cloud",
-      "date": "2026-06-10",
-      "org": "OpenAI",
-      "source": "OpenAI news",
-      "tier": "frontier-lab",
-      "summary": "Access OpenAI models and Codex through Oracle Cloud, using existing commitments to build and deploy AI with enterprise security and governance.",
       "relevance": 3,
       "title_source": "feed"
     }
