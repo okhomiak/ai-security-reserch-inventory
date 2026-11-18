@@ -11,6 +11,11 @@ a coherent state of the data and tooling, not a separate artefact to download.
 
 ## Unreleased
 
+- **A research shortlist lives in `research/`.** Six open questions that one person could test part-time on
+  a small budget, ranked against this inventory's demand and coverage figures and against fresh searches on
+  18 Nov 2026. Each has a critical brief, a prior-work log that says how every source was checked, and a
+  draft plan with kill criteria. Seventeen dropped candidates are listed with what ruled each one out. The
+  review also flags four authored gaps that newer work has narrowed. Nothing in `docs/` changes.
 - **The Strata redesign is live in `docs/`.** The left rail, type, surfaces and
   colour are restyled across all ten views; Demand is rebuilt as a glass slab over research-coverage bars with a per-need
   sheet; Papers is a single sortable, groupable table; every other view takes

@@ -41,6 +41,7 @@ mapped category), **Tools** (27 verified repositories), **News**
 | **Interface reference** | [INTERFACE.md](INTERFACE.md) — the CLI, the environment, and every field of the published JSON |
 | **Security policy** | [SECURITY.md](SECURITY.md) — threat model and private reporting |
 | **Releases** | [CHANGELOG.md](CHANGELOG.md) |
+| **Research shortlist** | [research/README.md](research/README.md). Six open questions one person could test on a small budget, ranked against this inventory, each with a critical brief and a draft plan |
 
 ## How a gap works
 
@@ -197,6 +198,10 @@ docs/                      the published site
     runs.json              run history, token usage, proposed taxonomy leaves
 agent/
   sources.json  fetch.py  gate.py  classify.py  derive.py  pipeline.py  check.py
+research/                  a ranked shortlist of testable questions drawn from the inventory
+  README.md  METHOD.md  REJECTED.md
+  01-found-credentials/ ... 06-threat-model-input/
+                           each with a brief, a prior-work log and a draft plan
 ```
 
 ## Editing by hand
